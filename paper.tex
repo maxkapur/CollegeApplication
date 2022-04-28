@@ -1,4 +1,9 @@
 %!TEX encoding = UTF-8 Unicode 
+
+\newif\ifen\entrue
+% Language selector; must be on line 3
+% Change to false to export Korean
+
 \documentclass[11pt]{article} %try amsproc, amsart
 \usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
 \geometry{a4paper, margin=2.5cm}                   % ... or a4paper or a5paper or ... 
@@ -28,11 +33,6 @@
 
 \usepackage{stackengine}
 \newcommand\xrowht[2][0]{\addstackgap[.5\dimexpr#2\relax]{\vphantom{#1}}}
-
-
-% Language selector
-\newif\ifen
-\entrue% Change to false to export Korean
 
 
 \ifen
@@ -1721,12 +1721,12 @@ For each value of $m$, \nmarkets~markets were generated, and the computation tim
  \else
  \textbf{\begin{tabular}[r]{@{}r@{}}학교의\\개수 $m$\end{tabular}}& \multicolumn{2}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}알고리즘 \ref{algorithmforlargeh}\\(목록 구현)\end{tabular}}}  & \multicolumn{2}{c}{\textbf{\begin{tabular}[c]{@{}c@{}}알고리즘 \ref{algorithmforlargeh}\\(힙 구현)\end{tabular}}}\\ \hline
  \fi
-    16 &           0.00 &        (0.00) &           0.01 &        (0.00) \\
-    64 &           0.03 &        (0.00) &           0.08 &        (0.02) \\
-   256 &           0.15 &        (0.01) &           0.97 &        (0.22) \\
-  1024 &           2.31 &        (0.05) &          14.44 &        (1.66) \\
-  4096 &          37.85 &        (0.61) &         245.74 &       (17.33) \\
- 16384 &         585.75 &        (2.11) &        4728.59 &      (552.25)
+    16 &    0.00 &  (0.00) &    0.01 &    (0.00) \\
+    64 &    0.01 &  (0.00) &    0.08 &    (0.02) \\
+   256 &    0.06 &  (0.00) &    0.96 &    (0.26) \\
+  1024 &    0.82 &  (0.03) &   14.27 &    (2.28) \\
+  4096 &   12.87 &  (0.71) &  230.77 &   (18.75) \\
+ 16384 &  199.48 &  (1.77) & 3999.19 &  (283.48)
 \end{tabular}
 \caption{\label{experiment1results} \normalsize
 \ifen (Experiment 1.) Time in ms to compute an optimal portfolio for an admissions market with homogeneous application costs using Algorithm \ref{algorithmforlargeh} when $\mathcal{C}$ is stored as a list and as a heap. \lastptofcaption~In every case, $h = m/2$. 
@@ -1747,12 +1747,12 @@ For each value of $m$, \nmarkets~markets were generated, and the computation tim
 \else
 \textbf{\begin{tabular}[r]{@{}r@{}}학교의\\개수 $m$\end{tabular}}&\multicolumn{2}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}알고리즘  \ref{ellisbnb}:\\분지한계법\end{tabular}}}  & \multicolumn{2}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}알고리즘 \ref{ellisDP1}:\\지출액 동적 계획\end{tabular}}}  &\multicolumn{2}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}알고리즘 \ref{ellisDP3}:\\FPTAS, $\varepsilon= 0.5$\end{tabular}}}  & \multicolumn{2}{c}{\textbf{\begin{tabular}[c]{@{}c@{}}알고리즘 \ref{ellisDP3}:\\FPTAS, $\varepsilon= 0.05$\end{tabular}}}   \\ \hline
 \fi
-     8 &          0.04 &       (0.02) &         0.01 &      (0.00) &                0.05 &             (0.01) &                 0.21 &              (0.06) \\
-    16 &          0.22 &       (0.11) &         0.07 &      (0.01) &                0.43 &             (0.10) &                 3.15 &              (0.74) \\
-    32 &        166.20 &     (422.31) &         0.31 &      (0.05) &                2.38 &             (0.38) &                33.38 &             (11.68) \\
-    64 &             — &          (—) &         1.36 &      (0.18) &               15.32 &             (2.77) &               405.73 &            (125.98) \\
-   128 &             — &          (—) &         6.52 &      (0.72) &               84.50 &            (22.59) &              2362.19 &           (1095.11) \\
-   256 &             — &          (—) &        31.23 &      (1.91) &             1085.60 &          (1186.24) &             22129.92 &           (6588.40)
+   8 &  0.02 & (0.01) &  0.01 & (0.00) &   0.05 &   (0.01) &     0.16 &    (0.04) \\
+  16 &  0.10 & (0.04) &  0.07 & (0.02) &   0.39 &   (0.10) &     2.59 &    (0.62) \\
+  32 & 12.43 & (9.88) &  0.29 & (0.05) &   2.15 &   (0.29) &    33.07 &   (10.72) \\
+  64 &     — &    (—) &  1.24 & (0.16) &  13.24 &   (2.22) &   339.64 &  (100.38) \\
+ 128 &     — &    (—) &  6.20 & (0.64) &  79.92 &  (20.18) &  2042.63 &  (749.71) \\
+ 256 &     — &    (—) & 30.63 & (2.28) & 818.50 & (632.98) & 18949.50 & (3533.88)
 \end{tabular}%
 \caption{\label{experiment2results} \normalsize
 \ifen (Experiment 2.) Time in ms to compute an optimal or $(1 - \varepsilon)$-optimal portfolio for an admissions market with heterogeneous application costs using the three algorithms developed in Section \ref{hetappcosts}.
