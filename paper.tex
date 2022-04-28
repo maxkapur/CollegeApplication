@@ -1,10 +1,11 @@
 %!TEX encoding = UTF-8 Unicode 
 
 \newif\ifen\entrue
-% Language selector; must be on line 3
+% Language selector; must be on line 3 for compile.sh to work
 % Change to false to export Korean
 
 \documentclass[11pt]{article} %try amsproc, amsart
+\usepackage{authblk}
 \usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
 \geometry{a4paper, margin=2.5cm}                   % ... or a4paper or a5paper or ... 
 % \geometry{landscape}                % Activate for for rotated page geometry
@@ -86,12 +87,14 @@
 \newcommand{\thetitle}{The College Application Problem}
 \newcommand{\therunningtitle}{\thetitle}
 \newcommand{\thedate}{\today}
-\newcommand{\theauthor}{Max Kapur}
+\newcommand{\theauthor}{Max Kapur and Sung-Pil Hong}
+
 \else
 \newcommand{\thetitle}{대학 지원 최적화 문제}
 \newcommand{\therunningtitle}{\thetitle}
 \newcommand{\thedate}{\today}
-\newcommand{\theauthor}{Max Kapur}
+\newcommand{\theauthor}{Max Kapur \& 홍성필}
+
 \fi
 
 
@@ -100,7 +103,17 @@
 \author{\theauthor}
 \date{\thedate}
 
-
+\ifen
+\affil{Seoul National University\\
+Department of Industrial Engineering\\
+Management Science/Optimization Lab\\
+Correspondence: \url{maxkapur@gmail.com}}
+\else
+\affil{서울대학교\\
+산업공학과 \\
+경영과학/최적화 연구실\\
+교신: \url{maxkapur@gmail.com}}
+\fi
 
 \pagestyle{fancy}
 \renewcommand{\headrulewidth}{0pt}
@@ -169,7 +182,7 @@ The college application problem is not solely of theoretical interest. In the Am
 
 \ifen \subsection{Literature review} \else \subsection{문헌 조사} \fi
 %\ifen
-The college application problem straddles several methodological universes. Its stochastic nature recalls classical asset allocation models from computational finance. However, the knapsack constraint renders the problem NP-complete and necessitates combinatorial solution techniques. We also observe that the objective function is also a submodular set function, although our approximation results suggest that college application is a relatively easy instance of submodular maximization.
+The college application problem straddles several methodological universes. Its stochastic nature recalls classical portfolio allocation models. However, the knapsack constraint renders the problem NP-complete, and necessitates combinatorial solution techniques. We also observe that the objective function is also a submodular set function, although our approximation results suggest that college application is a relatively easy instance of submodular maximization.
 %\else
 %대학 지원 문제는 몇 개의 방법론적인 우주를 걸친다. 확률적인 문제인 만큼 재정학 분야... % .....
 %\fi
@@ -178,9 +191,9 @@ The college application problem straddles several methodological universes. Its 
 \ifen
 % In an equilibrium analysis of the American college market, Fu (2014) remarked that
 % (and change below)
-From a methodological standpoint, as Fu (2014) remarked, college application represents a somewhat subtle asset allocation problem. In computational finance, traditional portfolio optimization models weigh the sum of expected profit across all assets against a risk term, yielding a concave maximization problem with linear constraints (Markowitz 1952; Meucci 2005). But college applicants maximize the expected value of their \emph{best} asset: If a student is admitted to her $j$th choice, then she is indifferent as to whether she gets into her $(j+1)$th choice. As a result, the valuation function that students maximize is \emph{convex} in the utility associated with individual applications. Risk management is implicit in the college application problem because, in a typical admissions market, college preferability correlates inversely with competitiveness. That is, students negotiate a tradeoff between attractive, selective “reach schools” and less preferable “safety schools” where admission is a safer bet (Jeon 2015). Finally, the combinatorial nature of the college application problem makes it difficult to solve using the gradient-based techniques used in continuous portfolio optimization. Fu estimated her equilibrium model (which considers application as a \emph{cost} rather than a constraint) by clustering the schools so that $m=8$, a scale at which enumeration is tractable. We pursue a more general solution.
+A problem similar to \eqref{headlineproblem} arose in an equilibrium analysis of the American college market by Fu (2014), who described college application as a ``nontrivial portfolio problem'' (226). In computational finance, traditional asset allocation models weigh the sum of expected profit across all assets against a risk term, yielding a concave maximization problem with linear constraints (Markowitz 1952; Meucci 2005). But college applicants maximize the expected value of their \emph{best} asset: If a student is admitted to her $j$th choice, then she is indifferent as to whether she gets into her $(j+1)$th choice. As a result, the valuation function that students maximize is \emph{convex} in the utility associated with individual applications. Risk management is implicit in the college application problem because, in a typical admissions market, college preferability correlates inversely with competitiveness. That is, students negotiate a tradeoff between attractive, selective “reach schools” and less preferable “safety schools” where admission is a safer bet (Jeon 2015). Finally, the combinatorial nature of the college application problem makes it difficult to solve using the gradient-based techniques used in continuous portfolio optimization. Fu estimated her equilibrium model (which considers application as a \emph{cost} rather than a constraint) by clustering the schools so that $m=8$, a scale at which enumeration is tractable. We pursue a more general solution.
 \else
-방법론적인 관점에서 보면, Fu (2014)가 주장한 바처럼 대학 지원 전략은 약간 미묘한 자산 배분 문제이다. 재정학 분야에서 고전적 포트폴리오 최적화 모형은 전체 자산에 대한 기대 총이익에서 위험회피 항을 뺌으로 선형식으로 제약된 오목 최대화 문제를 이룬다 (Markowitz 1952; Meucci 2005). 그러나 대학 지원자는 가치가 제일 높은 단일 자산의 기대 가치를 최대화하고자 한다. 어떤 학생이 자신이 $j$번째로 선호하는 학교에 합격하면 $(j+1)$번째 학교의 합격 여부는 무관한 상황이 된다. 이는 학생이 최대화하려는 함수를 각 지원 발송의 효용에 대해 오목이 아닌 볼록 함수로 만든다. 또한 입학 시장에서는 전형적으로 대학의 효용과 합격 확률이 서로 반비례하므로 대학 지원 문제는 위험 관리를 포함하게 된다. 특히 선호도가 높으며 붙기 어려운 “상향” 지원 학교(reach school)와 선호도가 낮으며 붙기 쉬운 “안정” 지원 학교(safety school) 사이의 균형을 고려해야 한다 (전민희 2015). 마지막, 대학 지원의 조합적인 본질로 인해 연속적인 포트폴리오 최적화 문제에서 흔히 사용하는 기울기 해법으로는 풀기가 어렵다. Fu는 지원 비용을 제약 조건 대신 목적함수의 한 항으로 모형화했으며, 균형 모형의 모수를 추정하기 위해 $m=8$이 되도록 학교들의 클러스터를 먼저 구성했다. 이는 열거법을 통해 문 쉽게 풀 수 있는 규모이지만 본 연구는 더 일반적인 $m$에 대한 해법을 추구한다.
+미국 대학 입학 시장의 균형 분석에서, Fu (2014)는 \eqref{headlineproblem}과(와) 비슷한 부문제를 직면하였으며 이를 ``nontrivial portfolio problem''이라고 부른다 (226). 재정학 분야에서, 고전적 자산 배분 최적화 모형은 전체 자산에 대한 기대 총이익에서 위험회피 항을 뺌으로 선형식으로 제약된 오목 최대화 문제를 이룬다 (Markowitz 1952; Meucci 2005). 그러나 대학 지원자는 가치가 제일 높은 단일 자산의 기대 가치를 최대화하고자 한다. 어떤 학생이 자신이 $j$번째로 선호하는 학교에 합격하면 $(j+1)$번째 학교의 합격 여부는 무관한 상황이 된다. 이는 학생이 최대화하려는 함수를 각 지원 발송의 효용에 대해 오목이 아닌 볼록 함수로 만든다. 또한 입학 시장에서는 전형적으로 대학의 효용과 합격 확률이 서로 반비례하므로 대학 지원 문제는 위험 관리를 포함하게 된다. 특히 선호도가 높으며 붙기 어려운 “상향” 지원 학교(reach school)와 선호도가 낮으며 붙기 쉬운 “안정” 지원 학교(safety school) 사이의 균형을 고려해야 한다 (전민희 2015). 마지막, 대학 지원의 조합적인 본질로 인해 연속적인 포트폴리오 최적화 문제에서 흔히 사용하는 기울기 해법으로는 풀기가 어렵다. Fu는 지원 비용을 제약 조건 대신 목적함수의 한 항으로 모형화했으며, 균형 모형의 모수를 추정하기 위해 $m=8$이 되도록 학교들의 클러스터를 먼저 구성했다. 이는 열거법을 통해 문 쉽게 풀 수 있는 규모이지만 본 연구는 더 일반적인 $m$에 대한 해법을 추구한다.
 \fi
 
 \ifen
@@ -373,7 +386,7 @@ t_j - f_k t_k, \quad& t_j > t_k.
 \fi
 
 
-\ifen \subsection{Submodularity of the objective function} \else \subsection{목적함수의 submodularity} \fi
+\ifen \subsection{Submodularity of the objective} \else \subsection{목적함수의 submodularity} \fi
 \ifen 
 Now, we show that the portfolio valuation function is submodular. This result is primarily of taxonomical interest and may be safely skipped. Our solution algorithms for the college application problem are better than generic algorithms for submodular maximization, and we prove their validity using elementary analysis.
 \else
@@ -412,7 +425,7 @@ It is self-evident that $v(\mathcal{X})$ is nondecreasing. To establish its subm
 v(\mathcal{X} \cup \{j\}) - v(\mathcal{X}) \geq 
 v(\mathcal{X} \cup \{j, k\}) - v(\mathcal{X} \cup \{k\})
 \end{equation}
-for $\mathcal{X} \subset \mathcal{C}$ and $j \neq k \in \mathcal{C} \setminus \mathcal{X}$. By repeatedly eliminating the schools in $\mathcal{X}$ according to \eqref{howtotransformtj}, we can obtain a portfolio valuation function $w(\mathcal{Y})$ with parameter $\bar t$ such that $w(\mathcal{Y}) = v(\mathcal{X} \cup \mathcal{Y}) + \text{const.}$ for any $\mathcal{Y} \subseteq \mathcal{C} \setminus \mathcal{X}$. Therefore, \eqref{nemhauseriii} is equivalent to
+for $\mathcal{X} \subset \mathcal{C}$ and $j \neq k \in \mathcal{C} \setminus \mathcal{X}$. By Theorem \ref{eliminationtheorem}, we can repeatedly eliminate the schools in $\mathcal{X}$ according to \eqref{howtotransformtj} to obtain a portfolio valuation function $w(\mathcal{Y})$ with parameter $\bar t$ such that $w(\mathcal{Y}) = v(\mathcal{X} \cup \mathcal{Y}) + \text{const.}$ for any $\mathcal{Y} \subseteq \mathcal{C} \setminus \mathcal{X}$. Therefore, \eqref{nemhauseriii} is equivalent to
 \begin{align}
 & w(\{j\}) - w(\varnothing) \geq w(\{j, k\}) - w(\{k\}) \\
 \iff \qquad &w(\{j\})  +  w(\{k\})  \geq w(\{j, k\})  \\
@@ -428,7 +441,7 @@ $v(\mathcal{X})$가 단조 증가하는 것은 자명하다. Submodularity를 �
 v(\mathcal{X} \cup \{j\}) - v(\mathcal{X}) \geq 
 v(\mathcal{X} \cup \{j, k\}) - v(\mathcal{X} \cup \{k\})
 \end{equation}
-\eqref{howtotransformtj}에 따라 $\mathcal{X}$에 속한 학교를 반복적으로 소거하면 모수 $\bar t$로 갖춘 포트폴리오 함수 $w(\mathcal{Y})$를 얻을 수 있으며,  모든 $\mathcal{Y} \subseteq \mathcal{C} \setminus \mathcal{X}$에 대해 $w(\mathcal{Y}) = v(\mathcal{X} \cup \mathcal{Y}) + \text{const.}$가 성립한다. 따라서 \eqref{nemhauseriii}은(는) 다음 부등식과 동등하다.
+정리 \ref{eliminationtheorem}을(를) 적용하면, \eqref{howtotransformtj}에 따라 $\mathcal{X}$에 속한 학교를 반복적으로 소거하여 모수 $\bar t$로 갖춘 포트폴리오 함수 $w(\mathcal{Y})$를 얻을 수 있으며,  모든 $\mathcal{Y} \subseteq \mathcal{C} \setminus \mathcal{X}$에 대해 $w(\mathcal{Y}) = v(\mathcal{X} \cup \mathcal{Y}) + \text{const.}$가 성립한다. 따라서 \eqref{nemhauseriii}은(는) 다음 부등식과 동등하다.
 \begin{align}
 & w(\{j\}) - w(\varnothing) \geq w(\{j, k\}) - w(\{k\}) \\
 \iff \qquad &w(\{j\})  +  w(\{k\})  \geq w(\{j, k\})  \\
@@ -443,10 +456,13 @@ v(\mathcal{X} \cup \{j, k\}) - v(\mathcal{X} \cup \{k\})
 
 
 \ifen \section{Homogeneous application costs}  \else \section{동일한 지원 비용} \fi \label{homogappcosts}
-\ifen In this section, we focus on the special case in which each $g_j = 1$ and $H$ is a natural number $h \leq m$.   We show that an intuitive heuristic is in fact a $1/h$-approximation algorithm, then derive an exact polynomial-time solution algorithm.
-This case is similar to the centralized college admissions process in Korea, where there is no application fee, but by law, students are allowed to apply to no more than $h$ schools. (In the Korean case, $m=202$ and $h=3$.) Applying Theorem \ref{assumetzerozero}, we assume that $t_0 = 0$ unless otherwise noted. Throughout this section, we will call the applicant Alma, and refer to the corresponding optimization problem as Alma's problem. 
+\ifen In this section, we focus on the special case in which each $g_j = 1$ and $H$ is a natural number $h \leq m$.   We show that an intuitive heuristic is in fact a $1/h$-approximation algorithm, then derive an exact polynomial-time solution algorithm. 
+%This case is similar to the centralized college admissions process in Korea, where there is no application fee, but by law, students are allowed to apply to no more than $h$ schools. (In the Korean case, $m=202$ and $h=3$.)
+Applying Theorem \ref{assumetzerozero}, we assume that $t_0 = 0$ unless otherwise noted. Throughout this section, we will call the applicant Alma, and refer to the corresponding optimization problem as Alma's problem. 
 \else
-본 절에서 모든 $g_j = 1$이며 $H$가 자연수 $h \leq m$인 특수한 경우에 집중한다. 직관적인 휴리스틱 해법이 실제로 $1/h$-근사 해법임을 보인 다음에 정확한 다항 시간 해법을 도출한다. 이 특수한 경우는 지원 비용이 없으며 국가 법에 따라 최대 $h$개의 학교에 지원할 수 있는 한국의 중심화된 대학 지원 과정과 비슷하다. (한국 경우,  $m=202$이고 $h=3$이다.) 정리 \ref{assumetzerozero}을(를) 적용하여 다른 언급이 없으면 $t_0 = 0$임을 가정하자. 본 절 내내 지원자를 `알마'라고 부르고 해당 최적화 문제를 `알마의 문제'라고 부른다.
+본 절에서 모든 $g_j = 1$이며 $H$가 자연수 $h \leq m$인 특수한 경우에 집중한다. 직관적인 휴리스틱 해법이 실제로 $1/h$-근사 해법임을 보인 다음에 정확한 다항 시간 해법을 도출한다. 
+%이 특수한 경우는 지원 비용이 없으며 국가 법에 따라 최대 $h$개의 학교에 지원할 수 있는 한국의 중심화된 대학 지원 과정과 비슷하다. (한국 경우,  $m=202$이고 $h=3$이다.) 
+정리 \ref{assumetzerozero}을(를) 적용하여 다른 언급이 없으면 $t_0 = 0$임을 가정하자. 본 절 내내 지원자를 `알마'라고 부르고 해당 최적화 문제를 `알마의 문제'라고 부른다.
 \fi
 
 \begin{problem}[\ifen Alma’s problem\else 알마의 문제\fi]
@@ -1863,7 +1879,7 @@ A potential application of our model is an econometric study that estimates stud
 \ifen
 Another direction of further research with immediate application in college admissions is to incorporate additional signaling strategies into the problem. In the Korean admissions process, the online application form contains three multiple-choice fields, labeled \emph{ga, na,} and \emph{da} for the first three letters of the Korean alphabet, which students use to indicate the colleges to which they wish to apply. Most schools appear only in one or two of the three fields. Therefore, students are restricted not only in the number of applications they can submit, but in the combinations of schools that may coincide in a feasible application portfolio. From a portfolio optimization perspective, this is a \emph{diversification constraint,} because its primary purpose is to prevent students from applying only to top-tier schools. However, in addition to overall selectivity, the three fields also indicate different evaluation schemes: Applications filed under the \emph{ga} and {na} fields are evaluated with greater emphasis on standardized-test scores than those filed under the \emph{da} field. Some colleges appear in multiple fields and run two parallel admissions processes, each with different evaluation criteria. Therefore, if a student recognizes that she has a comparative advantage in (for example) her interview skills, she may increase her chances of admission to a competitive school by applying under the \emph{ga} field. Clearly, the optimal application strategy in this context can be quite subtle, and it is a subject of perennial debate on Korean social networks.
 
-An analogous feature of the American college admissions process is known as early decision, in which at the moment of application, a student commits to enrolling in a college if admitted. In principle, students who apply with early decision may obtain a better chance of admission by signaling their eagerness to attend, but doing so weakens the college's incentive to entice the student with merit-based financial aid, altering the utility calculus.
+An analogous feature of the American college admissions process is known as early decision, in which at the moment of application, a student commits to enrolling in a college if admitted. In principle, students who apply with early decision may obtain a better chance of admission by signaling their eagerness to attend, but doing so weakens the college's incentive to entice the student with discretionary financial aid, altering the utility calculus.
 \else
 향후 연구에 두 번째 방향은 모형에 시그널 전략을 도입하는 것이다. 한국 입학 과정의 온라인 지원 양식에는 가군, 나군, 다군이란 3가지 선다형 칸을 채워서 지원하는 학교를 선택한다. 대부분의 학교는 모든 3개의 칸에 등장하지 않고 그중 1~2개만 가능하다. 따라서 학생이 지원할 수 있는 학교의 `수'일 뿐만 아니라 가능한 지원 포트폴리오에 같이 들어갈 수 있는 학교의 `조합'도 제한된다. 이는 학생이 상위권 대학만 지원하지 않도록 만들어지기 때문에 다각화(diversification) 제약식으로 볼 수 있다. 그러나 대학이 어떤 군에 속하는 것은 대학 순위일뿐더러 입학 전형 유형도 의미한다. 가군과 나군으로 지원하는 경우, 다군보다 수능 점수의 반영 비율이 높다. 또한 군 2개에 포함되는 학교도 있으며 입학 전형이 다르면서 평행한 모집 과정 2개를 운영한다. 가령, 어떤 학생이 면접 능력에 비교 우위가 있으면 경쟁적인 학교에 가군으로 지원하면 합격 확률을 높일 수 있다. 이런 맥락에서 최적의 지원 전략은 미묘한 문제이며 한국 SNS에서 자주 발생하는 화젯거리이다.
 
