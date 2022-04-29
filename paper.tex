@@ -21,6 +21,8 @@
 \urlstyle{same}
 \usepackage[ruled,linesnumbered]{algorithm2e}
 \newcommand{\lIfElse}[3]{\lIf{#1}{#2 \textbf{else}~#3}}
+\providecommand{\keywords}[1]{\textbf{Keywords:\ } #1}
+
 \SetKwInOut{KwParams}{Parameters}
 
 %\usepackage{times}
@@ -87,13 +89,15 @@
 \newcommand{\thetitle}{The College Application Problem}
 \newcommand{\therunningtitle}{\thetitle}
 \newcommand{\thedate}{\today}
-\newcommand{\theauthor}{Max Kapur and Sung-Pil Hong}
+\newcommand{\theauthor}{Max Kapur}
+\newcommand{\theotherauthor}{Sung-Pil Hong}
 
 \else
 \newcommand{\thetitle}{대학 지원 최적화 문제}
 \newcommand{\therunningtitle}{\thetitle}
 \newcommand{\thedate}{\today}
-\newcommand{\theauthor}{Max Kapur \& 홍성필}
+\newcommand{\theauthor}{Max Kapur}
+\newcommand{\theotherauthor}{홍성필}
 
 \fi
 
@@ -101,6 +105,7 @@
 
 \title{\thetitle}
 \author{\theauthor}
+\author{\theotherauthor}
 \date{\thedate}
 
 \ifen
@@ -118,7 +123,7 @@ Correspondence: \url{maxkapur@gmail.com}}
 \pagestyle{fancy}
 \renewcommand{\headrulewidth}{0pt}
 \fancyhf{}
-\lhead{\theauthor}
+\lhead{\theauthor\ and \theotherauthor}
 \chead{\thedate}
 \rhead{\thetitle}
 \cfoot{\thepage}
@@ -132,6 +137,14 @@ Correspondence: \url{maxkapur@gmail.com}}
 \begin{abstract}
 This paper considers the maximization of the expected maximum value of a portfolio of random variables subject to a budget constraint. We refer to this as the optimal college application problem. When each variable's cost, or each college's application fee, is identical, we show that the optimal portfolios are nested in the budget constraint, yielding an exact polynomial-time algorithm. When colleges differ in their application fees, we show that the problem is NP-complete. We provide four algorithms for this more general setup: a branch-and-bound routine, a dynamic program that produces an exact solution in pseudopolynomial time, a different dynamic program that yields a fully polynomial-time approximation scheme, and a simulated-annealing heuristic. Numerical experiments demonstrate the algorithms' accuracy and efficiency. 
 
+
+
+
+\begin{keywords}
+submodular maximization, knapsack problems, approximation algorithms
+\end{keywords}
+
+
 \ifen
 \else The full text of this paper is available in English at \url{https://github.com/maxkapur/CollegeApplication}.\fi
 \end{abstract}
@@ -139,12 +152,15 @@ This paper considers the maximization of the expected maximum value of a portfol
 
 \renewcommand{\abstractname}{요약}
 \begin{abstract}
-본 논문은 다수의 확률 변수로 구성된 포트폴리오의 기대 최댓값을 예산 조건 하에서 최대화하는 문제를 고려한다. 이를 대학 지원 최적화 문제라고 부른다. 각 확률 변수의 비용, 즉 각 대학의 지원 비용이 동일한 경우, 최적 포트폴리오는 예산 제약식으로 결정된 포함 사슬 관계 성질을 가짐을 보이고 이를 바탕으로 다항 시간 해법을 제시한다. 대학의 지원 비용이 서로 다른 경우, 문제가 NP-complete함을 증명한다. 일반적인 문제를 위해 4가지 해법을 제시한다. 분지한계 기반 해법, 의사 다항 시간 안에 정확한 해를 출력하는 동적 계획 해법, 다른 동적 계획 기반으로 완전 다항 시간 근사 해법(fully polynomial-time approximation scheme), 그리고 모의 담금질(simulated annealing)을 이용한 휴리스틱 해법. 
+본 논문은 다수의 확률 변수로 구성된 포트폴리오의 기대 최댓값을 예산 조건 하에서 최대화하는 문제를 고려한다. 이를 대학 지원 최적화 문제라고 부른다. 각 확률 변수의 비용, 즉 각 대학의 지원 비용이 동일한 경우, 최적 포트폴리오는 예산 제약식으로 결정된 포함 사슬 관계 성질을 가짐을 보이고 이를 바탕으로 다항 시간 해법을 제시한다. 대학의 지원 비용이 서로 다른 경우, 문제가 NP-complete함을 증명한다. 일반적인 문제를 위해 4가지 해법을 제시하며, 분지한계 기반 해법, 의사 다항 시간 안에 정확한 해를 출력하는 동적 계획 해법, 다른 동적 계획 기반으로 완전 다항 시간 근사 해법(fully polynomial-time approximation scheme), 그리고 모의 담금질(simulated annealing)을 이용한 휴리스틱 해법을 포함한다.
 % 첫째는 분지한계 기반 해법이다. 둘째는 의사 다항 시간 안에 정확한 해를 출력하는 동적 계획 해법이다. 마지막으로 다른 동적 계획 기반으로 완전 다항 시간 근사 해법(fully polynomial-time approximation scheme)을 도출한다.
-수리적 실험을 통하여 알고리즘의 정확도와 효율성을 보인다.
+수리적 실험을 통해 알고리즘의 정확도와 효율성을 보인다.
 
 \ifen 본 논문은 \url{https://github.com/maxkapur/CollegeApplication}에서 전문을 한글로 공유한다. \fi
 \end{abstract}
+
+
+
 \pagebreak
 
 \tableofcontents
@@ -174,13 +190,13 @@ We refer to this problem as the \emph{optimal college application} problem, as f
 \fi
 
 \ifen
-The college application problem is not solely of theoretical interest. In the American college consulting industry, students pay private consultants an average of \$200 per hour for assistance in preparing application materials, estimating their admissions odds, and identifying target schools (Sklarow 2018). In Korea, an important revenue stream for admissions consulting firms such as Megastudy (\url{megastudy.net}) and Jinhak (\url{jinhak.com}) is ``mock application'' software that claims to use artificial intelligence to optimize the client's application strategy.  Due to the widespread perception that career earnings depend on college admissions outcomes, the solution of \eqref{headlineproblem} holds monetary value. However, although predicting admissions outcomes on a school-by-school basis is a standard benchmark for regression models (Acharya et al. 2019), we believe our study is the first to focus on the overall application strategy as an optimization problem. 
+The college application problem is not solely of theoretical interest. Due to the widespread perception that career earnings depend on college admissions outcomes, the solution of \eqref{headlineproblem} holds monetary value. In the American college consulting industry, students pay private consultants an average of \$200 per hour for assistance in preparing application materials, estimating their admissions odds, and identifying target schools (Sklarow 2018). In Korea, an important revenue stream for admissions consulting firms such as Megastudy (\url{megastudy.net}) and Jinhak (\url{jinhak.com}) is ``mock application'' software that claims to use artificial intelligence to optimize the client's application strategy. However, although predicting admissions outcomes on a school-by-school basis is a standard benchmark for logistic regression models (Acharya et al. 2019), we believe our study is the first to focus on the overall application strategy as an optimization problem. 
 \else
-대학 지원 최적화 문제는 이론적인 화제일 뿐만이 아니다. 미국 입학 컨설팅 산업에서 대학 지원 서류 작성, 합격 확률 추정, 그리고 지원 학교를 선택하는 데에 자문하는 개인 상담가의 시간당 급료는 평균 200달러이다 (Sklarow 2018). 한국에서, 메가스터디(\url{megastudy.net})와 진학(\url{jinhak.com})과 같은 입학 컨설팅 기업의 주된 수입원 중 인공지능을 활용하여 학생의 지원 전략을 최대화한다고 홍보하는 ``모의 지원'' 소프트웨어가 있다. 미래의 소득이 대학 입학 결과로 결정된다는 넓은 인식에 따라, \eqref{headlineproblem}의 최적해는 금전적인 가치를 가지고 있다. 그러나, 학교 개별 합격 확률을 추정하는 것은 회귀 분석 모형의 익숙한 응용 사례(Acharya et al. 2019)이지만, 전체적인 지원 전략에 집중하여 최적화 문제로 모형화한 것은 본 연구의 새로운 기여로 보인다.
+대학 지원 최적화 문제는 이론적인 화제일 뿐만이 아니다. 미래의 소득이 대학 입학 결과로 결정된다는 넓은 인식에 따라, \eqref{headlineproblem}의 최적해는 금전적인 가치를 가지고 있다. 미국 입학 컨설팅 산업에서 대학 지원 서류 작성, 합격 확률 추정, 그리고 지원 학교를 선택하는 데에 자문하는 개인 상담가의 시간당 급료는 평균 200달러이다 (Sklarow 2018). 한국에서, 메가스터디(\url{megastudy.net})와 진학(\url{jinhak.com})과 같은 입학 컨설팅 기업의 주된 수입원 중 인공지능을 활용하여 학생의 지원 전략을 최대화한다고 홍보하는 ``모의 지원'' 소프트웨어가 있다. 그러나, 학교 개별 합격 확률을 추정하는 것은 로지스틱 회귀 분석 모형의 익숙한 응용 사례(Acharya et al. 2019)이지만, 전체적인 지원 전략에 집중하여 최적화 문제로 모형화한 것은 본 연구의 새로운 기여로 보인다.
 \fi
 
 
-\ifen \subsection{Literature review} \else \subsection{문헌 조사} \fi
+\ifen \subsection{Methodological orientation} \else \subsection{방법록적 지향} \fi
 %\ifen
 The college application problem straddles several methodological universes. Its stochastic nature recalls classical portfolio allocation models. However, the knapsack constraint renders the problem NP-complete, and necessitates combinatorial solution techniques. We also observe that the objective function is also a submodular set function, although our approximation results suggest that college application is a relatively easy instance of submodular maximization.
 %\else
@@ -191,9 +207,9 @@ The college application problem straddles several methodological universes. Its 
 \ifen
 % In an equilibrium analysis of the American college market, Fu (2014) remarked that
 % (and change below)
-A problem similar to \eqref{headlineproblem} arose in an equilibrium analysis of the American college market by Fu (2014), who described college application as a ``nontrivial portfolio problem'' (226). In computational finance, traditional asset allocation models weigh the sum of expected profit across all assets against a risk term, yielding a concave maximization problem with linear constraints (Markowitz 1952; Meucci 2005). But college applicants maximize the expected value of their \emph{best} asset: If a student is admitted to her $j$th choice, then she is indifferent as to whether she gets into her $(j+1)$th choice. As a result, the valuation function that students maximize is \emph{convex} in the utility associated with individual applications. Risk management is implicit in the college application problem because, in a typical admissions market, college preferability correlates inversely with competitiveness. That is, students negotiate a tradeoff between attractive, selective “reach schools” and less preferable “safety schools” where admission is a safer bet (Jeon 2015). Finally, the combinatorial nature of the college application problem makes it difficult to solve using the gradient-based techniques used in continuous portfolio optimization. Fu estimated her equilibrium model (which considers application as a \emph{cost} rather than a constraint) by clustering the schools so that $m=8$, a scale at which enumeration is tractable. We pursue a more general solution.
+A problem similar to \eqref{headlineproblem} arose in an equilibrium analysis of the American college market by Fu (2014), who described college application as a ``nontrivial portfolio problem'' (226). In computational finance, traditional portfolio allocation models weigh the sum of expected profit across all assets against a risk term, yielding a concave maximization problem with linear constraints (Markowitz 1952; Meucci 2005). But college applicants maximize the expected value of their \emph{best} asset: If a student is admitted to her $j$th choice, then she is indifferent as to whether she gets into her $(j+1)$th choice. As a result, student utility is \emph{convex} in the utility associated with individual applications. Risk management is implicit in the college application problem because, in a typical admissions market, college preferability correlates inversely with competitiveness. That is, students negotiate a tradeoff between attractive, selective “reach schools” and less preferable “safety schools” where admission is a safer bet (Jeon 2015). Finally, the combinatorial nature of the college application problem makes it difficult to solve using the gradient-based techniques associated with continuous portfolio optimization. Fu estimated her equilibrium model (which considers application as a \emph{cost} rather than a constraint) by clustering the schools so that $m=8$, a scale at which enumeration is tractable. We pursue a more general solution.
 \else
-미국 대학 입학 시장의 균형 분석에서, Fu (2014)는 \eqref{headlineproblem}과(와) 비슷한 부문제를 직면하였으며 이를 ``nontrivial portfolio problem''이라고 부른다 (226). 재정학 분야에서, 고전적 자산 배분 최적화 모형은 전체 자산에 대한 기대 총이익에서 위험회피 항을 뺌으로 선형식으로 제약된 오목 최대화 문제를 이룬다 (Markowitz 1952; Meucci 2005). 그러나 대학 지원자는 가치가 제일 높은 단일 자산의 기대 가치를 최대화하고자 한다. 어떤 학생이 자신이 $j$번째로 선호하는 학교에 합격하면 $(j+1)$번째 학교의 합격 여부는 무관한 상황이 된다. 이는 학생이 최대화하려는 함수를 각 지원 발송의 효용에 대해 오목이 아닌 볼록 함수로 만든다. 또한 입학 시장에서는 전형적으로 대학의 효용과 합격 확률이 서로 반비례하므로 대학 지원 문제는 위험 관리를 포함하게 된다. 특히 선호도가 높으며 붙기 어려운 “상향” 지원 학교(reach school)와 선호도가 낮으며 붙기 쉬운 “안정” 지원 학교(safety school) 사이의 균형을 고려해야 한다 (전민희 2015). 마지막, 대학 지원의 조합적인 본질로 인해 연속적인 포트폴리오 최적화 문제에서 흔히 사용하는 기울기 해법으로는 풀기가 어렵다. Fu는 지원 비용을 제약 조건 대신 목적함수의 한 항으로 모형화했으며, 균형 모형의 모수를 추정하기 위해 $m=8$이 되도록 학교들의 클러스터를 먼저 구성했다. 이는 열거법을 통해 문 쉽게 풀 수 있는 규모이지만 본 연구는 더 일반적인 $m$에 대한 해법을 추구한다.
+미국 대학 입학 시장의 균형 분석에서, Fu (2014)는 \eqref{headlineproblem}과(와) 비슷한 부문제를 직면하였으며 이를 ``nontrivial portfolio problem''이라고 부른다 (226). 재정학 분야에서, 고전적 포트폴리오 배분 최적화 모형은 전체 자산에 대한 기대 총이익에서 위험회피 항을 뺌으로 선형식으로 제약된 오목 최대화 문제를 이룬다 (Markowitz 1952; Meucci 2005). 그러나 대학 지원자는 가치가 제일 높은 단일 자산의 기대 가치를 최대화하고자 한다. 어떤 학생이 자신이 $j$번째로 선호하는 학교에 합격하면 $(j+1)$번째 학교의 합격 여부는 무관한 상황이 된다. 이는 학생의 효용을 각 지원 발송의 효용에 대해 오목이 아닌 볼록 함수로 만든다. 또한 입학 시장에서는 전형적으로 대학의 효용과 합격 확률이 서로 반비례하므로 대학 지원 문제는 위험 관리를 포함하게 된다. 특히 선호도가 높으며 붙기 어려운 “상향” 지원 학교(reach school)와 선호도가 낮으며 붙기 쉬운 “안정” 지원 학교(safety school) 사이의 균형을 고려해야 한다 (전민희 2015). 마지막, 대학 지원의 조합적인 본질로 인해 연속적인 포트폴리오 최적화 문제에서 흔히 사용하는 기울기 해법으로는 풀기가 어렵다. Fu는 지원 비용을 제약 조건 대신 목적함수의 한 항으로 모형화했으며, 균형 모형의 모수를 추정하기 위해 $m=8$이 되도록 학교들의 클러스터를 먼저 구성했다. 이는 열거법을 통해 문 쉽게 풀 수 있는 규모이지만 본 연구는 더 일반적인 $m$에 대한 해법을 추구한다.
 \fi
 
 \ifen
@@ -203,45 +219,44 @@ The integer formulation of the college application problem can be viewed as a ki
 \fi
 
 \ifen
-We take special interest in the validity of greedy optimization algorithms for the set function $v(\mathcal{X})$, such as the algorithm that iteratively adds the school that elicits the greatest increase in the objective function until the budget is exhausted. Greedy algorithms produce a \emph{nested} family of solutions parameterized by the budget $H$: If $H \leq H'$, then the greedy solution for budget $H$ is a subset of the greedy solution for budget $H'$. As Rozanov and Tamir (2020) remark, the knowledge that the optima are nested aids not only in computing the optimal solution, but in the implementation thereof under uncertain information. For example, in the United States, many college applications are due at the beginning of November, and it is typical for students to begin working on their applications during the prior summer because colleges reward students who tailor their essays to the target school. However, students may not know how many schools they can afford to apply to until late October. The nestedness property---or equivalently, the validity of a greedy algorithm---implies that even in the absence of complete budget information, students can begin to carry out the optimal application strategy by writing essays for schools in the order that they enter the optimal portfolio.
+We take special interest in the validity of greedy optimization algorithms, such as the algorithm that iteratively adds the school that elicits the greatest increase in the objective function until the budget is exhausted. Greedy algorithms produce a \emph{nested} family of solutions parameterized by the budget $H$: If $H \leq H'$, then the greedy solution for budget $H$ is a subset of the greedy solution for budget $H'$. As Rozanov and Tamir (2020) remark, the knowledge that the optima are nested aids not only in computing the optimal solution, but in the implementation thereof under uncertain information. For example, in the United States, many college applications are due at the beginning of November, and it is typical for students to begin working on their applications during the prior summer because colleges reward students who tailor their essays to the target school. However, students may not know how many schools they can afford to apply to until late October. The nestedness property---or equivalently, the validity of a greedy algorithm---implies that even in the absence of complete budget information, students can begin to carry out the optimal application strategy by writing essays for schools in the order that they enter the optimal portfolio.
 \else
 본 연구에서 특히 탐욕 해법의 가능성에 관심을 기울인다. 예를 들어 예산이 다 소비될 때까지 목적함수를 가장 많이 증가시키는 학교를 차례대로 추가하는 알고리즘은 일종의 탐욕 해법이다. 탐욕 해법은 예산 $H$로 모수화된 해의 순서를 유도하며 그의 원소들은 `포함 사슬 관계'(nestedness)로 연결된다. 즉 $H \leq H'$일 때, 예산 $H$에 해당하는 탐욕 해는 예산 $H'$에 해당하는 탐욕 해의 부분집합이 된다. Rozanov와 Tamir (2020)가 주장하듯, 최적해가 포함 사슬 관계를 가지면 최적해를 구하는 것뿐 아니라 정보가 불확실한 상황에서 최적해를 구현하는 데에도 유용하다. 가령, 많은 미국 대학의 지원 기한은 11월 초인데 학업 계획서를 학교의 취향에 맞춰서 작성해야 하므로 여름부터 원서를 작성하는 학생이 많다. 그러나 지원 예산은 10월 말까지 모를 수도 있다. 포함 사슬 관계, 또는 탐욕 해법의 타당성은 완전한 예산 정보가 없어도 학교가 최적 포트폴리오에 진입하는 순서대로 원서를 작성하면 최적 전략을 구현해 낼 수 있음을 의미한다.
 \fi
 
 \ifen
-For certain classes of optimization problems, such as maximizing a submodular set function over a cardinality constraint, a greedy algorithm is known to be a good approximate solution and exact under certain additional assumptions (Fisher et al. 1978). For other problems, notably the binary knapsack problem, the most intuitive greedy algorithm can be made to perform arbitrarily poorly (Vazirani 2001). We show results for the college application problem that mirror the knapsack problem: When each $g_j = 1$, the optimal portfolios satisfy a nestedness property that is equivalent to the validity of the greedy algorithm. This special case mirrors the centralized college application process in Korea, where there is no application fee, but students are allowed to apply to only three schools during the main admissions cycle. Unfortunately, the nestedness property does not hold in the general case, nor does the greedy algorithm offer any performance guarantee. Instead, we offer a branch-and-bound routine, a pseudopolynomial-time algorithm that is tractable for typical college market instances, and a fully polynomial-time approximation scheme (FPTAS). We also describe a simulated-annealing algorithm that performs well in test instances. 
+For certain classes of optimization problems, such as maximizing a submodular set function over a cardinality constraint, a greedy algorithm is known to be a good approximate solution and exact under certain additional assumptions (Fisher et al. 1978). For other problems, notably the binary knapsack problem, the most intuitive greedy algorithm can be made to perform arbitrarily poorly (Vazirani 2001). We show results for the college application problem that mirror those for the knapsack problem: When each $g_j = 1$, the optimal portfolios are nested. This special case mirrors the centralized college application process in Korea, where there is no application fee, but students are allowed to apply to only three schools during the main admissions cycle. Unfortunately, the nestedness property does not hold in the general case, nor does the greedy algorithm offer any performance guarantee. However, we identify a fully polynomial-time approximation scheme (FPTAS) based on fixed-point arithmetic. 
+%Instead, we offer a branch-and-bound routine, a pseudopolynomial-time algorithm that is tractable for typical college market instances, and a fully polynomial-time approximation scheme (FPTAS). We also describe a simulated-annealing algorithm that performs well in test instances. 
 \else
-탐욕 알고리즘이 좋은 근사해거나 정확한 알고리즘이 되는 최적화 모형들이 알려져 있다. 집합 크기 제약 하에서 submodular한 집합 함수를 최대화하는 문제가 대표적인 예다 (Fisher 외 1978). 반면에 이진 배낭 문제 같은 경우에서는 가장 직관적인 탐욕 알고리즘이 최적과 거리가 먼 해를 출력하는 예를 만들 수 있다 (Vazirani 2001). 대학 지원 문제와 배낭 문제가 서로 매우 유사함을 보인다. 모든 $g_j=1$인 특수한 경우에서, 최적 포트폴리오가 탐욕 알고리즘의 타당성과 동등한 포함 사슬 관계를 만족하는 것을 증명한다. 이 경우는 지원 비용이 없으며 정시 모집 기간에 학교 3개에만 지원할 수 있는 한국 입학 과정과 같다. 그러나 일반적인 경우에서 포함 사슬 관계가 성립하지 않을뿐더러 탐욕 알고리즘이 어떤 근사 계수를 보장할 수 없을 보일 수 있다. 대신 분지한계법, 전형적인 입학 시장 인스턴스에 대해 효율적인 의사 다항 시간 동적 계획, 그리고 완전 다항 시간 근사 해법(fully polynomial-time approximation scheme, FPTAS)을 제시한다. 가상 인스턴스에 성능이 좋은 모의 담금질(simulated annealing) 해법도 서술한다. 
+탐욕 알고리즘이 좋은 근사해거나 정확한 알고리즘이 되는 최적화 모형들이 알려져 있다. 집합 크기 제약 하에서 submodular한 집합 함수를 최대화하는 문제가 대표적인 예다 (Fisher 외 1978). 반면에 이진 배낭 문제 같은 경우에서는 가장 직관적인 탐욕 알고리즘이 최적과 거리가 먼 해를 출력하는 예를 만들 수 있다 (Vazirani 2001). 대학 지원 문제와 배낭 문제가 서로 매우 유사함을 보인다. 모든 $g_j=1$인 특수한 경우에서, 최적 포트폴리오가 탐욕 알고리즘의 타당성과 동등한 포함 사슬 관계를 만족하는 것을 증명한다. 이 경우는 지원 비용이 없으며 정시 모집 기간에 학교 3개에만 지원할 수 있는 한국 입학 과정과 같다. 그러나 일반적인 경우에서 포함 사슬 관계가 성립하지 않을뿐더러 탐욕 알고리즘이 어떤 근사 계수를 보장할 수 없을 보일 수 있다. 대신 고정소숫점 산술을 활용한 완전 다항 시간 근사 해법(fully polynomial-time approximation scheme, FPTAS)을 제시한다.
+%대신 분지한계법, 전형적인 입학 시장 인스턴스에 대해 효율적인 의사 다항 시간 동적 계획, 그리고 완전 다항 시간 근사 해법(fully polynomial-time approximation scheme, FPTAS)을 제시한다. 가상 인스턴스에 성능이 좋은 모의 담금질(simulated annealing) 해법도 서술한다. 
 \fi
 
 
 \ifen
-Finally, we remark that the objective function of \ref{headlineproblem} is a nondecreasing submodular function. However, our research employs more elementary analytical techniques, and our approximation results are tighter than those associated with generic submodular maximization algorithms. For example, a well-known result of Fisher et al. (1978) implies that the greedy algorithm is asymptotically $(1 - 1/e)$-optimal for the $g_j = 1$ case of the college application problem, whereas we show that the same algorithm is exact. When maximizing a submodular set function over knapsack constraints or matroids, a nearly equivalent approximation ratio is achievable using relaxation techniques (Calinescu et al. 2011; Kulik et al. 2013). But in the general case of the college application problem, the existence of the FPTAS supersedes these results.
+Finally, we remark that the objective function of \eqref{headlineproblem} is a nondecreasing submodular function. However, our research employs more elementary analytical techniques, and our approximation results are tighter than those associated with generic submodular maximization algorithms. For example, a well-known result of Fisher et al. (1978) implies that the greedy algorithm is asymptotically $(1 - 1/e)$-optimal for the $g_j = 1$ case of the college application problem, whereas we show that the same algorithm is exact. As for the general problem, an equivalent approximation ratio is achievable when maximizing a submodular set function over a knapsack constraint using a variety of relaxation techniques (Badanidiyuru and Vondrák 2014; Calinescu et al. 2011; Kulik et al. 2013). But in the college application problem, the existence of the FPTAS supersedes these results.
 \else
-마지막으로, \ref{headlineproblem}의 목적함수는 submodular하며 단조 증가하는 함수이다. 그런데, 본 연구는 더 기초적인 분석 기술을 이용하며, 일반적인 submodular 최대화 알고리즘보다 좋은 근사 계수를 얻게 된다. 예를 들어 Fisher 외 (1978)의 잘 알려진 결과에 따라, 대학 지원 문제의 $g_j = 1$인 경우에서 탐욕 해법의 점근적 근사 계수가 $(1 - 1/e)$이 되며, 본 논문에서 같은 해법이 정확함을 보인다. 다중 배낭 제약식 혹은 matroid 위에서 submodular 집합 함수를 최대하는 문제에서, 완화 기술을 활용하면 거의 동등한 근사 계수를 이뤄 낼 수 있다 (Calinescu et al. 2011; Kulik et al. 2013). 그러나 일반적인 대학 지원 문제에서, FPTAS의 존재성은 그 결과를 대체한다.
+마지막으로, \eqref{headlineproblem}의 목적함수는 submodular하며 단조 증가하는 함수이다. 그런데, 본 연구는 더 기초적인 분석 기술을 이용하며, 일반적인 submodular 최대화 알고리즘보다 좋은 근사 계수를 얻게 된다. 예를 들어 Fisher 외 (1978)의 잘 알려진 결과에 따라, 대학 지원 문제의 $g_j = 1$인 경우에서 탐욕 해법의 점근적 근사 계수가 $(1 - 1/e)$이 되며, 본 논문에서 같은 해법이 정확함을 보인다. 일반적인 문제에 대해서는, 배낭 제약식 위에서 submodular 집합 함수를 최대하는 문제에서, 다양한 완화 기술을 활용하면 거의 동등한 근사 계수를 이뤄 낼 수 있다 (Calinescu et al. 2011; Kulik et al. 2013). 그러나 대학 지원 문제에서, FPTAS의 존재성은 그보다 강한 결과이다.
 \fi
 
 \ifen \subsection{Structure of this paper} \else \subsection{본 논문의 구성}\fi
-\ifen Section \ref{preliminaries} introduces some additional notation and assumptions that can be imposed without loss of generality. We also introduce a useful variable-elimination technique and prove that the objective function is submodular.
-\else \ref{preliminaries}절은 표기법과 일반성을 제한하지 않는 편의적 가정을 제시한다. 유용한 변수 소거 기술도 제시하고 목적함수가 submodularity함을 증명한다.\fi
+\ifen Section \ref{preliminaries} introduces some additional notation and assumptions that can be imposed without loss of generality. We also introduce a useful variable-elimination technique and prove that the objective function is submodular. 
 
-\ifen
-In Section \ref{homogappcosts}, we consider the special case where each $g_j = 1$ and $H$ is an integer $h \leq m$.  We show that an intuitive heuristic is in fact a $1/h$-approximation algorithm. Then, we show that the optimal portfolios are nested in the budget constraint, which yields an exact algorithm that runs in $O(hm)$-time.
-\else
-\ref{homogappcosts}절에서 각 $g_j = 1$이고 $H$가 $h \leq m$이고 자연수인 특수한 경우를 고려한다. 직관적인 휴리스틱 해법이 실제로 $1/h$-근사 해법임을 증명한다. 그다음에 최적 포트폴리오의 예산 제약에 대한 포함 사슬 관계를 보이고 이를 이용하여 $O(hm)$-시간 정확한 해법을 도출한다.
-\fi
+In Section \ref{homogappcosts}, we consider the special case where each $g_j = 1$ and $H$ is an integer $h \leq m$.  We show that an intuitive heuristic is in fact a $1/h$-approximation algorithm. Then, we show that the optimal portfolios are nested in the budget constraint, which yields an exact algorithm that runs in $O(hm)$-time. 
 
-\ifen
 In Section \ref{hetappcosts}, we turn to the scenario in which colleges differ in their application fees. We show that the decision form of the portfolio optimization problem is NP-complete through a polynomial reduction from the binary knapsack problem. We provide four algorithms for this more general setup. The first is a branch-and-bound routine. The second is a dynamic program that iterates on total expenditures and produces an exact solution in pseudopolynomial time, namely $O(Hm + m \log m)$. The third is a different dynamic program that iterates on truncated portfolio valuations. It yields a fully polynomial-time approximation scheme that produces a $(1 - \varepsilon)$-optimal solution in $O(m^3 / \varepsilon)$ time.  The fourth is a simulated-annealing heuristic algorithm that demonstrates strong performance in our synthetic instances. 
-\else
-\ref{hetappcosts}절에서 각 학교의 지원 비용이 동일하지 않은 일반적인 상황을 다룬다. 이진 배낭 문제에서의 다항 변환을 통하여 포트폴리오 최적화 문제가 NP-complete함을 증명한다. 또한 3개의 일반적인 해법을 제안한다. 첫째는 분지한계법이다. 둘째는 총 지출액으로 탐색하는 $O(Hm + m \log m)$과 같은 의사 다항 시간 동적 계획 해법이다. 셋째는 실수값을 분수값으로 내림한 포트폴리오 가치를 탐색하는 또다른 동적 계획 해법이다. 이를 통하여 $O(m^3 / \varepsilon)$-시간 안에 $(1 - \varepsilon)$-근사해를 출력하는 완전 다항 시간 근사 해법(fully polynomial-time approximation scheme)을 얻는다. 넷째는 가상 인스턴스를 푸는 성능이 좋은 모의 담금질 기반 휴리스틱 알고리즘이다.
-\fi
 
-\ifen
 In Section \ref{numericalexperiments}, we present the results of computational experiments that confirm the validity and time complexity results established in the previous two sections. We also investigate the empirical accuracy of the simulated-annealing heuristic.
 
 In the conclusion, we identify possible improvements to our solution algorithms and introduce a few extensions of the model that capture the features of real-world admissions processes.
 \else
+\ref{preliminaries}절은 표기법과 일반성을 제한하지 않는 편의적 가정을 제시한다. 유용한 변수 소거 기술도 제시하고 목적함수가 submodularity함을 
+증명한다.
+ 
+\ref{homogappcosts}절에서 각 $g_j = 1$이고 $H$가 $h \leq m$이고 자연수인 특수한 경우를 고려한다. 직관적인 휴리스틱 해법이 실제로 $1/h$-근사 해법임을 증명한다. 그다음에 최적 포트폴리오의 예산 제약에 대한 포함 사슬 관계를 보이고 이를 이용하여 $O(hm)$-시간 정확한 해법을 도출한다. 
+
+\ref{hetappcosts}절에서 각 학교의 지원 비용이 동일하지 않은 일반적인 상황을 다룬다. 이진 배낭 문제에서의 다항 변환을 통하여 포트폴리오 최적화 문제가 NP-complete함을 증명한다. 또한 3개의 일반적인 해법을 제안한다. 첫째는 분지한계법이다. 둘째는 총 지출액으로 탐색하는 $O(Hm + m \log m)$과 같은 의사 다항 시간 동적 계획 해법이다. 셋째는 실수값을 분수값으로 내림한 포트폴리오 가치를 탐색하는 또다른 동적 계획 해법이다. 이를 통하여 $O(m^3 / \varepsilon)$-시간 안에 $(1 - \varepsilon)$-근사해를 출력하는 완전 다항 시간 근사 해법(fully polynomial-time approximation scheme)을 얻는다. 넷째는 가상 인스턴스를 푸는 성능이 좋은 모의 담금질 기반 휴리스틱 알고리즘이다. 
+
 \ref{numericalexperiments}절에서 위에서 도출한 타당성과 계산 복잡성을 확인하는 계산 실험 결과를 정리한다. 모의 담금질 휴리스틱의 정확도도 탐구한다.
 
 결론에서, 해법을 개선할 수 있는 요소를 언급하고, 실제 지원 과정의 특징을 묘사하도록 원래 모형을 확장할 수 있는 기술 몇 가지 소개한다.
@@ -1877,11 +1892,11 @@ A potential application of our model is an econometric study that estimates stud
 
 \ifen \subsection{Signaling strategies}\else \subsection{시그런 전략}\fi
 \ifen
-Another direction of further research with immediate application in college admissions is to incorporate additional signaling strategies into the problem. In the Korean admissions process, the online application form contains three multiple-choice fields, labeled \emph{ga, na,} and \emph{da} for the first three letters of the Korean alphabet, which students use to indicate the colleges to which they wish to apply. Most schools appear only in one or two of the three fields. Therefore, students are restricted not only in the number of applications they can submit, but in the combinations of schools that may coincide in a feasible application portfolio. From a portfolio optimization perspective, this is a \emph{diversification constraint,} because its primary purpose is to prevent students from applying only to top-tier schools. However, in addition to overall selectivity, the three fields also indicate different evaluation schemes: Applications filed under the \emph{ga} and {na} fields are evaluated with greater emphasis on standardized-test scores than those filed under the \emph{da} field. Some colleges appear in multiple fields and run two parallel admissions processes, each with different evaluation criteria. Therefore, if a student recognizes that she has a comparative advantage in (for example) her interview skills, she may increase her chances of admission to a competitive school by applying under the \emph{ga} field. Clearly, the optimal application strategy in this context can be quite subtle, and it is a subject of perennial debate on Korean social networks.
+Another direction of further research with immediate application in college admissions is to incorporate additional signaling strategies into the problem. In the Korean admissions process, the online application form contains three multiple-choice fields, labeled \emph{ga, na,} and \emph{da} for the first three letters of the Korean alphabet, which students use to indicate the colleges to which they wish to apply. Most schools appear only in one or two of the three fields. Therefore, students are restricted not only in the number of applications they can submit, but in the combinations of schools that may coincide in a feasible application portfolio. From a portfolio optimization perspective, this is a \emph{diversification constraint,} because its primary purpose is to prevent students from applying only to top-tier schools. However, in addition to overall selectivity, the three fields also indicate different evaluation schemes: The \emph{ga} and \emph{na} customarily indicate the applicant's first and second choice, and applications filed under these fields are evaluated with greater emphasis on standardized-test scores than those filed under the \emph{da} field. Some colleges appear in multiple fields and run two parallel admissions processes, each with different evaluation criteria. Therefore, if a student recognizes that she has a comparative advantage in (for example) her interview skills, she may increase her chances of admission to a competitive school by applying under the \emph{da} field. The optimal application strategy in this context can be quite subtle, and it is a subject of perennial debate on Korean social networks.
 
 An analogous feature of the American college admissions process is known as early decision, in which at the moment of application, a student commits to enrolling in a college if admitted. In principle, students who apply with early decision may obtain a better chance of admission by signaling their eagerness to attend, but doing so weakens the college's incentive to entice the student with discretionary financial aid, altering the utility calculus.
 \else
-향후 연구에 두 번째 방향은 모형에 시그널 전략을 도입하는 것이다. 한국 입학 과정의 온라인 지원 양식에는 가군, 나군, 다군이란 3가지 선다형 칸을 채워서 지원하는 학교를 선택한다. 대부분의 학교는 모든 3개의 칸에 등장하지 않고 그중 1~2개만 가능하다. 따라서 학생이 지원할 수 있는 학교의 `수'일 뿐만 아니라 가능한 지원 포트폴리오에 같이 들어갈 수 있는 학교의 `조합'도 제한된다. 이는 학생이 상위권 대학만 지원하지 않도록 만들어지기 때문에 다각화(diversification) 제약식으로 볼 수 있다. 그러나 대학이 어떤 군에 속하는 것은 대학 순위일뿐더러 입학 전형 유형도 의미한다. 가군과 나군으로 지원하는 경우, 다군보다 수능 점수의 반영 비율이 높다. 또한 군 2개에 포함되는 학교도 있으며 입학 전형이 다르면서 평행한 모집 과정 2개를 운영한다. 가령, 어떤 학생이 면접 능력에 비교 우위가 있으면 경쟁적인 학교에 가군으로 지원하면 합격 확률을 높일 수 있다. 이런 맥락에서 최적의 지원 전략은 미묘한 문제이며 한국 SNS에서 자주 발생하는 화젯거리이다.
+향후 연구에 두 번째 방향은 모형에 시그널 전략을 도입하는 것이다. 한국 정시 입학 과정의 온라인 지원 양식에는 가군, 나군, 다군이란 3가지 선다형 칸을 채워서 지원하는 학교를 선택한다. 대부분의 학교는 모든 3개의 칸에 등장하지 않고 그중 1~2개만 가능하다. 따라서 학생이 지원할 수 있는 학교의 `수'일 뿐만 아니라 가능한 지원 포트폴리오에 같이 들어갈 수 있는 학교의 `조합'도 제한된다. 이는 학생이 상위권 대학만 지원하지 않도록 만들어지기 때문에 다각화(diversification) 제약식으로 볼 수 있다. 그러나 대학이 어떤 군에 속하는 것은 대학 순위일뿐더러 입학 전형 유형도 의미한다. 가군과 나군은 관례적으로 학생이 선호하는 대학을 선택하는 것이며 다군보다 수능 점수의 반영 비율이 높은 편이다. 또한 군 2개에 포함되는 학교도 있으며 입학 전형이 다르면서 평행한 모집 과정 2개를 운영한다. 가령, 어떤 학생이 면접 능력에 비교 우위가 있으면 경쟁적인 학교에 다군으로 지원하면 합격 확률을 높일 수도 있다. 이런 맥락에서 최적의 지원 전략은 미묘한 문제이며 한국 SNS에서 자주 발생하는 화젯거리이다.
 
 미국 입학 과정의 유사한 특징은 조기 전형(early decision)이라고 불린다. 이는 학생이 합격하면 진학한다고 약속하고 지원하는 것을 의미한다. 조기 전형으로 지원하면 입학할 관심을 시그널할 수 있으므로 합격 확률을 높일 수 있지만, 학교가 학생을 모집하려고 장학금을 수여할 동기가 약화할 수 있으므로 학생의 효용 추정이 달라진다.
 \fi
@@ -1975,6 +1990,8 @@ When such a dynamic program is implemented using a lookup table or dictionary me
 전민희. 2015. ``{[대입 수시 전략]} 총 6번의 기회 $\cdots$ `상향·소신·안정' 분산 지원하라.'' 중앙일보, 8월 26일. \url{https://www.joongang.co.kr/article/18524069}.\fi
 
 Acharya, Mohan S., Asfia Armaan, and Aneeta S. Antony. 2019. ``A Comparison of Regression Models for Prediction of Graduate Admissions.'' In \emph{Second International Conference on Computational Intelligence in Data Science.} \url{https://doi.org/10.1109/ICCIDS.2019.8862140}.
+
+Badanidiyuru, Ashwinkumar and Jan Vondrák. 2014. ``Fast Algorithms for Maximizing Submodular Functions.'' In \emph{Proceedings of the 2014 Annual ACM--SIAM Symposium on Discrete Algorithms}, 1497--1514. \url{https://doi.org/10.1137/1.9781611973402.110}.
 
 Balas, Egon and Eitan Zemel. 1980. ``An Algorithm for Large Zero-One Knapsack Problems.'' \emph{Operations Research} 28 (5): 1130--54. \url{https://doi.org/10.1287/opre.28.5.1130}. 
 
