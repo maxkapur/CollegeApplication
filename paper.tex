@@ -5,103 +5,33 @@
 % Change to false to export Korean
 
 \documentclass[11pt]{article} %try amsproc, amsart
-\usepackage{authblk}
-\usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
-\geometry{a4paper, margin=2.5cm}                   % ... or a4paper or a5paper or ... 
-% \geometry{landscape}                % Activate for for rotated page geometry
-\usepackage{graphicx}
-\usepackage{amssymb}
-\usepackage{amsmath}
-\usepackage{amsthm}
-\usepackage{setspace}
-\setstretch{1.1}
-
-\usepackage{hyperref}
-\hyperbaseurl{}
-\urlstyle{same}
-\usepackage[ruled,linesnumbered]{algorithm2e}
-\newcommand{\lIfElse}[3]{\lIf{#1}{#2 \textbf{else}~#3}}
-\providecommand{\keywords}[1]{\textbf{Keywords:\ } #1}
-
-\SetKwInOut{KwParams}{Parameters}
-
-%\usepackage{times}
-\usepackage{letltxmacro}
-\usepackage[shortlabels]{enumitem}
 \usepackage{kotex}
+\usepackage{geometry}       \geometry{a4paper, margin=2.5cm}  
+\usepackage{setspace}       \setstretch{1.1}
+\usepackage{hyperref}       \hyperbaseurl{}    
+                            \urlstyle{same}
+\usepackage[ruled,linesnumbered]{algorithm2e}   \SetKwInOut{KwParams}{Parameters}
+                                                \newcommand{\lIfElse}[3]{\lIf{#1}{#2 \textbf{else}~#3}}
+\usepackage{stackengine}    \newcommand\xrowht[2][0]{\addstackgap[.5\dimexpr#2\relax]{\vphantom{#1}}}
 \usepackage{fancyhdr}
-\DeclareMathOperator*{\argmax}{arg\,max}
-\DeclareMathOperator*{\argmin}{arg\,min}
+\usepackage{graphicx}
 
 
-\usepackage{stackengine}
-\newcommand\xrowht[2][0]{\addstackgap[.5\dimexpr#2\relax]{\vphantom{#1}}}
-
-
+% Author block
+\usepackage{authblk}        \providecommand{\keywords}[1]{\textbf{Keywords:\ } #1}
 \ifen
-{
-\newtheorem{theorem}{Theorem}
-\newtheorem{lemma}{Lemma}
-\newtheorem{corollary}{Corollary}
-\newtheorem{proposition}{Proposition}
-\theoremstyle{definition}
-\newtheorem{example}{Example}
-\newtheorem{definition}{Definition}
-\newtheorem{problem}{Problem}
-\newtheorem{assumption}{Assumption}
-\newtheorem{conjecture}{Conjecture}
-}
-\else {
-\newtheorem{theorem}{정리}
-\newtheorem{lemma}{기본정리}
-\newtheorem{corollary}{따름정리}
-\newtheorem{proposition}{제의}
-\theoremstyle{definition}
-\newtheorem{example}{예}
-\newtheorem{definition}{정의}
-\newtheorem{problem}{문제}
-\newtheorem{assumption}{가정}
-\newtheorem{conjecture}{추측}
-}
-\fi
-
-\ifen {} \else
-\renewcommand*{\proofname}{증명\@} 
-\renewcommand{\figurename}{그림}
-\renewcommand{\tablename}{표}
-\fi
-
-
-%\numberwithin{equation}{section}
-%\numberwithin{theorem}{section}
-%\numberwithin{lemma}{section}
-%\numberwithin{corollary}{section}
-%\numberwithin{proposition}{section}
-%\numberwithin{example}{section}
-%\numberwithin{definition}{section}
-%\numberwithin{problem}{section}
-%\numberwithin{assumption}{section}
-%\numberwithin{conjecture}{section}
-
-
-
-\ifen
-\newcommand{\thetitle}{The College Application Problem}
-\newcommand{\therunningtitle}{\thetitle}
-\newcommand{\thedate}{\today}
-\newcommand{\theauthor}{Max Kapur}
-\newcommand{\theotherauthor}{Sung-Pil Hong}
-
+    \newcommand{\thetitle}{The College Application Problem}
+    \newcommand{\therunningtitle}{\thetitle}
+    \newcommand{\thedate}{\today}
+    \newcommand{\theauthor}{Max Kapur}
+    \newcommand{\theotherauthor}{Sung-Pil Hong}
 \else
-\newcommand{\thetitle}{대학 지원 최적화 문제}
-\newcommand{\therunningtitle}{\thetitle}
-\newcommand{\thedate}{\today}
-\newcommand{\theauthor}{Max Kapur}
-\newcommand{\theotherauthor}{홍성필}
-
+    \newcommand{\thetitle}{대학 지원 최적화 문제}
+    \newcommand{\therunningtitle}{\thetitle}
+    \newcommand{\thedate}{\today}
+    \newcommand{\theauthor}{Max Kapur}
+    \newcommand{\theotherauthor}{홍성필}
 \fi
-
-
 
 \title{\thetitle}
 \author{\theauthor}
@@ -120,6 +50,8 @@ Correspondence: \url{maxkapur@gmail.com}}
 교신: \url{maxkapur@gmail.com}}
 \fi
 
+
+% Header and footer
 \pagestyle{fancy}
 \renewcommand{\headrulewidth}{0pt}
 \fancyhf{}
@@ -127,6 +59,61 @@ Correspondence: \url{maxkapur@gmail.com}}
 \chead{\thedate}
 \rhead{\thetitle}
 \cfoot{\thepage}
+
+
+% Math
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\ifen
+    \newtheorem{theorem}{Theorem}
+    \newtheorem{lemma}{Lemma}
+    \newtheorem{corollary}{Corollary}
+    \newtheorem{proposition}{Proposition}
+    \theoremstyle{definition}
+    \newtheorem{example}{Example}
+    \newtheorem{definition}{Definition}
+    \newtheorem{problem}{Problem}
+    \newtheorem{assumption}{Assumption}
+    \newtheorem{conjecture}{Conjecture}
+\else
+    \newtheorem{theorem}{정리}
+    \newtheorem{lemma}{기본정리}
+    \newtheorem{corollary}{따름정리}
+    \newtheorem{proposition}{제의}
+    \theoremstyle{definition}
+    \newtheorem{example}{예}
+    \newtheorem{definition}{정의}
+    \newtheorem{problem}{문제}
+    \newtheorem{assumption}{가정}
+    \newtheorem{conjecture}{추측}
+\fi
+
+\ifen\else
+    \renewcommand*{\proofname}{증명\@} 
+    \renewcommand{\figurename}{그림}
+    \renewcommand{\tablename}{표}
+\fi
+
+%\numberwithin{equation}{section}
+%\numberwithin{theorem}{section}
+%\numberwithin{lemma}{section}
+%\numberwithin{corollary}{section}
+%\numberwithin{proposition}{section}
+%\numberwithin{example}{section}
+%\numberwithin{definition}{section}
+%\numberwithin{problem}{section}
+%\numberwithin{assumption}{section}
+%\numberwithin{conjecture}{section}
+
+% Unused (I think)
+%\usepackage{times}
+%\usepackage{letltxmacro}
+%\usepackage[shortlabels]{enumitem}
 
 
 \begin{document}
@@ -137,16 +124,11 @@ Correspondence: \url{maxkapur@gmail.com}}
 \begin{abstract}
 This paper considers the maximization of the expected maximum value of a portfolio of random variables subject to a budget constraint. We refer to this as the optimal college application problem. When each variable's cost, or each college's application fee, is identical, we show that the optimal portfolios are nested in the budget constraint, yielding an exact polynomial-time algorithm. When colleges differ in their application fees, we show that the problem is NP-complete. We provide four algorithms for this more general setup: a branch-and-bound routine, a dynamic program that produces an exact solution in pseudopolynomial time, a different dynamic program that yields a fully polynomial-time approximation scheme, and a simulated-annealing heuristic. Numerical experiments demonstrate the algorithms' accuracy and efficiency. 
 
-
-
-
 \begin{keywords}
 submodular maximization, knapsack problems, approximation algorithms
 \end{keywords}
 
-
-\ifen
-\else The full text of this paper is available in English at \url{https://github.com/maxkapur/CollegeApplication}.\fi
+\ifen\else The full text of this paper is available in English at \url{https://github.com/maxkapur/CollegeApplication}.\fi
 \end{abstract}
 
 
@@ -197,11 +179,11 @@ The college application problem is not solely of theoretical interest. Due to th
 
 
 \ifen \subsection{Methodological orientation} \else \subsection{방법록적 지향} \fi
-%\ifen
+\ifen
 The college application problem straddles several methodological universes. Its stochastic nature recalls classical portfolio allocation models. However, the knapsack constraint renders the problem NP-complete, and necessitates combinatorial solution techniques. We also observe that the objective function is also a submodular set function, although our approximation results suggest that college application is a relatively easy instance of submodular maximization.
-%\else
-%대학 지원 문제는 몇 개의 방법론적인 우주를 걸친다. 확률적인 문제인 만큼 재정학 분야... % .....
-%\fi
+\else
+대학 지원 문제는 다양한 방법론적인 우주를 걸치는 문제이다.  확률적인 문제인 만큼 재정학 분야에 뿌리를 가지는 포트폴리오 배분 모형과 비슷하다. 그러나 배낭 제약 조건은 대학 지원 문제를 NP-complete하게 만들며 조합적인 해법이 필요하다. 목적함수는 또한 submodular 집합 함수이지만, 본 연구가 제시하는 근사 해법 결과는 대학 지원 문제가 일반 submodular 함수 최대화 문제의 비교적 쉬운 경우임으로 해석할 수 있다.
+\fi
 
 % reword this sentence for a better transition
 \ifen
@@ -255,7 +237,7 @@ In the conclusion, we identify possible improvements to our solution algorithms 
  
 \ref{homogappcosts}절에서 각 $g_j = 1$이고 $H$가 $h \leq m$이고 자연수인 특수한 경우를 고려한다. 직관적인 휴리스틱 해법이 실제로 $1/h$-근사 해법임을 증명한다. 그다음에 최적 포트폴리오의 예산 제약에 대한 포함 사슬 관계를 보이고 이를 이용하여 $O(hm)$-시간 정확한 해법을 도출한다. 
 
-\ref{hetappcosts}절에서 각 학교의 지원 비용이 동일하지 않은 일반적인 상황을 다룬다. 이진 배낭 문제에서의 다항 변환을 통하여 포트폴리오 최적화 문제가 NP-complete함을 증명한다. 또한 3개의 일반적인 해법을 제안한다. 첫째는 분지한계법이다. 둘째는 총 지출액으로 탐색하는 $O(Hm + m \log m)$과 같은 의사 다항 시간 동적 계획 해법이다. 셋째는 실수값을 분수값으로 내림한 포트폴리오 가치를 탐색하는 또다른 동적 계획 해법이다. 이를 통하여 $O(m^3 / \varepsilon)$-시간 안에 $(1 - \varepsilon)$-근사해를 출력하는 완전 다항 시간 근사 해법(fully polynomial-time approximation scheme)을 얻는다. 넷째는 가상 인스턴스를 푸는 성능이 좋은 모의 담금질 기반 휴리스틱 알고리즘이다. 
+\ref{hetappcosts}절에서 각 학교의 지원 비용이 동일하지 않은 일반적인 상황을 다룬다. 이진 배낭 문제에서의 다항 변환을 통하여 포트폴리오 최적화 문제가 NP-complete함을 증명한다. 또한 3개의 일반적인 해법을 제안한다. 첫째는 분지한계법이다. 둘째는 총 지출액으로 탐색하는 $O(Hm + m \log m)$과 같은 의사 다항 시간 동적 계획 해법이다. 셋째는 실수값을 분수값으로 내림한 포트폴리오 가치를 탐색하는 또다른 동적 계획 해법이다. 이를 통하여 $O(m^3 / \varepsilon)$-시간 안에 $(1 - \varepsilon)$-근사해를 출력하는 FPTAS를 얻는다. 넷째는 가상 인스턴스를 푸는 성능이 좋은 모의 담금질(simulated annealing) 기반 휴리스틱 알고리즘이다.
 
 \ref{numericalexperiments}절에서 위에서 도출한 타당성과 계산 복잡성을 확인하는 계산 실험 결과를 정리한다. 모의 담금질 휴리스틱의 정확도도 탐구한다.
 
