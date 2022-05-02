@@ -1,10 +1,10 @@
 %!TEX encoding = UTF-8 Unicode 
 
-\newif\ifen\enfalse 
+\newif\ifen\enfalse
 % Language selector; must be on line 3
 % Change to false to export Korean
 
-\documentclass[10pt,slidestop,compress,mathserif,notheorems]{beamer}
+\documentclass[11pt,slidestop,compress,mathserif,notheorems]{beamer}
 \usetheme{CambridgeUS}
 \setbeamercovered{transparent}
 \usepackage[parfill]{parskip}
@@ -35,11 +35,6 @@
 
 \usepackage{stackengine}
 \newcommand\xrowht[2][0]{\addstackgap[.5\dimexpr#2\relax]{\vphantom{#1}}}
-
-
-% Language selector
-\newif\ifen
-\enfalse % Change to false to export Korean
 
 
 
@@ -88,6 +83,26 @@ cm \hskip 0.2 cm \vrule height 0.2 cm}\hrule}\,}
   \mathrel{{\ooalign{\hidewidth$\not\phantom{=}$\hidewidth\cr$\implies$}}}}
 
 
+
+
+
+\ifen 
+\title{The College Application Problem}
+\author{Max Kapur and Sung-Pil Hong}
+\institute{Seoul National University\\
+Department of Industrial Engineering \\
+Management Science/Optimization Lab}
+\date{\today}
+\else
+\title[대학 지원 최적화 문제]{대학 지원 최적화 문제}
+\author{Max Kapur \& 홍성필}
+\institute{서울대학교\\
+산업공학과 \\
+경영과학/최적화 연구실}
+\date{\today}
+\fi
+
+
 \beamertemplatenavigationsymbolsempty
 
 \definecolor{teal}{HTML}{008080}
@@ -114,16 +129,16 @@ cm \hskip 0.2 cm \vrule height 0.2 cm}\hrule}\,}
 \setbeamercolor{example text}{fg=black}
 
 \setbeamercolor{palette primary}{fg=black, bg=beige}
-\setbeamercolor{palette secondary}{fg=black, bg=beige}
+%%\setbeamercolor{palette secondary}{fg=black, bg=beige}
 \setbeamercolor{palette tertiary}{fg=white, bg=palettetertiary}
 
 \setbeamercolor{frametitle}{fg=black, bg=azure}
 \setbeamercolor{title}{fg=black, bg=azure}
 
-\setbeamertemplate{items}[circle]
+\setbeamertemplate{items}[square]
 \setbeamercolor*{item}{fg=palettetertiary}
-\beamertemplateshadingbackground{white}{white}
-\setbeamertemplate{caption}[numbered]
+%\beamertemplateshadingbackground{white}{white}
+%\setbeamertemplate{caption}[numbered]
 \setbeamertemplate{headline}{}
 
 
@@ -133,21 +148,24 @@ cm \hskip 0.2 cm \vrule height 0.2 cm}\hrule}\,}
   \leavevmode%
   \hbox{%
   \begin{beamercolorbox}[wd=.25\paperwidth,ht=2.65ex,dp=1.2ex,left]{author in head/foot}%
-  \hspace*{1.5ex}\insertshortauthor, \insertdate
+  \hspace*{1.5ex}\insertshortauthor
   \end{beamercolorbox}%
-  \begin{beamercolorbox}[wd=.15\paperwidth,ht=2.65ex,dp=1.2ex,left]{date in head/foot}%
+  \begin{beamercolorbox}[wd=.27\paperwidth,ht=2.65ex,dp=1.2ex,left]{date in head/foot}%
   \hspace*{1ex}
     \ifnum \theframenumber=1{}
     \else \insertshorttitle%~\textbar~\insertsectionhead
     \fi
      \end{beamercolorbox}%
-  \begin{beamercolorbox}[wd=.35\paperwidth,ht=2.65ex,dp=1.2ex,right]{date in head/foot}%
+  \begin{beamercolorbox}[wd=.23\paperwidth,ht=2.65ex,dp=1.2ex,right]{date in head/foot}%
     \ifnum \theframenumber=1{}
     \else \insertsectionhead
     \fi
   \hspace*{2ex}
      \end{beamercolorbox}%
-  \begin{beamercolorbox}[wd=.25\paperwidth,ht=2.65ex,dp=1.2ex,right]{author in head/foot}%
+       \begin{beamercolorbox}[wd=.15\paperwidth,ht=2.65ex,dp=1.2ex,left]{author in head/foot}%
+  \hspace*{1.5ex}\insertdate
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.1\paperwidth,ht=2.65ex,dp=1.2ex,right]{author in head/foot}%
     \insertframenumber{} / \inserttotalframenumber
     \hspace*{1.5ex}
   \end{beamercolorbox}
@@ -164,23 +182,11 @@ cm \hskip 0.2 cm \vrule height 0.2 cm}\hrule}\,}
 \makeatother
 \setbeamertemplate{theorems}[numbered]
 
-\begin{document}
 
-\ifen 
-\title[College Application]{The College Application Problem}
-\author{Max Kapur and Sung-Pil Hong}
-\institute{Seoul National University\\
-Department of Industrial Engineering \\
-Management Science/Optimization Lab}
-\date{\today}
-\else
-\title[대학 지원 최적화 문제]{대학 지원 최적화 문제}
-\author{Max Kapur \& 홍성필}
-\institute{서울대학교\\
-산업공학과 \\
-경영과학/최적화 연구실}
-\date{\today}
-\fi
+
+
+
+\begin{document}
 
 
 \begin{frame}
@@ -190,12 +196,669 @@ Management Science/Optimization Lab}
 
 
 
-\section{\ifen Introduction\else 서론 \fi}
+
+\ifen \section{Introduction} \else \section{서론} \fi
+
+
+
+
+
+
+
+\ifen {
+\begin{frame}{Introduction}
+The optimal college application problem is a \textbf{novel combinatorial optimization problem}.
+
+\textbf{Maximize the expected maximum} of a portfolio of random variables subject to a budget constraint.
+
+Today's agenda:
+\begin{itemize}
+\item \textbf{Formulate} college application as an optimization problem.
+\item The \textbf{status quo} in admissions consulting, and why common heuristics fall short.
+\item Our theoretical results, \textbf{solution algorithms}, and Julia implementation.
+\end{itemize}
+
+\textbf{Proofs and additional results} in our arXiv paper (Kapur and Hong 2022). 
+\end{frame}
+} \else {
+\begin{frame}{서론}
+대학 지원 최적화 문제란 \textbf{새로운 조합 최적화 문제}이다.
+
+예산 제약 조선 하에서, 다수 확률 변수로 이뤄진 포트폴리오의 \textbf{기대 최댓값을 최대화한다}.
+
+발표 요약:
+\begin{itemize}
+\item 대학 지원 전략을 최적화 문제로 \textbf{모형화}.
+\item \textbf{현재 상황}: 입학 컨설팅 산업에서 흔히 사용하는 휴리스틱의 부족함.
+\item 본 연구가 제시하는 \textbf{이론적 결과, 해법, 알고리즘 구현}.
+\end{itemize}
+\end{frame}
+} \fi
+
+
+
+
+
+
+
+
+
+\ifen {
+\begin{frame}{Methodological orientation}
+College application spans several areas of combinatorial optimization:
+
+\begin{itemize}
+\item Investment with uncertain payoff, search for the efficient frontier recall \textbf{portfolio allocation} models. 
+\item Generalizes the \textbf{knapsack problem}: Integral packing constraint, NP-completeness.
+\item Objective is a \textbf{submodular set function}, but approximation results suggest college application is a relatively easy instance. 
+\end{itemize}
+\end{frame}
+} \else {
+\begin{frame}{방법론적 지향}
+대학 지원 전략은 조합 최적화 중 여러 분야를 걸친다.
+
+\begin{itemize}
+\item 불확실한 성과, 효율적 투자선이 존재하는 일종의 \textbf{포트폴리오 배분} 모형. 
+\item \textbf{배낭 문제}의 일반화: 정수 패킹 제약식, NP-completeness.
+\item 목적함수는 \textbf{submodular 집합 함수}이며, 근사 해법 결과에 따라 대학 지원 문제가 submodular 최적화의 비교적 쉬운 인스턴스로 해석할 수 있다.
+\end{itemize}
+\end{frame}
+
+} \fi
+
+
+
+
+
+
+
+\ifen \section{Model} \else \section{모형} \fi
+
+\ifen {
+\begin{frame}[plain]
+  \vfill
+\begin{center}
+~
+\begin{beamercolorbox}[wd=.5\textwidth,sep=8pt,center,shadow=false,rounded=true]{section in head/foot}
+    \usebeamerfont{title} \insertsectionhead
+  \end{beamercolorbox}
+~
+\end{center}
+\end{frame}
+} \else {
+\begin{frame}[plain]
+  \vfill
+\begin{center}
+~
+\begin{beamercolorbox}[wd=.5\textwidth,sep=8pt,center,shadow=false,rounded=true]{section in head/foot}
+    \usebeamerfont{title} \insertsectionhead
+  \end{beamercolorbox}
+~
+\end{center}
+\end{frame}
+} \fi
+
+
+
+
+
+
+
+
+
+
+
+
+\ifen {
+\begin{frame}{The admissions process}
+Consider a \textbf{single student's} college application decision.
+
+Market contains $m$ \textbf{schools}, indexed by $\mathcal{C} = \{ 1\dots m\}$. School $j$ is named $c_j$.
+
+Given a student's academic records, test scores, and demographic information, we can estimate her \textbf{admissions probability} $f_j$ at each school.
+
+Let the \textbf{random variable} $Z_j \sim \operatorname{Bernoulli}(f_j) = 1$ if student is admitted, $0$ otherwise. Assume independent.
+
+Let $\mathcal{X} \subseteq \mathcal{C}$ denote the set of schools, or \textbf{application portfolio}, to which a student applies.
+
+Application fees, time to write essays, and/or legal limits \textbf{constrain} applicant behavior. We consider a single knapsack constraint $\sum_{j\in \mathcal{X}} g_j \leq H$ where $g_j$ is called $c_j$'s \textbf{application cost}. 
+\end{frame}
+} \else {
+\begin{frame}{입학 과정}
+단 \textbf{한 학생}의 의사결정에 집중하자.
+
+시장은 $m$개의 \textbf{대학교}를 포함하며, 그의 지표 집합은 $\mathcal{C} = \{ 1\dots m\}$. $j$번째 학교의 이름은 $c_j$.
+
+학생의 내신, 수능 점수, 기본 정보가 주어지면 각 학교의 \textbf{합격 확률} $f_j$를 추정할 수 있다.
+
+\textbf{확률 변수} $Z_j \sim \operatorname{Bernoulli}(f_j)$는 학생이 합격하면 $1$, 아니면 $0$이다. 독립하다고 가정.
+
+학생이 지원하는 학교의 집합 $\mathcal{X} \subseteq \mathcal{C}$를 \textbf{지원 포트폴리오}라고 부른다.
+
+지원 수수료, 원서를 작성하는 시간, 또는 나라 정책에 따라 지원 행동이 \textbf{제한}된다. 본 논문은 단일 배낭 제약식 $\sum_{j\in \mathcal{X}} g_j \leq H$를 고려하며, 이때 $g_j$는 $c_j$의 \textbf{지원 비용}이라고 부른다. 
+\end{frame}
+} \fi
+
+
+
+
+
+
+\ifen {
+\begin{frame}{Utility model}
+Let $t_j \geq 0$ denote the \textbf{utility} the student receives if she attends $c_j$. Wlog, $t_j \leq t_{j+1}$.
+
+Let $t_0$ denote her utility if she doesn't get into college. Wlog, $t_0 =0$ (see paper).
+
+The student's overall utility is the $t_j$-value associated with the \textbf{best} school she gets into:
+\[\text{Utility} =\max\bigr\{t_0, \max\{t_j Z_j : j \in \mathcal{X}\}\bigr\}\]
+
+When the student's application portfolio is $\mathcal{X}$, we refer to her expected utility as the portfolio's \textbf{valuation} $v(\mathcal{X})$. 
+\end{frame}
+} \else {
+\begin{frame}{효용 모형}
+$c_j$에 다니면 $t_j \geq 0$ 단위의 \textbf{효용}이 발생한다. Wlog, $t_j \leq t_{j+1}$.
+
+어떤 대학에도 합격 안 하면 효용이 $t_0$이며, wlog $t_0 =0$임을 가정할 수 있다 (논문 참고).
+
+학생의 전체 효용은 그가 합격하는 \textbf{가장 좋은} 학교의 $t_j$-값:
+\[\text{효용} =\max\bigr\{t_0, \max\{t_j Z_j : j \in \mathcal{X}\}\bigr\}\]
+
+지원 포트폴리오가 $\mathcal{X}$일 때, 기대 효용을 $\mathcal{X}$의 \textbf{가치}라고 부르며 $v(\mathcal{X})$처럼 표기한다.
+\end{frame}
+} \fi
+
+
+
+
+
+
+\ifen {
+\begin{frame}{Unpacking the portfolio valuation function}
+To get $v(\mathcal{X})$ into a tractable form, let $p_j(\mathcal{X})$ denote the probability that the student \textbf{attends} $c_j$.
+
+This happens if and only if she \textbf{applies} to $c_j$, is \textbf{admitted} to $c_j$, and is \textbf{not admitted} to any school she prefers to $c_j$:
+\begin{align*}
+p_j(\mathcal{X}) &= 
+\begin{cases}
+\displaystyle f_j  \prod_{\substack{i \in \mathcal{X}: \\ i > j}} (1 - f_{i}), \quad & j \in \{0\}\cup\mathcal{X}\\
+0, \quad & \text{otherwise.}
+\end{cases} 
+\end{align*}
+
+Therefore, 
+\begin{align*}
+v(\mathcal{X})
+%&= \operatorname{E}\Bigl[\max\bigr\{t_0, \max\{t_j Z_j : j \in \mathcal{X}\}\bigr\}\Bigr] \\
+&= \sum_{j=1}^m t_j p_j(\mathcal{X}) = \sum_{j\in \mathcal{X}} \Bigl( f_j t_j \prod_{\substack{i \in \mathcal{X}: \\ i > j}} (1 - f_{i}) \Bigr).  \label{closedformportfoliovaluationX}
+\end{align*}
+
+\end{frame}
+} \else {
+\begin{frame}{포트폴리오 가치의 함수 형태}
+$v(\mathcal{X})$를 함수로 표현하기 위해, 학생이 $c_j$에 \textbf{진학하는} 확률을 $p_j(\mathcal{X})$라고 하자.
+
+$c_j$에 진학하는 조견은 $c_j$에 \textbf{지원}하고, \textbf{합격}하고, $c_j$보다 선호하는 학교에 \textbf{합격하지 않는} 것이다:
+\begin{align*}
+p_j(\mathcal{X}) &= 
+\begin{cases}
+\displaystyle f_j  \prod_{\substack{i \in \mathcal{X}: \\ i > j}} (1 - f_{i}), \quad & j \in \{0\}\cup\mathcal{X}\\
+0, \quad & \text{그러지 않은 경우.}
+\end{cases} 
+\end{align*}
+
+따라서
+\begin{align*}
+v(\mathcal{X})
+%&= \operatorname{E}\Bigl[\max\bigr\{t_0, \max\{t_j Z_j : j \in \mathcal{X}\}\bigr\}\Bigr] \\
+&= \sum_{j=1}^m t_j p_j(\mathcal{X}) = \sum_{j\in \mathcal{X}} \Bigl( f_j t_j \prod_{\substack{i \in \mathcal{X}: \\ i > j}} (1 - f_{i}) \Bigr).  \label{closedformportfoliovaluationX}
+\end{align*}
+
+\end{frame}
+} \fi
+
+
+
+
+
+
+
+\ifen {
+\begin{frame}{Problem statement}
+\begin{problem}[The college application problem]
+\vspace{-1em}
+\begin{align*}
+\begin{split}
+\text{maximize}\quad &  v(\mathcal{X}) = \sum_{j\in \mathcal{X}} \Bigl(f_j t_j \prod_{\substack{i \in \mathcal{X}: \\ i > j}} (1 - f_{i}) \Bigr)\\
+\text{subject to}\quad & \mathcal{X}\subseteq\mathcal{C}, \quad\sum_{j \in \mathcal{X}} g_j \leq H 
+\end{split}
+\end{align*}
+\end{problem}
+
+\begin{problem}[The college application problem, INLP form]% \label{integernlp}
+\vspace{-1em}
+\begin{align*}
+\begin{split}
+\text{maximize}\quad &  v(x) = \sum_{j=1}^m \Bigl(f_j t_j  x_j \prod_{i > j} (1 - f_{i} x_i) \Bigr)\\
+\text{subject to}\quad & x_j \in \{0, 1\}, j \in \mathcal{C}; \quad \sum_{j=1}^m g_j x_j \leq H
+\end{split}
+\end{align*}
+\end{problem}
+\end{frame}
+} \else {
+\begin{frame}{문제 정의}
+\begin{problem}[대학 지원 최적화 문제]
+\vspace{-1em}
+\begin{align*}
+\begin{split}
+\text{maximize}\quad &  v(\mathcal{X}) = \sum_{j\in \mathcal{X}} \Bigl(f_j t_j \prod_{\substack{i \in \mathcal{X}: \\ i > j}} (1 - f_{i}) \Bigr)\\
+\text{subject to}\quad & \mathcal{X}\subseteq\mathcal{C}, \quad\sum_{j \in \mathcal{X}} g_j \leq H 
+\end{split}
+\end{align*}
+\end{problem}
+
+\begin{problem}[대학 지원 최적화 문제, 정수 비선형 계획 모형]% \label{integernlp}
+\vspace{-1em}
+\begin{align*}
+\begin{split}
+\text{maximize}\quad &  v(x) = \sum_{j=1}^m \Bigl(f_j t_j  x_j \prod_{i > j} (1 - f_{i} x_i) \Bigr)\\
+\text{subject to}\quad & x_j \in \{0, 1\}, j \in \mathcal{C}; \quad \sum_{j=1}^m g_j x_j \leq H
+\end{split}
+\end{align*}
+\end{problem}
+\end{frame}
+} \fi
+
+
+
+
+
+
+
+
+\ifen \section{The status quo} \else \section{기존의 해법} \fi
+
+\ifen {
+\begin{frame}[plain]
+  \vfill
+\begin{center}
+~
+\begin{beamercolorbox}[wd=.5\textwidth,sep=8pt,center,shadow=false,rounded=true]{section in head/foot}
+    \usebeamerfont{title} \insertsectionhead
+  \end{beamercolorbox}
+\end{center}
+\end{frame}
+} \else {
+\begin{frame}[plain]
+  \vfill
+\begin{center}
+~
+\begin{beamercolorbox}[wd=.5\textwidth,sep=8pt,center,shadow=false,rounded=true]{section in head/foot}
+    \usebeamerfont{title} \insertsectionhead
+  \end{beamercolorbox}
+\end{center}
+\end{frame}
+} \fi
+
+
+
+
+
+
+
+\begin{frame}[plain]%{Safety, target, and reach schools}
+\vfill 
+
+\begin{center}
+\includegraphics[width=\textwidth]{plots/news-both.png}
+
+\ifen Can we trust the admissions consultant's advice?
+\else 입학 컨설턴트의 조언, 믿을 만하는가? \fi
+\end{center}
+
+\end{frame}
+
+
+
+
+
+
+
+
+
+\begin{frame}[plain]{}
+\begin{center}
+\includegraphics[height=\textheight]{plots/samplemarket.pdf}
+\end{center}
+\end{frame}
+
+
+
+
+
+\begin{frame}[plain]{}
+\begin{center}
+\includegraphics[height=\textheight]{plots/samplemarket-soln.pdf}
+\end{center}
+\end{frame}
+
+
+
+
+
+
+
+\begin{frame}{Existing solutions}
+
+In practice, most use \textbf{distributive heuristics} such as distributing applications evenly among attractive, selective ``reach schools'' and less-attractive ``safety schools.'' Turns out to be a \textbf{risk-averse} approach.
+
+Another intuitive idea is the \textbf{linearization heuristic}. Since the expected utility associated with applying to $c_j$ (alone) is $f_j t_j$, solve the knapsack problem
+\[\text{maximize}~~\sum_{j\in \mathcal{X}} f_j t_j \qquad \text{subject to}~~\sum_{j\in \mathcal{X}}g_j \leq H \]
+as a surrogate. But this solution can be \textbf{arbitrarily bad}. 
+
+Fu (2014) solved a similar problem by \textbf{enumeration}, which is intractable for $m \geq 20$ or so.
+
+Our algorithms provide both \textbf{time and accuracy guarantees}. 
+
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\ifen \section{Our algorithms} \else \section{제시 알고리즘} \fi
+
+\ifen {
+\begin{frame}[plain]
+  \vfill
+\begin{center}
+~
+\begin{beamercolorbox}[wd=.5\textwidth,sep=8pt,center,shadow=false,rounded=true]{section in head/foot}
+    \usebeamerfont{title} \insertsectionhead
+  \end{beamercolorbox}
+\end{center}
+\end{frame}
+} \else {
+\begin{frame}[plain]
+  \vfill
+\begin{center}
+~
+\begin{beamercolorbox}[wd=.5\textwidth,sep=8pt,center,shadow=false,rounded=true]{section in head/foot}
+    \usebeamerfont{title} \insertsectionhead
+  \end{beamercolorbox}
+\end{center}
+\end{frame}
+} \fi
+
+
+
+
+
+
+
+
+\ifen {
+\begin{frame}{Homogeneous costs: A polynomially solvable case}
+We first consider the \textbf{special case} in which each $g_j = 1$ and $H$ is simply $h \leq m$, a limit on the number of schools you can apply to.
+
+This case mirrors the main Korean admissions cycle, in which $h = 3, m= 202$. 
+
+We show that when $\mathcal{X}_h$ is the optimal portfolio at $h$, $\mathcal{X}_{h} \subset \mathcal{X}_{h+1}$. This \textbf{nestedness property} implies the optimality of a \textbf{greedy algorithm} that adds schools one at a time, maximizing $v(\mathcal{X})$ at each addition.
+
+Using a variable-elimination technique, we reduce the cost of computing $v(\mathcal{X})$ to amortized unit time, obtaining an $O(hm)$ algorithm. Our Julia implementation (Kapur 2022) solves an $m = 16384$ instance in 200 ms.
+
+Strengthens the result of Fisher et al. (1978). 
+\end{frame}
+} \else {
+\begin{frame}{다항 시간에 풀 수 있는 동일한 지원 비용의 경우}
+먼저 모든 $g_j = 1$이며 $H$는 단순한 지원 개수 제한 $h \leq m$이 되는 \textbf{특수한 경우}를 고려하자. 
+
+이것은 $h = 3, m= 202$인 한국 정시 입학 과정과 비슷한 상황이다.
+
+지원 제한 $h$에 대응되는 최적 포트폴리오가 $\mathcal{X}_h$일 때, $\mathcal{X}_{h} \subset \mathcal{X}_{h+1}$을 증명할 수 있다. 이러한 \textbf{포함 사슬 관계 (nestedness)} 성질은 $v(\mathcal{X})$를 최대화하는 순서대로 학교를 하나씩 추가하는 \textbf{탐욕 해법}의 최적성을 의미한다.
+
+변수 소거 기법은 개발하여 $v(\mathcal{X})$를 계산하는 시간을 환산 단위 시간을 줄임으로 $O(hm)$ 해법을 얻을 수 있다. 쥴리아 코드(Kapur 2022)를 사용하면 $m = 16384$인 인스턴스를 200 ms에 풀 수 있다.
+
+Fisher et al. (1978)에 결과를 강화한다.
+\end{frame}
+} \fi
+
+
+
+
+
+
+
+
+
+
+\ifen {
+\begin{frame}{A small example}
+College data and optimal application portfolios for a fictional market with $m=8$ schools.
+\vspace{-1em}
+\begin{center}
+\begin{tabular}{r|lcccc}
+\textbf{$j$} & \textbf{School $c_j$} & \textbf{Admit prob. $f_j$} & \textbf{Utility $t_j$} & \textbf{Priority} & \textbf{$v(\mathcal{X}_h)$} \\ \hline
+\\[-.75em]
+1 & Mercury University  & 0.39   & 200 & 4   & 230.0   \\
+2 & Venus University    & 0.33   & 250 & 2   & 146.7  \\
+3 & Mars University     & 0.24   & 300 & 6   & 281.5  \\
+4 & Jupiter University  & 0.24   & 350 & 1   & \phantom{0}84.0  \\
+5 & Saturn University   & 0.05   & 400 & 7   & 288.8  \\
+6 & Uranus University   & 0.03   & 450 & 8   & 294.1  \\
+7 & Neptune University  & 0.10   & 500 & 5   & 257.7  \\
+8 & Pluto College       & 0.12   & 550 & 3   & 195.1      
+\end{tabular}
+\end{center}
+By the nestedness property, the optimal portfolio when the application limit is $h$ consists of the $h$ schools having priority $h$ or less.
+
+Valuation function appears on next slide. Always concave.
+\end{frame}
+} \else {
+\begin{frame}{작은 예제}
+$m=8$개의 학교로 이루어진 가상 입학 시장의 대학교 자료와 최적 지원 포트폴리오.
+\begin{center}
+\begin{tabular}{r|lcccc}
+\textbf{지표 $j$} & \textbf{학교 $c_j$} & \textbf{합격 확률 $f_j$} & \textbf{효용 $t_j$}  & \textbf{지원 순위} & \textbf{$v(\mathcal{X}_h)$} \\ \hline
+\\[-.75em]
+1 & 수성대   & 0.39   & 200 & 4   & 230.0   \\
+2 & 금성대   & 0.33   & 250 & 2   & 146.7  \\
+3 & 화성대   & 0.24   & 300 & 6   & 281.5  \\
+4 & 목성대   & 0.24   & 350 & 1   & \phantom{0}84.0  \\
+5 & 토성대   & 0.05   & 400 & 7   & 288.8  \\
+6 & 천왕성대  & 0.03   & 450 & 8   & 294.1  \\
+7 & 해왕성대  & 0.10   & 500 & 5   & 257.7  \\
+8 & 명왕성대  & 0.12   & 550 & 3   & 195.1      
+\end{tabular}
+\end{center}
+포함 사슬 관계 성질에 따라, 지원 제한이 $h$일 때 최적 포트폴리오는 지원 순위가 $h$ 이하인 $h$개의 학교로 구성된다.
+\end{frame}
+} \fi
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{frame}[plain]
+\begin{center}
+ \includegraphics[height=\textheight]{./plots/h_v-example.pdf}
+\end{center}
+\end{frame}
+
+
+
+
+
+
+
+\begin{frame}{Algorithms for the general problem}
+The general problem is \textbf{NP-complete} (reduction from knapsack). We offer four algorithms:
+\begin{itemize}
+\item A linear relaxation and \textbf{branch-and-bound scheme}. Primarily of theoretical interest.
+
+\item A \textbf{dynamic program based on total expenditures}. Exact solution in $O(Hm + m\log m)$ time (pseudopolynomial). Very fast for ``typical'' instances in which $g_j$ are small integers.
+
+\item A different DP based on truncated portfolio valuations. $(1 - \varepsilon)$-optimal solution in $O(m^3 / \varepsilon)$ time: an \textbf{FPTAS}!
+\item A \textbf{simulated annealing heuristic}. Fast, typically within 2\% of optimality.
+\end{itemize}
+
+Existence of FPTAS suggests college application is \textbf{a relatively easy instance of submodular maximization} (cf. Kulik et al. 2013).
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+\ifen \section{Conclusion} \else \section{결론} \fi
+
+\ifen {
+\begin{frame}[plain]
+  \vfill
+\begin{center}
+~
+\begin{beamercolorbox}[wd=.5\textwidth,sep=8pt,center,shadow=false,rounded=true]{section in head/foot}
+    \usebeamerfont{title} \insertsectionhead
+  \end{beamercolorbox}
+\end{center}
+\end{frame}
+} \else {
+\begin{frame}[plain]
+  \vfill
+\begin{center}
+~
+\begin{beamercolorbox}[wd=.5\textwidth,sep=8pt,center,shadow=false,rounded=true]{section in head/foot}
+    \usebeamerfont{title} \insertsectionhead
+  \end{beamercolorbox}
+\end{center}
+\end{frame}
+} \fi
+
+
+
+
+
+
+\begin{frame}{Conclusion}
+``Maximax form,'' integrality constraints make the college application problem \textbf{theoretically interesting}. Formally, it is a submodular maximization problem, but its approximability is more like knapsack.
+
+The nestedness result for the $g_j = 1$ special case also resembles the knapsack problem, although the proof is more subtle. 
+
+Solutions to the college application problem have \textbf{practical value}: US admissions consultants charge an average of \$200/hr! ⇒ open-sourcing our code is in the public interest.
+
+Lots of extensions to consider: parametric risk aversion, distribution constraints, memory-usage improvements.
+\end{frame}
+
+
+
+
+
+
+
+
+
+\begin{frame}[allowframebreaks]{\ifen References \else 참고 문헌 \fi}
+\scriptsize
+\parskip 0em
+\leftskip 2em
+\parindent -2em
+%Balas, Egon and Eitan Zemel. 1980. ``An Algorithm for Large Zero-One Knapsack Problems.'' \emph{Operations Research} 28 (5): 1130--54. \url{https://doi.org/10.1287/opre.28.5.1130}. 
+
+%Dantzig, George B. 1957. ``Discrete-Variable Extremum Problems.'' \emph{Operations Research} 5 (2): 266--88.
+
+Fisher, Marshall, George Nemhauser, and Laurence Wolsey. 1978. ``An analysis of approximations for maximizing submodular set functions—I.'' \emph{Mathematical Programming} 14: 265--94. 
+
+Fu, Chao. 2014. ``Equilibrium Tuition, Applications, Admissions, and Enrollment in the College Market.'' \emph{Journal of Political Economy} 122 (2): 225--81. \url{https://doi.org/10.1086/675503}. 
+
+Kapur, Max. 2022. ``OptimalApplication.'' GitHub repository. \url{https://github.com/maxkapur/OptimalApplication}.
+
+Kapur, Max and Sung-Pil Hong. 2022. ``The Optimal College Application Problem.'' Preprint. \url{https://github.com/maxkapur/CollegeApplication}.
+
+Kulik, Ariel, Hadas Shachnai, and Tami Tamir. 2013. ``Approximations for Monotone and Nonmonotone Submodular Maximization with Knapsack Constraints.'' \emph{Mathematics of Operations Research} 38 (4): 729--39. \url{https://doi.org/10.1287/moor.2013.0592}.
+
+%Markowitz, Harry. 1952. ``Portfolio Selection.'' \emph{The Journal of Finance} 7 (1): 77--91. \url{https://www.jstor.org/stable/2975974}.
+%
+%Rozanov, Mark and Arie Tamir. 2020. ``The nestedness property of the convex ordered median location problem on a tree.'' \emph{Discrete Optimization} 36: 100581. \url{https://doi.org/10.1016/j.disopt.2020.100581}.
+
+Sklarow, Mark. 2018. \emph{State of the Profession 2018: The 10 Trends Reshaping Independent Educational Consulting.} Technical report, Independent Educational Consultants Association. \url{https://www.iecaonline.com/wp-content/uploads/2020/02/IECA-Current-Trends-2018.pdf}.
+
+\end{frame}
+
+
+
+
+
+
+
+
+\ifen \section{Appendix} \else \section{부록} \fi
+
+\begin{frame}{\ifen Appendix: Summary of algorithms\else 부록: 알고리즘 요약\fi}
+\vfill\vspace{-1em}
+\begin{center}
+\ifen
+\scalebox{0.90}{ 
+\begin{tabular}{r|lllll}
+\textbf{Algorithm} & \textbf{Problem} & \textbf{Restrictions} & \textbf{Exactness}       & \textbf{Computation time} \\ \hline
+\xrowht[()]{1.5em}  \begin{tabular}[r]{@{}r@{}}Na\"ive\end{tabular} &  \begin{tabular}[l]{@{}l@{}}Homogeneous \\ costs\end{tabular}     & None                  & $(1/h)$-opt.               & $O(m)$                    \\ 
+\xrowht[()]{1.5em}  Greedy                &   \begin{tabular}[l]{@{}l@{}}Homogeneous \\ costs\end{tabular}    & None                  & Exact                    & $O(hm)$                   \\
+\xrowht[()]{1.5em}  \begin{tabular}[r]{@{}r@{}}Branch and\\ bound\end{tabular}   & General          & None                  & Exact                    & $O(2^m)$                  \\
+\xrowht[()]{1.5em}  Costs DP     &   General          & $g_j$ integer         & Exact                    & $O(Hm + m \log m)$        \\
+\xrowht[()]{1.5em}  FPTAS      &   General          & None        & $(1 - \varepsilon)$-opt. & $O(m^3 / \varepsilon)$   \\
+\xrowht[()]{1.5em}  \begin{tabular}[r]{@{}r@{}}Simulated\\annealing\end{tabular}   & General          & None                  & $0$-opt.                    & $O(Nm)$                
+\end{tabular}
+}
+\else
+\scalebox{1}{ 
+\begin{tabular}{r|lllll}
+\textbf{알고리즘} &  \textbf{문제} & \textbf{제한} & \textbf{정확도}       & \textbf{계산 시간} \\ \hline
+\xrowht[()]{1.7em}  \begin{tabular}[r]{@{}r@{}}나이브\end{tabular}                & \begin{tabular}[l]{@{}l@{}}동일한\\ 지원 비용\end{tabular}     & 없음                  & $(1/h)$-근사          & $O(m)$                    \\ 
+\xrowht[()]{1.7em}  탐욕 해법               &  \begin{tabular}[l]{@{}l@{}}동일한\\ 지원 비용\end{tabular}    & 없음                  & 정확                    & $O(hm)$                   \\
+\xrowht[()]{1.7em}  \begin{tabular}[r]{@{}r@{}}분지한계법\end{tabular}   & 일반 문제          & 없음                  & 정확                    & $O(2^m)$                  \\
+\xrowht[()]{1.7em}   \begin{tabular}[r]{@{}r@{}}지출액\\ 동적 계획\end{tabular}    & 일반 문제          & $g_j$ 정수         & 정확                    & $O(Hm + m \log m)$        \\
+\xrowht[()]{1.7em}  FPTAS       & 일반 문제          & 없음        & $(1 - \varepsilon)$-근사 & $O(m^3 / \varepsilon)$   \\
+\xrowht[()]{1.7em}   \begin{tabular}[r]{@{}r@{}}모의\\ 담금질\end{tabular}    & 일반 문제          & 없음                      & $0$-근사                    & $O(Nm)$                
+\end{tabular}
+}
+\fi
+\end{center}
+\end{frame}
+
+
+
+
+\end{document}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
 \begin{frame}{\ifen Introduction\else 서론 \fi}
 \ifen {
 The optimal college application problem is a \textbf{novel combinatorial optimization problem}.
 
-\textbf{Maximize the expected maximum} of a portfolio of random variables subject to a budget constraint.
 
 Our methodological orientation:
 \begin{itemize}
@@ -203,9 +866,7 @@ Our methodological orientation:
 \item \textbf{Knapsack perspective:} Integrality constraint, dynamic programming solutions, NP-completeness, approximation algorithms.
 \end{itemize}
 } \else {
-대학 지원 최적화 문제란 \textbf{새로운 조합 최적화 문제}.
 
-예산 제약식 하에서, 다수 확률 변수로 이루어진 포트폴리오의 \textbf{기대 최댓값을 최대화}한다.
 
 방법론적 지향:
 \begin{itemize}
@@ -217,72 +878,6 @@ Our methodological orientation:
 
 
 
-\begin{frame}{\ifen Agenda\else 발표 요약 \fi}
-\ifen {
-\textbf{Formulate} the college application problem.
-
-Check out some \textbf{typical instances}.
-
-Alma's problem: A \textbf{special case}. Nestedness of solutions implies validity of a polynomial-time greedy algorithm.
-
-Ellis's problem: The \textbf{general case}. We provide an NP-completeness proof and \textbf{three algorithms}.
-%\begin{itemize}
-%\item A branch-and-bound routine.
-%\item Dynamic program based on expenditures.
-%\item Dynamic program based on portfolio valuations, yielding an FPTAS.
-%\end{itemize}
-
-\textbf{Computational results} show the efficacy of our algorithms.
-} \else {
-대학 지원 문제를 \textbf{모형화}.
-
-\textbf{전형적인 인스턴스}를 구경.
-
-알마의 문제: 대학 지원 문제의 \textbf{특수한 경우}. 최적해가 포함 사슬 관계를 가지므로 다항 시간 탐욕 해법 존재.
-
-엘리스의 문제: \textbf{일반 경우}. NP-completeness를 증명하고 \textbf{3개의 해법} 제시.%
-%\begin{itemize}
-%\item 분지한계법.
-%\item 지출액 기반 동적 계획 해법.
-%\item 포트폴리오 가치 기반 동적 계획 해법을 이용하는 FPTAS.
-%\end{itemize}
-
-\textbf{계산 실험}을 통해 알고리즘의 효율성을 확인.
-} \fi
-\end{frame}
-
-
-
-
-
-\ifen \section{Model} \else \section{모형}\fi
-
-
-\ifen{
-\begin{frame}[plain]
-  \vspace{9em}
-\begin{center}
-~
-\begin{beamercolorbox}[wd=.6\textwidth,sep=8pt,center,shadow=false,rounded=true]{section in head/foot}
-    \usebeamerfont{title} \insertsectionhead \par%
-  \end{beamercolorbox}
-~
-\end{center}
-\end{frame}
-}
-\else{
-\begin{frame}[plain]
-  \vspace{9em}
-\begin{center}
-~
-\begin{beamercolorbox}[wd=.6\textwidth,sep=8pt,center,shadow=false,rounded=true]{section in head/foot}
-    \usebeamerfont{title} \insertsectionhead \par%
-  \end{beamercolorbox}
-~
-\end{center}
-\end{frame}
-}
-\fi
 
 
 
@@ -406,7 +1001,7 @@ v(\mathcal{X})
 College application can be expressed as a nonlinear integer program, but it is \textbf{not concave}.
 
 \textrightarrow~Problem is \textbf{combinatorial} in nature.
-￣
+
 Typical instances (see following slide) involve \textbf{negative correlation} between probabilities $f_j$ and utility values $t_j$. 
 
 \textrightarrow~Students must trade off attractive, selective “reach schools” against less preferable “safety schools” where admission is a safer bet.
@@ -1062,42 +1657,6 @@ Sklarow, Mark. 2018. \emph{State of the Profession 2018: The 10 Trends Reshaping
 
 
 
-\ifen \section{Appendix} \else \section{부록} \fi
-
-\begin{frame}{\ifen Appendix: Summary of algorithms\else 부록: 알고리즘 요약\fi}
-\begin{center}
-\ifen
-\scalebox{0.96}{ 
-\begin{tabular}{r|lllll}
-\textbf{Algorithm} & \textbf{Problem} & \textbf{Restrictions} & \textbf{Exactness}       & \textbf{Computation time} \\ \hline
-\xrowht[()]{1.5em}  \begin{tabular}[r]{@{}r@{}}Na\"ive\end{tabular} &  \begin{tabular}[l]{@{}l@{}}Homogeneous \\ costs\end{tabular}     & None                  & $(1/h)$-opt.               & $O(m)$                    \\ 
-\xrowht[()]{1.5em}  Greedy                &   \begin{tabular}[l]{@{}l@{}}Homogeneous \\ costs\end{tabular}    & None                  & Exact                    & $O(hm)$                   \\
-\xrowht[()]{1.5em}  \begin{tabular}[r]{@{}r@{}}Branch and\\ bound\end{tabular}   & General          & None                  & Exact                    & $O(2^m)$                  \\
-\xrowht[()]{1.5em}  Costs DP     &   General          & $g_j$ integer         & Exact                    & $O(Hm + m \log m)$        \\
-\xrowht[()]{1.5em}  FPTAS      &   General          & None        & $(1 - \varepsilon)$-opt. & $O(m^3 / \varepsilon)$   \\
-\xrowht[()]{1.5em}  \begin{tabular}[r]{@{}r@{}}Simulated\\annealing\end{tabular}   & General          & None                  & $0$-opt.                    & $O(Nm)$                
-\end{tabular}
-}
-\else
-\scalebox{1}{ 
-\begin{tabular}{r|lllll}
-\textbf{알고리즘} &  \textbf{문제} & \textbf{제한} & \textbf{정확도}       & \textbf{계산 시간} \\ \hline
-\xrowht[()]{1.7em}  \begin{tabular}[r]{@{}r@{}}나이브\end{tabular}                & \begin{tabular}[l]{@{}l@{}}동일한\\ 지원 비용\end{tabular}     & 없음                  & $(1/h)$-근사          & $O(m)$                    \\ 
-\xrowht[()]{1.7em}  탐욕 해법               &  \begin{tabular}[l]{@{}l@{}}동일한\\ 지원 비용\end{tabular}    & 없음                  & 정확                    & $O(hm)$                   \\
-\xrowht[()]{1.7em}  \begin{tabular}[r]{@{}r@{}}분지한계법\end{tabular}   & 일반 문제          & 없음                  & 정확                    & $O(2^m)$                  \\
-\xrowht[()]{1.7em}   \begin{tabular}[r]{@{}r@{}}지출액\\ 동적 계획\end{tabular}    & 일반 문제          & $g_j$ 정수         & 정확                    & $O(Hm + m \log m)$        \\
-\xrowht[()]{1.7em}  FPTAS       & 일반 문제          & 없음        & $(1 - \varepsilon)$-근사 & $O(m^3 / \varepsilon)$   \\
-\xrowht[()]{1.7em}   \begin{tabular}[r]{@{}r@{}}모의\\ 담금질\end{tabular}    & 일반 문제          & 없음                      & $0$-근사                    & $O(Nm)$                
-\end{tabular}
-}
-\fi
-\end{center}
-\ifen
-Simulated annealing heuristic: details unremarkable. See next slide for an accuracy plot.
-\else
-모의 담금질 휴리스틱: 내역은 특별할 것이 없다. 정확도 실험 결과는 다음 화면.
-\fi
-\end{frame}
 
 
 
@@ -1126,16 +1685,6 @@ This paper considers the maximization of the expected maximum value of a portfol
 \end{frame}
 
 \fi
-
-
-
-
-
-
-
-
-\end{document}
-
 
 
 

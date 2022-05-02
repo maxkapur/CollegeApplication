@@ -216,9 +216,9 @@ For certain classes of optimization problems, such as maximizing a submodular se
 
 
 \ifen
-Finally, we remark that the objective function of \eqref{headlineproblem} is a nondecreasing submodular function. However, our research employs more elementary analytical techniques, and our approximation results are tighter than those associated with generic submodular maximization algorithms. For example, a well-known result of Fisher et al. (1978) implies that the greedy algorithm is asymptotically $(1 - 1/e)$-optimal for the $g_j = 1$ case of the college application problem, whereas we show that the same algorithm is exact. As for the general problem, an equivalent approximation ratio is achievable when maximizing a submodular set function over a knapsack constraint using a variety of relaxation techniques (Badanidiyuru and Vondrák 2014; Calinescu et al. 2011; Kulik et al. 2013). But in the college application problem, the existence of the FPTAS supersedes these results.
+Finally, we remark that the objective function of \eqref{headlineproblem} is a nondecreasing submodular function. However, our research employs more elementary analytical techniques, and our approximation results are tighter than those associated with generic submodular maximization algorithms. For example, a well-known result of Fisher et al. (1978) implies that the greedy algorithm is asymptotically $(1 - 1/e)$-optimal for the $g_j = 1$ case of the college application problem, whereas we show that the same algorithm is exact. As for the general problem, an equivalent approximation ratio is achievable when maximizing a submodular set function over a knapsack constraint using a variety of relaxation techniques (Badanidiyuru and Vondrák 2014; Kulik et al. 2013). But in the college application problem, the existence of the FPTAS supersedes these results.
 \else
-마지막으로, \eqref{headlineproblem}의 목적함수는 submodular하며 단조 증가하는 함수이다. 그런데, 본 연구는 더 기초적인 분석 기술을 이용하며, 일반적인 submodular 최대화 알고리즘보다 좋은 근사 계수를 얻게 된다. 예를 들어 Fisher 외 (1978)의 잘 알려진 결과에 따라, 대학 지원 문제의 $g_j = 1$인 경우에서 탐욕 해법의 점근적 근사 계수가 $(1 - 1/e)$이 되며, 본 논문에서 같은 해법이 정확함을 보인다. 일반적인 문제에 대해서는, 배낭 제약식 위에서 submodular 집합 함수를 최대하는 문제에서, 다양한 완화 기술을 활용하면 거의 동등한 근사 계수를 이뤄 낼 수 있다 (Calinescu et al. 2011; Kulik et al. 2013). 그러나 대학 지원 문제에서, FPTAS의 존재성은 그보다 강한 결과이다.
+마지막으로, \eqref{headlineproblem}의 목적함수는 submodular하며 단조 증가하는 함수이다. 그런데, 본 연구는 더 기초적인 분석 기술을 이용하며, 일반적인 submodular 최대화 알고리즘보다 좋은 근사 계수를 얻게 된다. 예를 들어 Fisher 외 (1978)의 잘 알려진 결과에 따라, 대학 지원 문제의 $g_j = 1$인 경우에서 탐욕 해법의 점근적 근사 계수가 $(1 - 1/e)$이 되며, 본 논문에서 같은 해법이 정확함을 보인다. 일반적인 문제에 대해서는, 배낭 제약식 위에서 submodular 집합 함수를 최대하는 문제에서, 다양한 완화 기술을 활용하면 거의 동등한 근사 계수를 이뤄 낼 수 있다 (Badanidiyuru and Vondrák 2014; Kulik et al. 2013). 그러나 대학 지원 문제에서, FPTAS의 존재성은 그보다 강한 결과이다.
 \fi
 
 \ifen \subsection{Structure of this paper} \else \subsection{본 논문의 구성}\fi
@@ -283,9 +283,9 @@ p_j(\mathcal{X}) &=
 \end{cases} 
 \end{align}
 \ifen
-where the empty product equals one. The following proposition follows immediately.
+where the empty product equals one and $f_0= 1$. The following proposition follows immediately.
 \else
-단, 공집합의 곱은 1이다. 다음 제의는 직설적인 결과이다.
+단, 공집합의 곱은 1이면 $f_0= 1$이다. 다음 제의는 직설적인 결과이다.
 \fi
 
 \begin{proposition}[\ifen Closed form of portfolio valuation function\else 포트폴리오 가치 함수의 다른 식\fi]
@@ -1999,7 +1999,7 @@ Kellerer, Hans, Ulrich Pferschy, and David Pisinger. 2004. \emph{Knapsack Proble
 %1 - 1/ e for monotonic submodular with knapsack constraints, i.e. Ellis with 가나다
 Kulik, Ariel, Hadas Shachnai, and Tami Tamir. 2013. ``Approximations for Monotone and Nonmonotone Submodular Maximization with Knapsack Constraints.'' \emph{Mathematics of Operations Research} 38 (4): 729--39. \url{https://doi.org/10.1287/moor.2013.0592}.
 
-\ifen Jeon, Minhee. 2015. ``[College application strategy] Six chances total\dots divide applications across reach, target, and safety schools'' (in Korean). Jungang Ilbo, Aug. 26. \url{https://doi.org/10.1086/664613}\fi
+\ifen Jeon, Minhee. 2015. ``[College application strategy] Six chances total\dots divide applications across reach, target, and safety schools'' (in Korean). Jungang Ilbo, Aug. 26. \url{https://www.joongang.co.kr/article/18524069}.\fi
 
 Fisher, Marshall, George Nemhauser, and Laurence Wolsey. 1978. ``An Analysis of Approximations for Maximizing Submodular Set Functions—I.'' \emph{Mathematical Programming} 14: 265--94. 
 
