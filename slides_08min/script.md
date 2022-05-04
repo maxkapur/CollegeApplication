@@ -18,7 +18,7 @@ In our model, we restrict our attention to a single student's decisionmaking in 
 
 Let's continue building our model by introducing a notion of utility. For each school, we have a nonnegative utility parameter $t_j$ which represents the utility that the student receives if she goes there, and we assume that the student gets $0$ utility if she gets in nowhere. Now, the utility that the student experiences from the college admissions process is whatever the $t_j$-value is for the school she actually attends, that is, the best school to which she both applies and is admitted. We refer to the expected maximum over the $t_j Z_j$s as the application portfolio's valuation, notated $v(X)$.
 
-모형을 완성하기 위해 효용의 개념을 도입해 보겠습니다. 각 학교에 대해, $t_j$는 학생이 그 학교에 진학하면 발생하는 효용을 의미합니다. 어떤 대학에도 합격하지 않는 경우, $0$의 효용이 발생한다고 가정할 수 있습니다. 이제 전체 대학 입학 과정을 통해서 학생에게 발생하는 효용은, 그가 실제로 진학하는 학교, 즉 지원을 하고 합격을 하는 하교 중, 가장 좋은 학교에 해당하는 $t_j$값입니다. $t_j Z_j$의 기대 최댓값을 지원 포트폴리오의 '가치'라고 부르고 $v(X)$처럼 표기하겠습니다.
+모형을 완성하기 위해 효용의 개념을 도입해 보겠습니다. 각 학교에 대해, $t_j$는 학생이 그 학교에 진학하면 발생하는 효용을 의미합니다. 어떤 대학에도 합격하지 않는 경우, $0$의 효용이 발생한다고 가정할 수 있습니다. 이제 전체 대학 입학 과정을 통해서 학생에게 발생하는 효용은, 그가 실제로 진학하는 학교, 즉 지원을 하고 합격을 하는 학교 중, 가장 좋은 학교에 해당하는 $t_j$값입니다. $t_j Z_j$의 기대 최댓값을 지원 포트폴리오의 '가치'라고 부르고 $v(X)$처럼 표기하겠습니다.
 
 To put $v(X)$ into some sort of tractable form, we introduce the function $p_j(X)$, which gives the probability that the student actually enrolls $c_j$. This will happen only if she applies to $c_j$, gets into $c_j$, and does not get into any of the schools she likes better than $c_j$. Now the expression for $p_j(X)$ as is shown on the screen, and if we take the inner product with $t$, we get the student's overall expected utility. It is this final function that we will seek to maximize.
 
@@ -50,6 +50,7 @@ In summary, college application is an intruiguing optimization problem, with its
     
     
     Korean times:
+    7:45
     15:09 for 2 runs
     7:30
     7:46
