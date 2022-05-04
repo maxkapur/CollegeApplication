@@ -93,15 +93,14 @@ cm \hskip 0.2 cm \vrule height 0.2 cm}\hrule}\,}
 \institute{Seoul National University\\
 Department of Industrial Engineering \\
 Management Science/Optimization Lab\\
-Correspondence: \url{maxkapur@snu.ac.kr}}
+\url{maxkapur@snu.ac.kr}}
 \date{\today}
 \else
 \title[대학 지원 최적화 문제]{대학 지원 최적화 문제}
 \author{Max Kapur}
-\institute{서울대학교\\
-산업공학과 \\
+\institute{서울대학교 산업공학과 \\
 경영과학/최적화 연구실\\
-교신: \url{maxkapur@snu.ac.kr}}
+\url{maxkapur@snu.ac.kr}}
 \date{\today}
 \fi
 
@@ -231,7 +230,7 @@ Today's agenda:
 \begin{frame}{서론}
 대학 지원 최적화 문제란 \textbf{새로운 조합 최적화 문제}이다.
 
-예산 제약 조선 하에서, 다수 확률 변수로 이뤄진 포트폴리오의 \textbf{기대 최댓값을 최대화한다}.
+예산 제약 조건 하에서, 다수 확률 변수로 이뤄진 포트폴리오의 \textbf{기대 최댓값을 최대화}하는 문제.
 
 발표 요약:
 \begin{itemize}
@@ -265,8 +264,8 @@ College application spans several areas of combinatorial optimization:
 대학 지원 전략은 조합 최적화 중 여러 분야를 걸친다.
 
 \begin{itemize}
-\item 불확실한 성과, 효율적 투자선이 존재하는 일종의 \textbf{포트폴리오 배분} 모형. 
-\item \textbf{배낭 문제}의 일반화: 정수 패킹 제약식, NP-completeness.
+\item 불확실한 성과, 효율적 투자선이 존재하므로 \textbf{일종의 포트폴리오 배분} 모형.  
+\item \textbf{배낭 문제의 일반화}: 정수 패킹 제약식, NP-completeness, 근사 해법의 필요.
 \item 목적함수는 \textbf{submodular 집합 함수}이며, 근사 해법 결과에 따라 대학 지원 문제가 submodular 최적화의 비교적 쉬운 인스턴스로 해석할 수 있다.
 \end{itemize}
 \end{frame}
@@ -332,17 +331,17 @@ Application fees, time to write essays, and/or legal limits \textbf{constrain} a
 \end{frame}
 } \else {
 \begin{frame}{입학 과정}
-단 \textbf{한 학생}의 의사결정에 집중하자.
+\textbf{단 한 명의 학생}의 의사결정에 집중하자.
 
 시장은 $m$개의 \textbf{대학교}를 포함하며, 그의 지표 집합은 $\mathcal{C} = \{ 1\dots m\}$. $j$번째 학교의 이름은 $c_j$.
 
 학생의 내신, 수능 점수, 기본 정보가 주어지면 각 학교의 \textbf{합격 확률} $f_j$를 추정할 수 있다.
 
-\textbf{확률 변수} $Z_j \sim \operatorname{Bernoulli}(f_j)$는 학생이 합격하면 $1$, 아니면 $0$이다. 독립하다고 가정.
+\mbox{독립한 \textbf{확률 변수} $Z_j \sim \operatorname{Bernoulli}(f_j)$는 학생이 합격하면 $1$, 아니면 $0$.}
 
-학생이 지원하는 학교의 집합 $\mathcal{X} \subseteq \mathcal{C}$를 \textbf{지원 포트폴리오}라고 부른다.
+\mbox{학생이 지원하는 학교의 집합 $\mathcal{X} \subseteq \mathcal{C}$를 \textbf{지원 포트폴리오}라고 부른다.}
 
-지원 수수료, 원서를 작성하는 시간, 또는 나라 정책에 따라 지원 행동이 \textbf{제한}된다. 본 논문은 단일 배낭 제약식 $\sum_{j\in \mathcal{X}} g_j \leq H$를 고려하며, 이때 $g_j$는 $c_j$의 \textbf{지원 비용}이라고 부른다. 
+지원 전형료 예산, 원서를 작성하는 시간, 또는 나라의 정책에 따라 \textbf{지원 행동이 제한된다}. 본 논문은 단일 배낭 제약식 $\sum_{j\in \mathcal{X}} g_j \leq H$를 고려하며, 이때 $g_j$는 $c_j$의 \textbf{지원 비용}이라고 부른다. 
 \end{frame}
 } \fi
 
@@ -366,12 +365,11 @@ When the student's application portfolio is $\mathcal{X}$, we refer to her expec
 \begin{frame}{효용 모형}
 $c_j$에 다니면 $t_j \geq 0$ 단위의 \textbf{효용}이 발생한다. Wlog, $t_j \leq t_{j+1}$.
 
-어떤 대학에도 합격 안 하면 효용이 $t_0$이며, wlog $t_0 =0$임을 가정할 수 있다 (논문 참고).
+어떤 대학에도 합격하지 않았을 때 효용은 $t_0$이며, wlog $t_0 =0$임을 가정할 수 있다 (논문에서 증명).
 
-학생의 전체 효용은 그가 합격하는 \textbf{가장 좋은} 학교의 $t_j$-값:
+학생의 총 효용은 그가 지원하고 합격하는 \textbf{가장 좋은} 학교의 $t_j$-값:
 \[\text{효용} =\max\bigr\{t_0, \max\{t_j Z_j : j \in \mathcal{X}\}\bigr\}\]
-
-지원 포트폴리오가 $\mathcal{X}$일 때, 기대 효용을 $\mathcal{X}$의 \textbf{가치}라고 부르며 $v(\mathcal{X})$처럼 표기한다.
+이의 기댓값은 $\mathcal{X}$의 \textbf{가치}라고 부르며 $v(\mathcal{X})$처럼 표기한다.
 \end{frame}
 } \fi
 
@@ -405,16 +403,15 @@ v(\mathcal{X})
 \begin{frame}{포트폴리오 가치의 함수 형태}
 $v(\mathcal{X})$를 함수로 표현하기 위해, 학생이 $c_j$에 \textbf{진학하는} 확률을 $p_j(\mathcal{X})$라고 하자.
 
-$c_j$에 진학하는 조견은 $c_j$에 \textbf{지원}하고, \textbf{합격}하고, $c_j$보다 선호하는 학교에 \textbf{합격하지 않는} 것이다:
+$c_j$에 진학하는 조건은 $c_j$에 \textbf{지원}하고, \textbf{합격}하고, $c_j$보다 선호하는 학교에는 \textbf{합격하지 않았을} 때이다.
 \begin{align*}
 p_j(\mathcal{X}) &= 
 \begin{cases}
 \displaystyle f_j  \prod_{\substack{i \in \mathcal{X}: \\ i > j}} (1 - f_{i}), \quad & j \in \{0\}\cup\mathcal{X}\\
-0, \quad & \text{그러지 않은 경우.}
+0, \quad & \text{그렇지 않은 경우.}
 \end{cases} 
 \end{align*}
-
-따라서
+따라서,
 \begin{align*}
 v(\mathcal{X})
 %&= \operatorname{E}\Bigl[\max\bigr\{t_0, \max\{t_j Z_j : j \in \mathcal{X}\}\bigr\}\Bigr] \\
@@ -520,7 +517,7 @@ v(\mathcal{X})
 \includegraphics[width=\textwidth]{plots/news-both.png}
 
 \ifen Do you trust the admissions consultant's advice?
-\else 입학 컨설턴트의 조언, 믿을 만하는가? \fi
+\else 입학 컨설턴트의 조언, 믿을 만한가? \fi
 \end{center}
 
 \end{frame}
@@ -568,15 +565,15 @@ Our algorithms provide both \textbf{time and accuracy guarantees}.
 \end{frame}
 } \else {
 \begin{frame}{기존의 해법}
-입학 컨설팅 산업에서는 주로 ``상향·소신·안정 지원 학교'' 각각 균일하게 지원하는 \textbf{배분적 휴리스틱}을 사용하며, \textbf{위험 회피적인} 전략임을 알 수 있다. 
+입학 컨설팅 산업에서는 주로 ``상향·소신·안정 지원 학교'' 각각 균일하게 지원하는 \textbf{배분적 휴리스틱}을 권장하며, 이는 \textbf{위험 회피적인} 전략임을 알 수 있다. 
 
-또한 \textbf{선형화 휴리스틱}이 있다. $c_j$에만 지원할 때 기대 효용이 $f_j t_j$이므로 다음 배낭 문제를 대리 문제로 푼다.
+또한 $c_j$에만 지원할 때 기대 효용이 $f_j t_j$이므로 다음 배낭 문제를 대리 문제로 푸는 \textbf{선형화 휴리스틱}이 있다.
 \[\text{maximize}~~\sum_{j\in \mathcal{X}} f_j t_j \qquad \text{subject to}~~\sum_{j\in \mathcal{X}}g_j \leq H \]
-이의 \textbf{근사 계수가 $\mathbf{0}$에 무한히 가까운} 예시를 만들 수 있다.
+그러나 이의 \textbf{근사 계수는 $\mathbf{0}$에 무한히 가까워질 수 있다}.
 
-Fu (2014)는 비슷한 문제를 \textbf{열거법}으로 풀었으며, $m \geq 20$일 때 불현실적인 방법이다.
+Fu (2014)는 비슷한 문제를 \textbf{열거법}으로 풀었으나, $m \geq 20$일 때 비현실적인 방법이다.
 
-본 연구가 제시하는 알고리즘은 \textbf{계산 시간과 정확도를 보장한다}. 
+본 연구는 \textbf{계산 시간과 정확도가 보장된} 알고리즘을 제시한다. 
 \end{frame}
 } \fi
 
@@ -592,7 +589,7 @@ Fu (2014)는 비슷한 문제를 \textbf{열거법}으로 풀었으며, $m \geq 
 
 
 
-\ifen \section{Our algorithms} \else \section{제시 알고리즘} \fi
+\ifen \section{Our algorithms} \else \section{알고리즘 제시} \fi
 
 \ifen {
 \begin{frame}[plain]
@@ -741,14 +738,17 @@ Existence of FPTAS suggests college application is \textbf{a relatively easy ins
 \end{frame}
 } \else {
 \begin{frame}{일반 문제를 위한 알고리즘}
-일반적인 문제는 \textbf{NP-complete} (배낭 문제에서 변환). 4개의 알고리즘 제시:
+일반적인 문제는 \textbf{NP-complete} (배낭 문제에서 변환).
+
+4개의 알고리즘 제시:
 \begin{itemize}
 \item 선형 완화 문제와 해당 \textbf{branch-and-bound} 해법. 주로 이론적인 흥미가 있다.
 
-\item \textbf{지원 지출액 기반 동적 계획}. (의사 다항) $O(Hm + m\log m)$ 시간에 정확한 해를 구하며, $g_j$가 작은 정수가 되는 ``전형적'' 인스턴스에 대해 매우 효율적인 해법.
+\item \textbf{총 지원 비용 기반 동적 계획}. (의사 다항) $O(Hm + m\log m)$ 시간에 정확한 해를 구하며, $g_j$가 작은 정수가 되는 ``전형적'' 인스턴스에 대해 매우 효율적인 해법.
 
-\item 포트폴리오 가치의 라운딩을 이용한 다른 동적 계획. $O(m^3 / \varepsilon)$ 시간에 $(1 - \varepsilon)$-근사해를 출력하므로 \textbf{FPTAS}!
-\item \textbf{Simulated annealing} 휴리스틱. 빠르고 거의 항상 최적의 2\% 이내에 해를 구한다.
+\item 포트폴리오 가치의 라운딩을 이용한 동적 계획. $O(m^3 / \varepsilon)$ 시간에 $(1 - \varepsilon)$-근사해를 출력하므로 \textbf{FPTAS!}
+
+\item \textbf{Simulated annealing} 휴리스틱. 빠르고 대부분 98\% 이상의 최적성을 얻었다.
 \end{itemize}
 
 FPTAS의 존재성은 대학 지원 문제가 \textbf{submodular 최대화의 비교적 쉬운 인스턴스}임을 의미한다 (cf. Kulik et al. 2013).
@@ -791,28 +791,33 @@ FPTAS의 존재성은 대학 지원 문제가 \textbf{submodular 최대화의 �
 
 
 
+
+
 \ifen {
 \begin{frame}{Conclusion}
 ``Maximax'' form, integrality constraints make the college application problem \textbf{theoretically interesting}. Formally, it is a submodular maximization problem, but its approximability is more like knapsack.
 
 The nestedness result for the $g_j = 1$ special case also resembles the knapsack problem, although the proof is more subtle. 
 
-Solutions to the college application problem have \textbf{practical value}: US admissions consultants charge an average of \$200/hr! ⇒ open-sourcing our code is in the public interest.
+Solutions to the college application problem have \textbf{practical value}: US admissions consultants charge an average of \$200/hr (Sklarow 2018)!
 
-Lots of extensions to consider: parametric risk aversion, distribution constraints, memory-usage improvements.
+⇒ Open-sourcing our code for public benefit (Kapur 2022).
+
+Lots of extensions to consider: parametric risk aversion, distribution constraints, FPTAS memory-usage improvements.
 \end{frame}
 } \else {
-\begin{frame}{Conclusion}
-``Maximax'' 형태와 정수 조건 때문에 대학 지원 문제에는 \textbf{이론적으로 흥미}가 있다. Submodular 최대화 문제이지만, 근사 해법 성질은 배낭 문제에 더 가깝다.
+\begin{frame}{결론}
+``Maximax'' 형태와 정수 조건 때문에 대학 지원 문제는 \textbf{이론적인 흥미가 깊다}. Submodular 최대화 문제지만, 근사 해법의 성질은 배낭 문제에 더 가깝다.
 
 $g_j=1$의 특수한 경우의 포함 사슬 관계 성질도 배낭 문제와 유사하며, 증명 과정은 좀 더 미묘하다.
 
-좋은 대학 지원 전략에는 \textbf{금전적 가치}가 있다. 미국 입학 컨설컨트의 시간당 급료는 평균 200달러! ⇒ 공공 이익을 위해 코드는 open source license로 공개.
+좋은 대학 지원 전략에는 \textbf{금전적 가치가 있다}. 미국 입학 컨설컨트의 시간당 급료는 평균 200달러 (Sklarow 2018)!
 
-문제를 확장할 수 있는 향후 연구: 위험 회피 모수, 배분적 (가나다군) 제약 조건, 메모리 소모량 절감.
+\mbox{⇒ 공공 이익을 위해 코드는 open-source license로 공개 (Kapur 2022).}
+
+향후 연구: 위험 회피 모수, 배분적 제약 조건 (가나다군), FPTAS의 메모리 소모량 절감.
 \end{frame}
 } \fi
-
 
 
 
