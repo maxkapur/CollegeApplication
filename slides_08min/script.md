@@ -22,7 +22,7 @@ Let's continue building our model by introducing a notion of utility. For each s
 
 To put $v(X)$ into some sort of tractable form, we introduce the function $p_j(X)$, which gives the probability that the student actually enrolls $c_j$. This will happen only if she applies to $c_j$, gets into $c_j$, and does not get into any of the schools she likes better than $c_j$. Now the expression for $p_j(X)$ as is shown on the screen, and if we take the inner product with $t$, we get the student's overall expected utility. It is this final function that we will seek to maximize.
 
-그러면 $v(X)$를 계산할 수 있는 함수 형태로 나타내기 위해, $p_j(X)$라는 함수를 먼저 정의해봅시다. 이것은 학생이 실제로 학교 $j$에 진학할 확률을 의미하며, 그 조건은 $c_j$에 지원하고, $c_j$에서 합격하고, 또한 $c_j$보다 좋아하는 학교에서 합격하지 않는 것입니다. 그러면 $p_j(X)$를 화면처럼 표현할 수 있고요, $t$와의 내적은 계산하면 학생의 기대 효용이 나옵니다. 이 함수를 최대화하는 게 대학 지원 최적화 문제입니다.
+그러면 $v(X)$를 계산할 수 있는 함수 형태로 나타내기 위해, $p_j(X)$라는 함수를 먼저 정의해봅시다. 이것은 학생이 실제로 학교 $j$에 진학할 확률을 의미하며, 그 조건은 $c_j$에 지원하고, $c_j$에서 합격하고, 또한 $c_j$보다 좋아하는 학교에서 합격하지 않았을때입니다. 그러면 $p_j(X)$를 화면처럼 표현할 수 있고요, $t$와의 내적은 계산하면 학생의 기대 효용이 나옵니다. 이 함수를 최대화하는 게 대학 지원 최적화 문제입니다.
 
 Here is a concise expression of the college application problem. We will work mainly with the first form, but it can also be expressed as an integer optimization problem. We observe that the integer NLP form has a polynomial objective function of degree $m$. It is neither concave nor convex.
 
@@ -43,6 +43,8 @@ In our research, we have identified a special case that can be solved in quadrat
 In summary, college application is an intruiguing optimization problem, with its unusual "maximax" form and integrality constraint. While on its surface, it looks like a submodular maximization problem, in terms of the solution techniques and approximation results we can derive, it behaves more like the knapsack problem.  Next, we note that college application is a matter of practical importance and value. Right now, if you try to hire an America college consultant, they will charge an average of 200 dollars per hour. Obviously, college consultants do more than just solve optimization problems, but the high cost of admissions consulting services was one motivation for us to open source our code and algorithms. Finally, in the paper we propose several extensions to the model which I would be happy to take questions about. Thank you.
 
 결론입니다. 목적함수의 maximax 형태 그리고 정수 조건 때문에 대학 지원 문제는 방법론적으로 흥미로운 최적화 문제라고 생각합니다. 표면에는 어려운 submodular 최적화 문제처럼 보이지만, 알고리즘의 구조와 근서 해법의 존재성을 보니까 그의 난이도는 배낭 문제에 더 가깝습니다. 그다음에, 대학 지원이라는 것에는 실제적인 중요성과 가치 있다고 생각합니다. 지금, 미국 입시 컨설턴트에게 문의해보시면, 시간당 24만원의 급료를 청구할 수 있습니다. 물론, 입학 컨설턴트는 최적화 문제를 푸는 거 외에도 많은 서비스를 제공하지면, 입학 컨설팅의 높은 비용을 반영하여 이 연구를 하면서 개발한 코드를 open-source license로 공개하기로 했습니다. 마지막으로, 논문에서 이 모형에 대한 여라가지 확장을 제안하는데, 혹시 궁금하시면 질의시간에 더 설명드리고자 하겠습니다. 감사합니다. 
+
+
 
 
 <!-- 
