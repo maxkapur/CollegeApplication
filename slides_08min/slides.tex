@@ -1,12 +1,11 @@
 %!TEX encoding = UTF-8 Unicode 
 
-\newif\ifen\enfalse
+\newif\ifen\entrue
 % Language selector; must be on line 3
 % Change to false to export Korean
 
-\documentclass[11pt,slidestop,compress,mathserif,notheorems]{beamer}
+\documentclass[11pt,mathserif,notheorems]{beamer}
 \usetheme{CambridgeUS}
-\setbeamercovered{transparent}
 \usepackage[parfill]{parskip}
 \usepackage{layout}
 \usepackage{color}
@@ -431,7 +430,6 @@ v(\mathcal{X})
 
 
 \begin{frame}%{Safety, target, and reach schools}
-\vfill 
 
 \begin{center}
 \includegraphics[width=\textwidth]{plots/news-both.png}
@@ -537,6 +535,7 @@ The general problem is \textbf{NP-complete} (reduction from knapsack). We offer 
 
 %The nestedness result for the $g_j = 1$ special case also resembles the knapsack problem, although the proof is more subtle. 
 
+\looseness=-1
 Solutions to the college application problem have \textbf{practical value}: US admissions consultants charge an average of \$200/hr (Sklarow 2018)!
 
 ⇒ Open-sourcing our code for public benefit (Kapur 2022).
@@ -615,7 +614,6 @@ Sklarow, Mark. 2018. \emph{State of the Profession 2018: The 10 Trends Reshaping
 \ifen \section{Appendix} \else \section{부록} \fi
 
 \begin{frame}{\ifen Appendix: Summary of algorithms\else 부록: 알고리즘 요약\fi}
-\vfill\vspace{-1em}
 \begin{center}
 \ifen
 \scalebox{0.90}{ 
