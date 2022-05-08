@@ -93,7 +93,7 @@ cm \hskip 0.2 cm \vrule height 0.2 cm}\hrule}\,}
 Department of Industrial Engineering\\
 Management Science/Optimization Lab\\
 \url{maxkapur@snu.ac.kr}}
-\date{\today\\
+\date[\today]{\today\\
 Spring Conference of the Korean Institute of Industrial Engineers}
 \else
 \title[대학 지원 최적화 문제]{대학 지원 최적화 문제\\The College Application Problem}
@@ -101,7 +101,7 @@ Spring Conference of the Korean Institute of Industrial Engineers}
 \institute{서울대학교 산업공학과\\
 경영과학/최적화 연구실\\
 \{maxkapur, \underline{sphong}\}@snu.ac.kr}
-\date{\today\\
+\date[\today]{\today\\
 대한산업공학회 춘계공동학술대회}
 \fi
 
@@ -170,7 +170,7 @@ Spring Conference of the Korean Institute of Industrial Engineers}
   \hspace*{2ex}
      \end{beamercolorbox}%
        \begin{beamercolorbox}[wd=.15\paperwidth,ht=2.65ex,dp=1.2ex,left]{author in head/foot}%
-  \hspace*{1.5ex}%\insertdate
+  \hspace*{1.5ex}\insertshortdate
   \end{beamercolorbox}%
   \begin{beamercolorbox}[wd=.1\paperwidth,ht=2.65ex,dp=1.2ex,right]{author in head/foot}%
     \insertframenumber{} / \inserttotalframenumber
@@ -788,9 +788,9 @@ FPTAS의 존재성은 대학 지원 문제가 \textbf{submodular 최대화의 �
 
 \ifen {
 \begin{frame}{Conclusion}
-``Maximax'' form, integrality constraints make the college application problem \textbf{theoretically interesting}. Formally, it is a submodular maximization problem, but its approximability is more like knapsack.
+``Maximax'' form, integrality constraints make the college application problem \textbf{theoretically interesting}. Formally, it is a submodular maximization problem, but its approximability is more like knapsack (cf. Fisher et al. 1978, Kulik et al. 2013).
 
-The nestedness result for the $g_j = 1$ special case also resembles the knapsack problem, although the proof is more subtle. 
+The nestedness result for the $g_j = 1$ special case also resembles the knapsack problem, although the proof is more subtle.
 
 \looseness=-1
 Solutions to the college application problem have \textbf{practical value}: US admissions consultants charge an average of \$200/hr (Sklarow 2018)!
@@ -801,7 +801,7 @@ Lots of extensions to consider: parametric risk aversion, distribution constrain
 \end{frame}
 } \else {
 \begin{frame}{결론}
-``Maximax'' 형태와 정수 조건 때문에 대학 지원 문제는 \textbf{이론적인 흥미가 깊다}. Submodular 최대화 문제지만, 근사 해법의 성질은 배낭 문제에 더 가깝다.
+``Maximax'' 형태와 정수 조건 때문에 대학 지원 문제는 \textbf{이론적인 흥미가 깊다}. Submodular 최대화 문제지만, 근사 해법의 성질은 배낭 문제에 더 가깝다 (cf. Fisher et al. 1978, Kulik et al. 2013).
 
 $g_j=1$의 특수한 경우의 포함 사슬 관계 성질도 배낭 문제와 유사하며, 증명 과정은 좀 더 미묘하다.
 
