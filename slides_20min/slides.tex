@@ -237,8 +237,10 @@ Today's agenda:
 \begin{itemize}
 \item 대학 지원 전략을 최적화 문제로 \textbf{모형화}.
 \item \textbf{현재 상황}: 입학 컨설팅 산업에서 흔히 사용하는 휴리스틱의 부족함.
-\item 본 연구가 제시하는 \textbf{이론적 결과, 해법, 알고리즘 구현}.
+\item 본 연구가 제시하는 \textbf{이론적 결과, 해법, 그리고 알고리즘 구현}.
 \end{itemize}
+
+\mbox{\textbf{발표에서 생략된 증명 등}은 arXiv 논문에서 제시 (Kapur와 Hong 2022).}
 \end{frame}
 } \fi
 
@@ -320,7 +322,7 @@ Consider a \textbf{single student's} college application decision.
 
 Market contains $m$ \textbf{schools}, indexed by $\mathcal{C} = \{ 1\dots m\}$. School $j$ is named $c_j$.
 
-Given a student's academic records, test scores, and demographic information, we can estimate her \textbf{admissions probability} $f_j$ at each school.
+Given a student's academic records, test scores, and demographic information, we can determine her \textbf{admissions probability} $f_j$ at each school.
 
 Let the \textbf{random variable} $Z_j \sim \operatorname{Bernoulli}(f_j) = 1$ if student is admitted, $0$ otherwise. Assume independent.
 
@@ -334,11 +336,13 @@ Application fees, time to write essays, and/or legal limits \textbf{constrain} a
 
 시장은 $m$개의 \textbf{대학교}를 포함하며, 그의 지표 집합은 $\mathcal{C} = \{ 1\dots m\}$. $j$번째 학교의 이름은 $c_j$.
 
-학생의 내신, 수능 점수, 기본 정보가 주어지면 각 학교의 \textbf{합격 확률} $f_j$를 추정할 수 있다.
+학생의 내신, 수능 점수, 기본 정보가 주어지면 각 학교의 \textbf{합격 확률} $f_j$를 알 수 있다.
 
-\mbox{독립한 \textbf{확률 변수} $Z_j \sim \operatorname{Bernoulli}(f_j)$는 학생이 합격하면 $1$, 아니면 $0$.}
+\looseness=-1
+독립한 \textbf{확률 변수} $Z_j \sim \operatorname{Bernoulli}(f_j)$는 학생이 합격하면 $1$, 아니면 $0$.
 
-\mbox{학생이 지원하는 학교의 집합 $\mathcal{X} \subseteq \mathcal{C}$를 \textbf{지원 포트폴리오}라고 부른다.}
+\looseness=-1
+학생이 지원하는 학교의 집합 $\mathcal{X} \subseteq \mathcal{C}$를 \textbf{지원 포트폴리오}라고 부른다.
 
 지원 전형료 예산, 원서를 작성하는 시간, 또는 나라의 정책에 따라 \textbf{지원 행동이 제한된다}. 본 논문은 단일 배낭 제약식 $\sum_{j\in \mathcal{X}} g_j \leq H$를 고려하며, 이때 $g_j$는 $c_j$의 \textbf{지원 비용}이라고 부른다. 
 \end{frame}
@@ -519,8 +523,6 @@ v(\mathcal{X})
 
 
 
-￣
-
 
 
 
@@ -560,7 +562,7 @@ Our algorithms provide both \textbf{time and accuracy guarantees}.
 \end{frame}
 } \else {
 \begin{frame}{기존의 해법}
-입학 컨설팅 산업에서는 주로 ``상향·소신·안정 지원 학교'' 각각 균일하게 지원하는 \textbf{배분적 휴리스틱}을 권장하며, 이는 \textbf{위험 회피적인} 전략임을 알 수 있다. 
+입학 컨설팅 산업에서는 주로 ``상향·소신·안정 지원 학교'' 각각 균일하게 지원하는 \textbf{배분적 휴리스틱}을 권장하며, 이는 \textbf{위험 회피적인} 전략임을 보일 수 있다. 
 
 또한 $c_j$에만 지원할 때 기대 효용이 $f_j t_j$이므로 다음 배낭 문제를 대리 문제로 푸는 \textbf{선형화 휴리스틱}이 있다.
 \[\text{maximize}~~\sum_{j\in \mathcal{X}} f_j t_j \qquad \text{subject to}~~\sum_{j\in \mathcal{X}}g_j \leq H \]
@@ -636,7 +638,7 @@ Strengthens the result of Fisher et al. (1978).
 
 변수 소거 기법은 개발하여 $v(\mathcal{X})$를 계산하는 시간을 환산 단위 시간을 줄임으로 $O(hm)$ 해법을 얻을 수 있다. 쥴리아 코드(Kapur 2022)를 사용하면 $m = 16384$인 인스턴스를 200 ms에 풀 수 있다.
 
-Fisher et al. (1978)에 결과를 강화한다.
+Fisher 외 (1978)의 결과를 강화한다.
 \end{frame}
 } \fi
 
@@ -745,7 +747,7 @@ Existence of FPTAS suggests college application is \textbf{a relatively easy ins
 \item \textbf{Simulated annealing} 휴리스틱. 빠르고 대부분 98\% 이상의 최적성을 얻었다.
 \end{itemize}
 
-FPTAS의 존재성은 대학 지원 문제가 \textbf{submodular 최대화의 비교적 쉬운 인스턴스}임을 의미한다 (cf. Kulik et al. 2013).
+FPTAS의 존재성은 대학 지원 문제가 \textbf{submodular 최대화의 비교적 쉬운 인스턴스}임을 의미한다 (cf. Kulik 외 2013).
 \end{frame}
 } \fi
 
@@ -770,7 +772,6 @@ FPTAS의 존재성은 대학 지원 문제가 \textbf{submodular 최대화의 �
 \end{frame}
 } \else {
 \begin{frame}[plain]
-  \vfill
 \begin{center}
 ~
 \begin{beamercolorbox}[wd=.5\textwidth,sep=8pt,center,shadow=false,rounded=true]{section in head/foot}
@@ -785,12 +786,12 @@ FPTAS의 존재성은 대학 지원 문제가 \textbf{submodular 최대화의 �
 
 
 
-
 \ifen {
 \begin{frame}{Conclusion}
-``Maximax'' form, integrality constraints make the college application problem \textbf{theoretically interesting}. Formally, it is a submodular maximization problem, but its approximability is more like knapsack (cf. Fisher et al. 1978, Kulik et al. 2013).
+``Maximax'' form, integrality constraints make the college application problem \textbf{theoretically interesting}. Formally, it is a submodular maximization problem, but its approximability is more like knapsack (cf.~Fisher et al. 1978; Kulik et al. 2013; Kellerer et al. 2004).
 
-The nestedness result for the $g_j = 1$ special case also resembles the knapsack problem, although the proof is more subtle.
+% I decided I don't like this sentence bc the claim is obvious and the claim that the proof is ``subtle'' is subjective.
+%The nestedness result for the $g_j = 1$ special case also resembles the knapsack problem, although the proof is more subtle. 
 
 \looseness=-1
 Solutions to the college application problem have \textbf{practical value}: US admissions consultants charge an average of \$200/hr (Sklarow 2018)!
@@ -801,9 +802,10 @@ Lots of extensions to consider: parametric risk aversion, distribution constrain
 \end{frame}
 } \else {
 \begin{frame}{결론}
-``Maximax'' 형태와 정수 조건 때문에 대학 지원 문제는 \textbf{이론적인 흥미가 깊다}. Submodular 최대화 문제지만, 근사 해법의 성질은 배낭 문제에 더 가깝다 (cf. Fisher et al. 1978, Kulik et al. 2013).
+\looseness=-1
+``Maximax'' 형태와 정수 조건 때문에 대학 지원 문제는 \textbf{이론적인 흥미가 깊다}. Submodular 최대화 문제지만, 근사 해법의 성질은 배낭 문제에 더 가깝다 (cf. Fisher 외 1978; Kulik 외 2013; Kellerer 외 2004).
 
-$g_j=1$의 특수한 경우의 포함 사슬 관계 성질도 배낭 문제와 유사하며, 증명 과정은 좀 더 미묘하다.
+%$g_j=1$의 특수한 경우의 포함 사슬 관계 성질도 배낭 문제와 유사하며, 증명 과정은 좀 더 미묘하다.
 
 좋은 대학 지원 전략에는 \textbf{금전적 가치가 있다}. 미국 입학 컨설컨트의 시간당 급료는 평균 200달러 (Sklarow 2018)!
 
@@ -819,11 +821,10 @@ $g_j=1$의 특수한 경우의 포함 사슬 관계 성질도 배낭 문제와 �
 
 
 
-\begin{frame}{\ifen References \else 참고 문헌 \fi}
-\small
+\begin{frame}[allowframebreaks]{\ifen References \else 참고 문헌 \fi}
 \parskip 0em
-\leftskip 1.5em
-\parindent -1.5em
+\leftskip 2em
+\parindent -2em
 %Balas, Egon and Eitan Zemel. 1980. ``An Algorithm for Large Zero-One Knapsack Problems.'' \emph{Operations Research} 28 (5): 1130--54. \url{https://doi.org/10.1287/opre.28.5.1130}. 
 
 %Dantzig, George B. 1957. ``Discrete-Variable Extremum Problems.'' \emph{Operations Research} 5 (2): 266--88.
@@ -835,6 +836,10 @@ Fu, Chao. 2014. ``Equilibrium Tuition, Applications, Admissions, and Enrollment 
 Kapur, Max. 2022. ``OptimalApplication.'' GitHub repository. \url{https://github.com/maxkapur/OptimalApplication}.
 
 Kapur, Max and Sung-Pil Hong. 2022. ``The College Application Problem.'' Preprint. \url{https://arxiv.org/abs/2205.01869}.
+
+\framebreak
+
+Kellerer, Hans, Ulrich Pferschy, and David Pisinger. 2004. \emph{Knapsack Problems.} Berlin: Springer.
 
 Kulik, Ariel, Hadas Shachnai, and Tami Tamir. 2013. ``Approximations for Monotone and Nonmonotone Submodular Maximization with Knapsack Constraints.'' \emph{Mathematics of Operations Research} 38 (4): 729--39. \url{https://doi.org/10.1287/moor.2013.0592}.
 
@@ -875,10 +880,10 @@ Sklarow, Mark. 2018. \emph{State of the Profession 2018: The 10 Trends Reshaping
 \textbf{알고리즘} &  \textbf{문제} & \textbf{제한} & \textbf{정확도}       & \textbf{계산 시간} \\ \hline
 \xrowht[()]{1.7em}  \begin{tabular}[r]{@{}r@{}}나이브\end{tabular}                & \begin{tabular}[l]{@{}l@{}}동일한\\ 지원 비용\end{tabular}     & 없음                  & $(1/h)$-근사          & $O(m)$                    \\ 
 \xrowht[()]{1.7em}  탐욕 해법               &  \begin{tabular}[l]{@{}l@{}}동일한\\ 지원 비용\end{tabular}    & 없음                  & 정확                    & $O(hm)$                   \\
-\xrowht[()]{1.7em}  \begin{tabular}[r]{@{}r@{}}분지한계법\end{tabular}   & 일반 문제          & 없음                  & 정확                    & $O(2^m)$                  \\
-\xrowht[()]{1.7em}   \begin{tabular}[r]{@{}r@{}}지출액\\ 동적 계획\end{tabular}    & 일반 문제          & $g_j$ 정수         & 정확                    & $O(Hm + m \log m)$        \\
+\xrowht[()]{1.7em}  \begin{tabular}[r]{@{}r@{}}Branch and\\ bound\end{tabular}   & 일반 문제          & 없음                  & 정확                    & $O(2^m)$                  \\
+\xrowht[()]{1.7em}   \begin{tabular}[r]{@{}r@{}}지원 비용\\ 동적 계획\end{tabular}    & 일반 문제          & $g_j$ 정수         & 정확                    & $O(Hm + m \log m)$        \\
 \xrowht[()]{1.7em}  FPTAS       & 일반 문제          & 없음        & $(1 - \varepsilon)$-근사 & $O(m^3 / \varepsilon)$   \\
-\xrowht[()]{1.7em}   \begin{tabular}[r]{@{}r@{}}모의\\ 담금질\end{tabular}    & 일반 문제          & 없음                      & $0$-근사                    & $O(Nm)$                
+\xrowht[()]{1.7em}   \begin{tabular}[r]{@{}r@{}}Simulated\\ annealing\end{tabular}    & 일반 문제          & 없음                      & $0$-근사                    & $O(Nm)$                
 \end{tabular}
 }
 \fi
