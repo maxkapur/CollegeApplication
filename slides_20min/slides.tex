@@ -221,7 +221,7 @@ The optimal college application problem is a \textbf{novel combinatorial optimiz
 Today's agenda:
 \begin{itemize}
 \item \textbf{Formulate} college application as an optimization problem.
-\item The \textbf{status quo} in admissions consulting, and why common heuristics fall short.
+%\item The \textbf{status quo} in admissions consulting, and why common heuristics fall short.
 \item Our theoretical results, \textbf{solution algorithms}, and Julia implementation.
 \end{itemize}
 
@@ -229,15 +229,15 @@ Today's agenda:
 \end{frame}
 } \else {
 \begin{frame}{서론}
-대학 지원 최적화 문제란 \textbf{새로운 조합 최적화 문제}이다.
+대학 지원 최적화 문제는 \textbf{새로운 조합 최적화 문제}이다.
 
-예산 제약 조건 하에서, 다수 확률 변수로 이뤄진 포트폴리오의 \textbf{기대 최댓값을 최대화}하는 문제.
+예산 제약 조건 하에서, 다수 확률 변수로 이뤄진 포트폴리오의 \textbf{기대 최댓값을 최대화}하는 문제이다.
 
 발표 요약:
 \begin{itemize}
 \item 대학 지원 전략을 최적화 문제로 \textbf{모형화}.
-\item \textbf{현재 상황}: 입학 컨설팅 산업에서 흔히 사용하는 휴리스틱의 부족함.
-\item 본 연구가 제시하는 \textbf{이론적 결과, 해법, 그리고 알고리즘 구현}.
+%\item \textbf{현재 상황}: 입학 컨설팅 산업에서 흔히 사용하는 휴리스틱의 부족함.
+\item 문제의 \textbf{계산 복잡도 분석}, \textbf{해법 제시}, 그리고 \textbf{알고리즘 구현}.
 \end{itemize}
 
 \mbox{\textbf{발표에서 생략된 증명 등}은 arXiv 논문에서 제시 (Kapur와 Hong 2022).}
@@ -264,11 +264,11 @@ College application spans several areas of combinatorial optimization:
 \end{frame}
 } \else {
 \begin{frame}{방법론적 지향}
-대학 지원 전략은 조합 최적화 중 여러 분야를 걸친다.
+대학 지원 전략은 조합 최적화 중 여러 분야에 걸쳐 있다.
 
 \begin{itemize}
 \item 불확실한 성과, 효율적 투자선이 존재하므로 \textbf{일종의 포트폴리오 배분} 모형.  
-\item \textbf{배낭 문제의 일반화}: 정수 패킹 제약식, NP-completeness, 근사 해법의 필요.
+\item \textbf{배낭 문제의 일반화}: 정수 채우기 (packing) 제약식, NP-completeness, 근사 해법의 필요.
 \item 목적함수는 \textbf{submodular 집합 함수}이며, 근사 해법 결과에 따라 대학 지원 문제가 submodular 최적화의 비교적 쉬운 인스턴스로 해석할 수 있다.
 \end{itemize}
 \end{frame}
@@ -339,7 +339,7 @@ Application fees, time to write essays, and/or legal limits \textbf{constrain} a
 학생의 내신, 수능 점수, 기본 정보가 주어지면 각 학교의 \textbf{합격 확률} $f_j$를 알 수 있다.
 
 \looseness=-1
-독립한 \textbf{확률 변수} $Z_j \sim \operatorname{Bernoulli}(f_j)$는 학생이 합격하면 $1$, 아니면 $0$.
+독립 \textbf{확률 변수} $Z_j \sim \operatorname{Bernoulli}(f_j)$는 학생이 합격하면 $1$, 아니면 $0$.
 
 \looseness=-1
 학생이 지원하는 학교의 집합 $\mathcal{X} \subseteq \mathcal{C}$를 \textbf{지원 포트폴리오}라고 부른다.
@@ -357,7 +357,7 @@ Application fees, time to write essays, and/or legal limits \textbf{constrain} a
 \begin{frame}{Utility model}
 Let $t_j \geq 0$ denote the \textbf{utility} the student receives if she attends $c_j$. Wlog, $t_j \leq t_{j+1}$.
 
-Let $t_0$ denote her utility if she doesn't get into college. Wlog, $t_0 =0$ (see paper).
+Let $t_0$ denote her utility if she doesn't get into college. Wlog, $t_0 = 0$ (see paper).
 
 The student's overall utility is the $t_j$-value associated with the \textbf{best} school she gets into:
 \[\text{Utility} =\max\bigr\{t_0, \max\{t_j Z_j : j \in \mathcal{X}\}\bigr\}\]
@@ -367,7 +367,7 @@ When the student's application portfolio is $\mathcal{X}$, we refer to her expec
 \begin{frame}{효용 모형}
 $c_j$에 다니면 $t_j \geq 0$ 단위의 \textbf{효용}이 발생한다. Wlog, $t_j \leq t_{j+1}$.
 
-어떤 대학에도 합격하지 않았을 때 효용은 $t_0$이며, wlog $t_0 =0$임을 가정할 수 있다 (논문에서 증명).
+어떤 대학에도 합격하지 않았을 때 효용은 $t_0$이며, wlog $t_0 =0$이라고 할 수 있다 (논문에서 증명).
 
 학생의 총 효용은 그가 지원하고 합격하는 \textbf{가장 좋은} 학교의 $t_j$-값:
 \[\text{효용} =\max\bigr\{t_0, \max\{t_j Z_j : j \in \mathcal{X}\}\bigr\}\]
@@ -405,7 +405,7 @@ v(\mathcal{X})
 \begin{frame}{포트폴리오 가치의 함수 형태}
 $v(\mathcal{X})$를 함수로 표현하기 위해, 학생이 $c_j$에 \textbf{진학하는} 확률을 $p_j(\mathcal{X})$라고 하자.
 
-$c_j$에 진학하는 조건은 $c_j$에 \textbf{지원}하고, \textbf{합격}하고, $c_j$보다 선호하는 학교에는 \textbf{합격하지 않았을} 때이다.
+$c_j$에 진학하는 조건은 $c_j$에 \textbf{지원하고}, \textbf{합격하고}, $c_j$보다 선호하는 학교에는 \textbf{합격하지 않았을} 때이다.
 \begin{align*}
 p_j(\mathcal{X}) &= 
 \begin{cases}
@@ -626,19 +626,19 @@ We show that when $\mathcal{X}_h$ is the optimal portfolio at $h$, $\mathcal{X}_
 %\looseness=-1
 Using a variable-elimination technique, we reduce the cost of computing $v(\mathcal{X})$ to amortized unit time, obtaining an $O(hm)$ algorithm. Our Julia implementation (Kapur 2022) solves an $m = 16384$ instance in \rlap{200 ms.}
 
-Strengthens the result of Fisher et al. (1978). 
+%Fisher et al. showed that the greedy algorithm is $1 - 1/e$-optimal for submodular maximization; our result shows that the same algorithm is exact in the college application problem. 
 \end{frame}
 } \else {
 \begin{frame}{다항 시간에 풀 수 있는 동일한 지원 비용의 경우}
 먼저 모든 $g_j = 1$이며 $H$는 단순한 지원 개수 제한 $h \leq m$이 되는 \textbf{특수한 경우}를 고려하자. 
 
-이것은 $h = 3, m= 202$인 한국 정시 입학 과정과 비슷한 상황이다.
+이것은 $h = 3, m = 202$인 한국 정시 입학 과정과 비슷한 상황이다.
 
 지원 제한 $h$에 대응되는 최적 포트폴리오가 $\mathcal{X}_h$일 때, $\mathcal{X}_{h} \subset \mathcal{X}_{h+1}$을 증명할 수 있다. 이러한 \textbf{포함 사슬 관계 (nestedness)} 성질은 $v(\mathcal{X})$를 최대화하는 순서대로 학교를 하나씩 추가하는 \textbf{탐욕 해법}의 최적성을 의미한다.
 
-변수 소거 기법은 개발하여 $v(\mathcal{X})$를 계산하는 시간을 환산 단위 시간을 줄임으로 $O(hm)$ 해법을 얻을 수 있다. 쥴리아 코드(Kapur 2022)를 사용하면 $m = 16384$인 인스턴스를 200 ms에 풀 수 있다.
+$v(\mathcal{X})$를 $O(1)$ 시간 안에 계산할 수 있는 변수 소거 기법을 개발하여 전체 해법의 계산 시간을 $O(hm)$으로 줄였다. 쥴리아 코드(Kapur 2022)를 사용하면 $m = 16384$인 인스턴스를 200 ms에 풀 수 있다.
 
-Fisher 외 (1978)의 결과를 강화한다.
+%Fisher 외 (1978)는 근사 계수 결과보다 강하다.
 \end{frame}
 } \fi
 
@@ -722,7 +722,7 @@ $m=8$개의 학교로 이루어진 가상 입학 시장의 대학교 자료와 �
 \begin{frame}{Algorithms for the general problem}
 The general problem is \textbf{NP-complete} (reduction from knapsack). We offer four algorithms:
 \begin{itemize}
-\item A linear relaxation and \textbf{branch-and-bound scheme}. Primarily of theoretical interest.
+\item A linear relaxation and \textbf{branch-and-bound scheme} allow us to interface with existing INLP solvers.
 
 \item A \textbf{dynamic program based on total expenditures}. Exact solution in $O(Hm + m\log m)$ time (pseudopolynomial). Very fast for ``typical'' instances in which $g_j$ are small integers.
 
@@ -738,9 +738,9 @@ Existence of FPTAS suggests college application is \textbf{a relatively easy ins
 
 4개의 알고리즘 제시:
 \begin{itemize}
-\item 선형 완화 문제와 해당 \textbf{branch-and-bound} 해법. 주로 이론적인 흥미가 있다.
+\item 선형 완화 문제와 해당 \textbf{branch-and-bound} 해법. 일반적인 INLP 문제에 대해 자주 쓰이는 방법이다.
 
-\item \textbf{총 지원 비용 기반 동적 계획}. (의사 다항) $O(Hm + m\log m)$ 시간에 정확한 해를 구하며, $g_j$가 작은 정수가 되는 ``전형적'' 인스턴스에 대해 매우 효율적인 해법.
+\item \textbf{총 지원 비용 기반 동적 계획}. $O(Hm + m\log m)$ (의사 다항) 시간에 정확한 해를 구하며, $g_j$가 작은 정수가 되는 ``전형적'' 인스턴스에 대해 매우 효율적인 해법.
 
 \item 포트폴리오 가치의 라운딩을 이용한 동적 계획. $O(m^3 / \varepsilon)$ 시간에 $(1 - \varepsilon)$-근사해를 출력하므로 \textbf{FPTAS!}
 
@@ -803,11 +803,11 @@ Lots of extensions to consider: parametric risk aversion, distribution constrain
 } \else {
 \begin{frame}{결론}
 \looseness=-1
-``Maximax'' 형태와 정수 조건 때문에 대학 지원 문제는 \textbf{이론적인 흥미가 깊다}. Submodular 최대화 문제지만, 근사 해법의 성질은 배낭 문제에 더 가깝다 (cf. Fisher 외 1978; Kulik 외 2013; Kellerer 외 2004).
+``Maximax'' 형태와 정수 조건 때문에 대학 지원 문제는 \textbf{이론적으로 흥미로운 문제이다}. Submodular 최대화 문제지만, 근사 해법의 성질은 배낭 문제에 더 가깝다 (cf. Fisher 외 1978; Kulik 외 2013; Kellerer 외 2004).
 
 %$g_j=1$의 특수한 경우의 포함 사슬 관계 성질도 배낭 문제와 유사하며, 증명 과정은 좀 더 미묘하다.
 
-좋은 대학 지원 전략에는 \textbf{금전적 가치가 있다}. 미국 입학 컨설컨트의 시간당 급료는 평균 200달러 (Sklarow 2018)!
+좋은 대학 지원 전략에는 \textbf{금전적 가치가 있다}. 미국 입학 컨설턴트의 시간당 급료는 평균 200달러 (Sklarow 2018)!
 
 \mbox{⇒ 공공 이익을 위해 코드는 open-source license로 공개 (Kapur 2022).}
 

@@ -227,12 +227,12 @@ Today's presentation: \textbf{define the problem} and briefly summarize our \tex
 \begin{frame}{서론}
 대학 지원 최적화 문제는 \textbf{새로운 조합 최적화 문제}이다.
 
-예산 제약 조건 하에서, 다수 확률 변수로 이뤄진 포트폴리오의 \textbf{기대 최댓값을 최대화}하는 문제.
+예산 제약 조건 하에서, 다수 확률 변수로 이뤄진 포트폴리오의 \textbf{기대 최댓값을 최대화}하는 문제이다.
 
 방법론적 지향:
 \begin{itemize}
 \item 불확실한 성과, 효율적 투자선이 존재하므로 \textbf{일종의 포트폴리오 배분} 모형. 
-\item \textbf{배낭 문제의 일반화}: 정수 패킹 제약식, NP-completeness, 근사 해법의 필요.
+\item \textbf{배낭 문제의 일반화}: 정수 채우기 (packing) 제약식, NP-completeness, 근사 해법의 필요.
 \item 목적함수는 \textbf{submodular 집합 함수}.
 \end{itemize}
 
@@ -276,9 +276,11 @@ Application fees, time to write essays, and/or legal limits \textbf{constrain} a
 
 각 학교에 대해 학생의 \textbf{합격 확률} $f_j$가 주어져 있다.
 
-\mbox{독립한 \textbf{확률 변수} $Z_j \sim \operatorname{Bernoulli}(f_j)$는 학생이 합격하면 $1$, 아니면 $0$.}
+\looseness=-1
+독립 \textbf{확률 변수} $Z_j \sim \operatorname{Bernoulli}(f_j)$는 학생이 합격하면 $1$, 아니면 $0$.
 
-\mbox{학생이 지원하는 학교의 집합 $\mathcal{X} \subseteq \mathcal{C}$를 \textbf{지원 포트폴리오}라고 부른다.}
+\looseness=-1
+학생이 지원하는 학교의 집합 $\mathcal{X} \subseteq \mathcal{C}$를 \textbf{지원 포트폴리오}라고 부른다.
 
 지원 전형료 예산, 원서를 작성하는 시간, 또는 나라의 정책에 따라 \textbf{지원 행동이 제한된다}. 본 논문은 단일 배낭 제약식 $\sum_{j\in \mathcal{X}} g_j \leq H$를 고려하며, 이때 $g_j$는 $c_j$의 \textbf{지원 비용}이라고 부른다. 
 \end{frame}
@@ -547,11 +549,11 @@ Lots of extensions to consider: parametric risk aversion, distribution constrain
 } \else {
 \begin{frame}{결론}
 \looseness=-1
-``Maximax'' 형태와 정수 조건 때문에 대학 지원 문제는 \textbf{이론적인 흥미가 깊다}. Submodular 최대화 문제지만, 근사 해법의 성질은 배낭 문제에 더 가깝다 (cf. Fisher et al. 1978; Kulik et al. 2013; Kellerer et al. 2004).
+``Maximax'' 형태와 정수 조건 때문에 대학 지원 문제는 \textbf{이론적으로 흥미로운 문제이다}. Submodular 최대화 문제지만, 근사 해법의 성질은 배낭 문제에 더 가깝다 (cf. Fisher et al. 1978; Kulik et al. 2013; Kellerer et al. 2004).
 
 %$g_j=1$의 특수한 경우의 포함 사슬 관계 성질도 배낭 문제와 유사하며, 증명 과정은 좀 더 미묘하다.
 
-좋은 대학 지원 전략에는 \textbf{금전적 가치가 있다}. 미국 입학 컨설컨트의 시간당 급료는 평균 200달러 (Sklarow 2018)!
+좋은 대학 지원 전략에는 \textbf{금전적 가치가 있다}. 미국 입학 컨설턴트의 시간당 급료는 평균 200달러 (Sklarow 2018)!
 
 \mbox{⇒ 공공 이익을 위해 코드는 open-source license로 공개 (Kapur 2022).}
 
