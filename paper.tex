@@ -693,11 +693,9 @@ v(\mathcal{X}_{h+1})&= v(\mathcal{Y}_{h} \cup \{k\}) \\
 \ifen Now suppose that $k \in \mathcal{X}_h$. We can write $\mathcal{X}_h = \mathcal{Y}_{h-1} \cup \{k\}$, where $ \mathcal{Y}_{h-1}$ is some portfolio of size $h-1$. It suffices to show that $ \mathcal{Y}_{h-1} \subset \mathcal{Y}_h$. By definition, $\mathcal{Y}_{h-1}$ (respectively, $\mathcal{Y}_{h}$) maximizes the function $v(\mathcal{Y}\cup\{k\})$ over portfolios of size $h-1$ (respectively, $h$) that do not include $k$. That is, $\mathcal{Y}_{h-1}$ and $\mathcal{Y}_h$ are the optimal complements to the singleton portfolio $\{k\}$.
 
 Applying Lemma \ref{eliminationtheorem}, we eliminate $c_k$, transform the remaining $t_j$-values to $\bar t_j$ according to \eqref{howtotransformtj}, and obtain a function $w(\mathcal{Y}) = v(\mathcal{Y} \cup \{k\}) - f_k t_k$ that grades portfolios $\mathcal{Y} \subseteq \mathcal{C} \setminus \{k\}$ according to how well they complement $\{k\}$. Since $w(\mathcal{Y})$ is itself a portfolio valuation funtion and $\bar t_0 = 0$, the inductive hypothesis implies that $\mathcal{Y}_{h-1} \subset \mathcal{Y}_h$, which completes the proof.
-
 \else 이제 $k \in \mathcal{X}_h$인 경우를 고려하자. 그러면 크기 $h-1$인 어떤 포트폴리오 $\mathcal{Y}_{h-1}$에 대해 $\mathcal{X}_h = \mathcal{Y}_{h-1} \cup \{k\}$으로 표현할 수 있다. $\mathcal{Y}_{h-1} \subset \mathcal{Y}_h$임을 보이면 충분하다. 정의에 따라 $\mathcal{Y}_{h-1}$ ($\mathcal{Y}_{h}$)는 크기가 $h-1$ ($h$)인 포트폴리오 중에 함수 $v(\mathcal{Y}\cup\{k\})$를 최대화한다. 다시 말해 $\mathcal{Y}_{h-1}$과 $\mathcal{Y}_h$는 각각 단일 원소 포트폴리오 $\{k\}$와 최적으로 보완적인 학교 집합이다. 
 
-기본 정리 \ref{eliminationtheorem}을(를) 적용하여 $c_k$를 소거하고 남은 $t_j$-값을 \eqref{howtotransformtj}에 따라 $\bar t_j$로 변환한다. 그러면 $\mathcal{Y} \subseteq \mathcal{C} \setminus \{k\}$인 포트폴리오와 $\{k\}$ 사이의 보완성을 평가하는 함수 $w(\mathcal{Y})$를 얻는다. $w(\mathcal{Y})$ 그 자체가 포트폴리오 가치 함수이며 $\bar t_0 = 0$이므로, 귀납법 가설에 따라 $\mathcal{Y}_{h-1} \subset \mathcal{Y}_h$이고 증명이 완성된다.
-\fi
+기본 정리 \ref{eliminationtheorem}을(를) 적용하여 $c_k$를 소거하고 남은 $t_j$-값을 \eqref{howtotransformtj}에 따라 $\bar t_j$로 변환한다. 그러면 $\mathcal{Y} \subseteq \mathcal{C} \setminus \{k\}$인 포트폴리오와 $\{k\}$ 사이의 보완성을 평가하는 함수 $w(\mathcal{Y})$를 얻는다. $w(\mathcal{Y})$ 그 자체가 포트폴리오 가치 함수이며 $\bar t_0 = 0$이므로, 귀납법 가설에 따라 $\mathcal{Y}_{h-1} \subset \mathcal{Y}_h$이고 증명이 완성된다.\fi
 \end{proof}
 
 
@@ -1570,7 +1568,7 @@ Algorithms \ref{ellisDP1} and \ref{ellisDP3} can be written using recursive func
 \fi
 
 
-\ifen \subsection{Simulated annealing heuristic} \else \subsection{모의 담금질 휴리스틱}\fi\label{numericalexperiments}
+\ifen \subsection{Simulated annealing heuristic} \else \subsection{모의 담금질 휴리스틱} \fi
 \ifen
 Simulated annealing is a popular local-search heuristic for nonconvex optimization problems. Because of their inherent randomness, simulated-annealing algorithms offer no accuracy guarantee; however, they are easy to implement, computationally inexpensive, and often produce solutions with a small optimality gap. In this section, we present a simulated-annealing algorithm for Ellis's problem. It is patterned on the procedure for integer programs outlined by Wolsey (1998, \S\,12.3.2).
 \else
@@ -1958,6 +1956,65 @@ When such a dynamic program is implemented using a lookup table or dictionary me
 
 
 
+\iffalse
+
+\subsection{Generalization of Theorem \ref{nestedapplication} for matroid constraints} \label{matroidnestedapplicationheader}
+
+\begin{definition}[Matroid]
+Consider a ground set $\mathcal{C}$ and a collection $\mathfrak{I}$ of subsets of $\mathcal{C}$, the system $(\mathcal{C}, \mathfrak{I})$ is called a \emph{matroid} if and only if the following three condtions hold:
+\begin{enumerate}
+\item $\varnothing \in \mathfrak{I}$.
+\item $\mathfrak{I}$ is downward-closed: $\mathcal{X} \in \mathfrak{I}$ and $ \mathcal{Y} \subseteq \mathcal{X}$ implies $\mathcal{Y} \in \mathfrak{I}$.
+\item If $\mathcal{X} \in \mathfrak{I}$ and $|\mathcal{Y}| < |\mathcal{X}|$, then there is an element $k \in \mathcal{X}$ such that $\mathcal{Y} \cup \{k\} \in \mathfrak{I}$. 
+\end{enumerate}
+The elements of $\mathfrak{I}$ are called the \emph{independent sets} of the matroid; subsets of $\mathcal{C}$ that are not independent are called \emph{dependent}. If $\mathcal{X}$ is an independent set such that $\mathcal{X} \cup \{j\} \notin \mathfrak{I}$ for all $j \in\mathcal{C} \setminus \mathcal{X}$, then $\mathcal{X}$ is called \emph{base} of $(\mathcal{C}, \mathfrak{I})$. %The third property implies that all bases have the same cardinality, called the matroid's \emph{rank.}
+\end{definition}
+
+
+\begin{problem}[\ifen Alma’s problem with matroid constraints\else 매트로이드 제약이 있는 알마의 문제\fi]
+%\ifen Alma's optimal college application portfolio is given by the solution to the following combinatorial optimization problem:
+%\else
+%알마의 최적 대학 지원 포트폴리오는 다음 조합 최적화 문제의 최적해이다.
+%\fi
+\begin{align}
+\begin{split}
+\text{maximize}\quad &  v(\mathcal{X}) = \sum_{j\in
+%\{0\}\cup
+\mathcal{X}} \Bigl( f_j t_j \prod_{\substack{i \in \mathcal{X}: \\ i > j}} (1 - f_{i}) \Bigr)\\
+\text{subject to}\quad & \mathcal{X} \in \mathfrak{I}
+\end{split}
+\end{align}
+where $\mathcal{C}, \mathfrak{I})$ is a matroid.
+\end{problem}
+
+
+
+\begin{definition}[Greedy algorithm for Alma's problem with matroid constraints]
+At each iteration, add to $\mathcal{X}$ the school $k$ for which $v(\mathcal{X} \cup \{k\})$ is greatest and $\mathcal{X} \in $
+\end{definition}
+
+%\begin{theorem}
+%
+%\end{theorem}
+\else
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \pagebreak
 \ifen
@@ -2026,6 +2083,8 @@ Martello, Silvano and Paolo Toth. 1990. \emph{Knapsack Problems: Algorithms and 
 Meucci, Attilio. 2005. \emph{Risk and Asset Allocation.} Berlin: Springer-Verlag, 2005. 
 
 %Othman, Abraham, Eric Budish, and Tuomas Sandholm. 2010. ``Finding Approximate Competitive Equilibria: Efficient and Fair Course Allocation.'' In \emph{Proceedings of 9th International Conference on Autonomous Agents and Multiagent Systems.} New York: ACM. \url{https://dl.acm.org/doi/abs/10.5555/1838206.1838323}.
+
+Parker, R. Gary and Ronald L. Rardin. 1988. \emph{Discrete Optimization.} San Diego: Academic Press.
 
 Rozanov, Mark and Arie Tamir. 2020. ``The Nestedness Property of the Convex Ordered Median Location Problem on a Tree.'' \emph{Discrete Optimization} 36: 100581. \url{https://doi.org/10.1016/j.disopt.2020.100581}.
 

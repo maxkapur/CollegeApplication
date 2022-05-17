@@ -274,3 +274,9 @@ TSWLatexianTemp*
 
 # Makeindex log files
 *.lpz
+
+.ipynb_checkpoints
+*.kate-swp
+# Gets exported if you call pdflatex without -jobname
+paper.pdf
+slides*/slides.pdf
