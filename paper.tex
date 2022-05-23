@@ -1,6 +1,6 @@
 %!TEX encoding = UTF-8 Unicode 
 
-\newif\ifen\entrue
+\newif\ifen\enfalse
 % Language selector; must be on line 3 for compile.sh to work
 % Change to false to export Korean
 
@@ -35,19 +35,20 @@
 
 \title{\thetitle}
 \author{\theauthor}
-\author{\theotherauthor}
 \date{\thedate}
 
 \ifen
 \affil{Seoul National University\\
 Department of Industrial Engineering\\
 Management Science/Optimization Lab\\
-Correspondence: \url{maxkapur@gmail.com}}
+Correspondence: \url{maxkapur@gmail.com}\\
+Advisor: \theotherauthor}
 \else
 \affil{서울대학교\\
 산업공학과 \\
 경영과학/최적화 연구실\\
-교신: \url{maxkapur@gmail.com}}
+이메일: \url{maxkapur@gmail.com}\\
+지도 교수: \theotherauthor}
 \fi
 
 
@@ -55,7 +56,7 @@ Correspondence: \url{maxkapur@gmail.com}}
 \pagestyle{fancy}
 \renewcommand{\headrulewidth}{0pt}
 \fancyhf{}
-\lhead{\theauthor\ and \theotherauthor}
+\lhead{\theauthor}
 \chead{\thedate}
 \rhead{\thetitle}
 \cfoot{\thepage}
@@ -134,8 +135,8 @@ submodular maximization, knapsack problems, approximation algorithms
 
 \renewcommand{\abstractname}{요약}
 \begin{abstract}
-본 논문은 다수의 확률 변수로 구성된 포트폴리오의 기대 최댓값을 예산 조건 하에서 최대화하는 문제를 고려한다. 이를 대학 지원 최적화 문제라고 부른다. 각 확률 변수의 비용, 즉 각 대학의 지원 비용이 동일한 경우, 최적 포트폴리오는 예산 제약식으로 결정된 포함 사슬 관계 성질을 가짐을 보이고 이를 바탕으로 다항 시간 해법을 제시한다. 대학의 지원 비용이 서로 다른 경우, 문제가 NP-complete함을 증명한다. 일반적인 문제를 위해 4가지 해법을 제시하며, 분지한계 기반 해법, 의사 다항 시간 안에 정확한 해를 출력하는 동적 계획 해법, 다른 동적 계획 기반으로 완전 다항 시간 근사 해법(fully polynomial-time approximation scheme), 그리고 모의 담금질(simulated annealing)을 이용한 휴리스틱 해법을 포함한다.
-% 첫째는 분지한계 기반 해법이다. 둘째는 의사 다항 시간 안에 정확한 해를 출력하는 동적 계획 해법이다. 마지막으로 다른 동적 계획 기반으로 완전 다항 시간 근사 해법(fully polynomial-time approximation scheme)을 도출한다.
+본 논문은 다수의 확률 변수로 구성된 포트폴리오의 기대 최댓값을 예산 조건 하에서 최대화하는 문제를 고려한다. 이를 대학 지원 최적화 문제라고 부른다. 각 확률 변수의 비용, 즉 각 대학의 지원 비용이 동일한 경우, 최적 포트폴리오는 예산 제약식으로 결정된 포함 사슬 관계 성질을 가짐을 보이고 이를 바탕으로 다항 시간 해법을 제시한다. 대학의 지원 비용이 서로 다른 경우, 문제가 NP-complete함을 증명한다. 일반적인 문제를 위해 4가지 해법을 제시하며, 분지한계 기반 해법, 의사 다항 시간에 정확한 해를 출력하는 동적 계획 해법, 다른 동적 계획 기반으로 완전 다항 시간 근사 해법(fully polynomial-time approximation scheme), 그리고 모의 담금질(simulated annealing)을 이용한 휴리스틱 해법을 포함한다.
+% 첫째는 분지한계 기반 해법이다. 둘째는 의사 다항 시간에 정확한 해를 출력하는 동적 계획 해법이다. 마지막으로 다른 동적 계획 기반으로 완전 다항 시간 근사 해법(fully polynomial-time approximation scheme)을 도출한다.
 수리적 실험을 통해 알고리즘의 정확도와 효율성을 보인다.
 
 \ifen 본 논문은 \url{https://github.com/maxkapur/CollegeApplication}에서 전문을 한글로 공유한다. \fi
@@ -228,7 +229,7 @@ Finally, we remark that the objective function of \eqref{headlineproblem} is a n
 \ifen \subsection{Structure of this paper} \else \subsection{본 논문의 구성}\fi
 \ifen Section \ref{preliminaries} introduces some additional notation and assumptions that can be imposed without loss of generality. We also introduce a useful variable-elimination technique and prove that the objective function is submodular. 
 
-In Section \ref{homogappcosts}, we consider the special case where each $g_j = 1$ and $H$ is an integer $h \leq m$.  We show that an intuitive heuristic is in fact a $1/h$-approximation algorithm. Then, we show that the optimal portfolios are nested in the budget constraint, which yields an exact algorithm that runs in $O(hm)$-time. 
+In Section \ref{homogappcosts}, we consider the special case where each $g_j = 1$ and $H$ is an integer $h \leq m$.  We show that an intuitive heuristic is in fact a $1/h$-approximation algorithm. Then, we show that the optimal portfolios are nested in the budget constraint, which yields an exact algorithm that runs in $O(hm)$ time. 
 
 In Section \ref{hetappcosts}, we turn to the scenario in which colleges differ in their application fees. We show that the decision form of the portfolio optimization problem is NP-complete through a polynomial reduction from the binary knapsack problem. We provide four algorithms for this more general setup. The first is a branch-and-bound routine. The second is a dynamic program that iterates on total expenditures and produces an exact solution in pseudopolynomial time, namely $O(Hm + m \log m)$. The third is a different dynamic program that iterates on truncated portfolio valuations. It yields a fully polynomial-time approximation scheme that produces a $(1 - \varepsilon)$-optimal solution in $O(m^3 / \varepsilon)$ time.  The fourth is a simulated-annealing heuristic algorithm that demonstrates strong performance in our synthetic instances. 
 
@@ -239,9 +240,9 @@ In the conclusion, we identify possible improvements to our solution algorithms 
 \ref{preliminaries}절은 표기법과 일반성을 제한하지 않는 편의적 가정을 제시한다. 유용한 변수 소거 기술도 제시하고 목적함수가 submodularity함을 
 증명한다.
  
-\ref{homogappcosts}절에서 각 $g_j = 1$이고 $H$가 $h \leq m$이고 자연수인 특수한 경우를 고려한다. 직관적인 휴리스틱 해법이 실제로 $1/h$-근사 해법임을 증명한다. 그다음에 최적 포트폴리오의 예산 제약에 대한 포함 사슬 관계를 보이고 이를 이용하여 $O(hm)$-시간 정확한 해법을 도출한다. 
+\ref{homogappcosts}절에서 각 $g_j = 1$이고 $H$가 $h \leq m$이고 자연수인 특수한 경우를 고려한다. 직관적인 휴리스틱 해법이 실제로 $1/h$-근사 해법임을 증명한다. 그다음에 최적 포트폴리오의 예산 제약에 대한 포함 사슬 관계를 보이고 이를 이용하여 $O(hm)$ 시간 정확한 해법을 도출한다. 
 
-\ref{hetappcosts}절에서 각 학교의 지원 비용이 동일하지 않은 일반적인 상황을 다룬다. 이진 배낭 문제에서의 다항 변환을 통하여 포트폴리오 최적화 문제가 NP-complete함을 증명한다. 또한 3개의 일반적인 해법을 제안한다. 첫째는 분지한계법이다. 둘째는 총 지출액으로 탐색하는 $O(Hm + m \log m)$과 같은 의사 다항 시간 동적 계획 해법이다. 셋째는 실수값을 분수값으로 내림한 포트폴리오 가치를 탐색하는 또다른 동적 계획 해법이다. 이를 통하여 $O(m^3 / \varepsilon)$-시간 안에 $(1 - \varepsilon)$-근사해를 출력하는 FPTAS를 얻는다. 넷째는 가상 인스턴스를 푸는 성능이 좋은 모의 담금질(simulated annealing) 기반 휴리스틱 알고리즘이다.
+\ref{hetappcosts}절에서 각 학교의 지원 비용이 동일하지 않은 일반적인 상황을 다룬다. 이진 배낭 문제에서의 다항 변환을 통하여 포트폴리오 최적화 문제가 NP-complete함을 증명한다. 또한 3개의 일반적인 해법을 제안한다. 첫째는 분지한계법이다. 둘째는 총 지출액으로 탐색하는 $O(Hm + m \log m)$과 같은 의사 다항 시간 동적 계획 해법이다. 셋째는 실수값을 분수값으로 내림한 포트폴리오 가치를 탐색하는 또다른 동적 계획 해법이다. 이를 통하여 $O(m^3 / \varepsilon)$ 시간에 $(1 - \varepsilon)$-근사해를 출력하는 FPTAS를 얻는다. 넷째는 가상 인스턴스를 푸는 성능이 좋은 모의 담금질(simulated annealing) 기반 휴리스틱 알고리즘이다.
 
 \ref{numericalexperiments}절에서 위에서 도출한 타당성과 계산 복잡성을 확인하는 계산 실험 결과를 정리한다. 모의 담금질 휴리스틱의 정확도도 탐구한다.
 
@@ -277,7 +278,7 @@ $v(\mathcal{X}) =  \operatorname{E}\left[\max\bigr\{t_0,
 \ifen
 Given an application portfolio, let $p_j(\mathcal{X})$ denote the probability that the student attends $c_j$. This occurs if and only if she \emph{applies} to $c_j$, is \emph{admitted} to $c_j$, and is \emph{rejected} from any school she prefers to $c_j$; that is, any school with higher index. Hence, for $j= 0\dots m$,
 \else
-주어진 지원 포트폴리오에 대해 학생이 $c_j$로 진학할 확률을 $p_j(\mathcal{X})$라고 하자. 이 사건이 발생하는 필수충분 조건은 $c_j$에 지원하고, $c_j$에서 합격하고, $c_j$보다 선호하는 (즉, 지표가 더 높은) 학교에서 불합격는 것이다. 따라서  $j= 0\dots m$에 대해
+주어진 지원 포트폴리오에 대해 학생이 $c_j$로 진학할 확률을 $p_j(\mathcal{X})$라고 하자. 이 사건이 발생하는 필요충분 조건은 $c_j$에 지원하고, $c_j$에서 합격하고, $c_j$보다 선호하는 (즉, 지표가 더 높은) 학교에서 불합격는 것이다. 따라서  $j= 0\dots m$에 대해
 \fi
 \begin{align}
 p_j(\mathcal{X}) &= 
@@ -391,7 +392,7 @@ t_j - f_k t_k, \quad& t_j > t_k.
 \ifen 
 Now, we show that the portfolio valuation function is submodular. This result is primarily of taxonomical interest and may be safely skipped. Our solution algorithms for the college application problem are better than generic algorithms for submodular maximization, and we prove their validity using elementary analysis.
 \else
-목적함수가 submodular함을 보이자. 이 결과는 주로 분류학적인 흥미를 가지며 건너뛰어도 연속성에 지장을 주지 않는다. 일반적인 submodular 최대화 알고리즘보다 본 연구가 제시하는 대학 지원 최적화 해법이 더 좋으며, 기초적인 분석을 통해 그의 타당성을 증명한다.
+목적함수가 submodular함을 보이자. 이 결과는 주로 분류학적인 목표로 제시하며 건너뛰어도 연속성에 지장을 주지 않는다. 일반적인 submodular 최대화 알고리즘보다 본 연구가 제시하는 대학 지원 최적화 해법이 더 좋으며, 뒤에서 submodularity를 이용하지 않고 기초적인 분석을 통해 해법의 타당성을 증명한다.
 \fi
 
 \ifen
@@ -401,7 +402,7 @@ for all $\mathcal{X}, \mathcal{Y} \subseteq \mathcal{C}$. Furthermore, if $ v(\m
 \end{definition}
 \else
 \begin{definition}[Submodular한 집합 함수]
-고려 집합 $\mathcal{C}$ 그리고 함수 $v : 2^{\mathcal{C}} \mapsto \mathbb{R}$가 주어질 때, $v(\mathcal{X})$가 submodular한 집합 함수가 되는 필수충분 조건은, 모든 $\mathcal{X}, \mathcal{Y} \subseteq \mathcal{C}$에 대해 $v(\mathcal{X}) + v(\mathcal{Y}) \geq v(\mathcal{X}\cup\mathcal{Y}) + v(\mathcal{X}\cap\mathcal{Y})$이 성립하는 것이다. 또한 모든 $\mathcal{X} \subset \mathcal{C}$와 $k \in \mathcal{C} \setminus \mathcal{X}$에 대해 $v(\mathcal{X}\cup\{k\}) - v(\mathcal{X}) \geq 0$이면, $v(\mathcal{X})$가 단조 증가하는 submodular한 집합 함수라고 부른다.
+고려 집합 $\mathcal{C}$ 그리고 함수 $v : 2^{\mathcal{C}} \mapsto \mathbb{R}$가 주어질 때, $v(\mathcal{X})$가 submodular한 집합 함수가 되는 필요충분 조건은, 모든 $\mathcal{X}, \mathcal{Y} \subseteq \mathcal{C}$에 대해 $v(\mathcal{X}) + v(\mathcal{Y}) \geq v(\mathcal{X}\cup\mathcal{Y}) + v(\mathcal{X}\cap\mathcal{Y})$이 성립하는 것이다. 또한 모든 $\mathcal{X} \subset \mathcal{C}$와 $k \in \mathcal{C} \setminus \mathcal{X}$에 대해 $v(\mathcal{X}\cup\{k\}) - v(\mathcal{X}) \geq 0$이면, $v(\mathcal{X})$가 단조 증가하는 submodular한 집합 함수라고 부른다.
 \end{definition}
 \fi
 
@@ -437,10 +438,8 @@ which is plainly true.
 \end{proof}
 \else
 \begin{proof}
-$v(\mathcal{X})$가 단조 증가하는 것은 자명하다. Submodularity를 보이기 위해, Nemhauser와 Wolsey (1978)의 제의 2.1.iii을 적용하여 모든 $\mathcal{X} \subset \mathcal{C}$ 그리고 $j \neq k \in \mathcal{C} \setminus \mathcal{X}$에 대해 다음이 성립함을 보이자.
-\begin{equation}\label{nemhauseriii}
-v(\mathcal{X} \cup \{j\}) - v(\mathcal{X}) \geq 
-v(\mathcal{X} \cup \{j, k\}) - v(\mathcal{X} \cup \{k\})
+$v(\mathcal{X})$가 단조 증가하는 것은 자명하다. Submodularity를 보이기 위해, Nemhauser와 Wolsey (1978)의 제의 2.1.iii을 적용하여 모든 $\mathcal{X} \subset \mathcal{C}$ 그리고 $j \neq k \in \mathcal{C} \setminus \mathcal{X}$에 대해 다음이 성립함을 보이자. \begin{equation} v(\mathcal{X} \cup \{j\}) - v(\mathcal{X}) \geq 
+v(\mathcal{X} \cup \{j, k\}) - v(\mathcal{X} \cup \{k\}) \label{nemhauseriii}
 \end{equation}
 기본 정리 \ref{eliminationtheorem}을(를) 적용하면, \eqref{howtotransformtj}에 따라 $\mathcal{X}$에 속한 학교를 반복적으로 소거하여 모수 $\bar t$로 갖춘 포트폴리오 함수 $w(\mathcal{Y})$를 얻을 수 있으며,  모든 $\mathcal{Y} \subseteq \mathcal{C} \setminus \mathcal{X}$에 대해 $w(\mathcal{Y}) = v(\mathcal{X} \cup \mathcal{Y}) + \text{const.}$가 성립한다. 따라서 \eqref{nemhauseriii}은(는) 다음 부등식과 동등하다.
 \begin{align}
@@ -498,35 +497,11 @@ Apply to the $h$ schools having the highest expected utility $f_j t_j$.
 \ifen 
 \noindent This algorithm's computation time is $O(m)$ using the PICK algorithm of Blum et al. (1973).
 
-The basic error of the na\"ive algorithm is that it maximizes $\operatorname{E}\left[\,\sum t_j Z_j\, \right]$ instead of $\operatorname{E}\left[\max \{t_j Z_j\} \right]$. The latter is what Alma is truly concerned with, since in the end she can attend only one school. The following example shows that the na\"ive algorithm can produce a suboptimal solution.
+The basic error of the na\"ive algorithm is that it maximizes $\operatorname{E}\left[\,\sum t_j Z_j\, \right]$ instead of $\operatorname{E}\left[\max \{t_j Z_j\} \right]$. The latter is what Alma is truly concerned with, since in the end she can attend only one school. In fact, the na\"ive algorithm is a $(1/h)$-approximation algorithm for Alma’s problem, as expressed in the following theorem.
 \else
 \noindent Blum 외 (1973)의 PICK 알고리즘을 사용하면 위의 해법의 계산 시간이 $O(m)$이다.
 
-나이브 알고리즘의 기본 실수는 $\operatorname{E}\left[\max \{t_j Z_j\} \right]$ 대신  $\operatorname{E}\left[\,\sum t_j Z_j\,\right]$을 최대화하는 것이다. 결국에는 단 한 학교로만 진학할 수 있으므로 알마의 목적은 후자가 아닌 전자다. %학교 개별 효용의 기대 최댓값이다. 
-다음 예는 나이브 해법이 최적해가 아닌 해를 출력할 수 있음을 보인다.
-\fi
-\begin{example}
-\ifen 
-Suppose $m=3$, $h=2$,  $ t= (70, 80, 90) $, and $f = (0.4, 0.4, 0.3)$. 
-%\implies t * f &= (28, 32, 27)
-%\begin{align*}
-%t &= (70, 80, 90) \\
-%f &= (0.4, 0.4, 0.3) \\
-%\implies t * f &= (28, 32, 27)
-%\end{align*}
-Then the na\"ive algorithm picks $\mathcal{T} = \{1, 2\}$ with 
-$v(\mathcal{T}) = 70(0.4)(1-0.4) + 80(0.4) = 48.8$.
-But $\mathcal{X} = \{2, 3\}$ with
-$v(\mathcal{X}) = 80(0.4)(1-0.3) + 90(0.3) = 49.4$
-is the optimal solution. 
-\else
-$m=3$, $h=2$,  $ t= (70, 80, 90) $, 그리고 $f = (0.4, 0.4, 0.3)$이라고 하자. 그러면 나이브 해법은 $\mathcal{T} = \{1, 2\}$를 선택하며 그의 기대 효용은 $v(\mathcal{T}) = 70(0.4)(1-0.4) + 80(0.4) = 48.8$이다. 그러나 $\mathcal{X} = \{2, 3\}$를 선택하면 기대 효용은 $v(\mathcal{X}) = 80(0.4)(1-0.3) + 90(0.3) = 49.4$이고 이는 최적해이다.
-\fi
-\end{example}
-\ifen
-\noindent In fact, the na\"ive algorithm is a $(1/h)$-approximation algorithm for Alma’s problem, as expressed in the following theorem.
-\else
-\noindent 다음 정리는 나이브 해법이 알마의 문제를 위한 $(1/h)$-근사 해법임을 의미한다.
+나이브 알고리즘의 기본 실수는 $\operatorname{E}\left[\max \{t_j Z_j\} \right]$ 대신  $\operatorname{E}\left[\,\sum t_j Z_j\,\right]$을 최대화하는 것이다. 결국에는 단 한 학교로만 진학할 수 있으므로 알마의 목적은 후자가 아닌 전자다. 다음 정리는 나이브 해법이 알마의 문제를 위한 $(1/h)$-근사 해법임을 의미한다.
 \fi
 
 \begin{theorem}[\ifen Accuracy of the na\"ive algorithm\else 나이브 해법의 정확성\fi] \label{oneoverhopt}
@@ -617,9 +592,9 @@ Thus, as $\varepsilon$ approaches zero, we have $v(\mathcal{T}_h) / v(\mathcal{X
 
 
 \ifen
-Although the na\"ive algorithm is suboptimal, we can still find the optimal solution in $O(hm)$-time, as we will now show.
+Although the na\"ive algorithm is suboptimal, we can still find the optimal solution in $O(hm)$ time, as we will now show.
 \else
-나이브 해법은 최적해가 아니지만 $O(hm)$-시간 안에 최적해를 구할 수 있다.
+나이브 해법은 최적 해법이 아니지만 $O(hm)$ 시간에 최적해를 구할 수 있다.
 \fi
 
 \ifen \subsection{The nestedness property}  \else \subsection{포함 사슬 관계} \fi
@@ -795,8 +770,8 @@ $\mathtt{X, V} \gets $ 빈 목록\;
 } \fi
 
 \begin{theorem}[\ifen Validity of Algorithm \ref{algorithmforlargeh}\else 알고리즘 \ref{algorithmforlargeh}의 타당성\fi] \label{validityofalmaalgorithm}
-\ifen Algorithm \ref{algorithmforlargeh} produces an optimal application portfolio for Alma's problem in $O(h m)$-time.
-\else 알고리즘 \ref{algorithmforlargeh}은(는) $O(h m)$-시간 안에 알마의 문제를 위한 최적 지원 포트폴리오를 출력한다.\fi
+\ifen Algorithm \ref{algorithmforlargeh} produces an optimal application portfolio for Alma's problem in $O(h m)$ time.
+\else 알고리즘 \ref{algorithmforlargeh}은(는) $O(h m)$ 시간에 알마의 문제를 위한 최적 지원 포트폴리오를 출력한다.\fi
 \end{theorem}
 \begin{proof}
 \ifen
@@ -970,7 +945,7 @@ $f = (0.5, 0.5, 0.5)$, $t = (1, 1, 219)$, 그리고 $g = (1, 1, 3)$이면 $H = 2
 \ifen 
 An \emph{instance} consists of a set $\mathcal{B}$ of $m$ objects, utility values $u_j \in \mathbb{N}$ and weight $w_j \in \mathbb{N}$ for each $j \in \mathcal{B}$, and target utility $U\in \mathbb{N}$ and knapsack capacity $W\in \mathbb{N}$. The instance is called a \emph{yes-instance} if and only if there exists a set $\mathcal{B’} \subseteq \mathcal{B}$ having $\sum_{j \in \mathcal{B’}} u_j \geq U$ and  $\sum_{j \in \mathcal{B’}} w_j \leq W$.
 \else
-`인스턴스'는 $m$개 상품으로 이루어진 집합 $\mathcal{B}$, 각 $j \in \mathcal{B}$에 대한 효용값 $u_j \in \mathbb{N}$와 무게 $w_j \in \mathbb{N}$, 목적 효용 $U\in \mathbb{N}$, 그리고 배낭 용량 $W\in \mathbb{N}$로 구성된다. 인스턴스가 `예-인스턴스'가 될 필수충분 조건은 $\sum_{j \in \mathcal{B’}} u_j \geq U$와  $\sum_{j \in \mathcal{B’}} w_j \leq W$를 만족하는 집합 $\mathcal{B’} \subseteq \mathcal{B}$가 존재하는 것이다.
+`인스턴스'는 $m$개 상품으로 이루어진 집합 $\mathcal{B}$, 각 $j \in \mathcal{B}$에 대한 효용값 $u_j \in \mathbb{N}$와 무게 $w_j \in \mathbb{N}$, 목적 효용 $U\in \mathbb{N}$, 그리고 배낭 용량 $W\in \mathbb{N}$로 구성된다. 인스턴스가 `예-인스턴스'가 될 필요충분 조건은 $\sum_{j \in \mathcal{B’}} u_j \geq U$와  $\sum_{j \in \mathcal{B’}} w_j \leq W$를 만족하는 집합 $\mathcal{B’} \subseteq \mathcal{B}$가 존재하는 것이다.
 \fi
 \end{problem}
 
@@ -978,7 +953,7 @@ An \emph{instance} consists of a set $\mathcal{B}$ of $m$ objects, utility value
 \ifen
 An \emph{instance} consists of an instance of Ellis’s problem and a target valuation $V$. The instance is called a \emph{yes-instance} if and only if there exists a portfolio $\mathcal{X} \subseteq \mathcal{C}$ having $v(\mathcal{X}) \geq V$ and  $\sum_{j \in \mathcal{X}} g_j \leq H$.
 \else
-`인스턴스'는 엘리스 문제의 인스턴스와 목적 포트폴리오 가치 $V$로 구성된다. 인스턴스가 `예-인스턴스'가 될 필수충분 조건은 $v(\mathcal{X}) \geq V$와 $\sum_{j \in \mathcal{X}} g_j \leq H$를 만족하는 포트폴리오 $\mathcal{X} \subseteq \mathcal{C}$가 존재하는 것이다.
+`인스턴스'는 엘리스 문제의 인스턴스와 목적 포트폴리오 가치 $V$로 구성된다. 인스턴스가 `예-인스턴스'가 될 필요충분 조건은 $v(\mathcal{X}) \geq V$와 $\sum_{j \in \mathcal{X}} g_j \leq H$를 만족하는 포트폴리오 $\mathcal{X} \subseteq \mathcal{C}$가 존재하는 것이다.
 \fi
 \end{problem}
 
@@ -1020,7 +995,7 @@ $U_{\mathrm{max}} = \sum_{j \in \mathcal{B}} u_j$와 $\delta = {1} /{m U_{\mathr
 \ifen
 This means that the utility of an application portfolio $\mathcal{X}$ in the corresponding knapsack instance is the smallest integer greater than $v( \mathcal{X})$. That is, $\sum_{j \in \mathcal{X}} u_j \geq U$ if and only if $v(\mathcal{X}) \geq U -1$. Taking $V = U-1$ completes the transformation and concludes the proof. 
 \else
-이는 지원 포트폴리오 $\mathcal{X}$가 해당 배낭 문제에서 일으키는 효용이 $v( \mathcal{X})$보다 크면서 가장 작은 정수임을 의미한다. 즉, $\sum_{j \in \mathcal{X}} u_j \geq U$가 성립할 필수충분 조건은 $v(\mathcal{X}) \geq U -1$이다. $V = U-1$으로 정의하여 변환을 완성하면 증명이 완료된다.
+이는 지원 포트폴리오 $\mathcal{X}$가 해당 배낭 문제에서 일으키는 효용이 $v( \mathcal{X})$보다 크면서 가장 작은 정수임을 의미한다. 즉, $\sum_{j \in \mathcal{X}} u_j \geq U$가 성립할 필요충분 조건은 $v(\mathcal{X}) \geq U -1$이다. $V = U-1$으로 정의하여 변환을 완성하면 증명이 완료된다.
 \fi
 \end{proof}
 
@@ -1108,9 +1083,9 @@ To begin, let us characterize the portfolio $\mathcal{X}$ as the binary vector $
 \end{align}
 \end{problem}
 \ifen
-\noindent Problem \ref{LPrelaxation} is a continuous knapsack problem, which is easily solved in $O(m \log m)$-time by a greedy algorithm (Dantzig 1957). Balas and Zemel (1980, \S\,2) provide an $O(m)$ algorithm. 
+\noindent Problem \ref{LPrelaxation} is a continuous knapsack problem, which is easily solved in $O(m \log m)$ time by a greedy algorithm (Dantzig 1957). Balas and Zemel (1980, \S\,2) provide an $O(m)$ algorithm. 
 \else
-\noindent 문제 \ref{LPrelaxation}은(는) ``연속 배낭 문제''라고 불리며 탐욕 알고리즘을 적용하면 $O(m \log m)$-시간 안에 쉽게 풀 수 있다 (Dantzig 1957).  $O(m)$ 알고리즘도 알려져 있다 (Balas와 Zemel 1980, \S\,2).
+\noindent 문제 \ref{LPrelaxation}은(는) ``연속 배낭 문제''라고 불리며 탐욕 알고리즘을 적용하면 $O(m \log m)$ 시간에 쉽게 풀 수 있다 (Dantzig 1957).  $O(m)$ 알고리즘도 알려져 있다 (Balas와 Zemel 1980, \S\,2).
 \fi
 
 \ifen In our branch-and-bound framework, a \emph{node} is characterized by a three-way partition of schools $\mathcal{C}= \mathcal{I} \cup \mathcal{O} \cup \mathcal{N}$ satisfying $\sum_{j \in \mathcal{I}} g_j \leq H$. $\mathcal{I}$ consists of schools that are ``in'' the application portfolio ($x_j = 1$), $\mathcal{O}$ consists of those that are ``out'' ($x_j = 0$), and $\mathcal{N}$ consists of those that are ``negotiable.'' 
@@ -1265,9 +1240,9 @@ The branch-and-bound algorithm is an interesting benchmark, but as a kind of enu
 
 \ifen \subsection{Pseudopolynomial-time dynamic program} \else\subsection{의사 다항 시간 동적 계획} \fi
 \ifen
-In this subsection, we assume, with a small loss of generality, that $g_j \in \mathbb{N}$ for $j = 1\dots m$ and $H \in\mathbb{N}$, and provide an algorithmic solution to Ellis's problem that runs in $O(Hm + m\log m)$-time. The algorithm resembles a familiar dynamic programming algorithm for the binary knapsack problem (Dantzig 1957; \emph{Wikipedia}, s.v. ``Knapsack problem''). Because we cannot assume that $H \leq m$ (as was the case in Alma's problem), this represents a pseudopolynomial-time solution (Garey and Johnson 1979, \S\,4.2). However, it is quite effective for typical college-application instances in which the application costs are small integers.
+In this subsection, we assume, with a small loss of generality, that $g_j \in \mathbb{N}$ for $j = 1\dots m$ and $H \in\mathbb{N}$, and provide an algorithmic solution to Ellis's problem that runs in $O(Hm + m\log m)$ time. The algorithm resembles a familiar dynamic programming algorithm for the binary knapsack problem (Dantzig 1957; \emph{Wikipedia}, s.v. ``Knapsack problem''). Because we cannot assume that $H \leq m$ (as was the case in Alma's problem), this represents a pseudopolynomial-time solution (Garey and Johnson 1979, \S\,4.2). However, it is quite effective for typical college-application instances in which the application costs are small integers.
 \else
-본 절에서 일반성을 약간 제한하여 $g_j \in \mathbb{N}$ for $j = 1\dots m$과 $H \in\mathbb{N}$임을 가정한다. 이때 엘리스의 문제를 위한 $O(Hm + m\log m)$-시간 해법을 제시한다. 해법은 이진 배낭 문제를 위한 익숙한 동적 계획 해법과 비슷하다 (Dantzig 1957; \emph{Wikipedia}, s.v. ``Knapsack problem''). 알마의 문제와 달리, 여기에서 $H \leq m$임을 가정할 수 없으므로 이는 의사 다항 시간 해법이라고 한다 (Garey and Johnson 1979, \S\,4.2). 그러나 지원 비용이 작은 정수가 되는 전형적인 대학 지원 문제 인스턴스에 대해 매우 효율적인 해법이다.
+본 절에서 일반성을 약간 제한하여 $g_j \in \mathbb{N}$ for $j = 1\dots m$과 $H \in\mathbb{N}$임을 가정한다. 이때 엘리스의 문제를 위한 $O(Hm + m\log m)$ 시간 해법을 제시한다. 해법은 이진 배낭 문제를 위한 익숙한 동적 계획 해법과 비슷하다 (Dantzig 1957; \emph{Wikipedia}, s.v. ``Knapsack problem''). 알마의 문제와 달리, 여기에서 $H \leq m$임을 가정할 수 없으므로 이는 의사 다항 시간 해법이라고 한다 (Garey and Johnson 1979, \S\,4.2). 그러나 지원 비용이 작은 정수가 되는 전형적인 대학 지원 문제 인스턴스에 대해 매우 효율적인 해법이다.
 \fi
 
 \ifen 
@@ -1287,7 +1262,7 @@ V[j, h] = \max\bigl\{ V[j-1, h], (1 - f_j) V[j-1, h-g_j] + f_j t_j \bigr\}
 \ifen 
 with the convention that $ -\infty \cdot 0 = -\infty$. The corresponding optimal portfolios are computed by observing that $\mathcal{X}[j, h]$ contains $j$ if and only if $V[j, h]> V[j-1, h]$. The optimal solution is given by $\mathcal{X}[m, H]$. The algorithm below performs these computations and outputs the optimal portfolio $\mathcal{X}$. 
 \else
-단, $ -\infty \cdot 0 = -\infty$으로 처리한다. 그러면 $\mathcal{X}[j, h]$가  $j$를 포함할 필수충분 조건이 $V[j, h]> V[j-1, h]$임을 관찰하면 대응되는 최적 포트폴리오를 계산할 수 있으며 전역 최적해는 $\mathcal{X}[m, H]$이다. 아래 알고리즘은 이 계산을 수행하고 최적 포트폴리오 $\mathcal{X}$를 출력한다.
+단, $ -\infty \cdot 0 = -\infty$으로 처리한다. 그러면 $\mathcal{X}[j, h]$가  $j$를 포함할 필요충분 조건이 $V[j, h]> V[j-1, h]$임을 관찰하면 대응되는 최적 포트폴리오를 계산할 수 있으며 전역 최적해는 $\mathcal{X}[m, H]$이다. 아래 알고리즘은 이 계산을 수행하고 최적 포트폴리오 $\mathcal{X}$를 출력한다.
 \fi
 
 
@@ -1342,9 +1317,9 @@ $\mathcal{X} \gets \O$\;
 
 \begin{theorem}[\ifen Validity of Algorithm \ref{ellisDP1}\else 알고리즘 \ref{ellisDP1}의 타당성\fi]
 \ifen 
-Algorithm \ref{ellisDP1} produces an optimal application portfolio for Ellis's problem in $O(H m + m \log m)$-time.
+Algorithm \ref{ellisDP1} produces an optimal application portfolio for Ellis's problem in $O(H m + m \log m)$ time.
 \else
-알고리즘 \ref{ellisDP1}은(는) $O(H m + m \log m)$-시간 안의 엘리스 문제의 최적 포트폴리오를 출력한다.
+알고리즘 \ref{ellisDP1}은(는) $O(H m + m \log m)$ 시간의 엘리스 문제의 최적 포트폴리오를 출력한다.
 \fi
 \end{theorem}
 
@@ -1352,7 +1327,7 @@ Algorithm \ref{ellisDP1} produces an optimal application portfolio for Ellis's p
 \ifen
 Optimality follows from the foregoing discussion. Sorting $t$ is $O(m \log m)$. The bottleneck step is the creation of the lookup table for $V[j, h]$ in line \ref{Vcreatedlookuptable}. Each entry is generated in unit time, and the size of the table is $O(Hm)$. 
 \else
-위 논의에 따라 최적성이 성립한다. $t$를 배열하는 시간은 $O(m \log m)$이다. 병목 단계는 \ref{Vcreatedlookuptable}줄에서 $V[j, h]$의 표를 만드는 것이다. 각 원소를 단위 시간 안에 생성할 수 있으며 표의 크기가 $O(Hm)$이다.
+위 논의에 따라 최적성이 성립한다. $t$를 배열하는 시간은 $O(m \log m)$이다. 병목 단계는 \ref{Vcreatedlookuptable}줄에서 $V[j, h]$의 표를 만드는 것이다. 각 원소를 단위 시간에 생성할 수 있으며 표의 크기가 $O(Hm)$이다.
 \fi
 \end{proof}
 
@@ -1364,10 +1339,10 @@ Optimality follows from the foregoing discussion. Sorting $t$ is $O(m \log m)$. 
 
 \ifen \subsection{Fully polynomial-time approximation scheme}\else \subsection{완전 다항 시간 근사 해법}\fi \label{fptashead}
 \ifen 
-As with the knapsack problem, Ellis's problem admits a complementary dynamic program that iterates on the value of the cheapest portfolio instead of on the cost of the most valuable portfolio. We will use this algorithm as the basis for an FPTAS for Ellis's problem that uses $O(m^3 / \varepsilon)$-time and -space.% Here we assume, with a small loss of generality, that each $t_j$ is a natural number.
+As with the knapsack problem, Ellis's problem admits a complementary dynamic program that iterates on the value of the cheapest portfolio instead of on the cost of the most valuable portfolio. We will use this algorithm as the basis for an FPTAS for Ellis's problem that uses $O(m^3 / \varepsilon)$ time and space.% Here we assume, with a small loss of generality, that each $t_j$ is a natural number.
 %Now, we modify Algorithm \ref{ellisDP2} into a fully polynomial-time approximation scheme for Ellis's problem.
 \else
-엘리스의 문제는 배낭 문제와 같이, 가치가 가장 높은 포트폴리오의 비용 대신 비용이 가장 낮은 포트폴리오의 가치를 탐색하는 보완적인 동적 계획이 존재한다. 이를 기반으로  $O(m^3 / \varepsilon)$-시간과 -공간을 사용하는 엘리스 문제의 FPTAS를 도출할 수 있다.% 여기서 일반성을 약간 제한하여 각 $t_j$가 자연수임을 가정한다.
+엘리스의 문제는 배낭 문제와 같이, 가치가 가장 높은 포트폴리오의 비용 대신 비용이 가장 낮은 포트폴리오의 가치를 탐색하는 보완적인 동적 계획이 존재한다. 이를 기반으로  $O(m^3 / \varepsilon)$ 시간과 공간을 사용하는 엘리스 문제의 FPTAS를 도출할 수 있다.% 여기서 일반성을 약간 제한하여 각 $t_j$가 자연수임을 가정한다.
 \fi
 
 
@@ -1435,7 +1410,7 @@ Defining $\Delta_j(v) = \infty$ in this case ensures that $g_j + G[j-1, v-\Delta
 \ifen
 Once $G[j, v]$ has been calculated at each index, the associated portfolio can be found by applying the observation that $\mathcal{W}[j, v]$ contains $j$ if and only if $G[j, v] < G[j-1, v]$. Then an approximate solution to Ellis's problem is obtained by computing the largest achievable objective value $\max\{ w: G[m, w] \leq H\}$ and corresponding portfolio.
 \else
-각 지표에 대해 $G[j, v]$를 계산한 다음에,  $\mathcal{W}[j, v]$가 $j$를 포함할 필수충분 조건인 $G[j, v] < G[j-1, v]$를 적용하면 해당 최적 포트폴리오를 구할 수 있다. 그러면 가능하면서 최대한 목적 함숫값 $\max\{ w: G[m, w] \leq H\}$와 해당 포트폴리오를 계산하면 엘리스 문제의 근사해를 얻을 수 있다.
+각 지표에 대해 $G[j, v]$를 계산한 다음에,  $\mathcal{W}[j, v]$가 $j$를 포함할 필요충분 조건인 $G[j, v] < G[j-1, v]$를 적용하면 해당 최적 포트폴리오를 구할 수 있다. 그러면 가능하면서 최대한 목적 함숫값 $\max\{ w: G[m, w] \leq H\}$와 해당 포트폴리오를 계산하면 엘리스 문제의 근사해를 얻을 수 있다.
 \fi
 
 
@@ -1493,9 +1468,9 @@ $\mathcal{X} \gets \O$\;
 
 \begin{theorem}[\ifen Validity of Algorithm \ref{ellisDP3}\else 알고리즘 \ref{ellisDP3}의 타당성\fi]
 \ifen
-Algorithm \ref{ellisDP3} produces a $(1 - \varepsilon)$-optimal application portfolio for Ellis's problem in $O(m^3 /\varepsilon)$-time. % and $O(m^3/\varepsilon)$ space.
+Algorithm \ref{ellisDP3} produces a $(1 - \varepsilon)$-optimal application portfolio for Ellis's problem in $O(m^3 /\varepsilon)$ time. % and $O(m^3/\varepsilon)$ space.
 \else
-알고리즘 \ref{ellisDP3}은(는) $O(m^3 /\varepsilon)$-시간 안에 엘리스의 문제를 위한 $(1 - \varepsilon)$-근사 최적 포트폴리오를 출력한다.
+알고리즘 \ref{ellisDP3}은(는) $O(m^3 /\varepsilon)$ 시간에 엘리스의 문제를 위한 $(1 - \varepsilon)$-근사 최적 포트폴리오를 출력한다.
 \fi
 \end{theorem}
 
@@ -1688,13 +1663,13 @@ In Experiment 3, we generated 500 markets with sizes varying uniformly in the lo
 \ifen
 Experiment 1 compared the performance of Algorithm \ref{algorithmforlargeh} for homogeneous-cost markets of various sizes when the set of candidate schools $\mathcal{C}$ is stored as a list and as a binary max heap ordered by the $f_j \bar t_j$-values. The results appear in Table \ref{experiment1results}. Our results indicate that the list implementation is faster. %However, the ratio between the average times of the two implementations stays roughly constant, suggesting that a more effective heap implementation could be competitive in certain classes of problem instances. Overall, the rate of growth is quadratic in $m$, which accords with the $O(hm)$ time complexity result of Theorem \ref{validityofalmaalgorithm}.
 \else
-실험 1에서, 동일한 지원 비용으로 정의된 크기가 다양한 시장에 대해 알고리즘 \ref{algorithmforlargeh}의 성능을 고려했다. 이를 $\mathcal{C}$를 목록 혹은 $f_j \bar t_j$-값에 따라 배열된 힙 구현으로 구성하는 경우로 나눴으며 실험 결과는 표 \ref{experiment1results}에서 등장한다. 실험 결과에 따라 목록 구현이 더 빠른 해법이었다. %그러나, 두개의 방법 사이에 계산 시간 비율은 거의 상수이므로 개선된 힙 해법이 어떤 문제 인스턴스에 대해 더 빠를 가능성이 있어 보인다. 전체적으로 계산 시간은 $m$의 제곱으로 늘아나며 이는 정리 \ref{validityofalmaalgorithm}에서 말한 $O(hm)$-시간과 동의한다.
+실험 1에서, 동일한 지원 비용으로 정의된 크기가 다양한 시장에 대해 알고리즘 \ref{algorithmforlargeh}의 성능을 고려했다. 이를 $\mathcal{C}$를 목록 혹은 $f_j \bar t_j$-값에 따라 배열된 힙 구현으로 구성하는 경우로 나눴으며 실험 결과는 표 \ref{experiment1results}에서 등장한다. 실험 결과에 따라 목록 구현이 더 빠른 해법이었다. %그러나, 두개의 방법 사이에 계산 시간 비율은 거의 상수이므로 개선된 힙 해법이 어떤 문제 인스턴스에 대해 더 빠를 가능성이 있어 보인다. 전체적으로 계산 시간은 $m$의 제곱으로 늘아나며 이는 정리 \ref{validityofalmaalgorithm}에서 말한 $O(hm)$ 시간과 동의한다.
 \fi
 
 %\ifen
 %In our first experiment, we compare the performance of Algorithm \ref{algorithmforlargeh} for homogeneous-cost markets of various sizes when the set of candidate schools $\mathcal{C}$ is stored as a list and as a binary max heap ordered by the $f_j \bar t_j$-values. The results appear in Table \ref{experiment1results}. Our results indicate that the heap implementation is faster. Overall, the rate of growth is quadratic in $m$, which accords with the $O(hm)$ time complexity result of Theorem \ref{validityofalmaalgorithm}.
 %\else
-%첫 번째 실험에서, 동일한 지원 비용으로 정의된 크기가 다양한 시장에 대해 알고리즘 \ref{algorithmforlargeh}의 성능을 고려했다. 이를 $\mathcal{C}$를 목록 혹은 $f_j \bar t_j$-값에 따라 배열된 힙 구현으로 구성하는 경우로 나눴으며 실험 결과는 표 \ref{experiment1results}에서 등장한다. 실험 결과에 따라 힙 구현이 더 빠른 해법이었다. 전체적으로 계산 시간은 $m$의 제곱으로 늘아나며 이는 정리 \ref{validityofalmaalgorithm}에서 말한 $O(hm)$-시간과 동의한다.
+%첫 번째 실험에서, 동일한 지원 비용으로 정의된 크기가 다양한 시장에 대해 알고리즘 \ref{algorithmforlargeh}의 성능을 고려했다. 이를 $\mathcal{C}$를 목록 혹은 $f_j \bar t_j$-값에 따라 배열된 힙 구현으로 구성하는 경우로 나눴으며 실험 결과는 표 \ref{experiment1results}에서 등장한다. 실험 결과에 따라 힙 구현이 더 빠른 해법이었다. 전체적으로 계산 시간은 $m$의 제곱으로 늘아나며 이는 정리 \ref{validityofalmaalgorithm}에서 말한 $O(hm)$ 시간과 동의한다.
 %\fi
 
 \ifen
@@ -1798,9 +1773,9 @@ The branch-and-bound algorithm is impractical for large markets. \lastptofcaptio
 %\pagebreak
 \ifen \section{Conclusion and ideas for future research} \else \section{결론과 향후 연구 방향}\fi\label{conclusion}
 \ifen
-This study has introduced a novel combinatorial optimization problem that we call the college application problem. It can be viewed as a kind of asset allocation or knapsack problem with a submodular objective. We showed that the special case in which colleges have identical application costs can be solved in polynomial time by a greedy algorithm because the optimal solutions are nested in the budget constraint. The general problem is NP-complete. We provided four solution algorithms. The strongest from a theoretical standpoint is an FPTAS that produces a $(1-\varepsilon)$-approximate solution in $O(m^3 / \varepsilon)$-time. On the other hand, for typical college-application instances, the dynamic program based on application expenditures is both easier to implement and substantially more time efficient. A heuristic simulated-annealing algorithm also exhibited strong empirical performance in our computational study. The algorithms discussed in this paper are summarized in Table \ref{algorithmssummary}.
+This study has introduced a novel combinatorial optimization problem that we call the college application problem. It can be viewed as a kind of asset allocation or knapsack problem with a submodular objective. We showed that the special case in which colleges have identical application costs can be solved in polynomial time by a greedy algorithm because the optimal solutions are nested in the budget constraint. The general problem is NP-complete. We provided four solution algorithms. The strongest from a theoretical standpoint is an FPTAS that produces a $(1-\varepsilon)$-approximate solution in $O(m^3 / \varepsilon)$ time. On the other hand, for typical college-application instances, the dynamic program based on application expenditures is both easier to implement and substantially more time efficient. A heuristic simulated-annealing algorithm also exhibited strong empirical performance in our computational study. The algorithms discussed in this paper are summarized in Table \ref{algorithmssummary}.
 \else
-본 연구는 새로운 조합 최적화 문제를 제안했으며 이를 대학 지원 최적화 문제라고 부른다. Submodular한 목적함수를 가지는 자산 배분 혹은 배낭 문제로 볼 수 있다. 모든 대학의 지원 비용이 동일한 특수한 경우, 탐욕 알고리즘으로 다항 시간 안에 풀 수 있음을 보였으며 최적해가 예산 제약식에 대한 포함 사슬 관계를 가지기 때문이다. 일반적인 문제는 NP-complete하다. 4가지 해법을 제시했으며 이론적으로 가장 효율적인 알고리즘은 $O(m^3 / \varepsilon)$-시간 안에  $(1-\varepsilon)$-근사해를 계산하는 FPTAS이다. 그 반면에 전형적인 대학 지원 문제 인스턴스에 대해, 지원 비용 지출액 기반 동적 계획 해법은 실행하기 쉬울뿐더러 계산 시간이 상당히 짧다. 계산 실험에서 모의 담금질 기반 휴리스틱 해법도 좋은 성능을 발휘했다. 표 \ref{algorithmssummary}에서 본 논문이 다운 알고리즘을 정리한다.
+본 연구는 새로운 조합 최적화 문제를 제안했으며 이를 대학 지원 최적화 문제라고 부른다. Submodular한 목적함수를 가지는 자산 배분 혹은 배낭 문제로 볼 수 있다. 모든 대학의 지원 비용이 동일한 특수한 경우, 탐욕 알고리즘으로 다항 시간에 풀 수 있음을 보였으며 최적해가 예산 제약식에 대한 포함 사슬 관계를 가지기 때문이다. 일반적인 문제는 NP-complete하다. 4가지 해법을 제시했으며 이론적으로 가장 효율적인 알고리즘은 $O(m^3 / \varepsilon)$ 시간에  $(1-\varepsilon)$-근사해를 계산하는 FPTAS이다. 그 반면에 전형적인 대학 지원 문제 인스턴스에 대해, 지원 비용 지출액 기반 동적 계획 해법은 실행하기 쉬울뿐더러 계산 시간이 상당히 짧다. 계산 실험에서 모의 담금질 기반 휴리스틱 해법도 좋은 성능을 발휘했다. 표 \ref{algorithmssummary}에서 본 논문이 다운 알고리즘을 정리한다.
 \fi
 
 \ifen
@@ -1865,7 +1840,7 @@ where $\tau_j = t_j - \beta t_j^2$. Since the first term is itself a portfolio v
 \fi
 
 \ifen
-A parametric treatment of risk aversion may align our model more closely to real-world applicant behavior. Conventional wisdom asserts that the best college application strategy combines reach, target, and safety schools in roughly equal proportion (Jeon 2015). When the application budget is small relative to the size of the admissions market, our algorithms recommend a similar approach (see the example of Subsection \ref{planetsexamplesection}). However, inspecting equation \eqref{howtotransformtj}, which discounts school utility parameters to reflect their marginal value relative to the schools already in the portfolio, reveals that low-utility schools are penalized more harshly than high utility schools in the marginal analysis. Consequentially, as the application budget grows, the optimal portfolio in our model tends to favor reach schools over safety schools. (See Figure \ref{samplemarket} for a clear illustration of this phenomenon.) 
+A parametric treatment of risk aversion may align our model more closely to real-world applicant behavior. Conventional wisdom asserts that the best college application strategy combines reach, target, and safety schools in roughly equal proportion (Jeon 2015). When the application budget is small relative to the size of the admissions market, our algorithms recommend a similar approach (see the example of Subsection \ref{planetsexamplesection}). However, inspecting equation \eqref{howtotransformtj}, which discounts school utility parameters to reflect their marginal value relative to the schools already in the portfolio, reveals that low-utility schools are penalized more harshly than high utility schools in the marginal analysis. Consequentially, as the application budget grows, the optimal portfolio in our model tends to favor reach schools over safety schools. (See Figure \ref{samplemarket} for a clear illustration of this phenomenon.)
  
 A potential application of our model is an econometric study that estimates students’ perceptions of college quality ($t_j$) from their observed application behavior ($\mathcal{X}$) under the assumption of utility maximization. Empirical research indicates that heterogeneous risk aversion is a significant source of variation in human decision-making, especially in the domains of educational choice and employment search (Kahneman 2011; Hartlaub and Schneider 2012; van Huizen and Alessie 2019). Therefore, an endogenous risk-aversion parameter would greatly enhance our model’s explanatory power in the econometric setting.
 \else
@@ -1874,7 +1849,7 @@ A potential application of our model is an econometric study that estimates stud
 학생의 지원 행동($\mathcal{X}$)을 관찰하고 학생이 인식하는 대학교의 질($t_j$)을 추정하는 경제 측정학 연구에서 본 논문의 모형을 그대로 응용할 수 있다. 실무 연구 결과에 따르면 위험 회피의 다양성은 인간 의사 결정 다양성의 주된 원인이 되며, 교육 선택과 취업 활동은 특히 그렇다 (Kahneman 2011; Hartlaub와 Schneider 2012; van Huizen과 Alessie 2019). 따라서 경제 측정학 맥락에서, 위험 회피 모수를 내생 변수로 도입하면 원래 모형의 묘사력을 많이 개선할 수 있다.
 \fi
 
-\ifen \subsection{Signaling strategies}\else \subsection{시그런 전략}\fi
+\ifen \subsection{Signaling strategies}\else \subsection{시그널 전략}\fi
 \ifen
 Another direction of further research with immediate application in college admissions is to incorporate additional signaling strategies into the problem. In the Korean admissions process, the online application form contains three multiple-choice fields, labeled \emph{ga, na,} and \emph{da} for the first three letters of the Korean alphabet, which students use to indicate the colleges to which they wish to apply. Most schools appear only in one or two of the three fields. Therefore, students are restricted not only in the number of applications they can submit, but in the combinations of schools that may coincide in a feasible application portfolio. From a portfolio optimization perspective, this is a \emph{diversification constraint,} because its primary purpose is to prevent students from applying only to top-tier schools. However, in addition to overall selectivity, the three fields also indicate different evaluation schemes: The \emph{ga} and \emph{na} customarily indicate the applicant's first and second choice, and applications filed under these fields are evaluated with greater emphasis on standardized-test scores than those filed under the \emph{da} field. Some colleges appear in multiple fields and run two parallel admissions processes, each with different evaluation criteria. Therefore, if a student recognizes that she has a comparative advantage in (for example) her interview skills, she may increase her chances of admission to a competitive school by applying under the \emph{da} field. The optimal application strategy in this context can be quite subtle, and it is a subject of perennial debate on Korean social networks.
 
@@ -1907,13 +1882,13 @@ Our numerical experiments suggest that the performance of the dynamic programmin
 
 Abstractly speaking, Algorithms \ref{ellisDP1} and \ref{ellisDP3} are two-dimensional dynamic programs that represent the optimal solution by $Z[N, C]$. Here $N$ is the number of decision variables, $C$ is a constraint parameter, and $Z[n, c]$ is the optimal objective value achievable using the first $n\leq N$ decision variables when the constraint parameter is $c \leq C$. The algorithm iterates on a recursion relation that expresses $Z[n, c]$ as a function of $Z[n -1, c]$ and $Z[n -1, c']$ for some $c' \leq c$. (In Algorithm \ref{ellisDP1}, $Z$ is the maximal portfolio valuation, $N = m$, and $C =H$; in Algorithm \ref{ellisDP3},  $Z$ is the minimal application expenditures, $N = m$, and $C = |\mathcal{V}| \propto m^2 / \varepsilon$.)
 
-When such a dynamic program is implemented using a lookup table or dictionary memoization, producing the optimal solution requires $O(NC)$-time and -space. Kellerer et al. (2004, \S\,3.3) provide a technique for transforming the dynamic program $Z$ into a divide-and-conquer algorithm that produces the optimal solution in $O(N C)$-time and $O(N + C)$-space, a significant improvement. However, their technique requires the objective function to be additively separable in a certain sense that appears difficult to conform to the college application problem. 
+When such a dynamic program is implemented using a lookup table or dictionary memoization, producing the optimal solution requires $O(NC)$ time and space. Kellerer et al. (2004, \S\,3.3) provide a technique for transforming the dynamic program $Z$ into a divide-and-conquer algorithm that produces the optimal solution in $O(N C)$ time and $O(N + C)$ space, a significant improvement. However, their technique requires the objective function to be additively separable in a certain sense that appears difficult to conform to the college application problem. 
 \else
 수리 실험 결과에 따르면 동적 계획 해법 성능의 병목 요소는 계산 시간이 아니라 메모리 소모량이다. 이 알고리즘의 메모리 소요를 절감하면 상당히 큰 문제를 풀 수 있다.
 
 추상적인 관점에서, 알고리즘 \ref{ellisDP1}과(와) 알고리즘 \ref{ellisDP3}은(는) 최적해를 $Z[N, C]$로 표현하는 2차원 동적 계획이다. 이때 $N$은 결정 변수의 수, $C$는 제약식의 모수, 그리고 $Z[n, c]$는 제약 모수가 $c \leq C$일 때 첫 $n\leq N$개의 결정 변수만 이용하는 최적 목적 함숫값이다. 알고리즘의 구조는 $Z[n, c]$를 $Z[n -1, c]$와 어떤 $c' \leq c$에 대응하는 $Z[n -1, c']$의 함수로 표현하고 그 반복 관계로 탐색하는 것이다. (알고리즘 \ref{ellisDP1}에서 $Z$는 최대 포트폴리오 가치, $N = m$, 그리고 $C =H$이며, 알고리즘 \ref{ellisDP3}에서 $Z$는 최소한 지원 지출액, $N = m$, 그리고 $C= |\mathcal{V}| \propto m^2 / \varepsilon$이다.)
 
-이러한 형태의 동적 계획을 표 혹은 사전 기록으로 구현하면 최적해를 출력하는 것은 $O(NC)$-시간과 $O(NC)$-공간을 소요한다. Kellerer 외 (2004, \S\,3.3)는 동적 계획 $Z$를 $O(N C)$-시간과 $O(N + C)$-공간 안에 최적해를 구하는 분할 정복(divide and conquer) 알고리즘으로 변환하는 일반적인 방법을 제시하며 매우 유익하다. 그러나 이를 이용할 수 있는 조건 중, 목적함수는 어떤 기술적인 의미에서 가산적으로 분할되어야 하며 이를 대학 지원 문제에 적용하기 어렵다.
+이러한 형태의 동적 계획을 표 혹은 사전 기록으로 구현하면 최적해를 출력하는 것은 $O(NC)$ 시간과 $O(NC)$ 공간을 소요한다. Kellerer 외 (2004, \S\,3.3)는 동적 계획 $Z$를 $O(N C)$ 시간과 $O(N + C)$ 공간 안에 최적해를 구하는 분할 정복(divide and conquer) 알고리즘으로 변환하는 일반적인 방법을 제시하며 매우 유익하다. 그러나 이를 이용할 수 있는 조건 중, 목적함수는 어떤 기술적인 의미에서 가산적으로 분할되어야 하며 이를 대학 지원 문제에 적용하기 어렵다.
 \fi
 
 \appendix
