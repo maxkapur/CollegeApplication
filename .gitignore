@@ -280,3 +280,4 @@ TSWLatexianTemp*
 # Gets exported if you call pdflatex without -jobname
 paper.pdf
 slides*/slides.pdf
+thesis_snu_template/
