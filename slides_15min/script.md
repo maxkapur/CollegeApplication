@@ -1,6 +1,6 @@
 # The College Application Problem
 
-# 대학 지원 최적화 문제
+# 대학 입학 지원 최적화 문제
 
 Max Kapur
 
@@ -44,9 +44,9 @@ Let's consider the status quo in college application.
 
 그러면, 이 문제의 현재 상황을 좀 정리해봅시다.
 
-In Korea as well as in the US, there is a lucrative industry called "college admissions consulting," <span style="color: lightslategray"> which involves estimating students' admissions probabilities, coaching them on standardized tests, helping them produce their application materials, and finally, deciding where to apply.</span> If you read marketing materials from these companies, they often invoke the idea of safety schools, which are schools that have low utility but are relatively easy to get into, and reach schools, which are highly selective but highly desirable, and target schools, which are somewhere in between. A common belief is the idea that you should a roughly even mix of these three. This is a very legible heuristic, but is it accurate? What does the evidence show?
+In Korea as well as in the US, there is a lucrative industry called "college admissions consulting." <!-- It involves estimating students' admissions probabilities, coaching them on standardized tests, helping them produce their application materials, and finally, deciding where to apply.--> If you read marketing materials from these companies, they often invoke the idea of safety schools, which are schools that have low utility but are relatively easy to get into, and reach schools, which are highly selective but highly desirable, and target schools, which are somewhere in between. A common belief is the idea that you should a roughly even mix of these three. This is a very legible heuristic, but is it accurate? What does the evidence show?
 
-전세계적으로 소위 '입학 컨설팅'이라는 것은 수익성이 높은 산업입니다. <span style="color: lightslategray"> 입학 컨설팅 회사에서, 학생의 합격 확률을 추정하고, 입시 코칭도 해주고, 원서를 작성하는 것을 도와주고, 마지막으로 어디에 지원할지 결정하는 데에 상담하고 있습니다.</span> 입학 컨설팅 회사의 홍보 자료를 찾아 보시면 자주 나오는 말은, 효용은 낮은데 붙기가 쉬운 '안정 지원 학교'하고, 붙기가 어려운데 효용이 높은 '상향 지원 학교'하고, 그 사이에 있는 '소신 지원 학교'라는 세가지 범주로 학교들을 나눕니다. 이때 안정, 소신, 그리고 상향 지원 학교에 대략 균일하게 지원하는 것이 좋다는 것은 일종의 통념입니다. 이것은 아주 이해하기 쉬운 휴리스틱이지만, 이것에 대한 근거같은 게 있을까요?
+전세계적으로 소위 '입학 컨설팅'이라는 것은 수익성이 높은 산업입니다. <!-- 입학 컨설팅 회사에서, 학생의 합격 확률을 추정하고, 입시 코칭도 해주고, 원서를 작성하는 것을 도와주고, 마지막으로 어디에 지원할지 결정하는 데에 상담하고 있습니다.--> 입학 컨설팅 회사의 홍보 자료를 찾아 보시면 자주 나오는 말은, 효용은 낮은데 붙기가 쉬운 '안정 지원 학교'하고, 붙기가 어려운데 효용이 높은 '상향 지원 학교'하고, 그 사이에 있는 '소신 지원 학교'라는 세가지 범주로 학교들을 나눕니다. 이때 안정, 소신, 그리고 상향 지원 학교에 대략 균일하게 지원하는 것이 좋다는 것은 일종의 통념입니다. 이것은 아주 이해하기 쉬운 휴리스틱이지만, 이것에 대한 근거같은 게 있을까요?
 
 I'm now going to give you a chance to try making your own application strategy. This picture shows an arguably typical college market. We've plotted the admissions probability on the x-axis, and the utility on the y-axis. If, for example, a school were in the top right, then that would be a school that you can easily get into and that you really like—so you should obviously apply there. But in the typical scenario, schools like that don't exist. Instead, there is correlation between attractiveness and selectiveness. In this picture, then, we can identify schools on the top left as "reach schools," and those on the bottom right as "safety schools." Now, let's suppose that all the schools in this picture have the same application cost, so that we are working with essentially a constraint on the number of schools we can apply to. If you can only choose three schools, which three will you pick?
 
