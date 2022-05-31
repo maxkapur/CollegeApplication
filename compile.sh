@@ -19,7 +19,7 @@ rm *.aux *.log *.nav *.out *.snm *.synctex.gz *.toc
 
 
 # Slides
-cd ./slides_20min
+cd ./slides_15min
 
 # Helps spot errors
 rm *.pdf

@@ -25,7 +25,7 @@
     \newcommand{\theauthor}{Max Kapur}
     \newcommand{\theotherauthor}{Sung-Pil Hong}
 \else
-    \newcommand{\thetitle}{대학 지원 최적화 문제}
+    \newcommand{\thetitle}{대학 입학 지원 최적화 문제}
     \newcommand{\therunningtitle}{\thetitle}
     \newcommand{\thedate}{\today}
     \newcommand{\theauthor}{Max Kapur}
@@ -132,7 +132,7 @@ submodular maximization, knapsack problems, approximation algorithms
 
 \renewcommand{\abstractname}{요약}
 \begin{abstract}
-본 논문은 다수의 확률 변수로 구성된 포트폴리오의 기대 최댓값을 예산 조건 하에서 최대화하는 문제를 고려한다. 이를 대학 지원 최적화 문제라고 부른다. 각 확률 변수의 비용, 즉 각 대학의 지원 비용이 동일한 경우, 최적 포트폴리오는 예산 제약식으로 결정된 포함 사슬 관계 성질을 가짐을 보이고 이를 바탕으로 다항 시간 해법을 제시한다. 대학의 지원 비용이 서로 다른 경우, 문제가 NP-complete함을 증명한다. 일반적인 문제를 위해 4가지 해법을 제시하며, 분지한계 기반 해법, 의사 다항 시간에 정확한 해를 출력하는 동적 계획 해법, 다른 동적 계획 기반으로 완전 다항 시간 근사 해법(fully polynomial-time approximation scheme), 그리고 모의 담금질(simulated annealing)을 이용한 휴리스틱 해법을 포함한다.
+본 논문은 다수의 확률 변수로 구성된 포트폴리오의 기대 최댓값을 예산 조건 하에서 최대화하는 문제를 고려한다. 이를 대학 입학 지원 최적화 문제라고 부른다. 각 확률 변수의 비용, 즉 각 대학의 지원 비용이 동일한 경우, 최적 포트폴리오는 예산 제약식으로 결정된 포함 사슬 관계 성질을 가짐을 보이고 이를 바탕으로 다항 시간 해법을 제시한다. 대학의 지원 비용이 서로 다른 경우, 문제가 NP-complete함을 증명한다. 일반적인 문제를 위해 4가지 해법을 제시하며, 분지한계 기반 해법, 의사 다항 시간에 정확한 해를 출력하는 동적 계획 해법, 다른 동적 계획 기반으로 완전 다항 시간 근사 해법(fully polynomial-time approximation scheme), 그리고 모의 담금질(simulated annealing)을 이용한 휴리스틱 해법을 포함한다.
 % 첫째는 분지한계 기반 해법이다. 둘째는 의사 다항 시간에 정확한 해를 출력하는 동적 계획 해법이다. 마지막으로 다른 동적 계획 기반으로 완전 다항 시간 근사 해법(fully polynomial-time approximation scheme)을 도출한다.
 수리적 실험을 통해 알고리즘의 정확도와 효율성을 보인다.
 
@@ -166,7 +166,7 @@ submodular maximization, knapsack problems, approximation algorithms
 \ifen
 We refer to this problem as the \emph{optimal college application} problem, as follows. Consider an admissions market with $m$ colleges. The $j$th college is named $c_j$. Consider a single prospective student in this market, and let each $t_j$-value indicate the utility she associates with attending $c_j$, where her utility is $t_0$ if she does not attend college. Let $g_j$ denote the application fee for $c_j$ and $H$ the student's total budget to spend on application fees. Lastly, let $f_j$ denote the student's probability of being admitted to $c_j$ if she applies, so that $Z_j$ equals one if she is admitted and zero if not. It is appropriate to assume that the $Z_j$ are statistically independent as long as $f_j$ are probabilities estimated specifically for this student (as opposed to generic acceptance rates). Then the student's objective is to maximize the expected utility associated with the best school she gets into within this budget. Therefore, her optimal college application strategy is given by the solution $\mathcal{X}$ to the problem above, where $\mathcal{X}$ represents the set of schools to which she applies. 
 \else
-다음 해석에 따라 이를 `대학 지원 최적화 문제'라고 부른다. $m$개의 대학교를 가지는 입학 시장을 고려하자. $j$번째 학교의 이름은 $c_j$이다. 어떤 학생이 $c_j$에 입학하게 되면 효용 $t_j$를 얻게 된다고 하자. 단, 어떤 대학에도 진학하지 않는 경우 그 학생의 효용은 $t_0$이다. $c_j$의 지원 비용이 $g_j$이며 학생이 지원에 쓸 수 있는 예산이 $H$라고 하자. 마지막으로, $c_j$에 지원하면 학생이 합격할 확률이 $f_j$이라고 하자. 따라서 합격하면 $Z_j = 1$, 합격 안 하면 $Z_j = 0$이 된다. $f_j$가 (학교의 전체적인 합격률이 아니라) 바로 이 학생의 합격 확률일 때 $Z_j$의 확률적 독립성은 적절한 가정이다. 그러면 학생의 목표는 주어진 예산 안에서 학생이 합격하는 학교들에서 얻는 효용 중 기대 최댓값을 최대화하는 것이다. 위 문제의 최적해가 $\mathcal{X}$일 때, 학생의 최적 대학 지원 전략은 $\mathcal{X}$에  속한 학교로 지원하는 것이다.
+다음 해석에 따라 이를 `대학 입학 지원 최적화 문제'라고 부른다. $m$개의 대학교를 가지는 입학 시장을 고려하자. $j$번째 학교의 이름은 $c_j$이다. 어떤 학생이 $c_j$에 입학하게 되면 효용 $t_j$를 얻게 된다고 하자. 단, 어떤 대학에도 진학하지 않는 경우 그 학생의 효용은 $t_0$이다. $c_j$의 지원 비용이 $g_j$이며 학생이 지원에 쓸 수 있는 예산이 $H$라고 하자. 마지막으로, $c_j$에 지원하면 학생이 합격할 확률이 $f_j$이라고 하자. 따라서 합격하면 $Z_j = 1$, 합격 안 하면 $Z_j = 0$이 된다. $f_j$가 (학교의 전체적인 합격률이 아니라) 바로 이 학생의 합격 확률일 때 $Z_j$의 확률적 독립성은 적절한 가정이다. 그러면 학생의 목표는 주어진 예산 안에서 학생이 합격하는 학교들에서 얻는 효용 중 기대 최댓값을 최대화하는 것이다. 위 문제의 최적해가 $\mathcal{X}$일 때, 학생의 최적 대학 지원 전략은 $\mathcal{X}$에  속한 학교로 지원하는 것이다.
 \fi
 
 \ifen
@@ -174,7 +174,7 @@ The college application problem is not solely of theoretical interest. Due to th
 
 The problem is also conformable to other competitive matching games such as job application. Here, the budget constraint may represent the time needed to complete each application, or a legal limit on the number of applications permitted.
 \else
-대학 지원 최적화 문제는 이론적인 화제일 뿐만이 아니다. 미래의 소득이 대학 입학 결과로 결정된다는 넓은 인식에 따라, \eqref{headlineproblem}의 최적해는 금전적인 가치를 가지고 있다. 미국 입학 컨설팅 산업에서 대학 지원 서류 작성, 합격 확률 추정, 그리고 지원 학교를 선택하는 데에 자문하는 개인 상담가의 시간당 급료는 평균 200달러이다 (Sklarow 2018). 한국에서, 메가스터디(\url{megastudy.net})와 진학(\url{jinhak.com})과 같은 입학 컨설팅 기업의 주된 수입원 중 인공지능을 활용하여 학생의 지원 전략을 최대화한다고 홍보하는 ``모의 지원'' 소프트웨어가 있다. 그러나, 학교 개별 합격 확률을 추정하는 것은 로지스틱 회귀 분석 모형의 익숙한 응용 사례(Acharya et al. 2019)이지만, 전체적인 지원 전략에 집중하여 최적화 문제로 모형화한 것은 본 연구의 새로운 기여로 보인다.
+대학 입학 지원 최적화 문제는 이론적인 화제일 뿐만이 아니다. 미래의 소득이 대학 입학 결과로 결정된다는 넓은 인식에 따라, \eqref{headlineproblem}의 최적해는 금전적인 가치를 가지고 있다. 미국 입학 컨설팅 산업에서 대학 지원 서류 작성, 합격 확률 추정, 그리고 지원 학교를 선택하는 데에 자문하는 개인 상담가의 시간당 급료는 평균 200달러이다 (Sklarow 2018). 한국에서, 메가스터디(\url{megastudy.net})와 진학(\url{jinhak.com})과 같은 입학 컨설팅 기업의 주된 수입원 중 인공지능을 활용하여 학생의 지원 전략을 최대화한다고 홍보하는 ``모의 지원'' 소프트웨어가 있다. 그러나, 학교 개별 합격 확률을 추정하는 것은 로지스틱 회귀 분석 모형의 익숙한 응용 사례(Acharya et al. 2019)이지만, 전체적인 지원 전략에 집중하여 최적화 문제로 모형화한 것은 본 연구의 새로운 기여로 보인다.
 
 취직 전략과 같은 유사한 경쟁적 매칭 게임에도 위의 문제를 적용할 수 있다. 이때, 예산 제약 조건은 원서를 작성하는 시간이나 지원 개수에 대한 법적인 제한을 나타낼 수 있다.
 \fi
@@ -1772,7 +1772,7 @@ The branch-and-bound algorithm is impractical for large markets. \lastptofcaptio
 \ifen
 This study has introduced a novel combinatorial optimization problem that we call the college application problem. It can be viewed as a kind of asset allocation or knapsack problem with a submodular objective. We showed that the special case in which colleges have identical application costs can be solved in polynomial time by a greedy algorithm because the optimal solutions are nested in the budget constraint. The general problem is NP-complete. We provided four solution algorithms. The strongest from a theoretical standpoint is an FPTAS that produces a $(1-\varepsilon)$-approximate solution in $O(m^3 / \varepsilon)$ time. On the other hand, for typical college-application instances, the dynamic program based on application expenditures is both easier to implement and substantially more time efficient. A heuristic simulated-annealing algorithm also exhibited strong empirical performance in our computational study. The algorithms discussed in this paper are summarized in Table \ref{algorithmssummary}.
 \else
-본 연구는 새로운 조합 최적화 문제를 제안했으며 이를 대학 지원 최적화 문제라고 부른다. Submodular한 목적함수를 가지는 자산 배분 혹은 배낭 문제로 볼 수 있다. 모든 대학의 지원 비용이 동일한 특수한 경우, 탐욕 알고리즘으로 다항 시간에 풀 수 있음을 보였으며 최적해가 예산 제약식에 대한 포함 사슬 관계를 가지기 때문이다. 일반적인 문제는 NP-complete하다. 4가지 해법을 제시했으며 이론적으로 가장 효율적인 알고리즘은 $O(m^3 / \varepsilon)$ 시간에  $(1-\varepsilon)$-근사해를 계산하는 FPTAS이다. 그 반면에 전형적인 대학 지원 문제 인스턴스에 대해, 지원 비용 지출액 기반 동적 계획 해법은 실행하기 쉬울뿐더러 계산 시간이 상당히 짧다. 계산 실험에서 모의 담금질 기반 휴리스틱 해법도 좋은 성능을 발휘했다. 표 \ref{algorithmssummary}에서 본 논문이 다운 알고리즘을 정리한다.
+본 연구는 새로운 조합 최적화 문제를 제안했으며 이를 대학 입학 지원 최적화 문제라고 부른다. Submodular한 목적함수를 가지는 자산 배분 혹은 배낭 문제로 볼 수 있다. 모든 대학의 지원 비용이 동일한 특수한 경우, 탐욕 알고리즘으로 다항 시간에 풀 수 있음을 보였으며 최적해가 예산 제약식에 대한 포함 사슬 관계를 가지기 때문이다. 일반적인 문제는 NP-complete하다. 4가지 해법을 제시했으며 이론적으로 가장 효율적인 알고리즘은 $O(m^3 / \varepsilon)$ 시간에  $(1-\varepsilon)$-근사해를 계산하는 FPTAS이다. 그 반면에 전형적인 대학 지원 문제 인스턴스에 대해, 지원 비용 지출액 기반 동적 계획 해법은 실행하기 쉬울뿐더러 계산 시간이 상당히 짧다. 계산 실험에서 모의 담금질 기반 휴리스틱 해법도 좋은 성능을 발휘했다. 표 \ref{algorithmssummary}에서 본 논문이 다운 알고리즘을 정리한다.
 \fi
 
 \ifen
