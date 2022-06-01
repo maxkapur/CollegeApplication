@@ -1617,7 +1617,7 @@ In this section, we present the results of numerical experiments designed to tes
 
 \ifen \subsection{Implementation notes} \else \subsection{알고리즘의 구현}\fi
 \ifen
-We chose to implement our algorithms in the Julia language (v1.8.0b1) because its system of parametric data types allows the compiler to optimize for differential cases such as when the $t_j$-values are integers or floating-point numbers. Julia also offers convenient macros for parallel computing, which enabled us to solve more and larger problems in the benchmark (Bezanson et al. 2017). We made extensive use of the DataStructures.jl package (v0.18.11, \url{github.com/JuliaCollections}). The code is available at \url{github.com/maxkapur/OptimalApplication}.
+We chose to implement our algorithms in the Julia language (v1.8.0b1) because its system of parametric data types allows the compiler to optimize for differential cases such as when the $t_j$-values are integers or floating-point numbers. Julia also offers convenient macros for parallel computing, which enabled us to solve more and larger problems in the benchmark (Bezanson et al. 2017). We made extensive use of the DataStructures.jl package (v0.18.11, \url{github.com/JuliaCollections}). The code is available at \url{github.com/maxkapur/OptimalApplication.jl}. % Or by opening REPL and typing ]add OptimalApplication
 \else
 모든 알고리즘을 쥴리아 (Julia, v1.8.0b1) 언어로 구현했다. 쥴리아는 $t_j$-값이 정수 또는 부동소수점 수와 같은 특수한 경우에 대해 컴파일러가 자동으로 최적화하는 모수적 자료형(parametric data type) 기능이 있어서 유용한 선택이었다. 또한 병렬 연산을 쉽게 관리할 수 있는 매크로를 제공하므로 계산 실험의 규모를 증가할 수 있었다 (Bezanson 외 2017). DataStructures.jl 패키지(v0.18.11, \url{github.com/JuliaCollections})도 활용했다. 실험 코드는  \url{github.com/maxkapur/OptimalApplication}에서 공유한다.
 \fi
