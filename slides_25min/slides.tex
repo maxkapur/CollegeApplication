@@ -884,7 +884,7 @@ G[j, v] &=
 %\min\bigl\{G[j-1, v], g_j \bigr\}, \quad &f_j = 1 \text{ and } f_j t_j \geq v\\
 %G[j-1, v], \quad &f_j = 1 \text{ and } f_j t_j < v
 \end{cases}\\
-\text{where}\qquad
+\text{where}\quad
 \Delta_j (v) &= 
 \begin{cases}
 r\left[\frac{f_j}{1 - f_j} (t_j - v)\right], \quad & f_j < 1\\
@@ -990,7 +990,7 @@ SA의 재료:
 Recipe for an experimental instance with $m$ schools:
 \begin{itemize}
 \item Each $t_j$ drawn from an exponential distribution.
-\item $f_j$ chosen to correlate inversely with $1/ t_j$ (creates reach/safety schools).
+\item $f_j$ chosen to correlate with $1/ t_j$ (creates reach/safety schools).
 \item Alma's problem: $h = \lfloor m/2 \rfloor$.
 \item Ellis's problem: $g_j$ small integers, $H = \lfloor \frac{1}{2} \sum g_j\rfloor$.
 \end{itemize}
@@ -1034,6 +1034,7 @@ $m$개의 학교로 구성된 가상 인스선트 레시피:
 \else
 실험 1에서 알마 문제의 탐욕 해법을 위한 \textbf{2개의 데이터 구현을} 비교한다.
 
+\looseness=-1
 각 칸에서 50개의 시장을 생성하고 최적해를 3번 계산한 것 중에 최소 시간을 기록. 표에서 나타나는 값은 평균 (표준편차) 시간이며 단위는 ms.
 \fi
 \begin{center}
