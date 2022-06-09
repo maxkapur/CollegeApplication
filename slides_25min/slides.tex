@@ -744,7 +744,7 @@ $f_j = \varepsilon$으로 넣으면 $v(\mathcal{X})$를 선형 함수에 원하�
 
 4개의 알고리즘 제시:
 \begin{itemize}
-\item 선형 완화 문제와 해당 \textbf{branch-and-bound} 해법. 일반적인 INLP 문제에 대해 자주 쓰이는 방법이다.
+\item 선형 완화 문제와 해당 \textbf{분지한계} (branch-and-bound) 해법. 일반적인 INLP 문제에 대해 자주 쓰이는 방법이다.
 
 \item \textbf{총 지원 비용 기반 동적 계획}. $O(Hm + m\log m)$ (의사 다항) 시간에 정확한 해를 구하며, $g_j$가 작은 정수가 되는 ``전형적'' 인스턴스에 대해 매우 효율적인 해법.
 
@@ -767,8 +767,8 @@ Our branch-and-bound framework is based on the following LP relaxation for Ellis
 \else
 다음 선형 완화 문제 바탕으로 엘리스의 문제를 위한 분지한계법을 구성할 수 있다. 
 \fi
-\begin{problem}[\ifen LP relaxation for Ellis's problem\else 엘리스의 문제를 위한 선형 완화 문제\fi] %\label{LPrelaxation}
-\vspace{-1em}
+\begin{problem}[\ifen LP relaxation for Ellis's problem\else 엘리스의 문제를 위한 선형 완화 문제\fi]\label{LPrelaxation}
+\vspace{-2em}
 \begin{align*}
 \begin{split}
 \text{maximize}\quad &  v_{\mathrm{LP}}(x) = \sum_{j=1}^m  f_j t_j x_j \\
@@ -777,9 +777,13 @@ Our branch-and-bound framework is based on the following LP relaxation for Ellis
 \end{align*}
 \end{problem}
 \ifen
-This is a continuous knapsack problem, easy to solve (Dantzig 1957; Balas and Zemel 1980). 
+We \textbf{tighten the LP bound} by recycling the variable-elimination technique from the proof of the nestedness theorem.
+
+Problem \ref{LPrelaxation} is a continuous knapsack problem, easy to solve (Dantzig 1957; Balas and Zemel 1980). 
 \else
-연속 배낭 문제라고 불리며 쉽게 풀 수 있다 (Dantzig 1957; Balas와 Zemel 1980). 
+포함 사슬 관계의 증명 과정에서 도출한 변수 소거법은 재활용해서 위에 \textbf{상한을 더 타이트하게} 조정한다.
+
+문제 \ref{LPrelaxation}은 연속 배낭 문제로서 쉽게 풀 수 있다 (Dantzig 1957; Balas와 Zemel 1980). 
 \fi
 \end{frame}
 
@@ -790,19 +794,19 @@ This is a continuous knapsack problem, easy to solve (Dantzig 1957; Balas and Ze
 
 \begin{frame}{\ifen Branch-and-bound algorithm: Possible improvements\else 분지한계법: 개선 방향\fi}
 \ifen
-We \textbf{tighten the LP bound} by recycling the variable-elimination technique from the proof of the nestedness theorem.
-
 A straightforward implementation is OK on small instances ($m \leq 35$), but leaves \textbf{considerable room for improvement} using better node-selection heuristics.
 
 %The good news is that bespoke node-selection heuristics from the INLP literature typically require only a procedure for generating dual bounds from a constrained subproblem.
 
 In the associated Julia package, we provide \textbf{modular containers for subproblems and their LP relaxations} that can interface with a more sophisticated branch-and-bound solver.
-\else
-포함 사슬 관계의 증명 과정에서 도출한 변수 소거법은 재활용해서 위에 \textbf{상한을 더 타이트하게} 조정한다.
 
-이 기반으로 만든 간단한 알고리즘은 작은 ($m \leq 35$) 인스턴스에 괜찮지만 분지 마디를 선택하는 휴리스틱으로 \textbf{개선할 여지}가 보인다.
+A branch-and-bound algorithm may be necessary to handle more advanced constraint structures.
+\else
+이 기반으로 만든 간단한 알고리즘은 작은 ($m \leq 35$) 인스턴스에 괜찮지만 분지 마디를 선택하는 휴리스틱으로 \textbf{개선할 여지가} 보인다.
 
 Julia 코드 패키지에서 \textbf{부문제와 선형 완화 문제를 위한 modular한 데이터 구현을} 제시하며, 이를 더 세련된 INLP 솔버에 어렵지 않게 연결할 수 있다.
+
+나중에 더 복합한 제약 조건을 도입하는 데에 분지한계법 알고리즘이 필요할 수 있으므로 유리하다.
 \fi
 \end{frame}
 

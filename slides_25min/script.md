@@ -65,9 +65,9 @@ Next, we will be taking a look at our solution algorithms.
 
 이제 저희가 제시하는 해법을 설명하고자 하겠습니다.
 
-In our paper, we treat two cases of the college application problem separately. First, we consider a special case called Alma's problem which admits a polynomial-time algorithm. next, we turn to the general case, called Ellis's program. We prove that this problem is NP-complete, and provide a variety of solution algorithms. Among them, perhaps the most important contribution is the fully polynomial-time approximation scheme or FPTAS, which generates a family of polynomial-time approximation algorithms with flexible precision. In general, it is known that an FPTAS cannot exist for general submodular maximization, so the fact that one exists for Ellis's problem is a somewhat meaningful result.
+In our paper, we treat two cases of the college application problem separately. First, we consider a special case called Alma's problem which admits a polynomial-time algorithm. Next, we turn to the general case, called Ellis's program. We prove that this problem is NP-complete, and provide a variety of solution algorithms. Among them, perhaps the most important contribution is the fully polynomial-time approximation scheme or FPTAS. In general, it is known that an FPTAS cannot exist for general submodular maximization, so the fact that one exists for Ellis's problem is a somewhat meaningful result.
 
-한글
+논문에서 대학 지원 문제를 두가지 케이스로 나눠서 분석합니다. 먼저 알마의 문제라고 부는 특수한 경우를 고려하며 이때 다항 시간 해법이 존재합니다. 그 다음에 엘리스 문제라고 불리는 일반 문제로 넘어갑니다. 엘리스 문제가 NP-complete한 것은 증명하고 다양한 해법을 제시합니다. 그 중에서 아마 가장 흥미로운 것은 완전 다항 시간 근사 해법, 즉 FPTAS입니다. 일반적인 submodular 최대화 문제에 대해서 FPTAS가 존재하지 않은 것이 알려져 있으므로 대학 지원 문제에 존재한다는 것은 어느 정도 의미 있는 결과입니다.
 
 First, let's focus on the special case of Alma's problem, which is polynomially solvable. This is the case we saw earlier, where instead of heterogeneous application costs, we have simply a cardinality constraint on the number of applications we can submit. This is similar to the Korean admissions process, in which there is not application fee, but you cannot apply to more than three schools in the main admissions cycle. In this special case, because $H$ refers to a number of schools rather than total expenditures, we can assume that $h < m$, and to reflect this change in meaning, we write $h$ in lowercase. This is an instance of "submodular maximization over a cardinality constraint," and a classic result says that the greedy algorithm is a good approximation. We show a stronger result for college application: the same greedy algorithm is, in fact, exact. We also improve its computation time. 
 
@@ -81,50 +81,51 @@ Now, let's look at the general problem. The first order of business is to show t
 
 그 다음에 일반적인 문제로 넘어가겠습니다. 먼저 이 문제의 NP-completeness를 증명해봤습니다. 입학 확률이 아주 작을 때, 대학 지원의 목적 함수는 선형 함수에 가까워집니다. 이를 활용하면 임의의 배낭 문제 인스턴스를 엘리의 문제의 인스턴스로 인코딩할 수 있습니다. P와 NP가 같지 않은 한, 엘리스 문제의 다항 시간 해법이 존재할 수 없다고 의미합니다. 대신 다양한 장단점이 있는 4가지 알고리즘을 제시합니다. 첫째는 branch and bound 알고리즘입니다. 효율성이 좀 낮은 해법이지만, 저희가 제시한 선형 완화 문제를 이용해서 이 알고리즘을 개선할 수 있는 방법이 많습니다. 둘째 알고리즘은 총 지원 지출액으로 탐색하는 동적 계획입니다. 정확한 해법이며, 그의 계산 시간은 $m$과 $H$의 다항식을 넘지 않으므로 의사 다항 시간 해법입니다. 그다음에, 포트폴리오 가치를 고정소숫점으로 내림하는 또다른 동적 계획이 있습니다. 라운딩의 정확도를 조정하면 해법의 정확도를 원하는 만큼 늘릴 수 있으므로 이를 통해서 완전 다항 시간 근사 해법, 즉 FPTAS를 이뤄낼 수 있었습니다. 마지막으로, 다른 알고리즘을 비교하는 목적으로 simulated annealing 기반 휴리스틱 알고리즘을 제시하며, 정확도는 보장되지 않지만 가상 인스턴스에 대한 성능이 좋았습니다.
 
-Our branch-and-bound algorithm is fairly straightforward. We begin with a linear relaxation that serves as an upper bound on the objective value. This linear relaxation is easy to solve
+Our branch-and-bound algorithm is fairly straightforward. We work with the INLP formulation of the college application problem, and use this linear relaxation to obtain an upper bound on the objective value. We tighten this LP bound by recycling the variable elimination technique from Alma's problem. This linear relaxation is solvable in linear time.
 
-한글
+저희의 분지한계 알고리즘은 다른 분지한계법하고 많이 다르지 않습니다. 대학 지원 문제의 INLP 형태를 사용하면, 화면과 같은 선형 완화 문제가 원문제 목적 함숫값의 상한을 제공해 줍니다. 알마 문제에서 개발한 변수 소거법을 재활용해서 이 LP 상한을 좀 더 타이트하게 조정할 수 있으며, 이 선형 완화 문제는 선형 시간에 쉽게 풀 수 있습니다.
 
-Next, we tighten this LP bound by recycling the variable elimination technique from Alma's problem. Because we have an integer expression of the problem and a linear relaxation, we can apply any number of branch-and-bound algorithms to this problem. In our computational study, we use a very simple algorithm that selects the branch node according to a depth-first heuristic. It is, admittedly, not as good as our other algorithms. But we have written our code library in a modular fashion so that the same LP relaxation can be passed to a more sophisticated branch-and-bound solver. This is useful because one of our ideas for future research is to consider more complex constraint structures.
+Because we have an integer expression of the problem and a linear relaxation, we can apply any number of branch-and-bound algorithms to this problem. In our computational study, we use a very simple algorithm that selects the branch node according to a depth-first heuristic. It is, admittedly, not as good as our other algorithms. But we have written our code library in a modular fashion so that the same LP relaxation can be passed to a more sophisticated branch-and-bound solver. This is useful because one of our ideas for future research is to consider more complex constraint structures.
 
-한글
+이제 원 문제의 정수 모형, 그리고 완화 문제 둘 다 정의했으니까 정수계획 문헌에서 다채로운 분지한계 알고리즘을 도입할 수 있습니다. 저의 계산 실험에서는, 깊이 우선 분지 마디 선택 휴리스틱을 도입한 아주 간단한 해법을 사용하기로 했으며, 그의 계산 시간 다른 해법에 비해 그리 좋지 않습니다. 그렇지만, 저희 코드에서 부문제들을 아주 modular한 식으로 구성했기 때문에, 기존에 좋은 분지한계 솔버하고 interface하게 하는 것은 어렵지 않습니다. 왜 그게 필요하냐면, 향후 연구 중에서 더 복잡한 제약 조건을 고려하는 목표가 있는데 이때 분지한계법을 사용할 수밖에 없을 가능성이 있습니다.
 
 The next algorithm is a dynamic program that is both exact and very efficient for certain instances. The design is similar to a familiar DP for the knapsack problem: We define $V[j, h]$ as the value of the best portfolio that satisfies a restricted budget and uses only the first $j$ schools. The values of $V[j, h]$ satisfy a recursion relation which appears on the screen, and by filling a table with these values and then iterating backwards over the table, it is not difficult to determine the optimal portfolio. Because the computation time depends on $H$, this is not a polynomial-time algorithm. However, in typical college applications, the application costs are small integers, and in that case this algorithm is quite practical.
 
-한글
+그 다음 알고리즘은 동적 계획이며 정확한 해법이고 어떤 인스턴스에 대해서는 아주 효율적인 해법이 됩니다. 이 알고리즘의 구성은 배낭 문제의 익숙한 동적 계획과는 매우 비슷합니다. 먼저 $V[j, h]$를, 제한된 예산 조건을 만족하면서 첫 $j$개의 학교만 사용하는 최적 포트폴리오로 정의합니다. $V[j, h]$의 값은 화면과 같은 재귀 관계를 만족합니다. 이 값들을 표에 채우도, 표를 거꾸로 탐색하면 최적 포트폴리오를 구할 수 있습니다. 이것의 계한 시간은 $H$에 의존하므로 다항 시간 해법이 아닙니다. 그런데, 전형적인 대학 지원 인스턴스에서, 지원 비용이 정수가 되는 경우가 많은데 이때 아주 현실적인 알고리즘이 됩니다.
 
 Next, we discuss the FPTAS, which is based on a different dynamic program. It also bears similarity to the famous FPTAS for the knapsack program. The idea here is to approximate portfolio valuations as a fixed-point decimal, and calculate them by adding the schools one at a time and always rounding the decimal down. The set of portfolio valuations $V$ that can be observed in this fixed-point environment is therefore finite, and by iterating over $V$, we can find a portfolio that is optimal up to fixed-point error.
 
-한글
+그다음에, 저희 FPTAS에 대해 말씀드리겠습니다. 이것은 또다른 동적계획 기반으로 구성된 알고리즘이며, 배배낭 문제의 유명한 FPTAS하고 유사한 점이 많습니다. 이 해법의 원리는 포트폴리오의 가치를 계산할 때, 학학교들을 지표 순서대로 추가하고 학교를 추가할 때마다 포트폴리오의 가치를 고정소숫점 십진수로 내림하기기입니다. 십진수만 고려하므로, 고정소숫점 환경에서 발생할 있는 포트폴리오 가치의 집합은 유한 집합 $V$가 됩니다. 집합 $V$를 탐색하면 근사 최적 포트폴리오를 구할 수 있습니다.
 
 To iterate over $V$, we need another recursion relation. The validity of this recursion relation is not difficult to understand, but it involves taking a lot of subcases, so I will refer you to the paper for the details. The important thing is the accuracy of the approximation depends on $P$, the precision of the fixed-point decimal environment. We show how to set $P$ to ensure that the optimality gap is less than $\varepsilon$. When you do this, the size of the table, and therefore the overall computation time, is polynomial in $m$ and $1/\varepsilon$, which is precisely the condition for an FPTAS.
 
-한글
+$V$를 탐색하기 위해 어떤 재귀 관계가 필요합니다. 화면에서 나오는 재귀 관계의 타당성은 쉽게 이해하실 수 있겠지면, 케이스를 많이 나눠야 돼서 설명을 이 발표 자료에서 생략했습니다. 중요한 것은, 근사 최적해의 정확도는 고정소숫점의 뒷자리 개수 $P$로 정해지는 것입니다. 그러면 근사 계수가 최소한 $1 - \varepsilon$이 되도록 $P$를 설정할 수 있으며, 이렇게 설정할 때 재귀 관계가 정의된 지표의 개수가 $m$과 $\epsilon$ 분의 $1$의 다항식을 넘지 않습니다. 따라서 계산 시간도 그런 다항식이 되고, 이 것이 바로 FPTAS의 조건입니다.
 
 The final algorithm given in our paper is a simulated annealing algorithm which is primarily of comparative interest. Simulated annealing is a neighborhood search technique, and although it offers no guarantee of accuracy, its computation time is very fast. Simulated annealing algorithms are therefore popular in real-time disciplines, such as vehicle routing, where the absolute accuracy of a solution is considered less important than getting a "good enough" solution very quickly. The basic ingredients for simulated annealing are as follows: We need an initial solution; in our case, we use the linearization heuristic. And we need a randomized procedure for generating neighbors; in our case, we randomly add then remove schools in a way that preserves feasibility. Finally, there are a couple of parameters that control how "aggressively" SA changes candidates; we used a simply grid search to determine parameter values that worked well on our test data.
 
-한글
+논문의 마지막 알고리즘은 simulated annealing 알고리즘입니다. Simulated annealing이라는 것은 지역 탐색휴리스틱인데 정확도는 보장되지는 않지만 계산 시간이 아주 빠른 해법입니다. 그 이유로 vehicle routing 같은 real-time 분야에서, 절대적인 정확도보다 소위 말해서 "충분히 좋은" 해를 실시간에 구하는 게 중요하게 생각하니까 인기가 많은 휴리스틱입니다. SA의 기본 재료는 다음과 같습니다. 먼저 초기해가 필요한데, 대학 지원 문제에서 저희는 선형화 휴리스틱으로 잡았습니다. 그 다음의 후보해의 이웃해를 생성하는 기법을 정의해야 하고, 저희는 포트폴리오의 가능성을 유지하면서 학교를 무작위로 추가하고 빼는 방법을 이용했습니다. 마지막으로 SA가 후보해를 얼마나 바꾸는지를 결정하는 모수들을 선택해야 하는데, grid 탐색을 통해
+가상 데이터에서 성능이 좋은 값을 구했습니다.
 
 ## Computational results
 For the remainder of the presentation, we will discuss the results of our computational experiments.
 
-한글
+남은 발표에서 계산 실험 결과를 정리하도록 하겠습니다.
 
 We conducted three experiments to test the efficiency and accuracy of our solution algorithms. In all three experiments, we use this recipe to generate problems of various sizes. $t_j$ and $f_j$ are chosen to correlate negatively, which makes the problem more difficult by requiring a choice between safety and reach schools. The budget is set so that roughly half of the schools will end up in the optimal portfolio. All of our code is written in Julia, and the OptimalApplication.jl package was recently accepted into the public Julia registry, so if you know Julia, you can install this package easily and try it out yourself.
 
-한글
+해법의 효율성과 정확성을 확인하고자 3개의 계산 실험을 진행했습니다. 모든 실험에서 화면에서 나오는 레시피로 가상 인스턴스를 생성했습니다. $t_j$와 $f_j$는 서로 반비례하도록 생성했으며, 안정 지원 학교와 상향 지원 학교 중에서 선택하게 하므로 좀 어려운 인스턴스를 만드는 방법입니다. 학교 중 반쯤이 최적 포트폴리오에 포함되도록 예산을 설정했습니다. 저희 코드를 Julia 언어로 작성했으며, 저번주에 OptimalApplication.jl이라는 이름으로 저희 패키지가 온라인 패키지 등록에 합격받아서, Julia를 아신다면 이 패키지를 설정하시고 직접 사용해보실 수 있습니다.
 
 Experiment 1 compares two data structures, namely a list and a heap, for Alma's problem. These have the same order of complexity, but due to constant factors, the list implementation is much faster.
 
-한글
+실험 1은 알마 문제의 탐욕해법을 고려하며 힙 그리고 리스트 같은 두가지 데이터 구현을 비교했습니다. 두 해법의 계산 시간 복잡도는 같지만, 보시다시피 리스트 구현은 현실적으로 더 빠릅니다.
 
-Experiment 2 considers the speed of the algorithms for Ellis's problem. We excluded the simulated annealing algorithm from this experiment because it isn't really a good target of comparison with the other algorithms: its computation time is much faster, but it offers no accuracy guarantee. Among the remaining algorithms, the first dynamic program—the one that iterates on application costs—is the fastest. In part, this is a reflection of our test data in which $g_j$ are small integers. Even at a fairly high value of $\varepsilon$, the FPTAS is quite slow.
+Experiment 2 considers the speed of the algorithms for Ellis's problem. We excluded the simulated annealing algorithm from this experiment because it isn't really a good target of comparison with the other algorithms: its computation time is much faster, but it offers no accuracy guarantee. Among the remaining algorithms, the first dynamic program—the one that iterates on application costs—is the fastest. In part, this is a reflection of our test data in which $g_j$ are small integers. 
 
-한글
+실험 2는 엘리스 문제의 해법의 계산 시간을 고려하는 실험입니다. 여기서 simulated annealing 해법을 제외했습니다. 왜냐면, 계산 시간은 훨씬 따른데, 정확도가 보장되지 않으니까 다른 해법의 비교 대상이 될 수 없기 때문입니다. 그럼 남은 해법 중에서, 지원 비용으로 탐색하는 첫 동적 계획이 가장 빠른 거였습니다. 실험 데이터에서 $g_j$들이 작은 정수가 되므로 놀라운 결과는 아닙니다.
 
-Finally, in experiment 3 we compare the solution produced by the simulated annealing algorithm with the true optimum in 500 instances. As you can see from this scatter plot, in the fast majority of instances, SA found a solution within 2% of optimality, and its performance appears to improve in large instances.
+Finally, in experiment 3 we compare the solution produced by the simulated annealing algorithm with the true optimum in 500 instances. As you can see from this scatter plot, in the vast majority of instances, SA found a solution within 2% of optimality, and its performance appears to improve in large instances.
 
-한글
+마지막으로, 실험 3에서 simulated annealing으로 구한 휴리스틱 해법과 실제 최적해를 500 인스턴스에서 비교해봤습니다. 그림에서 나타나듯이, 대다수의 경우, SA는 98퍼센트를 넘는 정확도를 발휘했으며, 인스턴스가 크면 클수록 정확도가 늘어나는 현상이 있습니다.
 
 ## Conclusion
 Let's move onto the conclusion.
@@ -135,4 +136,3 @@ College application is an intriguing optimization problem, with its unusual "max
 
 목적함수의 maximax 형태 그리고 정수 조건 때문에 대학 지원 문제는 방법론적으로 흥미로운 최적화 문제라고 생각합니다. 표면에는 어려운 submodular 최적화 문제처럼 보이지만, 알고리즘의 구조와 근서 해법의 존재성을 보니까 그의 난이도는 배낭 문제에 더 가깝습니다. 모든 지원 비용이 동일한 특수한 경우도 탐욕 해법으로 다항 시간에 풀 수 있다는 점도 배낭 문제와 유사합니다. 그다음에, 대학 지원이라는 것에는 실제적인 중요성과 가치 있다고 생각합니다. 지금, 미국 입시 컨설턴트에게 문의해보시면, 시간당 24만원의 급료를 청구할 수 있습니다. 물론, 입학 컨설턴트는 최적화 문제를 푸는 거 외에도 많은 서비스를 제공하지면, 입학 컨설팅의 높은 비용을 반영하여 이 연구를 하면서 개발한 코드를 open-source license로 공개하기로 했습니다. 마지막으로, 논문에서 이 모형에 대한 여러가지 확장을 제안하는데, 혹시 궁금하시면 질의시간에 더 설명드리고자 하겠습니다. 감사합니다.
 
-<!-- ko: 16:58 -->
