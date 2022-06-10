@@ -118,6 +118,7 @@ Management Science/Optimization Lab\\
 \definecolor{beige}{HTML}{f5fffa}
 \definecolor{azure}{HTML}{F5F5F5}
 \definecolor{rebeccapurple}{HTML}{663399}
+\definecolor{lightslategray}{HTML}{778899}
 
 % Corrects color spacing issue in math mode
 \makeatletter
@@ -761,54 +762,44 @@ $f_j = \varepsilon$으로 넣으면 $v(\mathcal{X})$를 선형 함수에 원하�
 
 
 
-\begin{frame}{\ifen Branch-and-bound algorithm: LP relaxation\else 분지한계법: 선형 완화 문제\fi}
-\ifen
-Our branch-and-bound framework is based on the following LP relaxation for Ellis's problem. 
-\else
-다음 선형 완화 문제 바탕으로 엘리스의 문제를 위한 분지한계법을 구성할 수 있다. 
-\fi
-\begin{problem}[\ifen LP relaxation for Ellis's problem\else 엘리스의 문제를 위한 선형 완화 문제\fi]\label{LPrelaxation}
-\vspace{-2em}
-\begin{align*}
-\begin{split}
-\text{maximize}\quad &  v_{\mathrm{LP}}(x) = \sum_{j=1}^m  f_j t_j x_j \\
-\text{subject to}\quad & \sum_{j=1}^m g_j x_j \leq H, ~~ x \in [0, 1]^m
-\end{split}
-\end{align*}
-\end{problem}
-\ifen
-We \textbf{tighten the LP bound} by recycling the variable-elimination technique from the proof of the nestedness theorem.
 
-Problem \ref{LPrelaxation} is a continuous knapsack problem, easy to solve (Dantzig 1957; Balas and Zemel 1980). 
-\else
-포함 사슬 관계의 증명 과정에서 도출한 변수 소거법은 재활용해서 위에 \textbf{상한을 더 타이트하게} 조정한다.
 
-문제 \ref{LPrelaxation}은 연속 배낭 문제로서 쉽게 풀 수 있다 (Dantzig 1957; Balas와 Zemel 1980). 
-\fi
+% Clone of slide above but with BnB grayed out
+\ifen {
+\begin{frame}{Algorithms for Ellis's problem}
+
+By setting $f_j = \varepsilon$, we can make $v(\mathcal{X})$ arbitrarily close to a linear function. This means that knapsack reduces to Ellis's problem, and therefore Ellis's problem is NP-complete.
+
+The general problem is \textbf{NP-complete} (reduction from knapsack). We offer four algorithms:
+\begin{itemize}
+\item \textcolor{lightslategray}{A linear relaxation and \textbf{branch-and-bound scheme} allow us to interface with existing INLP solvers. \hfill{\footnotesize (see appendix)}}
+
+\item A \textbf{dynamic program based on total expenditures}. Exact solution in $O(Hm + m\log m)$ time (pseudopolynomial). 
+
+\item A different DP based on truncated portfolio valuations. $(1 - \varepsilon)$-optimal solution in $O(m^3 / \varepsilon)$ time: an \textbf{FPTAS}!
+\item A \textbf{simulated annealing heuristic}. Fast, typically within 2\% of optimality.
+\end{itemize}
 \end{frame}
+} \else {
+\begin{frame}{엘리스의 문제를 위한 알고리즘}
 
+$f_j = \varepsilon$으로 넣으면 $v(\mathcal{X})$를 선형 함수에 원하는 만큼 가깝게 만들 수 있다. 배낭 문제가 엘리스의 문제로 변환할 수 있음을 의미하므로 엘리스의 문제는 NP-complete하다.
 
+4개의 알고리즘 제시:
+\begin{itemize}
+\item \textcolor{lightslategray}{선형 완화 문제와 해당 \textbf{분지한계} (branch-and-bound) 해법. 일반적인 INLP 문제에 대해 자주 쓰이는 방법이다. \hfill{\footnotesize (부록)}}
 
+\item \textbf{총 지원 비용 기반 동적 계획}. $O(Hm + m\log m)$ (의사 다항) 시간에 정확한 해를 구하며, $g_j$가 작은 정수가 되는 ``전형적'' 인스턴스에 대해 매우 효율적인 해법.
 
+\item 포트폴리오 가치의 라운딩을 이용한 동적 계획. $O(m^3 / \varepsilon)$ 시간에 $(1 - \varepsilon)$-근사해를 출력하므로 \textbf{FPTAS!}
 
+\item \textbf{Simulated annealing} 휴리스틱. 빠르고 대부분 98\% 이상의 최적성을 얻었다.
+\end{itemize}
 
-\begin{frame}{\ifen Branch-and-bound algorithm: Possible improvements\else 분지한계법: 개선 방향\fi}
-\ifen
-A straightforward implementation is OK on small instances ($m \leq 35$), but leaves \textbf{considerable room for improvement} using better node-selection heuristics.
-
-%The good news is that bespoke node-selection heuristics from the INLP literature typically require only a procedure for generating dual bounds from a constrained subproblem.
-
-In the associated Julia package, we provide \textbf{modular containers for subproblems and their LP relaxations} that can interface with a more sophisticated branch-and-bound solver.
-
-A branch-and-bound algorithm may be necessary to handle more advanced constraint structures.
-\else
-이 기반으로 만든 간단한 알고리즘은 작은 ($m \leq 35$) 인스턴스에 괜찮지만 분지 마디를 선택하는 휴리스틱으로 \textbf{개선할 여지가} 보인다.
-
-Julia 코드 패키지에서 \textbf{부문제와 선형 완화 문제를 위한 modular한 데이터 구현을} 제시하며, 이를 더 세련된 INLP 솔버에 어렵지 않게 연결할 수 있다.
-
-나중에 더 복합한 제약 조건을 도입하는 데에 분지한계법 알고리즘이 필요할 수 있으므로 유리하다.
-\fi
 \end{frame}
+} \fi
+
+
 
 
 
@@ -1334,6 +1325,69 @@ $m=8$개의 학교로 이루어진 가상 입학 시장의 대학교 자료와 �
  \includegraphics[height=\textheight]{./plots/h_v-example.pdf}
 \end{center}
 \end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{frame}{\ifen Branch-and-bound algorithm: LP relaxation\else 분지한계법: 선형 완화 문제\fi}
+\ifen
+Our branch-and-bound framework is based on the following LP relaxation for Ellis's problem. 
+\else
+다음 선형 완화 문제 바탕으로 엘리스의 문제를 위한 분지한계법을 구성할 수 있다. 
+\fi
+\begin{problem}[\ifen LP relaxation for Ellis's problem\else 엘리스의 문제를 위한 선형 완화 문제\fi]\label{LPrelaxation}
+\vspace{-2em}
+\begin{align*}
+\begin{split}
+\text{maximize}\quad &  v_{\mathrm{LP}}(x) = \sum_{j=1}^m  f_j t_j x_j \\
+\text{subject to}\quad & \sum_{j=1}^m g_j x_j \leq H, ~~ x \in [0, 1]^m
+\end{split}
+\end{align*}
+\end{problem}
+\ifen
+We \textbf{tighten the LP bound} by recycling the variable-elimination technique from the proof of the nestedness theorem.
+
+Problem \ref{LPrelaxation} is a continuous knapsack problem, easy to solve (Dantzig 1957; Balas and Zemel 1980). 
+\else
+포함 사슬 관계의 증명 과정에서 도출한 변수 소거법은 재활용해서 위에 \textbf{상한을 더 타이트하게} 조정한다.
+
+문제 \ref{LPrelaxation}은 연속 배낭 문제로서 쉽게 풀 수 있다 (Dantzig 1957; Balas와 Zemel 1980). 
+\fi
+\end{frame}
+
+
+
+
+
+
+\begin{frame}{\ifen Branch-and-bound algorithm: Possible improvements\else 분지한계법: 개선 방향\fi}
+\ifen
+A straightforward implementation is OK on small instances ($m \leq 35$), but leaves \textbf{considerable room for improvement} using better node-selection heuristics.
+
+%The good news is that bespoke node-selection heuristics from the INLP literature typically require only a procedure for generating dual bounds from a constrained subproblem.
+
+In the associated Julia package, we provide \textbf{modular containers for subproblems and their LP relaxations} that can interface with a more sophisticated branch-and-bound solver.
+
+A branch-and-bound algorithm may be necessary to handle more advanced constraint structures.
+\else
+이 기반으로 만든 간단한 알고리즘은 작은 ($m \leq 35$) 인스턴스에 대해 괜찮지만 분지 마디를 선택하는 휴리스틱으로 \textbf{개선할 여지가} 보인다.
+
+Julia 코드 패키지에서 \textbf{부문제와 선형 완화 문제를 위한 modular한 데이터 구현을} 제시하며, 이를 더 세련된 INLP 솔버에 어렵지 않게 연결할 수 있다.
+
+나중에 더 복합한 제약 조건을 도입하는 데에 분지한계법 알고리즘이 필요할 수 있으므로 유리하다.
+\fi
+\end{frame}
+
 
 
 
