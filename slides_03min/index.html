@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>OptimalApplication.jl – The optimal college application strategy</title>
+
+		<meta name="description" content="Using Julia to find the optimal college application strategy">
+		<meta name="author" content="Max Kapur">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/solarized.css" id="theme">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+
+		<style type="text/css">
+		div.attrib { margin-top: 50px; margin-bottom: 20px; }
+		div.attrib p { font-size: 75%; margin-top: 0; margin-bottom: 0; }
+		.reveal .slides sub,
+		.reveal .slides h1,
+		.reveal .slides h2,
+		.reveal .slides h3,
+		.reveal .slides p { text-align: left; }
+		</style>
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1 class="r-fit-text">OptimalApplication.jl</h1>
+
+					<h3>
+					Solving the college application problem with Julia
+					</h3>
+					
+					<div class="attrib">
+						<p>✍️  Max Kapur</p>
+						<p>📜 Master’s student</p>
+						<p>🏛️  Management Science/Optimization Lab, Seoul National University</p>
+						<p>✉️  <a href="mailto:maxkapur@gmail.com">maxkapur@gmail.com</a></p>
+					</div>
+				</section>
+
+				<section>
+					<h2>The college application problem</h2>
+
+					<p>Try to decide which colleges to apply to, given</p>
+					<ul>
+                        <li>the <strong>utility</strong> associated with each school,</li>
+                        <li>the <strong>probability of being admitted,</strong></li>
+                        <li>each school’s <strong>application fee,</strong> and</li>
+                        <li>a <strong>total budget</strong> to spend on applications.</li>
+					</ul>
+
+					<p><em>Maximizing the expected maximum</em> of a portfolio of random variables: a challenging combinatorial optimization problem.</p>
+				</section>
+
+			    <section>
+					<h2>Summary of solution algorithms</h2>
+
+					<p>Special case: All application fees equal. <code class="julia">applicationorder_list()</code> and <code class="julia">applicationorder_heap()</code> are <strong>quadratic-time algorithms</strong>.</p>
+					<p>General case:</p>
+					<ul>
+                        <li><strong>Exact solution</strong> from <code class="julia">optimalportfolio_dynamicprogram()</code> or <code class="julia">optimalportfolio_branchbound()</code>.</li>
+                        <li><strong>ε-approximate solution</strong> from <code class="julia">optimalportfolio_fptas()</code>.</li>
+                        <li><strong>Heuristic solution</strong> from <code class="julia">optimalportfolio_simulatedannealing()</code>.</li>
+					</ul>
+				</section>
+
+			    <section>
+					<h2>Why Julia?</h2>
+
+					<p><strong>Multiple dispatch, parametric types</strong> ⇒ easy to accept different kinds of user input and preserve type stability</p>
+					<p><strong>Easy to parallelize</strong> validation study with <code class="julia">@threads</code></p>
+					<p>Simplicity of <strong>creating and sharing packages</strong></p>
+				</section>
+
+				<section>
+					<h2>Future work</h2>
+
+					<p>OptimalApplication.jl could be a lot <strong>more generic</strong>, e.g. accept DataFrames.jl series as input.</p>
+					<p>Integrate with Bonobo.jl to handle <strong>more sophisticated constraint structures</strong> that arise in real-world admissions markets.</p>
+					<p>Graphical interface/web app.</p>
+				</section>
+
+				
+				<section>
+					<h2>Links</h2>
+
+					<p>OptimalApplication.jl:</p>
+                    <ul>
+            			<li><code class="julia">]install OptimalApplication</code></li>
+            			<li><a href="https://github.com/maxkapur/OptimalApplication.jl">Source code</a> and <a href="https://misc.maxkapur.com/OptimalApplication.jl/dev/">documentation</a> on GitHub.</li>
+            		</ul>
+					<p>Theory: <a href="https://github.com/maxkapur/CollegeApplication">github.com/maxkapur/CollegeApplication</a> hosts an arXiv paper and various conference slides (including these).</p>
+					<p>Me: <a href="https://discourse.julialang.org/u/maxkapur/">Julia Discourse</a>, <a href="https://www.linkedin.com/in/maxkapur/">LinkedIn</a>, <a href="https://github.com/maxkapur/">GitHub</a>, <a href="https://www.maxkapur.com/">personal blog</a>.
+				</section>
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				center: true,
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: []
+			});
+
+		</script>
+
+	</body>
+</html>
