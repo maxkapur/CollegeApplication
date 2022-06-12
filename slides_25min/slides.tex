@@ -229,9 +229,9 @@ Today's agenda:
 \end{frame}
 } \else {
 \begin{frame}{서론}
-대학 입학 지원 최적화 문제는 \textbf{새로운 조합 최적화 문제}이다.
+대학 입학 지원 최적화 문제는 \textbf{새로운 조합 최적화 문제}다.
 
-예산 제약 조건 하에서, 다수 확률 변수로 이뤄진 포트폴리오의 \textbf{기대 최댓값을 최대화}하는 문제이다.
+예산 제약 조건 하에서, 다수 확률 변수로 이뤄진 포트폴리오의 \textbf{기대 최댓값을 최대화}하는 문제다.
 
 발표 요약:
 \begin{itemize}
@@ -405,7 +405,7 @@ v(\mathcal{X})
 \begin{frame}{포트폴리오 가치의 함수 형태}
 $v(\mathcal{X})$를 함수로 표현하기 위해, 학생이 $c_j$에 \textbf{진학하는} 확률을 $p_j(\mathcal{X})$라고 하자.
 
-$c_j$에 진학하는 조건은 $c_j$에 \textbf{지원하고}, \textbf{합격하고}, $c_j$보다 선호하는 학교에는 \textbf{합격하지 않았을} 때이다.
+$c_j$에 진학하는 조건은 $c_j$에 \textbf{지원하고}, \textbf{합격하고}, $c_j$보다 선호하는 학교에는 \textbf{합격하지 않았을} 때다.
 \begin{align*}
 p_j(\mathcal{X}) &= 
 \begin{cases}
@@ -635,13 +635,13 @@ In general, submodular maximization over a knapsack constraint is $(1 - 1/e)$-in
 
 \textbf{정확한 다항 시간} 탐욕 해법을 제시한다.
 
-\item \textbf{엘리스의 문제:} NP-complete한 일반 경우.
+\item \textbf{엘리스의 문제:} NP-complete한 일반적인 경우.
 
 총 4개의 해법을 제시하며, \textbf{완전 다항 시간 $(1 - \varepsilon)$-근사 해법}이 하이라이트다.
 \end{itemize}
 
 \looseness=-1
-일반적으로, 배낭 제약식 위에서 submodular 함수를 최대화하는 문제는 $(1 - 1/e)$보다 좋은 근사 계수를 가지는 해법이 존재하지 않으므로 (Kulik et al. 2013), 엘리스 문제의 FPTAS가 존재하는 것은 의미가 있는 결과다.
+일반적으로, 배낭 제약식 위에서 submodular 함수를 최대화하는 문제는 $(1 - 1/e)$보다 좋은 근사 계수를 가지는 해법이 존재하지 않으므로 (Kulik et al. 2013), 엘리스 문제에 FPTAS가 존재하는 것은 의미가 있는 결과다.
 \end{frame}
 } \fi
 
@@ -673,7 +673,7 @@ Fisher et al. (1978) showed that a greedy algorithm is $(1 - 1/e)$-optimal for m
 \end{frame}
 } \else {
 \begin{frame}{동일한 지원 비용의 경우}
-``알마의 문제''란 \textbf{특수한 경우}에서 먼저 모든 $g_j = 1$이다.
+``알마의 문제''라는 \textbf{특수한 경우}에서 먼저 모든 $g_j = 1$이다.
 
 이때 $H$는 단순한 지원 개수 제한이 되며, $h = 3, m = 202$인 한국 정시 입학 과정과 비슷한 상황이다.
 
@@ -706,13 +706,13 @@ Using a variable-elimination technique, we reduce the cost of computing $v(\math
 \begin{frame}{탐욕 해법의 정확성}
 알마의 문제에 대해 다음 \textbf{포함 사슬 관계 (nestedness)} 성질은 $v(\mathcal{X})$를 최대화하는 순서대로 학교를 하나씩 추가하는 \textbf{탐욕 해법}의 최적성을 의미한다.
 \begin{theorem}[최적 포트폴리오의 포함 사슬 관계] \label{nestedapplication}
-각 $\mathcal{X}_h$가 지원 제한 $h$에 대한 최적 포트폴리오며 위의 포함 사슬 관계를 만족하는 포트폴리오 수열  $\{\mathcal{X}_h\}_{h=1}^m$가 존재한다.
+$\mathcal{X}_h$가 지원 제한 $h$에 대한 최적 포트폴리오가 되면서 다음 포함 사슬 관계를 만족하는 포트폴리오 수열  $\{\mathcal{X}_h\}_{h=1}^m$이 존재한다.
 \begin{equation*}
 \mathcal{X}_1 \subset \mathcal{X}_2\subset \dots \subset \mathcal{X}_m
 \end{equation*}
 \end{theorem}
 
-$v(\mathcal{X})$를 $O(1)$ 시간 안에 계산할 수 있는 변수 소거 기법을 개발하여 전체 해법의 계산 시간을 $O(hm)$으로 줄였다. 
+$v(\mathcal{X})$를 $O(1)$ 시간 안에 계산할 수 있는 변수 소거 기법을 개발하여 전체 해법의 계산 시간을 $O(hm)$으로 줄일 수 있다. 
 \end{frame}
 \fi
 
@@ -810,10 +810,10 @@ $f_j = \varepsilon$으로 넣으면 $v(\mathcal{X})$를 선형 함수에 원하�
 
 \begin{frame}{\ifen Expenditures-based dynamic program\else 지원 지출액 기반 동적 계획\fi}
 \ifen Let $V[j,h] $ denote the value of the optimal portfolio that uses only the schools $\{ 1, \dots, j\}$ and costs no more than $h$.
-\else $\{ 1, \dots, j\}$에 속한 학교만 사용하면서 지원 지출액이 $h$를 넘지 않은 최적 포트폴리오의 가치를 $V[j, h]$라고 하자.\fi
+\else $\{ 1, \dots, j\}$에 속한 학교만 사용하면서 지원 지출액이 $h$를 넘지 않는 최적 포트폴리오의 가치를 $V[j, h]$라고 하자.\fi
 
 \ifen Then we can use the following \textbf{Bellman equation} to compute all the $V[j, h]$-values recursively.
-\else 그러면 다음과 같은 \textbf{Bellman 식}으로 모든 $V[j, h]$-값은 재귀적으로 계산할 수 있다. \fi
+\else 그러면 다음과 같은 \textbf{Bellman 식으로} 모든 $V[j, h]$-값은 재귀적으로 계산할 수 있다. \fi
 \begin{align*}
 V[j, h] = \max\bigl\{ V[j-1, h], (1 - f_j) V[j-1, h-g_j] + f_j t_j \bigr\}
 \end{align*}
@@ -824,9 +824,9 @@ Filling a lookup table with the $V[j, h]$-values therefore costs $O(Hm + m\log m
 
 \textbf{Very effective} on typical instances where $g_j$ are small integers.
 \else
-이 식의 타당성은 학교를 $t_j$-값 순서대로 배열함에 의존.
+이 식의 타당성은 학교를 $t_j$-값 순서대로 배열함에 의존한다.
 
-따라서 $V[j, h]$-값으로 표를 채우는 시간이 $O(Hm + m\log m)$이며 이를 참고하면 $\mathcal{X}$를 쉽게 구할 수 있다.
+따라서 $V[j, h]$-값으로 표를 채우는 시간이 $O(Hm + m\log m)$이며, 이를 탐색하면 $\mathcal{X}$를 쉽게 구할 수 있다.
 
 전형적인 인스턴스에서 $g_j$가 작은 상수이므로 \textbf{매우 효율적인} 해법.
 \fi
@@ -849,16 +849,15 @@ $\bar U = \sum_{j\in \mathcal{C}} f_j t_j$ is an upper bound on the valuation of
 \else
 엘리스의 문제는 배낭 문제와 같이, 가치가 가장 높은 포트폴리오의 비용 대신 비용이 가장 낮은 포트폴리오의 가치를 탐색하는 \textbf{보완적인 동적 계획}이 존재한다. 
 
-포트폴리오의 근사적 가치를 정확도 $P$로 구성된 고정소수점 십진수(fixed-point decimal)로 나타내자. 다, $P$는 소수점 뒤에 등장하는 숫자의 수이다. 이때 $x$를 가장 가까운 고정소수점 십진수로 내림한 것을 $r[x] =  10^{-P}\lfloor 10^P x \rfloor$라고 하자.
+포트폴리오의 근사적 가치를 정확도 $P$로 구성된 고정소수점 십진수(fixed-point decimal)로 나타내자. 단, $P$는 소숫점 뒤에 등장하는 숫자의 수를 의미한다. 이때 $x$를 가장 가까운 고정소수점 십진수로 내림한 값을 $r[x] =  10^{-P}\lfloor 10^P x \rfloor$라고 하자.
 
-임의의 포트폴리오의 가치가 $\bar U = \sum_{j\in \mathcal{C}} f_j t_j$를 넘을 수 없다. 따라서 고정소수점 환경에서 발생할 수 있는 포트폴리오 가치로 이루어진 집합 $\mathcal{V}$는 유한 집합이다.
+어떤 포트폴리오의 가치도 $\bar U = \sum_{j\in \mathcal{C}} f_j t_j$를 넘을 수 없다. 따라서 고정소수점 환경에서 발생할 수 있는 포트폴리오 가치로 이루어진 집합 $\mathcal{V}$는 유한 집합이다.
 \fi
 \begin{equation*}
 \mathcal{V} = \Bigl\{0, 1\times 10^{-P}, 2\times 10^{-P}, \dots, r\bigl[\bar U- 1\times 10^{-P}\bigr], r\bigl[\bar U\bigr]\Bigr\}
 \end{equation*}
 \ifen Then $|\mathcal{V} | = \bar U \times 10^P + 1$.
 \else 그러면 $|\mathcal{V} | = \bar U \times 10^P + 1$이다.\fi
-
 \end{frame}
 
 
@@ -867,7 +866,7 @@ $\bar U = \sum_{j\in \mathcal{C}} f_j t_j$ is an upper bound on the valuation of
 \ifen 
 Let $G[j, v]$ denote the application cost of the least expensive portfolio that uses only schools $\{ 1, \dots, j\}$ and has (rounded) valuation at least $v$. We argue that
 \else
-$\{ 1, \dots, j\}$에 속한 학교만 사용하면 (내림한) 가치가 최소한 $v$의 포트폴리오 중 지원 비용이 최소한 포트폴리오의 지출액을 $G[j, v]$라고 하자. 이때 다음 재귀 관계가 성립한다고 주장한다.
+$\{ 1, \dots, j\}$에 속한 학교만 사용하면서 (내림한) 가치가 최소한 $v$가 되는 포트폴리오 중 지원 비용이 최소한 포트폴리오의 지출액을 $G[j, v]$라고 하자. 이때 다음 재귀 관계가 성립한다고 보일 수 있다.
 \fi
 \begin{align*}
 G[j, v] &=
@@ -890,11 +889,11 @@ r\left[\frac{f_j}{1 - f_j} (t_j - v)\right], \quad & f_j < 1\\
 \ifen
 Now we can fill a lookup table with the entries of $G[j, v]$ and compute an approximately optimal portfolio. 
 
-In the paper, we show that setting $P \gets \bigl\lceil\log_{10}\left(m^2 / \varepsilon \bar U\right)\bigr\rceil$ guarantees a $(1- \epsilon)$-optimal portfolio, and that this yields a table of size $O(m^3 / \varepsilon)$, meaning that this algorithm is \textbf{an FPTAS}.
+In the paper, we show that setting $P \gets \bigl\lceil\log_{10}\left(m^2 / \varepsilon \bar U\right)\bigr\rceil$ guarantees a $(1- \varepsilon)$-optimal portfolio, and that this yields a table of size $O(m^3 / \varepsilon)$, meaning that this algorithm is \textbf{an FPTAS}.
 \else
-이제 $G[j, v]$-값으로 표를 채우면 근사 최적 포트폴리오를 구할 수 있다.
+이제 $G[j, v]$-값을 표에 채우면 근사 최적 포트폴리오를 구할 수 \rlep{있다.}
 
-논문에서 $P \gets \bigl\lceil\log_{10}\left(m^2 / \varepsilon \bar U\right)\bigr\rceil$로 넣으면 $(1- \epsilon)$-근사해가 보장되며, 해당 표의 크기가  $O(m^3 / \varepsilon)$이므로 이 알고리즘은 \textbf{FPTAS}이다.
+논문에서 보이듯이, $P \gets \bigl\lceil\log_{10}\left(m^2 / \varepsilon \bar U\right)\bigr\rceil$로 넣으면 $(1- \varepsilon)$-근사해가 보장되며, 해당 표의 크기가  $O(m^3 / \varepsilon)$이므로 이 알고리즘은 \rlap{\textbf{FPTAS}다.}
 \fi
 \end{frame}
 
@@ -1052,7 +1051,7 @@ $m$개의 학교로 구성된 가상 인스선트 레시피:
 \ifen 
 $\argmax$ operation at each iteration made heap an appealing data structure, but because \emph{every} key is updated, the savings aren't worth the cost.
 \else 
-반복 단계마다 $\argmax$ 연산이 필요하므로 힙 구현에는 매력이 있지만, 그의 모든 원소를 수정해야 하므로 만회하지 않는다.
+반복 단계마다 $\argmax$ 연산이 필요하므로 힙 구현에는 매력이 있지만, 그의 모든 원소를 수정해야 하므로 계산 시간을 많이 줄이지 못한다.
 \fi
 
 \end{frame}
@@ -1167,7 +1166,7 @@ Solutions to the college application problem have \textbf{practical value}: US a
 } \else {
 \begin{frame}{결론}
 \looseness=-1
-``Maximax'' 형태와 정수 조건 때문에 대학 지원 문제는 \textbf{이론적으로 흥미로운 문제이다}. Submodular 최대화 문제지만, 근사 해법의 성질은 배낭 문제에 더 가깝다 (cf. Fisher 외 1978; Kulik 외 2013; Kellerer 외 2004).
+``Maximax'' 형태와 정수 조건 때문에 대학 지원 문제는 \textbf{이론적으로 흥미로운 문제다}. Submodular 최대화 문제지만, 근사 해법의 성질은 배낭 문제에 더 가깝다 (cf. Fisher 외 1978; Kulik 외 2013; Kellerer 외 2004).
 
 %$g_j=1$의 특수한 경우의 포함 사슬 관계 성질도 배낭 문제와 유사하며, 증명 과정은 좀 더 미묘하다.
 

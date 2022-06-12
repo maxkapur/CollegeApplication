@@ -617,7 +617,7 @@ Although the na\"ive algorithm is suboptimal, we can still find the optimal solu
 
 \begin{theorem}[\ifen Nestedness of optimal application portfolios\else 최적 포트폴리오의 포함 사슬 관계\fi] \label{nestedapplication}
 \ifen There exists a sequence of portfolios $\{\mathcal{X}_h\}_{h=1}^m$ satisfying the nestedness relation
-\else  각 $\mathcal{X}_h$가 지원 제한 $h$에 대한 최적 포트폴리오며 위의 포함 사슬 관계를 만족하는 포트폴리오 수열  $\{\mathcal{X}_h\}_{h=1}^m$가 존재한다.\fi
+\else  $\mathcal{X}_h$가 지원 제한 $h$에 대한 최적 포트폴리오가 되면서 다음 포함 사슬 관계를 만족하는 포트폴리오 수열 $\{\mathcal{X}_h\}_{h=1}^m$이 존재한다.\fi
 \begin{equation}
 \mathcal{X}_1 \subset \mathcal{X}_2\subset \dots \subset \mathcal{X}_m
 \end{equation}
@@ -1363,7 +1363,7 @@ For the remainder of this subsection, unless otherwise specified, the word \emph
 \ifen
 For integers $0 \leq j \leq m$ and $v \in [-\infty, 0) \cup \mathcal{V}$, let $\mathcal{W}[j, v]$ denote the least expensive portfolio that uses only schools $\{ 1, \dots, j\}$ and has valuation at least $v$, if such a portfolio exists. Denote its cost by $G[j, v] = \sum_{j\in \mathcal{W}[j, v]} g_j$, where $G[j, v] = \infty$ if $\mathcal{W}[j, v]$ does not exist. It is clear that if $v \leq 0$, then $\mathcal{W}[j, v] = \O$ and $G[j, h] = 0$, and that if $j = 0$ and $v > 0$, then $G[j, h] = \infty$.  For the remaining indices (where $j, v > 0$), we claim that
 \else
-정수 $0 \leq j \leq m$ 그리고 $v \in [-\infty, 0) \cup \mathcal{V}$에 대해, $\{ 1, \dots, j\}$에 속한 학교만 사용하면 최소한 $v$의 가치를 가지는 포트폴리오가 존재한다면 그중 가장 비용이 낮은 포트폴리오를  $\mathcal{W}[j, v]$라고 하자. 그의 비용을 $G[j, v] = \sum_{j\in \mathcal{W}[j, v]} g_j$라고 하자. 단, $\mathcal{W}[j, v]$가 존재하지 않으면 $G[j, v] = \infty$으로 처리한다. $v \leq 0$이면 $\mathcal{W}[j, v] = \O$이고 $G[j, h] = 0$이며, $j = 0$이고 $v > 0$이면 $G[j, h] = \infty$인 것이 자명하다. 남은 지표(즉 $j, v > 0$)는 다음을 만족한다.
+정수 $0 \leq j \leq m$ 그리고 $v \in [-\infty, 0) \cup \mathcal{V}$에 대해, $\{ 1, \dots, j\}$에 속한 학교만 사용하면서 최소한 $v$의 가치를 가지는 포트폴리오가 존재한다면 그중 가장 비용이 낮은 포트폴리오를  $\mathcal{W}[j, v]$라고 하자. 그의 비용을 $G[j, v] = \sum_{j\in \mathcal{W}[j, v]} g_j$라고 하자. 단, $\mathcal{W}[j, v]$가 존재하지 않으면 $G[j, v] = \infty$으로 처리한다. $v \leq 0$이면 $\mathcal{W}[j, v] = \O$이고 $G[j, h] = 0$이며, $j = 0$이고 $v > 0$이면 $G[j, h] = \infty$인 것이 자명하다. 남은 지표(즉 $j, v > 0$)는 다음을 만족한다.
 \fi
 \begin{align} \label{recursionrelationforcostmindp}
 G[j, v] &=
