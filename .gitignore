@@ -276,9 +276,14 @@ TSWLatexianTemp*
 *.lpz
 
 .ipynb_checkpoints
+
+# Litter from text editors
 *.kate-swp
+log.txt
+
 # Gets exported if you call pdflatex without -jobname
 paper.pdf
 slides*/slides.pdf
-thesis_snu_template/
-log.txt
+
+# Compiled html from pandoc
+script.html

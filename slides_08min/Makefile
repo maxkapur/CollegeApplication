@@ -1,6 +1,6 @@
 .DEFAULT_GOAL := all
 
-all: compile clean
+all: compile clean compile-script
 
 compile:
 	rm -f *.pdf
@@ -17,3 +17,5 @@ compile:
 clean: 
 	rm -f  *.aux *.log *.nav *.out *.snm *.synctex.gz "*.synctex(busy)" *.toc log.txt
 
+compile-script:
+	pandoc -f markdown -t html script.md -so script.html --metadata pagetitle="CollegeApplication script"
