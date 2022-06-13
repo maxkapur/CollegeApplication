@@ -932,7 +932,7 @@ SA는 유명한 확률적 지역 탐색 기법이다.
 
 SA의 재료:
 \begin{itemize}
-\item \textbf{초기해}. 본 연구에서 선형화 휴리스틱을 적용하고 해당 배낭 문제를 탐욕 휴리스틱으로 풀어서 초기해를 구한다.
+\item \textbf{초기 해}. 본 연구에서 선형화 휴리스틱을 적용하고 해당 배낭 문제를 탐욕 휴리스틱으로 풀어서 초기 해를 구한다.
 
 \item \textbf{해의 이웃해를 생성하는} 확률적 방법. $\mathcal{X}$의 가능성이 깨어질 때까지 학교를 무작위로 추가하고, 가능성이 복원될 때까지 무작위로 빼는 방법을 사용한다.
 
@@ -1034,9 +1034,9 @@ $m$개의 학교로 구성된 가상 인스선트 레시피:
 \scalebox{0.92}{ %
 \begin{tabular}{r|r@{~}r|r@{~}r}
 \ifen 
- \textbf{\begin{tabular}[r]{@{}r@{}}\\$m$\end{tabular}}& \multicolumn{2}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Greedy alg.\\with list\end{tabular}}}  & \multicolumn{2}{c}{\textbf{\begin{tabular}[c]{@{}c@{}}Greedy alg.\\with heap\end{tabular}}}\\ \hline
+ \textbf{\begin{tabular}[r]{@{}r@{}}\\$m$\end{tabular}}& \multicolumn{2}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Greedy alg.\\with array\end{tabular}}}  & \multicolumn{2}{c}{\textbf{\begin{tabular}[c]{@{}c@{}}Greedy alg.\\with heap\end{tabular}}}\\ \hline
  \else
- \textbf{\begin{tabular}[r]{@{}r@{}}\\$m$\end{tabular}}& \multicolumn{2}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}탐욕 알고리즘\\(목록 구현)\end{tabular}}}  & \multicolumn{2}{c}{\textbf{\begin{tabular}[c]{@{}c@{}}탐욕 알고리즘\\(힙 구현)\end{tabular}}}\\ \hline
+ \textbf{\begin{tabular}[r]{@{}r@{}}\\$m$\end{tabular}}& \multicolumn{2}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}탐욕 알고리즘\\(배열 구현)\end{tabular}}}  & \multicolumn{2}{c}{\textbf{\begin{tabular}[c]{@{}c@{}}탐욕 알고리즘\\(힙 구현)\end{tabular}}}\\ \hline
  \fi
     16 &           0.00 &        (0.00) &           0.01 &        (0.00) \\
     64 &           0.03 &        (0.00) &           0.08 &        (0.02) \\
@@ -1204,9 +1204,9 @@ Kapur, Max. 2022. ``OptimalApplication.'' GitHub repository. \url{https://github
 
 %Kapur, Max and Sung-Pil Hong. 2022. ``The College Application Problem.'' Preprint. \url{https://arxiv.org/abs/2205.01869}.
 
-\framebreak
-
 Kellerer, Hans, Ulrich Pferschy, and David Pisinger. 2004. \emph{Knapsack Problems.} Berlin: Springer.
+
+\framebreak
 
 Kulik, Ariel, Hadas Shachnai, and Tami Tamir. 2013. ``Approximations for Monotone and Nonmonotone Submodular Maximization with Knapsack Constraints.'' \emph{Mathematics of Operations Research} 38 (4): 729--39. \url{https://doi.org/10.1287/moor.2013.0592}.
 
