@@ -15,7 +15,7 @@ compile:
 	\\newif\\ifen\\enfalse' slides.tex | pdflatex -no-parse-first-line -jobname="slides-ko"
 
 clean: 
-	rm -f  *.aux *.log *.nav *.out *.snm *.synctex.gz "*.synctex(busy)" *.toc log.txt
+	rm -f  *.aux *.log *.nav *.out *.snm *.synctex.gz *.synctex* *.toc log.txt
 
 compile-script:
 	pandoc -f markdown -t html script.md -so script.html --metadata pagetitle="CollegeApplication script"

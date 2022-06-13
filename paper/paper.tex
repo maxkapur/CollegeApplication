@@ -1346,7 +1346,7 @@ As with the knapsack problem, Ellis's problem admits a complementary dynamic pro
 \ifen 
 We will represent approximate portfolio valuations using a fixed-point decimal with a precision of $P$, where $P$ is the number of digits to retain after the decimal point. Let $r[x] =  10^{-P}\lfloor 10^P x \rfloor$ denote the value of $x$ rounded down to its nearest fixed-point representation. Since $\bar U = \sum_{j\in \mathcal{C}} f_j t_j$ is an upper bound on the valuation of any portfolio, and since we will ensure that each fixed-point approximation is an underestimate of the portfolio's true valuation, the set $\mathcal{V}$ of  valuations observable in the fixed-point framework is finite:
 \else
-포트폴리오의 근사적 가치를 정확도 $P$로 구성된 고정소수점 십진수(fixed-point decimal)로 나타내자. 다, $P$는 소수점 뒤에 등장하는 숫자의 수다. 이때 $x$를 가장 가까운 고정소수점 십진수로 내림한 것을 $r[x] =  10^{-P}\lfloor 10^P x \rfloor$라고 하자. 임의의 포트폴리오의 가치가 $\bar U = \sum_{j\in \mathcal{C}} f_j t_j$를 넘을 수 없으며, 모든 포트폴리오 가치의 고정소수점 십진수 근사가 실제값보다 작게 나타내도록 한다. 따라서 고정소수점 환경에서 발생할 수 있는 포트폴리오 가치로 이루어진 집합 $\mathcal{V}$는 유한 집합이다.
+포트폴리오의 근사적 가치를 정확도 $P$로 구성된 고정소숫점 십진수(fixed-point decimal)로 나타내자. 다, $P$는 소숫점 뒤에 등장하는 숫자의 수다. 이때 $x$를 가장 가까운 고정소숫점 십진수로 내림한 것을 $r[x] =  10^{-P}\lfloor 10^P x \rfloor$라고 하자. 임의의 포트폴리오의 가치가 $\bar U = \sum_{j\in \mathcal{C}} f_j t_j$를 넘을 수 없으며, 모든 포트폴리오 가치의 고정소숫점 십진수 근사가 실제값보다 작게 나타내도록 한다. 따라서 고정소숫점 환경에서 발생할 수 있는 포트폴리오 가치로 이루어진 집합 $\mathcal{V}$는 유한 집합이다.
 \fi
 \begin{equation}
 \mathcal{V} = \Bigl\{0, 1\times 10^{-P}, 2\times 10^{-P}, \dots, r\bigl[\bar U- 1\times 10^{-P}\bigr], r\bigl[\bar U\bigr]\Bigr\}
@@ -1357,7 +1357,7 @@ We will represent approximate portfolio valuations using a fixed-point decimal w
 \ifen
 For the remainder of this subsection, unless otherwise specified, the word \emph{valuation} refers to a portfolio’s valuation within the fixed-point framework, with the understanding that this is an approximation. We will account for the approximation error below when we prove the dynamic program’s validity. 
 \else
-본 항 나머지에서, 다른 언급이 없으면 포트폴리오의 ``가치''라고 하면 고정소수점 환경 안에서의 가치를 의미하며 이것이 근삿값임을 유념한다. 근사 오차는 나중에 동적 계획의 타당성을 증명할 때 처리한다.
+본 항 나머지에서, 다른 언급이 없으면 포트폴리오의 ``가치''라고 하면 고정소숫점 환경 안에서의 가치를 의미하며 이것이 근삿값임을 유념한다. 근사 오차는 나중에 동적 계획의 타당성을 증명할 때 처리한다.
 \fi
 
 \ifen
@@ -1482,14 +1482,14 @@ Algorithm \ref{ellisDP3} produces a $(1 - \varepsilon)$-optimal application port
 Because $\Delta_j(v)$ is rounded down in the recursion relation defined by \eqref{recursionrelationforcostmindp} and \eqref{deltajvdef}, if $j \in \mathcal{W}[j, v]$, then the true value of $(1 - f_j) v\bigl(\mathcal{W}[j-1, v- \Delta_j(v)]\bigr) + f_j t_j$ may exceed the fixed-point valuation $v$ of $\mathcal{W}[j, v]$, but not by more than $10^{-P}$. This error accumulates additively with each school added to $\mathcal{W}$, but the number of additions is at most $m$. Therefore, where $v'(\mathcal{W})$ denotes the fixed-point valuation of $\mathcal{W}$ recorded in line \ref{vrecordedhere} of the algorithm, 
 $v(\mathcal{W}) - v'(\mathcal{W}) \leq m 10^{-P}$.
 \else
-\eqref{recursionrelationforcostmindp}과(와) \eqref{deltajvdef}(으)로 정의된 점화식에 따라 $\Delta_j(v)$를 내림하기 때문에, $j \in \mathcal{W}[j, v]$이면 $(1 - f_j) v\bigl(\mathcal{W}[j-1, v- \Delta_j(v)]\bigr) + f_j t_j$의 실제값은 $\mathcal{W}[j, v]$의 고정소수점 가치인 $v$보다 클 수 있는데 최대한 $10^{-P}$ 만큼의 차이가 발생한다. 또한 이 오차는 $\mathcal{W}$에 학교를 추가할 때마다 가산적으로 누적되는데 추가하는 학교의 개수는 최대한 $m$이다. 따라서 알고리즘의 \ref{vrecordedhere}줄에서 기록하는 $\mathcal{W}$의 고정소수점 가치가 $v'(\mathcal{W})$일 때, $v(\mathcal{W}) - v'(\mathcal{W}) \leq m 10^{-P}$이 성립한다.
+\eqref{recursionrelationforcostmindp}과(와) \eqref{deltajvdef}(으)로 정의된 점화식에 따라 $\Delta_j(v)$를 내림하기 때문에, $j \in \mathcal{W}[j, v]$이면 $(1 - f_j) v\bigl(\mathcal{W}[j-1, v- \Delta_j(v)]\bigr) + f_j t_j$의 실제값은 $\mathcal{W}[j, v]$의 고정소숫점 가치인 $v$보다 클 수 있는데 최대한 $10^{-P}$ 만큼의 차이가 발생한다. 또한 이 오차는 $\mathcal{W}$에 학교를 추가할 때마다 가산적으로 누적되는데 추가하는 학교의 개수는 최대한 $m$이다. 따라서 알고리즘의 \ref{vrecordedhere}줄에서 기록하는 $\mathcal{W}$의 고정소숫점 가치가 $v'(\mathcal{W})$일 때, $v(\mathcal{W}) - v'(\mathcal{W}) \leq m 10^{-P}$이 성립한다.
 \fi
 
 \ifen
 We can define $v'(\mathcal{X})$ analogously as the fixed-point valuation of $\mathcal{X}$ when its elements are added in index order and its valuation is updated and rounded down to the nearest multiple of $10^{-P}$ at each addition in accordance with \eqref{solvemeforvwjvminusj}. By the same logic, 
 $v(\mathcal{X}) - v'(\mathcal{X}) \leq m 10^{-P}$. The optimality of $\mathcal{W}$ in the fixed-point environment implies that $v'(\mathcal{W}) \geq v'(\mathcal{X})$. 
 \else
-$\mathcal{X}$의 원소를 지표 순서대로 추가했을 때, 각 학교를 추가하면 \eqref{solvemeforvwjvminusj}에 따라 가치를 수정하고 가장 가까운 $10^{-P}$의 배수로 내림한 값으로 $v'(\mathcal{X})$를 $v'(\mathcal{W})$와 유사하게 정의할 수 있다. 위와 같은 논리에 따라 $v(\mathcal{X}) - v'(\mathcal{X}) \leq m 10^{-P}$이다. 또한 $\mathcal{W}$가 고정소수점 환경에서 최적이므로 $v'(\mathcal{W}) \geq v'(\mathcal{X})$임을 알 수 있다.
+$\mathcal{X}$의 원소를 지표 순서대로 추가했을 때, 각 학교를 추가하면 \eqref{solvemeforvwjvminusj}에 따라 가치를 수정하고 가장 가까운 $10^{-P}$의 배수로 내림한 값으로 $v'(\mathcal{X})$를 $v'(\mathcal{W})$와 유사하게 정의할 수 있다. 위와 같은 논리에 따라 $v(\mathcal{X}) - v'(\mathcal{X}) \leq m 10^{-P}$이다. 또한 $\mathcal{W}$가 고정소숫점 환경에서 최적이므로 $v'(\mathcal{W}) \geq v'(\mathcal{X})$임을 알 수 있다.
 \fi
 
 \ifen
@@ -1619,13 +1619,13 @@ In this section, we present the results of numerical experiments designed to tes
 \ifen
 We chose to implement our algorithms in the Julia language (v1.8.0b1) because its system of parametric data types allows the compiler to optimize for differential cases such as when the $t_j$-values are integers or floating-point numbers. Julia also offers convenient macros for parallel computing, which enabled us to solve more and larger problems in the benchmark (Bezanson et al. 2017). We made extensive use of the DataStructures.jl package (v0.18.11, \url{github.com/JuliaCollections}). The code is available at \url{github.com/maxkapur/OptimalApplication.jl}. % Or by opening REPL and typing ]add OptimalApplication
 \else
-모든 알고리즘을 쥴리아 (Julia, v1.8.0b1) 언어로 구현했다. 쥴리아는 $t_j$-값이 정수 또는 부동소수점 수와 같은 특수한 경우에 대해 컴파일러가 자동으로 최적화하는 모수적 자료형(parametric data type) 기능이 있어서 유용한 선택이었다. 또한 병렬 연산을 쉽게 관리할 수 있는 매크로를 제공하므로 계산 실험의 규모를 증가할 수 있었다 (Bezanson 외 2017). DataStructures.jl 패키지(v0.18.11, \url{github.com/JuliaCollections})도 활용했다. 실험 코드는  \url{github.com/maxkapur/OptimalApplication}에서 공유한다.
+모든 알고리즘을 쥴리아 (Julia, v1.8.0b1) 언어로 구현했다. 쥴리아는 $t_j$-값이 정수 또는 부동소숫점 수와 같은 특수한 경우에 대해 컴파일러가 자동으로 최적화하는 모수적 자료형(parametric data type) 기능이 있어서 유용한 선택이었다. 또한 병렬 연산을 쉽게 관리할 수 있는 매크로를 제공하므로 계산 실험의 규모를 증가할 수 있었다 (Bezanson 외 2017). DataStructures.jl 패키지(v0.18.11, \url{github.com/JuliaCollections})도 활용했다. 실험 코드는  \url{github.com/maxkapur/OptimalApplication}에서 공유한다.
 \fi
 
 \ifen
 The dynamic programs, namely Algorithms \ref{ellisDP1} and \ref{ellisDP3}, were implemented using recursive functions and dictionary memoization, as described in Cormen et al. (1990, \S\,16.6). Our implementation of Algorithm \ref{ellisDP3} also differed from that described in Subsection \ref{fptashead} in that we represented portfolio valuations in \emph{binary} rather than decimal, with the definitions of $P$ and $\mathcal{V}$ modified accordingly, and instead of fixed-point numbers, we worked in integers by multiplying each element of $\mathcal{V}$ by $2^P$. These modifications yield a substantial performance improvement without changing the fundamental algorithm design or complexity analysis.
 \else
-동적 계획 해법인 \ref{ellisDP1}과(와) 알고리즘 \ref{ellisDP3}을(를) 재귀 함수와 사전 기록으로 구현했다 (Cormen 외 1990, \S\,16.6). 알고리즘 \ref{ellisDP3}은(는) \ref{fptashead}항에서 설명한 것과 달리, 포트폴리오의 가치를 십진수 대신 이진수로 나타냈으며 $P$와  $\mathcal{V}$의 정의를 적절히 수정했다. 그리고 고정소수점 대신 $\mathcal{V}$의 모든 원소를 $2^P$으로 곱하여 정수로 변환했다. 이런 변경은 기본 알고리즘 설계와 계산 시간 분석에 영향을 주지 않는데 성능이 많이 개선된다.
+동적 계획 해법인 \ref{ellisDP1}과(와) 알고리즘 \ref{ellisDP3}을(를) 재귀 함수와 사전 기록으로 구현했다 (Cormen 외 1990, \S\,16.6). 알고리즘 \ref{ellisDP3}은(는) \ref{fptashead}항에서 설명한 것과 달리, 포트폴리오의 가치를 십진수 대신 이진수로 나타냈으며 $P$와  $\mathcal{V}$의 정의를 적절히 수정했다. 그리고 고정소숫점 대신 $\mathcal{V}$의 모든 원소를 $2^P$으로 곱하여 정수로 변환했다. 이런 변경은 기본 알고리즘 설계와 계산 시간 분석에 영향을 주지 않는데 성능이 많이 개선된다.
 \fi
 
 
