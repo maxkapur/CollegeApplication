@@ -716,9 +716,9 @@ We reduce the computation time to $O(hm)$ by taking advantage of the transformat
 \else
 기본 정리 \ref{eliminationtheorem}에서 제시한 변환을 활용하면 계산 시간을 $O(hm)$으로 감소시킬 수 있다. $\mathcal{X}$에 $k$를 추가하면, 후보자 집합인 $\mathcal{C}\setminus \mathcal{X}$에서 $k$를 소거하고 남은 학교의 $t_j$-값을 \eqref{howtotransformtj}에 따라 수정한다. 그러면 다음으로 추가하는 학교는 수정된 시장의 최적 단일 원소 포트폴리오가 되어야 한다. 그런데 최적 단일 원소 포트폴리오는 단순히 $f_j \bar t_j$가 가장 큰 학교로 이루어진다. 따라서 각 반복 단계에서 \eqref{howtotransformtj}을(를) 이용하여 $t_j$-값을 수정하면 $v(\mathcal{X})$를 계산할 필요가 완전히 없어진다. 게다가 이 알고리즘에서 $t_j$를 배열할 필요가 없으므로 $O(m\log m)$인 배열 비용이 사라진다. \fi
 \ifen
-Algorithm \ref{algorithmforlargeh} outputs a list $\mathtt{X}$ of the $h$ schools to which Alma should apply. The schools appear in the order of entry such that when the algorithm is run with $h=m$, the optimal portfolio of size $h$ is given by $\mathcal{X}_h = \{\mathtt{X[1]}, \dots, \mathtt{X[h]}\}$. The entries of the list $\mathtt{V}$ give the valuation thereof. 
+Algorithm \ref{algorithmforlargeh} outputs an array $\mathtt{X}$ of the $h$ schools to which Alma should apply. The schools appear in the order of entry such that when the algorithm is run with $h=m$, the optimal portfolio of size $h$ is given by $\mathcal{X}_h = \{\mathtt{X[1]}, \dots, \mathtt{X[h]}\}$. The entries of the array $\mathtt{V}$ give the valuation thereof. 
 \else
-알고리즘 \ref{algorithmforlargeh}은(는) 알마가 지원하는 $h$개의 학교를 목록 $\mathtt{X}$로 출력한다. 그의 원소들은 진입하는 순서대로 등장한다. 즉, $h=m$으로 알고리즘을 돌리면 크기가 $h$인 최적 포트폴리오는 $\mathcal{X}_h = \{\mathtt{X[1]}, \dots, \mathtt{X[h]}\}$와 같다. 또한 목록 $\mathtt{V}$의 원소들은 해당 포트폴리오의 가치다. \fi
+알고리즘 \ref{algorithmforlargeh}은(는) 알마가 지원하는 $h$개의 학교를 배열(array) $\mathtt{X}$로 출력한다. 그의 원소들은 진입하는 순서대로 등장한다. 즉, $h=m$으로 알고리즘을 돌리면 크기가 $h$인 최적 포트폴리오는 $\mathcal{X}_h = \{\mathtt{X[1]}, \dots, \mathtt{X[h]}\}$와 같다. 또한 배열 $\mathtt{V}$의 원소들은 해당 포트폴리오의 가치다. \fi
 
 \ifen {
 \begin{algorithm}[h] 
@@ -727,14 +727,14 @@ Algorithm \ref{algorithmforlargeh} outputs a list $\mathtt{X}$ of the $h$ school
 \KwIn{Utility values $t \in(0, \infty)^m$, admissions probabilities $f \in (0, 1]^m$, application limit $h \leq m$.}
 %Index schools in ascending order by $t$\;
 $\mathcal{C} \gets \{1 \dots m\}$\;
-$\mathtt{X, V} \gets $ empty lists\;
+$\mathtt{X, V} \gets $ empty $h$-arrays\;
 \For{$i=1\dots h$}
 {
     $k \gets \argmax_{j \in \mathcal{C}}\{f_j t_j\}$\;
     $\mathcal{C} \gets \mathcal{C} \setminus \{k\}$\;
-    $\operatorname{append!}(\mathtt{X}, k)$\;
-     \lIfElse{$i=1$}{$\operatorname{append!}(\mathtt{V}, f_k t_k)$}
-     {$\operatorname{append!}(\mathtt{V}, \mathtt{V[i-1]} + f_k t_k)$}
+    $\mathtt{X}[i] \gets k$\;
+     \lIfElse{$i=1$}{$\mathtt{V}[i] \gets f_k t_k$}
+     {$\mathtt{V}[i] \gets \mathtt{V}[i-1] + f_k t_k$}
     \For{$j \in \mathcal{C}$}
 	{
 	\lIfElse{$t_j \leq t_k$}{$t_j \gets (1 -  f_k) t_j $}{$t_j \gets  t_j -  f_k t_k$}
@@ -749,15 +749,15 @@ $\mathtt{X, V} \gets $ empty lists\;
 \KwIn{효용 모수 $t \in(0, \infty)^m$, 합격 확률 $f \in (0, 1]^m$, 지원 제한 $h \leq m$.}
 %$t$의 순서대로 학교의 지표를 짓는다\;
 $\mathcal{C} \gets \{1 \dots m\}$\;
-$\mathtt{X, V} \gets $ 빈 목록\;
+$\mathtt{X, V} \gets $ 빈 $h$-배열\;
 \For{$i=1\dots h$}
 {
     $k \gets \argmax_{j \in \mathcal{C}}\{f_j t_j\}$\;
     $\mathcal{C} \gets \mathcal{C} \setminus \{k\}$\;
-    $\operatorname{append!}(\mathtt{X}, k)$\;
-     \lIfElse{$i=1$}{$\operatorname{append!}(\mathtt{V}, f_k t_k)$}
-     {$\operatorname{append!}(\mathtt{V}, \mathtt{V[i-1]} + f_k t_k)$}
-    \For{$j \in \mathcal{C}$} 
+    $\mathtt{X}[i] \gets k$\;
+     \lIfElse{$i=1$}{$\mathtt{V}[i] \gets f_k t_k$}
+     {$\mathtt{V}[i] \gets \mathtt{V}[i-1] + f_k t_k$}
+    \For{$j \in \mathcal{C}$}
 	{
 	\lIfElse{$t_j \leq t_k$}{$t_j \gets (1 -  f_k) t_j $}{$t_j \gets  t_j -  f_k t_k$}
 	}
@@ -772,17 +772,17 @@ $\mathtt{X, V} \gets $ 빈 목록\;
 \end{theorem}
 \begin{proof}
 \ifen
-Optimality follows from the proof of Theorem \ref{nestedapplication}. Suppose $\mathcal{C}$ is stored as a list. Then at each of the $h$ iterations of the main loop, finding the top school costs $O(m)$, and the $t_j$-values of the remaining $O(m)$ schools are each updated in unit time. Therefore, the overall time complexity is $O(h m)$.
+Optimality follows from the proof of Theorem \ref{nestedapplication}. At each of the $h$ iterations of the main loop, finding the top school costs $O(m)$, and the $t_j$-values of the remaining $O(m)$ schools are each updated in unit time. Therefore, the overall time complexity is $O(h m)$.
 \else
-최적성은 정리 \ref{nestedapplication}의 증명에 따라 성립한다. $\mathcal{C}$를 목록 구현으로 저장한다고 하자. 그러면 각 $h$개의 반복 단계에서 최적 추가 학교를 구하는 시간은 $O(m)$이며 나머지 $O(m)$개 학교의 $t_j$-값을 각 단위 시간으로 수정할 수 있다. 따라서 전체 시간 복잡도가 $O(h m)$이다.
+최적성은 정리 \ref{nestedapplication}의 증명에 따라 성립한다. 각 $h$개의 반복 단계에서 최적 추가 학교를 구하는 시간은 $O(m)$이며 나머지 $O(m)$개 학교의 $t_j$-값을 각 단위 시간으로 수정할 수 있다. 따라서 전체 시간 복잡도가 $O(h m)$이다.
 \fi
 \end{proof}
 
 \ifen 
-It is possible to store $\mathcal{C}$ as a binary max heap rather than a list. The heap is ordered according to the criterion $i \geq j \iff f_i t_i \geq f_j t_j$, and by draining the heap and reheapifying at the end of each iteration, the computation time remains $O(hm)$. However, in our numerical experiments, whose results are reported in Section \ref{numericalexperiments},
-we found the list implementation to be much faster, because it is possible to identify the entering school $k$ as the utility parameters are updated, which all but eliminates the cost of the $\argmax\{\}$ operation. 
+It is possible to store $\mathcal{C}$ as a binary max heap rather than an array. The heap is ordered according to the criterion $i \geq j \iff f_i t_i \geq f_j t_j$, and by draining the heap and reheapifying at the end of each iteration, the computation time remains $O(hm)$. However, in our numerical experiments, whose results are reported in Section \ref{numericalexperiments},
+we found the array implementation to be much faster, because it is possible to identify the entering school $k$ as the utility parameters are updated, which all but eliminates the cost of the $\argmax\{\}$ operation. 
 \else
-$\mathcal{C}$는 목록 대신 이진 최대 힙 구현으로 저장하는 방법도 고려한다. 단, 힙의 순서는 $i \geq j \iff f_i t_i \geq f_j t_j$의 조건으로 정의하며, 각 반복 단계의 마지막 단계에서 힙을 비우고 다시 힙화(heapify)하면 $O(hm)$ 계산 시간을 유지할 수 있다. 그러나 (\ref{numericalexperiments}절에서 결과를 제시할) 수리 실험에서 목록 구현으로 구성한 알고리즘이 더 빨랐다. 효용 모수를 수정하면서 $k$를 구함으로 $\argmax\{\}$ 연산의 계산 비용을 거의 제거할 수 있기 때문이다.
+$\mathcal{C}$는 배열 대신 이진 최대 힙 구현으로 저장하는 방법도 고려한다. 단, 힙의 순서는 $i \geq j \iff f_i t_i \geq f_j t_j$의 조건으로 정의하며, 각 반복 단계의 마지막 단계에서 힙을 비우고 다시 힙화(heapify)하면 $O(hm)$ 계산 시간을 유지할 수 있다. 그러나 (\ref{numericalexperiments}절에서 결과를 제시할) 수리 실험에서 배열 구현으로 구성한 알고리즘이 더 빨랐다. 효용 모수를 수정하면서 $k$를 구함으로 $\argmax\{\}$ 연산의 계산 비용을 거의 제거할 수 있기 때문이다.
 \fi
 
 
@@ -1658,16 +1658,10 @@ In Experiment 3, we generated 500 markets with sizes varying uniformly in the lo
 
 \ifen \subsection{Summary of results} \else \subsection{결과 정리}\fi
 \ifen
-Experiment 1 compared the performance of Algorithm \ref{algorithmforlargeh} for homogeneous-cost markets of various sizes when the set of candidate schools $\mathcal{C}$ is stored as a list and as a binary max heap ordered by the $f_j \bar t_j$-values. The results appear in Table \ref{experiment1results}. Our results indicate that the list implementation is faster. %However, the ratio between the average times of the two implementations stays roughly constant, suggesting that a more effective heap implementation could be competitive in certain classes of problem instances. Overall, the rate of growth is quadratic in $m$, which accords with the $O(hm)$ time complexity result of Theorem \ref{validityofalmaalgorithm}.
+Experiment 1 compared the performance of Algorithm \ref{algorithmforlargeh} for homogeneous-cost markets of various sizes when the set of candidate schools $\mathcal{C}$ is stored as an array and as a binary max heap ordered by the $f_j \bar t_j$-values. The results appear in Table \ref{experiment1results}. Our results indicate that the array implementation is faster. %However, the ratio between the average times of the two implementations stays roughly constant, suggesting that a more effective heap implementation could be competitive in certain classes of problem instances. Overall, the rate of growth is quadratic in $m$, which accords with the $O(hm)$ time complexity result of Theorem \ref{validityofalmaalgorithm}.
 \else
-실험 1에서, 동일한 지원 비용으로 정의된 크기가 다양한 시장에 대해 알고리즘 \ref{algorithmforlargeh}의 성능을 고려했다. 이를 $\mathcal{C}$를 목록 혹은 $f_j \bar t_j$-값에 따라 배열된 힙 구현으로 구성하는 경우로 나눴으며 실험 결과는 표 \ref{experiment1results}에서 등장한다. 실험 결과에 따라 목록 구현이 더 빠른 해법이었다. %그러나, 두개의 방법 사이에 계산 시간 비율은 거의 상수이므로 개선된 힙 해법이 어떤 문제 인스턴스에 대해 더 빠를 가능성이 있어 보인다. 전체적으로 계산 시간은 $m$의 제곱으로 늘아나며 이는 정리 \ref{validityofalmaalgorithm}에서 말한 $O(hm)$ 시간과 동의한다.
+실험 1에서, 동일한 지원 비용으로 정의된 크기가 다양한 시장에 대해 알고리즘 \ref{algorithmforlargeh}의 성능을 고려했다. 이를 $\mathcal{C}$를 배열 혹은 $f_j \bar t_j$-값에 따라 배열된 힙 구현으로 구성하는 경우로 나눴으며 실험 결과는 표 \ref{experiment1results}에서 등장한다. 실험 결과에 따라 배열 구현이 더 빠른 해법이었다. %그러나, 두개의 방법 사이에 계산 시간 비율은 거의 상수이므로 개선된 힙 해법이 어떤 문제 인스턴스에 대해 더 빠를 가능성이 있어 보인다. 전체적으로 계산 시간은 $m$의 제곱으로 늘아나며 이는 정리 \ref{validityofalmaalgorithm}에서 말한 $O(hm)$ 시간과 동의한다.
 \fi
-
-%\ifen
-%In our first experiment, we compare the performance of Algorithm \ref{algorithmforlargeh} for homogeneous-cost markets of various sizes when the set of candidate schools $\mathcal{C}$ is stored as a list and as a binary max heap ordered by the $f_j \bar t_j$-values. The results appear in Table \ref{experiment1results}. Our results indicate that the heap implementation is faster. Overall, the rate of growth is quadratic in $m$, which accords with the $O(hm)$ time complexity result of Theorem \ref{validityofalmaalgorithm}.
-%\else
-%첫 번째 실험에서, 동일한 지원 비용으로 정의된 크기가 다양한 시장에 대해 알고리즘 \ref{algorithmforlargeh}의 성능을 고려했다. 이를 $\mathcal{C}$를 목록 혹은 $f_j \bar t_j$-값에 따라 배열된 힙 구현으로 구성하는 경우로 나눴으며 실험 결과는 표 \ref{experiment1results}에서 등장한다. 실험 결과에 따라 힙 구현이 더 빠른 해법이었다. 전체적으로 계산 시간은 $m$의 제곱으로 늘아나며 이는 정리 \ref{validityofalmaalgorithm}에서 말한 $O(hm)$ 시간과 동의한다.
-%\fi
 
 \ifen
 In Experiment 2, we turned to the general problem, and compared the performance of the exact algorithms (Algorithms \ref{ellisbnb} and \ref{ellisDP1}) and the approximation scheme (Algorithm \ref{ellisDP3}) at tolerances 0.5 and 0.05.  The results, which appear in Table \ref{experiment2results}, broadly agree with the time complexity analyses presented above. The branch-and-bound algorithm proved impractical for even medium-sized instances. Overall, we found the exact dynamic program to be the fastest algorithm, while the FPTAS was rather slow, a result that echoes the results of computational studies on knapsack problems (Martello and Toth 1990, \S\,2.10). The strong performance of Algorithm \ref{ellisDP1} is partly attributable to the structure of our synthetic instances, in which application costs are small integers and $H$ is proportional in expectation to $m$, meaning the expected computation time is $O(m^2)$. However, the relative advantage of Algorithm \ref{ellisDP1} may be even more pronounced in real college-application instances because the typical student's application budget accommodates at most a dozen or so schools and is constant in $m$. 
@@ -1704,9 +1698,9 @@ For each value of $m$, \nmarkets~markets were generated, and the computation tim
 \small
 \begin{tabular}{r|r@{~}r|r@{~}r}
 \ifen 
- \textbf{\begin{tabular}[r]{@{}r@{}}Number of\\schools $m$\end{tabular}}& \multicolumn{2}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Algorithm \ref{algorithmforlargeh}\\with list\end{tabular}}}  & \multicolumn{2}{c}{\textbf{\begin{tabular}[c]{@{}c@{}}Algorithm \ref{algorithmforlargeh}\\with heap\end{tabular}}}\\ \hline
+ \textbf{\begin{tabular}[r]{@{}r@{}}Number of\\schools $m$\end{tabular}}& \multicolumn{2}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Algorithm \ref{algorithmforlargeh}\\with array\end{tabular}}}  & \multicolumn{2}{c}{\textbf{\begin{tabular}[c]{@{}c@{}}Algorithm \ref{algorithmforlargeh}\\with heap\end{tabular}}}\\ \hline
  \else
- \textbf{\begin{tabular}[r]{@{}r@{}}학교의\\개수 $m$\end{tabular}}& \multicolumn{2}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}알고리즘 \ref{algorithmforlargeh}\\(목록 구현)\end{tabular}}}  & \multicolumn{2}{c}{\textbf{\begin{tabular}[c]{@{}c@{}}알고리즘 \ref{algorithmforlargeh}\\(힙 구현)\end{tabular}}}\\ \hline
+ \textbf{\begin{tabular}[r]{@{}r@{}}학교의\\개수 $m$\end{tabular}}& \multicolumn{2}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}알고리즘 \ref{algorithmforlargeh}\\(배열 구현)\end{tabular}}}  & \multicolumn{2}{c}{\textbf{\begin{tabular}[c]{@{}c@{}}알고리즘 \ref{algorithmforlargeh}\\(힙 구현)\end{tabular}}}\\ \hline
  \fi
     16 &    0.00 &  (0.00) &    0.01 &    (0.00) \\
     64 &    0.01 &  (0.00) &    0.08 &    (0.02) \\
@@ -1716,8 +1710,8 @@ For each value of $m$, \nmarkets~markets were generated, and the computation tim
  16384 &  199.48 &  (1.77) & 3999.19 &  (283.48)
 \end{tabular}
 \caption{\label{experiment1results} \normalsize
-\ifen (Experiment 1.) Time in ms to compute an optimal portfolio for an admissions market with homogeneous application costs using Algorithm \ref{algorithmforlargeh} when $\mathcal{C}$ is stored as a list and as a heap. \lastptofcaption~In every case, $h = m/2$. 
-\else (실험 1.) 단위: ms. 알고리즘 \ref{algorithmforlargeh}에서 $\mathcal{C}$를 목록 또는 힙 구현으로 저장했을 때, 
+\ifen (Experiment 1.) Time in ms to compute an optimal portfolio for an admissions market with homogeneous application costs using Algorithm \ref{algorithmforlargeh} when $\mathcal{C}$ is stored as an array and as a heap. \lastptofcaption~In every case, $h = m/2$. 
+\else (실험 1.) 단위: ms. 알고리즘 \ref{algorithmforlargeh}에서 $\mathcal{C}$를 배열 또는 힙 구현으로 저장했을 때, 
 동일 지원 비용 입학 시장의 최적 지원 포트폴리오를 계산하는 시간. \lastptofcaption~모든 경우, $h = m/2$. \fi}
 \end{table}
 
