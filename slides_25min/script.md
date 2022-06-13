@@ -116,7 +116,7 @@ Experiment 1 compares two data structures, namely the array and the heap, for Al
 
 Experiment 2 considers the speed of the algorithms for Ellis’s problem. We excluded the simulated annealing algorithm from this experiment because it isn’t really a good target of comparison with the other algorithms: its computation time is much faster, but it offers no accuracy guarantee. Among the remaining algorithms, the first dynamic program—the one that iterates on application costs—is the fastest. In part, this is a reflection of our test data in which $g_j$ are small integers. 
 
-실험 2는 엘리스 문제의 해법의 계산 시간을 고려하는 실험입니다. 여기서 simulated annealing 해법을 제외했습니다. 왜냐면, 계산 시간은 훨씬 따른데, 정확도가 보장되지 않으니까 다른 해법의 비교 대상이 될 수 없기 때문입니다. 그럼 남은 해법 중에서, 지원 비용으로 탐색하는 첫 동적 계획이 가장 빠른 거였습니다. 실험 데이터에서 $g_j$들이 작은 정수가 되므로 놀라운 결과는 아닙니다.
+실험 2는 엘리스 문제의 해법의 계산 시간을 고려하는 실험입니다. 여기서 simulated annealing 해법을 제외했습니다. 왜냐면, 계산 시간은 훨씬 따른데, 정확도가 보장되지 않으니까 다른 해법의 비교 대상이 될 수 없기 때문입니다. 그럼 남은 해법 중에서, 표에서 보시다시피 지원 비용으로 탐색하는 첫 동적 계획이 우월한 성능을 보였습니다. 실험 데이터에서 $g_j$들이 작은 정수가 되므로 놀라운 결과는 아닙니다.
 
 Finally, in experiment 3 we compare the solution produced by the simulated annealing algorithm with the true optimum in 500 instances. As you can see from this scatter plot, in the vast majority of instances, SA found a solution within 2% of optimality, and its performance appears to improve in large instances.
 
@@ -148,3 +148,15 @@ Our branch-and-bound algorithm is fairly straightforward. We work with the INLP 
 Because we have an integer expression of the problem and a linear relaxation, we can apply any number of branch-and-bound algorithms to this problem. In our computational study, we use a very simple algorithm that selects the branch node according to a depth-first heuristic. It is, admittedly, not as good as our other algorithms. But we have written our code library in a modular fashion so that the same LP relaxation can be passed to a more sophisticated branch-and-bound solver. This is useful because one of our ideas for future research is to consider more complex constraint structures.
 
 이제 원 문제의 정수 모형, 그리고 완화 문제 둘 다 정의했으니까 정수계획 문헌에서 다채로운 분지한계 알고리즘을 도입할 수 있습니다. 저의 계산 실험에서는, 깊이 우선 분지 마디 선택 휴리스틱을 도입한 아주 간단한 해법을 사용하기로 했으며, 그의 계산 시간 다른 해법에 비해 그리 좋지 않습니다. 그렇지만, 저희 코드에서 부문제들을 아주 modular한 식으로 구성했기 때문에, 기존에 좋은 분지한계 솔버하고 interface하게 하는 것은 어렵지 않습니다. 왜 그게 필요하냐면, 향후 연구 중에서 더 복잡한 제약 조건을 고려하는 목표가 있는데 이때 분지한계법을 사용할 수밖에 없을 가능성이 있습니다.
+
+## Foreseeable questions
+
+Why does the simulated annealing algorithm get better as the problem size increases?
+
+- The objective function in this problem exhibits rapidly diminishing marginal returns. This means that if there are many schools in the optimal portfolio—as is the case in our test instances—then all of the solutions that use most of the budget actually attain a very similar objective value. And unlike other combinatorial optimization problems, finding a feasible solution is quite easy in this case. This result probably holds for submodular maximization in general, because diminishing marginal returns is an innate feature of these functions.
+
+Is this model too simplistic?
+
+Discuss the validity of this model with respect to the Korean admissions process.
+
+Why did you choose the Julia language?
