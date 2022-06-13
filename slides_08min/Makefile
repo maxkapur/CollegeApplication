@@ -15,5 +15,5 @@ compile:
 	\\newif\\ifen\\enfalse' slides.tex | pdflatex -no-parse-first-line -jobname="slides-ko"
 
 clean: 
-	rm -f  *.aux *.log *.nav *.out *.snm *.synctex.gz *.toc
+	rm -f  *.aux *.log *.nav *.out *.snm *.synctex.gz "*.synctex(busy)" *.toc log.txt
 
