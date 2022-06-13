@@ -625,7 +625,7 @@ We provide an \textbf{exact, polynomial-time} solution via greedy algorithm.
 We provide four algorithms, including a \textbf{fully polynomial-time $(1 - \varepsilon)$-approximation algorithm}.
 \end{itemize}
 
-In general, submodular maximization over a knapsack constraint is $(1 - 1/e)$-inapproximable (Kulik et al. 2013), so the existence of an FPTAS for Ellis's problem is a significant result.
+In general, submodular maximization over a knapsack constraint is $(1 - 1/e)$-inapproximable (Nemhauser and Wolsey 1978; Kulik et al. 2013), so the existence of an FPTAS for Ellis's problem is a significant result.
 \end{frame}
 } \else {
 \begin{frame}{해법 개관}
@@ -641,7 +641,7 @@ In general, submodular maximization over a knapsack constraint is $(1 - 1/e)$-in
 \end{itemize}
 
 \looseness=-1
-일반적으로, 배낭 제약식 위에서 submodular 함수를 최대화하는 문제는 $(1 - 1/e)$보다 좋은 근사 계수를 가지는 해법이 존재하지 않으므로 (Kulik et al. 2013), 엘리스 문제에 FPTAS가 존재하는 것은 의미가 있는 결과다.
+일반적으로, 배낭 제약식 위에서 submodular 함수를 최대화하는 문제는 $(1 - 1/e)$보다 좋은 근사 계수를 가지는 해법이 존재하지 않으므로 (Nemhauser and Wolsey 1978; Kulik et al. 2013), 엘리스 문제에 FPTAS가 존재하는 것은 의미가 있는 결과다.
 \end{frame}
 } \fi
 
@@ -891,7 +891,7 @@ Now we can fill a lookup table with the entries of $G[j, v]$ and compute an appr
 
 In the paper, we show that setting $P \gets \bigl\lceil\log_{10}\left(m^2 / \varepsilon \bar U\right)\bigr\rceil$ guarantees a $(1- \varepsilon)$-optimal portfolio, and that this yields a table of size $O(m^3 / \varepsilon)$, meaning that this algorithm is \textbf{an FPTAS}.
 \else
-이제 $G[j, v]$-값을 표에 채우면 근사 최적 포트폴리오를 구할 수 \rlep{있다.}
+이제 $G[j, v]$-값을 표에 채우면 근사 최적 포트폴리오를 구할 수 \rlap{있다.}
 
 논문에서 보이듯이, $P \gets \bigl\lceil\log_{10}\left(m^2 / \varepsilon \bar U\right)\bigr\rceil$로 넣으면 $(1- \varepsilon)$-근사해가 보장되며, 해당 표의 크기가  $O(m^3 / \varepsilon)$이므로 이 알고리즘은 \rlap{\textbf{FPTAS}다.}
 \fi
@@ -1212,6 +1212,8 @@ Kellerer, Hans, Ulrich Pferschy, and David Pisinger. 2004. \emph{Knapsack Proble
 Kulik, Ariel, Hadas Shachnai, and Tami Tamir. 2013. ``Approximations for Monotone and Nonmonotone Submodular Maximization with Knapsack Constraints.'' \emph{Mathematics of Operations Research} 38 (4): 729--39. \url{https://doi.org/10.1287/moor.2013.0592}.
 
 Markowitz, Harry. 1952. ``Portfolio Selection.'' \emph{The Journal of Finance} 7 (1): 77--91. \url{https://www.jstor.org/stable/2975974}.
+
+Nemhauser, George and Laurence Wolsey. 1978. ``Best Algorithms for Approximating the Maximum of a Submodular Set Function.'' \emph{Mathematics of Operations Research} 3 (3): 177--88. \url{https://doi.org/10.1287/moor.3.3.177}.
 
 %Rozanov, Mark and Arie Tamir. 2020. ``The nestedness property of the convex ordered median location problem on a tree.'' \emph{Discrete Optimization} 36: 100581. \url{https://doi.org/10.1016/j.disopt.2020.100581}.
 
