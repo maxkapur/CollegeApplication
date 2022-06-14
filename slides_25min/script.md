@@ -151,12 +151,30 @@ Because we have an integer expression of the problem and a linear relaxation, we
 
 ## Foreseeable questions
 
+Is this model too simplistic? Discuss the validity of this model with respect to the Korean admissions process.
+
+  - There are many modifications that could make this model more realistic. For example, in the Korean admissions process, there are “diversification constraints” that prevent you from applying to certain pairs of schools. We can also think about adding a variance penalty to model students’ risk aversion. However, as argued in the paper, our algorithms for the basic problem discussed here can be used as the basis for solution methods for these more complex scenarios.
+
+	Moreover, the college application problem is ultimately just a name for this optimization problem. Like the knapsack problem or newsboy problem, it can arise in a variety of operational contexts, and making the problem excessively specific to college application would limit its universality.
+
+  - 이 모형을 좀 더 현실적으로 만드는 방법이 있습니다. 예를 들면, 한국 입학 과정에서 가나다군이 있어서 추가적인 제약 조건이 생깁니다. 또한 학생 개개인의 위험 회피를 반영하기 위해서 표준편차 페널티를 추가하는 것도 유리할지 모르겠습니다. 그런데 저희가 고려해온 간단한 문제의 해법이 있으면, 그것을 섭루틴으로 사용해서 이런 좀 더 세련된 문제를 풀 수 있습니다.
+
+  	또한, 입학 지원 문제라는 것은 사실 이 최적화 문제의 이름일 뿐입니다. 배낭 문제나 newsboy 문제처럼, 그 문제를 응용할 수 있는 데가 많은데, 대학 지원하는 것만 생각해서 문제를 너무 특정하게 만들면 포괄성이 손해되는게 단점입니다.
+  
+Describe how the branch-and-bound algorithm could be improved.
+
+  - On an abstract level, a branch-and-bound algorithm is highly modular: All you need is an efficient way to generate upper bounds for constrained subproblems (the “bound” subroutine) and some good heuristics for choosing which subproblem to investigate next (the “branch” subroutine). As these two routines have no interaction with each other, if you find a way to improve one, you can easily substitute it in. Our linear relaxation is a fractional knapsack problem, which can be solved in linear time, so we already have a good bound subroutine. Our branch subroutine, on the other hand, is very naive: we just branch on the subproblem with the highest dual bound. There are better heuristics out there, such as “tree diving,” that tend in practice to explore the tree more efficiently, and we can use abstract solvers like Bonobo.jl to steal branch heuristics from somewhere else. This will let us solve more advanced constraint structures.
+
+  - 아주 높은 관점에서 보면, branch and bound 알고리즘은 굉장히 modular한 해법의 구조입니다. 부문제의 상한을 계산해주는 bound subroutine, 그리고 어느 부문제를 탐구할지 결정해주는 branch subroutine: 이런 2개의 component만 있으면 됩니다. 그리고 둘이 서로 독립하니까 하나를 개선하면 자유롭게 대체할 수 있습니다. 저희의 선형 완화 문제를 분수 배낭 문제인데 이거를 선형시간에 풀 수 있으므로 bound routine은 이미 최적화가 됐습니다. 그런데 저희가 사용한 branch routine은 상당히 naive한 해법입니다. 그냥 상한이 가장 높은 마디를 선택합니다. 이것보다 tree diving 같은 좋은 휴리스틱들이 존재하며 이를 도입하면 부문제 나무를 더 효율적으로 탐색할 수 있습니다. Julia 생태계에는 Bonobo.jl이라는 패키지가 있는데, 이것은 branch 그리고 bound 루틴의 중개인으로 기능해서, 이걸로 다른 개발자한테서 좋은 branch routine을 빌릴 수 있습니다. 그렇게 하면 더 복잡한 제약 조건도 쉽게 도입할 수 있겠죠. 
+  
 Why does the simulated annealing algorithm get better as the problem size increases?
 
-- The objective function in this problem exhibits rapidly diminishing marginal returns. This means that if there are many schools in the optimal portfolio—as is the case in our test instances—then all of the solutions that use most of the budget actually attain a very similar objective value. And unlike other combinatorial optimization problems, finding a feasible solution is quite easy in this case. This result probably holds for submodular maximization in general, because diminishing marginal returns is an innate feature of these functions.
+  - The objective function in this problem exhibits rapidly diminishing marginal returns. This means that if there are many schools in the optimal portfolio—as is the case in our test instances—then all of the solutions that use most of the budget actually attain a very similar objective value. And unlike other combinatorial optimization problems, finding a feasible solution is quite easy in this case. This result probably holds for submodular maximization in general, because diminishing marginal returns is an innate feature of these functions.
 
-Is this model too simplistic?
-
-Discuss the validity of this model with respect to the Korean admissions process.
+  - 대학 지원 문제의 목적 함수는 학교를 추가하면 추가할수록 한계 효용이 급속히 감소되는 현상이 있습니다. 따라서 저희 가상 인스턴스처럼 최적 포트폴리오에 포함된 학교가 많을 때, 지원 예산을 다 사용하기만하면 사실 가능한 포트폴리오들의 목적함숫값이 비슷비슷합니다. 그리고 다른 조합 최적화 문제에 비해, 여기서 가능해를 구하는 것도 어렵지 않습니다. 일반적으로, 이런 한계 효용 절감 현상이 submodular 함수의 기본적인 성격이하러, 아마도 다른 submodular 함수에다 simulated annealing를 적용하면 비슷한 결과가 발생할 것 같습니다.
 
 Why did you choose the Julia language?
+
+  - Julia has a feature called multiple dispatch that makes it easy to write code that can accept a variety of user input—for example, users can input their utility as a float or an integer and the algorithms remain type-stable. Also, Julia has convenient macros that made it easy to parallelize our computational experiment at a high level, increasing the number of samples we could use in the performance benchmark.
+
+  - Julia는 multiple dispatch이라는 기능이 있는데, 사용자가 입력 데이터를 정수 혹은 이동 소숫점 숫자로 입력했을 때 ㅡ그 상황으로 최적화된 코드가 따로 컴파일이 된다고 의미합니다. 그래서 성능의 손실없이 좀 더 일반적인 interface를 만들 수 있습니다. 그리고, 계산 실험했을때, 평행 계산을 이용하면 훨씬 큰 실험을 할 수 있고, Julia는 코드를 평행화하기 쉽게 하는 macro들이 있어서 좋습니다.
