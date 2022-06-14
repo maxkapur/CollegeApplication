@@ -786,11 +786,11 @@ The general problem is \textbf{NP-complete} (reduction from knapsack). We offer 
 \begin{itemize}
 \item \textcolor{lightslategray}{선형 완화 문제와 해당 \textbf{분지한계} (branch-and-bound) 해법. 일반적인 INLP 문제에 대해 자주 쓰이는 방법이다. \hfill{\footnotesize (부록)}}
 
-\item \textbf{총 지원 비용 기반 동적 계획}. $O(Hm + m\log m)$ (의사 다항) 시간에 정확한 해를 구하며, $g_j$가 작은 정수가 되는 전형적인 인스턴스에 대해 매우 효율적인 해법.
+\item \textbf{총 지원 비용 기반 동적 계획}. $O(Hm + m\log m)$ (의사 다항) 시간에 정확한 해를 구하며, $g_j$가 작은 정수인 전형적인 인스턴스에 대해 매우 효율적인 해법.
 
 \item 포트폴리오 가치의 라운딩을 이용한 동적 계획. $O(m^3 / \varepsilon)$ 시간에 $(1 - \varepsilon)$-근사해를 출력하므로 \textbf{FPTAS!}
 
-\item \textbf{Simulated annealing} 휴리스틱. 빠르고 대부분 98\% 이상의 최적성을 얻었다.
+\item \textbf{Simulated annealing} 휴리스틱. 빠르고 대부분 98\% 이상의 최적성을 얻는다.
 \end{itemize}
 
 \end{frame}
@@ -863,7 +863,7 @@ $\bar U = \sum_{j\in \mathcal{C}} f_j t_j$ is an upper bound on the valuation of
 \ifen 
 Let $G[j, v]$ denote the application cost of the least expensive portfolio that uses only schools $\{ 1, \dots, j\}$ and has (rounded) valuation at least $v$. We argue that
 \else
-$\{ 1, \dots, j\}$에 속한 학교만 사용하면서 (내림한) 가치가 최소한 $v$가 되는 포트폴리오 중 지원 비용이 최소한 포트폴리오의 지출액을 $G[j, v]$라고 하자. 이때 다음 재귀 관계가 성립한다고 보일 수 있다.
+지표가 $\{ 1, \dots, j\}$에 속한 학교만 사용하면서 (내림한) 가치가 최소한 $v$가 되는 포트폴리오 중 지원 비용이 최소한 포트폴리오의 지출액을 $G[j, v]$라고 하자. 이때 다음 재귀 관계가 성립한다고 보일 수 있다.
 \fi
 \begin{align*}
 G[j, v] &=
@@ -1056,7 +1056,7 @@ $\argmax$ operation at each iteration made heap an appealing data structure, but
 
 
 
-\begin{frame}{\ifen Experiment 2\else Experiment 2\fi}
+\begin{frame}{\ifen Experiment 2\else 실험 2\fi}
 \ifen 
 \dots compares the speed of \textbf{guaranteed-accuracy} algorithms for Ellis's problem.
 \else 
@@ -1095,7 +1095,7 @@ FPTAS의 병목 요소는 계산 시간이 아니라 메모리 소모량.
 
 
 
-\begin{frame}{Experiment 3}
+\begin{frame}{\ifen Experiment 3\else 실험 3\fi}
 \ifen
 \dots investigates the \textbf{empirical accuracy} of the simulated annealing heuristic in 500 synthetic instances.
 \else
