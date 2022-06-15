@@ -5,9 +5,9 @@ Max Kapur
 
 ## Introduction
 
-Hello, my name is Max. I am a grad student at SNU, and today I will be speaking about our research into a combinatorial optimization problem that we call the college application problem.
+Hello, my name is Max, from the Management Science/Optimization lab. Thank you so much for agreeing to participate on my thesis defense committee and for coming to my presentation today. Today, I will be speaking about our research into a combinatorial optimization problem that we call the college application problem.
 
-안녕하세요. 경영과학/최적화 연구실의 맥스라고 합니다. 오늘 발표에서는, ‘대학 입학 지원 최적화 문제’라고 부르는 조합 최적화 문제에 대한 저희의 연구를 소개해 드리고자 하겠습니다.
+안녕하세요. 경영과학/최적화 연구실의 맥스라고 합니다. 저의 졸업 논문 심사 위원에 참여해주고 오늘 발표를 들으러 오셔서 정말로 감사드립니다. 오늘 발표에서는, ‘대학 입학 지원 최적화 문제’라고 부르는 조합 최적화 문제에 대한 저희의 연구를 소개해 드리고자 하겠습니다.
 
 To the best of our knowledge, we are the first to study this problem systematically. In a nutshell, this problem involves purchasing a portfolio of random variables having the maximal expected maximum value subject to a budget constraint. The word “maximum” appears there twice on purpose, which gives this problem a unique mathematical form. Today, we will explain this optimization problem and how it can be used to model the college application strategy. Then we will introduce our findings about this problem, including its theoretical properties and a variety of algorithms. Finally, we will report the results of a computational study examining the empirical performance of our algorithms.
 
