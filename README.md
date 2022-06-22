@@ -1,5 +1,5 @@
 # CollegeApplication
-Working repo for my MS thesis, "The College Application Problem," at Seoul National University. You can download the PDF (`paper/paper-en.pdf` or `paper/paper-ko.pdf`) in your preferred language, or clone the repo and run `make` to build from the `paper.tex` source.
+Working repo for my MS thesis, "The College Application Problem," at Seoul National University. You can download the PDF (`thesis/paper-en.pdf` or `thesis/paper-ko.pdf`) in your preferred language, or clone the repo and run `make` to build from the `paper.tex` source.
 
 If you found this research useful, please consider citing [our arXiv paper](https://arxiv.org/abs/2205.01869).
 
