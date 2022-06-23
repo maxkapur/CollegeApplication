@@ -170,30 +170,37 @@ We refer to this problem as the \emph{optimal college application} problem, as f
 \fi
 
 \ifen
-The college application problem is not solely of theoretical interest. Due to the widespread perception that career earnings depend on college admissions outcomes, the solution of \eqref{headlineproblem} holds monetary value. In the American college consulting industry, students pay private consultants an average of \$200 per hour for assistance in preparing application materials, estimating their admissions odds, and identifying target schools (Sklarow 2018). In Korea, an important revenue stream for admissions consulting firms such as Megastudy (\url{megastudy.net}) and Jinhak (\url{jinhak.com}) is ``mock application'' software that claims to use artificial intelligence to optimize the client's application strategy. However, although predicting admissions outcomes on a school-by-school basis is a standard benchmark for logistic regression models (Acharya et al. 2019), we believe our study is the first to focus on the overall application strategy as an optimization problem.
+The college application problem is not solely of theoretical interest. Due to the widespread perception that career earnings depend on college admissions outcomes, the solution of \eqref{headlineproblem} holds monetary value. In the American college consulting industry, students pay private consultants an average of \$200 per hour for assistance in preparing application materials, estimating their admissions odds, and identifying target schools (Sklarow 2018). In Korea, an important revenue stream for admissions consulting firms such as Megastudy (\url{megastudy.net}) and Jinhak (\url{jinhak.com}) is ``mock application'' software that claims to use artificial intelligence to optimize the client's application strategy. However, while predicting admissions outcomes on a school-by-school basis is a standard benchmark for logistic regression models (Acharya et al. 2019; Lim 2013), we believe our study is the first to focus on the overall application strategy as an optimization problem.
 
 The problem is also conformable to other competitive matching games such as job application. Here, the budget constraint may represent the time needed to complete each application, or a legal limit on the number of applications permitted.
 \else
-대학 입학 지원 최적화 문제는 이론적인 화제일 뿐만이 아니다. 미래의 소득이 대학 입학 결과로 결정된다는 넓은 인식에 따라, \eqref{headlineproblem}의 최적해는 금전적인 가치를 가지고 있다. 미국 입학 컨설팅 산업에서 대학 지원 서류 작성, 합격 확률 추정, 그리고 지원 학교를 선택하는 데에 자문하는 개인 상담가의 시간당 급료는 평균 200달러다 (Sklarow 2018). 한국에서, 메가스터디(\url{megastudy.net})와 진학(\url{jinhak.com})과 같은 입학 컨설팅 기업의 주된 수입원 중 인공지능을 활용하여 학생의 지원 전략을 최대화한다고 홍보하는 ``모의 지원'' 소프트웨어가 있다. 그러나, 학교 개별 합격 확률을 추정하는 것은 로지스틱 회귀 분석 모형의 익숙한 응용 사례(Acharya et al. 2019)이지만, 전체적인 지원 전략에 집중하여 최적화 문제로 모형화한 것은 본 연구의 새로운 기여로 보인다.
+대학 입학 지원 최적화 문제는 이론적인 화제일 뿐만이 아니다. 미래의 소득이 대학 입학 결과로 결정된다는 넓은 인식에 따라, \eqref{headlineproblem}의 최적해는 금전적인 가치를 가지고 있다. 미국 입학 컨설팅 산업에서 대학 지원 서류 작성, 합격 확률 추정, 그리고 지원 학교를 선택하는 데에 자문하는 개인 상담가의 시간당 급료는 평균 200달러다 (Sklarow 2018). 한국에서, 메가스터디(\url{megastudy.net})와 진학(\url{jinhak.com})과 같은 입학 컨설팅 기업의 주된 수입원 중 인공지능을 활용하여 학생의 지원 전략을 최대화한다고 홍보하는 ``모의 지원'' 소프트웨어가 있다. 그러나, 학교 개별 합격 확률을 추정하는 것은 로지스틱 회귀 분석 모형의 익숙한 응용 사례(Acharya et al. 2019; Lim 2013)지만, 전체적인 지원 전략에 집중하여 최적화 문제로 모형화한 것은 본 연구의 새로운 기여로 보인다.
 
 취직 전략과 같은 유사한 경쟁적 매칭 게임에도 위의 문제를 적용할 수 있다. 이때, 예산 제약 조건은 원서를 작성하는 시간이나 지원 개수에 대한 법적인 제한을 나타낼 수 있다.
 \fi
 
+\subsection{Previous literature on college admissions}
+Some economists have constructed equilibrium models of the college admissions process that feature the student's application decision as a prominent subproblem. Fu (2014), for example, modeled the United States admissions market as a sequential game played by colleges and students. Colleges announce tuition rates, students apply to college, colleges announce admissions decisions and financial aid offers, and lastly, students decide where to enroll. Equilibrium arises when no college can improve its expected utility by modifying its tuition or admissions policy, and no student can improve her expected utility by modifying her application strategy. The ultimate goal of Fu's model was a comparative statics analysis of various hypothetical reforms to the structure of the admissions market; hence, it was adequate to cluster colleges into $m=8$ broad categories. Therefore, though estimating Fu's model required solving a problem similar to \eqref{headlineproblem}, it was a small instance that could be solved by enumerating all possible portfolios.\footnote{Fu's model of student utility uses a cost function in the size of the application portfolio instead of a budget constraint. Since the optimal portfolio in her model must be utility-optimal over portfolios of the same size, solving her student application problem reduces to solving $m$ instances of \eqref{headlineproblem}.} Our study pursues a more general solution.
+
+The literature on admissions markets also includes a vast body of research on the deferred acceptance algorithm, an algorithm for matching students to schools having finite capacities that generalizes the Gale--Shapley algorithm for stable marriage. The algorithm takes students' ordinal preferences over schools and schools' ordinal preferences over students as input, and produces an assignment that possesses a number of desirable properties: It is a stable matching, meaning that no student--school pair is incentivized to deviate from the assignment. And the preference-reporting mechanism is incentive compatible, meaning that no student can improve her outcome by lying about her preferences (Gale and Shapley 1962; Roth 1982). In design, deferred acceptance is a centralized assignment algorithm; however, stable assignment also be interpreted as the equilibrium of a decentralized admissions game in which agents have perfect information about one another's preferences (Azevedo and Leshno 2016).
+
+The utility model implied by stable assignment differs from that of the present study in two key ways: First, under stable assignment, students' preferences are ordinal rather than cardinal.\footnote{It is possible to estimate cardinal utility values from stable matchings in certain special cases, such as when colleges' preferences are identical and students' preferences are determined by the multinomial logit choice model (Kapur 2021).} Second, stable assignment is deterministic. The student-proposing deferred acceptance algorithm always produces the unique, student-optimal stable assignment. There exist variants of the deferred acceptance algorithm that introduce randomization in order to break ties in schools' preference lists or optimize for distributional goals such as gender parity, but because the randomization occurs after students submit their preferences, it has no effect on the optimal application strategy, which remains to report one's preferences honestly (Ashlagi and Nikzad 2020; Bodoh-Creed 2020). In the admissions process considered in this study, students face a tougher strategic challenge.
 
 \ifen \subsection{Methodological orientation} \else \subsection{방법론적 지향} \fi
 \ifen
-The college application problem straddles several methodological universes. Its stochastic nature recalls classical portfolio allocation models. However, the knapsack constraint renders the problem NP-complete, and necessitates combinatorial solution techniques. We also observe that the objective function is also a submodular set function, although our approximation results suggest that college application is a relatively easy instance of submodular maximization.
+Our analysis of the college application problem straddles several methodological universes. Its stochastic nature recalls classical portfolio allocation models. However, the knapsack constraint renders the problem NP-complete, and necessitates combinatorial solution techniques. We observe that the objective function is also a submodular set function, though our approximation results suggest that college application is a relatively easy instance of submodular maximization. 
 \else
-대학 지원 문제는 다양한 방법론적인 우주를 걸치는 문제다.  확률적인 문제인 만큼 재정학 분야에 뿌리를 가지는 포트폴리오 배분 모형과 비슷하다. 그러나 배낭 제약 조건은 대학 지원 문제를 NP-complete하게 만들며 조합적인 해법이 필요하다. 목적함수는 또한 submodular 집합 함수이지만, 본 연구가 제시하는 근사 해법 결과는 대학 지원 문제가 일반 submodular 함수 최대화 문제의 비교적 쉬운 경우임으로 해석할 수 있다.
+본 연구에서 분석한 대학 지원 문제는 다양한 방법론에 걸쳐 있는 문제다. 확률적인 문제인 만큼 재정학 분야에 뿌리를 가지는 포트폴리오 배분 모형과 비슷하다. 그러나 배낭 제약 조건은 대학 지원 문제를 NP-complete하게 만들며 조합적인 해법이 필요하다. 목적함수는 또한 submodular 집합 함수이지만, 본 연구가 제시하는 근사 해법 결과는 대학 지원 문제가 일반 submodular 함수 최대화 문제의 비교적 쉬운 경우임으로 해석할 수 있다.
 \fi
 
-% reword this sentence for a better transition
 \ifen
-% In an equilibrium analysis of the American college market, Fu (2014) remarked that
-% (and change below)
-A problem similar to \eqref{headlineproblem} arose in an equilibrium analysis of the American college market by Fu (2014), who described college application as a ``nontrivial portfolio problem'' (226). In computational finance, traditional portfolio allocation models weigh the sum of expected profit across all assets against a risk term, yielding a concave maximization problem with linear constraints (Markowitz 1952; Meucci 2005). But college applicants maximize the expected value of their \emph{best} asset: If a student is admitted to her $j$th choice, then she is indifferent as to whether she gets into her $(j+1)$th choice. As a result, student utility is \emph{convex} in the utility associated with individual applications. Risk management is implicit in the college application problem because, in a typical admissions market, college preferability correlates inversely with competitiveness. That is, students negotiate a tradeoff between attractive, selective “reach schools” and less preferable “safety schools” where admission is a safer bet (Jeon 2015). Finally, the combinatorial nature of the college application problem makes it difficult to solve using the gradient-based techniques associated with continuous portfolio optimization. Fu estimated her equilibrium model (which considers application as a \emph{cost} rather than a constraint) by clustering the schools so that $m=8$, a scale at which enumeration is tractable. We pursue a more general solution.
+In her equilibrium analysis of the American college market, Fu (2014) described college application as a ``nontrivial portfolio problem'' (226). In computational finance, traditional portfolio allocation models weigh the sum of expected profit across all assets against a risk term, yielding a concave maximization problem with linear constraints (Markowitz 1952; Meucci 2005). But college applicants maximize the expected value of their \emph{best} asset: If a student is admitted to her $j$th choice, then she is indifferent as to whether she gets into her $(j+1)$th choice. As a result, student utility is \emph{convex} in the utility associated with individual applications. Risk management is implicit in the college application problem because, in a typical admissions market, college preferability correlates inversely with competitiveness. That is, students negotiate a tradeoff between attractive, selective “reach schools” and less preferable “safety schools” where admission is a safer bet (Jeon 2015). Finally, the combinatorial nature of the college application problem makes it difficult to solve using the gradient-based techniques associated with continuous portfolio optimization.
+% moved up
+% Fu estimated her equilibrium model (which considers application as a \emph{cost} rather than a constraint) by clustering the schools so that $m=8$, a scale at which enumeration is tractable. 
 \else
-미국 대학 입학 시장의 균형 분석에서, Fu (2014)는 \eqref{headlineproblem}과(와) 비슷한 부문제를 직면하였으며 이를 ``nontrivial portfolio problem''이라고 부른다 (226). 재정학 분야에서, 고전적 포트폴리오 배분 최적화 모형은 전체 자산에 대한 기대 총이익에서 위험회피 항을 뺌으로 선형식으로 제약된 오목 최대화 문제를 이룬다 (Markowitz 1952; Meucci 2005). 그러나 대학 지원자는 가치가 제일 높은 단일 자산의 기대 가치를 최대화하고자 한다. 어떤 학생이 자신이 $j$번째로 선호하는 학교에 합격하면 $(j+1)$번째 학교의 합격 여부는 무관한 상황이 된다. 이는 학생의 효용을 각 지원 발송의 효용에 대해 오목이 아닌 볼록 함수로 만든다. 또한 입학 시장에서는 전형적으로 대학의 효용과 합격 확률이 서로 반비례하므로 대학 지원 문제는 위험 관리를 포함하게 된다. 특히 선호도가 높으며 붙기 어려운 “상향” 지원 학교(reach school)와 선호도가 낮으며 붙기 쉬운 “안정” 지원 학교(safety school) 사이의 균형을 고려해야 한다 (전민희 2015). 마지막, 대학 지원의 조합적인 본질로 인해 연속적인 포트폴리오 최적화 문제에서 흔히 사용하는 기울기 해법으로는 풀기가 어렵다. Fu는 지원 비용을 제약 조건 대신 목적함수의 한 항으로 모형화했으며, 균형 모형의 모수를 추정하기 위해 $m=8$이 되도록 학교들의 클러스터를 먼저 구성했다. 이는 열거법을 통해 문 쉽게 풀 수 있는 규모이지만 본 연구는 더 일반적인 $m$에 대한 해법을 추구한다.
+미국 대학 입학 시장의 균형 분석에서, Fu (2014)는 대학 지원 전략을 ``nontrivial portfolio problem''으로 묘사하였다 (226). 재정학 분야에서, 고전적 포트폴리오 배분 최적화 모형은 전체 자산에 대한 기대 총이익에서 위험회피 항을 뺌으로 선형식으로 제약된 오목 최대화 문제를 이룬다 (Markowitz 1952; Meucci 2005). 그러나 대학 지원자는 가치가 제일 높은 단일 자산의 기대 가치를 최대화하고자 한다. 어떤 학생이 자신이 $j$번째로 선호하는 학교에 합격하면 $(j+1)$번째 학교의 합격 여부는 무관한 상황이 된다. 이는 학생의 효용을 각 지원 발송의 효용에 대해 오목이 아닌 볼록 함수로 만든다. 또한 입학 시장에서는 전형적으로 대학의 효용과 합격 확률이 서로 반비례하므로 대학 지원 문제는 위험 관리를 포함하게 된다. 특히 선호도가 높으며 붙기 어려운 “상향” 지원 학교(reach school)와 선호도가 낮으며 붙기 쉬운 “안정” 지원 학교(safety school) 사이의 균형을 고려해야 한다 (전민희 2015). 마지막, 대학 지원의 조합적인 본질로 인해 연속적인 포트폴리오 최적화 문제에서 흔히 사용하는 기울기 해법으로는 풀기가 어렵다.
+% moved up
+% Fu는 지원 비용을 제약 조건 대신 목적함수의 한 항으로 모형화했으며, 균형 모형의 모수를 추정하기 위해 $m=8$이 되도록 학교들의 클러스터를 먼저 구성했다. 이는 열거법을 통해 문 쉽게 풀 수 있는 규모이지만 본 연구는 더 일반적인 $m$에 대한 해법을 추구한다.
 \fi
 
 \ifen
@@ -1999,6 +2006,9 @@ At each iteration, add to $\mathcal{X}$ the school $k$ for which $v(\mathcal{X} 
 \fi
 \noindent
 
+
+% Add to bib: Gale and Shapley 1962 Roth 1982, , Azevedo and Leshno 2016 Bodoh-Creed 2020; Ashlagi and Nikzad 2020, Kapur 2021
+
 \parskip 0em
 \leftskip 2em
 \parindent -2em
@@ -2007,7 +2017,11 @@ At each iteration, add to $\mathcal{X}$ the school $k$ for which $v(\mathcal{X} 
 
 Acharya, Mohan S., Asfia Armaan, and Aneeta S. Antony. 2019. ``A Comparison of Regression Models for Prediction of Graduate Admissions.'' In \emph{Second International Conference on Computational Intelligence in Data Science.} \url{https://doi.org/10.1109/ICCIDS.2019.8862140}.
 
+Ashlagi, Itai, and Afshin Nikzad. 2020. ``What Matters in School Choice Tie-Breaking? How Competition Guides Design.'' \emph{Journal of Economic Theory} 190: article no. 105120. \url{https://doi.org/10.1016/j.jet.2020.105120}.
+
 Assad, Arjang. 1985. ``Nested Optimal Policies for Set Functions with Applications to Scheduling.'' \emph{Mathematics of Operations Research} 10 (1): 82--99.
+
+Azevedo, Eduardo and Jacob Leshno. 2016. ``A Supply and Demand Framework for Two-Sided Matching Markets.'' \emph{Journal of Political Economy} 124 (5): 1235--68. \url{https://doi.org/10.1086/687476}. 
 
 Badanidiyuru, Ashwinkumar and Jan Vondrák. 2014. ``Fast Algorithms for Maximizing Submodular Functions.'' In \emph{Proceedings of the 2014 Annual ACM--SIAM Symposium on Discrete Algorithms}, 1497--1514. \url{https://doi.org/10.1137/1.9781611973402.110}.
 
@@ -2016,6 +2030,8 @@ Balas, Egon and Eitan Zemel. 1980. ``An Algorithm for Large Zero-One Knapsack Pr
 Bezanson, Jeff, Alan Edelman, Stefan Karpinski, and Viral B. Shah. 2017. ``Julia: A Fresh Approach to Numerical Computing.'' \emph{SIAM Review} 59: 65–98. \url{https://doi.org/10.1137/141000671}.
 
 Blum,  Manuel, Robert W. Floyd, Vaughan Pratt, Ronald L. Rivest, and Robert E. Tarjan. 1973. ``Time Bounds for Selection.'' \emph{Journal of Computer and System Sciences} 7 (4): 448--61. \url{https://doi.org/10.1016/S0022-0000(73)80033-9}.
+
+Bodoh-Creed, Aaron. 2020. ``Optimizing for Distributional Goals in School Choice Problems.'' \emph{Management Science} 66 (8): 3657--76. \url{https://doi.org/10.1287/mnsc.2019.3376}.
 
 %Budish, Eric. 2011. ``The Combinatorial Assignment Problem: Approximate Competitive Equilibrium from Equal Incomes.'' \emph{Journal of Political Economy} 119 (6): 1061--1103. \url{https://doi.org/10.1086/664613}. 
 
@@ -2028,18 +2044,11 @@ Chekuri, Chandra, Jan Vondr\'ak, and Rico Zenklusen. 2014. ``Submodular Function
 
 Cormen, Thomas, Charles Leiserson, and Ronald Rivest. 1990. \emph{Introduction to Algorithms.} Cambridge, MA: The MIT Press.
 
-Edmonds, Jack. 1971. ``Matroids and the Greedy Algorithm.'' \emph{Mathematical Programming} 1: 127--36. \url{https://doi.org/10.1007/BF01584082}.  
-
 Dantzig, George B. 1957. ``Discrete-Variable Extremum Problems.'' \emph{Operations Research} 5 (2): 266--88.
 
 Dean, Brian, Michel Goemans, and Jan Vondr\'ak. 2008. ``Approximating the Stochastic Knapsack Problem: The Benefit of Adaptivity.'' \emph{Mathematics of Operations Research} 33 (4): 945--64. \url{https://doi.org/10.1287/moor.1080.0330}.
 
-Kellerer, Hans, Ulrich Pferschy, and David Pisinger. 2004. \emph{Knapsack Problems.} Berlin: Springer.
-
-%1 - 1/ e for monotonic submodular with knapsack constraints, i.e. Ellis with 가나다
-Kulik, Ariel, Hadas Shachnai, and Tami Tamir. 2013. ``Approximations for Monotone and Nonmonotone Submodular Maximization with Knapsack Constraints.'' \emph{Mathematics of Operations Research} 38 (4): 729--39. \url{https://doi.org/10.1287/moor.2013.0592}.
-
-\ifen Jeon, Minhee. 2015. ``[College application strategy] Six chances total\dots divide applications across reach, target, and safety schools'' (in Korean). Jungang Ilbo, Aug. 26. \url{https://www.joongang.co.kr/article/18524069}.\fi
+Edmonds, Jack. 1971. ``Matroids and the Greedy Algorithm.'' \emph{Mathematical Programming} 1: 127--36. \url{https://doi.org/10.1007/BF01584082}.  
 
 Fisher, Marshall, George Nemhauser, and Laurence Wolsey. 1978. ``An Analysis of Approximations for Maximizing Submodular Set Functions—I.'' \emph{Mathematical Programming} 14: 265--94. 
 
@@ -2047,11 +2056,24 @@ Fisher, Marshall, George Nemhauser, and Laurence Wolsey. 1978. ``An Analysis of 
 
 Fu, Chao. 2014. ``Equilibrium Tuition, Applications, Admissions, and Enrollment in the College Market.'' \emph{Journal of Political Economy} 122 (2): 225--81. \url{https://doi.org/10.1086/675503}. 
 
+Gale, David, and Lloyd Shapley. 1962. ``College Admissions and the Stability of Marriage.'' \emph{American Mathematics Monthly} 69 (1): 9--15. \url{https://doi.org/10.2307/2312726}.
+
 Garey, Michael and David Johnson. 1979. \emph{Computers and Intractability: A Guide to the Theory of NP-Completeness.} New York: W. H. Freeman and Company. 
 
 Hartlaub, Vanessa and Thorsten Schneider. 2012. “Educational Choice and Risk Aversion: How Important Is Structural vs. Individual Risk Aversion?” \emph{SOEPpapers on Multidisciplinary Panel Data Research,} no. 433. \url{https://www.diw.de/documents/publikationen/73/diw_01.c.394455.de/diw_sp0433.pdf}.
 
+\ifen Jeon, Minhee. 2015. ``[College application strategy] Six chances total\dots divide applications across reach, target, and safety schools'' (in Korean). Jungang Ilbo, Aug. 26. \url{https://www.joongang.co.kr/article/18524069}.\fi
+
 Kahneman, Daniel. 2011. \emph{Thinking, Fast and Slow.} New York: Macmillan.
+
+Kapur, Max. 2021. ``Characterizing Nonatomic Admissions Markets.'' ArXiv, July 3, 2021. \url{https://arxiv.org/abs/2107.01340}. 
+
+Kellerer, Hans, Ulrich Pferschy, and David Pisinger. 2004. \emph{Knapsack Problems.} Berlin: Springer.
+
+%1 - 1/ e for monotonic submodular with knapsack constraints, i.e. Ellis with 가나다
+Kulik, Ariel, Hadas Shachnai, and Tami Tamir. 2013. ``Approximations for Monotone and Nonmonotone Submodular Maximization with Knapsack Constraints.'' \emph{Mathematics of Operations Research} 38 (4): 729--39. \url{https://doi.org/10.1287/moor.2013.0592}.
+
+Lim, Daniel Kibum. 2013. ``A Simulation Approach to Predicting College Admissions.'' Master's thesis, University of California Los Angeles. \url{https://escholarship.org/uc/item/8r2695n5}.
 
 Markowitz, Harry. 1952. ``Portfolio Selection.'' \emph{The Journal of Finance} 7 (1): 77--91. \url{https://www.jstor.org/stable/2975974}.
 
@@ -2065,6 +2087,8 @@ Nemhauser, George and Laurence Wolsey. 1978. ``Best Algorithms for Approximating
 %Othman, Abraham, Eric Budish, and Tuomas Sandholm. 2010. ``Finding Approximate Competitive Equilibria: Efficient and Fair Course Allocation.'' In \emph{Proceedings of 9th International Conference on Autonomous Agents and Multiagent Systems.} New York: ACM. \url{https://dl.acm.org/doi/abs/10.5555/1838206.1838323}.
 
 Parker, R. Gary and Ronald L. Rardin. 1988. \emph{Discrete Optimization.} San Diego: Academic Press.
+
+Roth, Alvin E. 1982. ``The Economics of Matching: Stability and Incentives.'' \emph{Mathematics of Operations Research} 7 (4): 617--28. \url{https://www.jstor.org/stable/3689483}.
 
 Rozanov, Mark and Arie Tamir. 2020. ``The Nestedness Property of the Convex Ordered Median Location Problem on a Tree.'' \emph{Discrete Optimization} 36: 100581. \url{https://doi.org/10.1016/j.disopt.2020.100581}.
 
