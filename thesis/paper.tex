@@ -132,7 +132,7 @@ submodular maximization, knapsack problems, approximation algorithms
 
 \renewcommand{\abstractname}{요약}
 \begin{abstract}
-본 논문은 다수의 확률 변수로 구성된 포트폴리오의 기대 최댓값을 예산 조건 하에서 최대화하는 문제를 고려한다. 이를 대학 입학 지원 최적화 문제라고 부른다. 각 확률 변수의 비용, 즉 각 대학의 지원 비용이 동일한 경우, 최적 포트폴리오는 예산 제약식으로 결정된 포함 사슬 관계 성질을 가짐을 보이고 이를 바탕으로 다항 시간 해법을 제시한다. 대학의 지원 비용이 서로 다른 경우, 문제가 NP-complete함을 증명한다. 일반적인 문제를 위해 4가지 해법을 제시하며, 분지한계 기반 해법, 의사 다항 시간에 정확한 해를 출력하는 동적 계획 해법, 다른 동적 계획 기반으로 완전 다항 시간 근사 해법(fully polynomial-time approximation scheme), 그리고 모의 담금질(simulated annealing)을 이용한 휴리스틱 해법을 포함한다.
+본 논문은 다수의 확률 변수로 구성된 포트폴리오의 기대 최댓값을 예산 조건 아래서 최대화하는 문제를 고려한다. 이를 대학 입학 지원 최적화 문제라고 부른다. 각 확률 변수의 비용, 즉 각 대학의 지원 비용이 동일한 경우, 최적 포트폴리오는 예산 제약식으로 결정된 포함 사슬 관계 성질을 가짐을 보이고 이를 바탕으로 다항 시간 해법을 제시한다. 대학의 지원 비용이 서로 다른 경우, 문제가 NP-complete함을 증명한다. 일반적인 문제를 위해 4가지 해법을 제시하며, 분지한계 기반 해법, 의사 다항 시간에 정확한 해를 출력하는 동적 계획 해법, 다른 동적 계획 기반으로 완전 다항 시간 근사 해법(fully polynomial-time approximation scheme), 그리고 모의 담금질(simulated annealing)을 이용한 휴리스틱 해법을 포함한다.
 % 첫째는 분지한계 기반 해법이다. 둘째는 의사 다항 시간에 정확한 해를 출력하는 동적 계획 해법이다. 마지막으로 다른 동적 계획 기반으로 완전 다항 시간 근사 해법(fully polynomial-time approximation scheme)을 도출한다.
 수리적 실험을 통해 알고리즘의 정확도와 효율성을 보인다.
 
@@ -212,15 +212,15 @@ We take special interest in the validity of greedy optimization algorithms, such
 For certain classes of optimization problems, such as maximizing a submodular set function over a cardinality constraint, a greedy algorithm is known to be a good approximate solution and exact under certain additional assumptions (Fisher et al. 1978; Assad 1985). For other problems, notably the binary knapsack problem, the most obvious greedy algorithm can be made to perform arbitrarily poorly (Vazirani 2001). We show results for the college application problem that mirror those for the knapsack problem: When each $g_j = 1$, the optimal portfolios are nested. This special case mirrors the centralized college application process in Korea, where there is no application fee, but students are allowed to apply to only three schools during the main admissions cycle. Unfortunately, the nestedness property does not hold in the general case, nor does the greedy algorithm offer any performance guarantee. Instead, we identify a fully polynomial-time approximation scheme (FPTAS) based on fixed-point arithmetic. 
 %Instead, we offer a branch-and-bound routine, a pseudopolynomial-time algorithm that is tractable for typical college market instances, and a fully polynomial-time approximation scheme (FPTAS). We also describe a simulated-annealing algorithm that performs well in test instances. 
 \else
-탐욕 알고리즘이 좋은 근사해거나 정확한 알고리즘이 되는 최적화 모형들이 알려져 있다. 집합 크기 제약 하에서 submodular한 집합 함수를 최대화하는 문제가 대표적인 예다 (Fisher 외 1978; Assad 1985). 반면에 이진 배낭 문제 같은 경우에서는 가장 직관적인 탐욕 알고리즘이 최적과 거리가 먼 해를 출력하는 예를 만들 수 있다 (Vazirani 2001). 대학 지원 문제와 배낭 문제가 서로 매우 유사함을 보인다. 모든 $g_j=1$인 특수한 경우에서, 최적 포트폴리오가 탐욕 알고리즘의 타당성과 동등한 포함 사슬 관계를 만족하는 것을 증명한다. 이 경우는 지원 비용이 없으며 정시 모집 기간에 학교 3개에만 지원할 수 있는 한국 입학 과정과 같다. 그러나 일반적인 경우에서 포함 사슬 관계가 성립하지 않을뿐더러 탐욕 알고리즘이 어떤 근사 계수를 보장할 수 없을 보일 수 있다. 대신 고정소숫점 산술을 활용한 완전 다항 시간 근사 해법(fully polynomial-time approximation scheme, FPTAS)을 제시한다.
+탐욕 알고리즘이 좋은 근사해거나 정확한 알고리즘이 되는 최적화 모형들이 알려져 있다. 집합 크기 제약 아래서 submodular한 집합 함수를 최대화하는 문제가 대표적인 예다 (Fisher 외 1978; Assad 1985). 반면에 이진 배낭 문제 같은 경우에서는 가장 직관적인 탐욕 알고리즘이 최적과 거리가 먼 해를 출력하는 예를 만들 수 있다 (Vazirani 2001). 대학 지원 문제와 배낭 문제가 서로 매우 유사함을 보인다. 모든 $g_j=1$인 특수한 경우에서, 최적 포트폴리오가 탐욕 알고리즘의 타당성과 동등한 포함 사슬 관계를 만족하는 것을 증명한다. 이 경우는 지원 비용이 없으며 정시 모집 기간에 학교 3개에만 지원할 수 있는 한국 입학 과정과 같다. 그러나 일반적인 경우에서 포함 사슬 관계가 성립하지 않을뿐더러 탐욕 알고리즘이 어떤 근사 계수를 보장할 수 없을 보일 수 있다. 대신 고정소숫점 산술을 활용한 완전 다항 시간 근사 해법(fully polynomial-time approximation scheme, FPTAS)을 제시한다.
 %대신 분지한계법, 전형적인 입학 시장 인스턴스에 대해 효율적인 의사 다항 시간 동적 계획, 그리고 완전 다항 시간 근사 해법(fully polynomial-time approximation scheme, FPTAS)을 제시한다. 가상 인스턴스에 성능이 좋은 모의 담금질(simulated annealing) 해법도 서술한다. 
 \fi
 
 
 \ifen
-Finally, we remark that the objective function of \eqref{headlineproblem} is a nondecreasing submodular function. However, our research employs more elementary analytical techniques, and our approximation results are tighter than those associated with generic submodular maximization algorithms. For example, a well-known result of Fisher et al. (1978) implies that the greedy algorithm is asymptotically $(1 - 1/e)$-optimal for the $g_j = 1$ case of the college application problem, whereas we show that the same algorithm is exact. As for the general problem, an equivalent approximation ratio is achievable when maximizing a submodular set function over a knapsack constraint using a variety of relaxation techniques (Badanidiyuru and Vondrák 2014; Kulik et al. 2013). Indeed, $1 - 1/e$ is the highest approximation coefficient achievable by a polynomial-time algorithm for this problem (Nemhauser and Wolsey 1978). But in the college application problem, the existence of the FPTAS supersedes these results.
+Finally, we remark that the objective function of \eqref{headlineproblem} is a nondecreasing submodular function. However, our research employs more elementary analytical techniques, and our approximation results are tighter than those associated with generic submodular maximization algorithms. For example, a well-known result of Fisher et al. (1978) implies that the greedy algorithm is asymptotically $(1 - 1/e)$-optimal for the $g_j = 1$ case of the college application problem, whereas we show that the same algorithm is exact. As for the general problem, an equivalent approximation ratio is achievable when maximizing a submodular set function over a knapsack constraint using a variety of relaxation techniques (Chekuri et al. 2014; Badanidiyuru and Vondrák 2014; Kulik et al. 2013). Indeed, $1 - 1/e$ is the highest approximation coefficient achievable by a polynomial-time algorithm for this problem (Nemhauser and Wolsey 1978). But in the college application problem, the existence of the FPTAS supersedes these results.
 \else
-마지막으로, \eqref{headlineproblem}의 목적함수는 submodular하며 단조 증가하는 함수다. 그런데, 본 연구는 더 기초적인 분석 기술을 이용하며, 일반적인 submodular 최대화 알고리즘보다 좋은 근사 계수를 얻게 된다. 예를 들어 Fisher 외 (1978)의 잘 알려진 결과에 따라, 대학 지원 문제의 $g_j = 1$인 경우에서 탐욕 해법의 점근적 근사 계수가 $(1 - 1/e)$이 되며, 본 논문에서 같은 해법이 정확함을 보인다. 일반적인 문제에 대해서는, 배낭 제약식 위에서 submodular 집합 함수를 최대하는 문제에서, 다양한 완화 기술을 활용하면 거의 동등한 근사 계수를 이뤄 낼 수 있다 (Badanidiyuru and Vondrák 2014; Kulik et al. 2013). 이 문제를 위한 다항 시간 해법은 $1 - 1/e$보다 좋은 근사 계수를 가질 수 없음이 알려져 있다 (Nemhauser와 Wolsey 1978). 그러나 대학 지원 문제에서, FPTAS의 존재성은 그보다 강한 결과다.
+마지막으로, \eqref{headlineproblem}의 목적함수는 submodular하며 단조 증가하는 함수다. 그런데, 본 연구는 더 기초적인 분석 기술을 이용하며, 일반적인 submodular 최대화 알고리즘보다 좋은 근사 계수를 얻게 된다. 예를 들어 Fisher 외 (1978)의 잘 알려진 결과에 따라, 대학 지원 문제의 $g_j = 1$인 경우에서 탐욕 해법의 점근적 근사 계수가 $(1 - 1/e)$이 되며, 본 논문에서 같은 해법이 정확함을 보인다. 일반적인 문제에 대해서는, 배낭 제약식 위에서 submodular 집합 함수를 최대하는 문제에서, 다양한 완화 기술을 활용하면 거의 동등한 근사 계수를 이뤄 낼 수 있다 (Chekuri et al. 2014; Badanidiyuru and Vondrák 2014; Kulik et al. 2013). 이 문제를 위한 다항 시간 해법은 $1 - 1/e$보다 좋은 근사 계수를 가질 수 없음이 알려져 있다 (Nemhauser와 Wolsey 1978). 그러나 대학 지원 문제에서, FPTAS의 존재성은 그보다 강한 결과다.
 \fi
 
 \ifen \subsection{Structure of this paper} \else \subsection{본 논문의 구성}\fi
@@ -330,7 +330,7 @@ v(\mathcal{X}; \bar t_j) &= \sum_{j\in \{0\}\cup\mathcal{X}}  \bar t_j p_j(\math
 
 
 
-\ifen \subsection{An elimination technique} \else \subsection{변수 소거 기법} \fi
+\ifen \subsection{An elimination technique} \else \subsection{변수 소거 기법} \fi  \label{eliminationtechniquesection}
 \ifen
 Now, we present a variable-elimination technique that will prove useful throughout the paper.\footnote{We thank Yim Seho for pointing out this useful transformation.} Suppose that the student has already resolved to apply to $c_k$, and the remainder of her decision consists of determining which \emph{other} schools to apply to. Writing her total application portfolio as $\mathcal{X} = \mathcal{Y} \cup \{k\}$, we devise a function $w(\mathcal{Y})$ that orders portfolios according to how well they ``complement'' the singleton portfolio $\{k\}$. Specifically, the difference between $v(\mathcal{Y} \cup\{k\})$ and $w(\mathcal{Y})$ is the constant $f_k t_k$.
 \else
@@ -1827,7 +1827,7 @@ v_{\mathrm{\beta}}(\mathcal{X}) &=  \operatorname{E}[X] - \beta \operatorname{Va
 \ifen
 where $\tau_j = t_j - \beta t_j^2$. Since the first term is itself a portfolio valuation function, and the second is a monotonic transformation of one, we speculate that one of the algorithms given above could be used as a subroutine to trace out the efficient frontier by maximizing $v(\mathcal{X}; t)$ subject to the budget constraint and $v(\mathcal{X}; \tau) \geq \alpha$ for various values of $\alpha \geq 0$. 
 \else
-단, $\tau_j = t_j - \beta t_j^2$. 이의 첫 번째 항 그 자체가 포트폴리오 가치 함수이며, 두 번째 항은 포트폴리오 가치 함수의 단조 변환이다. 따라서 위에서 제시한 알고리즘을 서브루틴으로 사용하면 효율적 투자선(efficient frontier)을 탐색할 수 있어 보인다. 이때 다양한 $\alpha \geq 0$에 대해 예산 제약식과 $v(\mathcal{X}; \tau) \geq \alpha$ 하에서 $v(\mathcal{X}; t)$을 최대화하는 것이 알고리즘의 요점이다.
+단, $\tau_j = t_j - \beta t_j^2$. 이의 첫 번째 항 그 자체가 포트폴리오 가치 함수이며, 두 번째 항은 포트폴리오 가치 함수의 단조 변환이다. 따라서 위에서 제시한 알고리즘을 서브루틴으로 사용하면 효율적 투자선(efficient frontier)을 탐색할 수 있어 보인다. 이때 다양한 $\alpha \geq 0$에 대해 예산 제약식과 $v(\mathcal{X}; \tau) \geq \alpha$ 아래서 $v(\mathcal{X}; t)$을 최대화하는 것이 알고리즘의 요점이다.
 \fi
 
 \ifen
@@ -1840,7 +1840,7 @@ A potential application of our model is an econometric study that estimates stud
 학생의 지원 행동($\mathcal{X}$)을 관찰하고 학생이 인식하는 대학교의 질($t_j$)을 추정하는 경제 측정학 연구에서 본 논문의 모형을 그대로 응용할 수 있다. 실무 연구 결과에 따르면 위험 회피의 다양성은 인간 의사 결정 다양성의 주된 원인이 되며, 교육 선택과 취업 활동은 특히 그렇다 (Kahneman 2011; Hartlaub와 Schneider 2012; van Huizen과 Alessie 2019). 따라서 경제 측정학 맥락에서, 위험 회피 모수를 내생 변수로 도입하면 원래 모형의 묘사력을 많이 개선할 수 있다.
 \fi
 
-\ifen \subsection{Signaling strategies}\else \subsection{시그널 전략}\fi
+\ifen \subsection{Signaling strategies and matroid constraints}\else \subsection{시그널 전략과 matroid 제약 조건}\fi
 \ifen
 Another direction of further research with immediate application in college admissions is to incorporate additional signaling strategies into the problem. In the Korean admissions process, the online application form contains three multiple-choice fields, labeled \emph{ga, na,} and \emph{da} for the first three letters of the Korean alphabet, which students use to indicate the colleges to which they wish to apply. Most schools appear only in one or two of the three fields. Therefore, students are restricted not only in the number of applications they can submit, but in the combinations of schools that may coincide in a feasible application portfolio. From a portfolio optimization perspective, this is a \emph{diversification constraint,} because its primary purpose is to prevent students from applying only to top-tier schools. However, in addition to overall selectivity, the three fields also indicate different evaluation schemes: The \emph{ga} and \emph{na} customarily indicate the applicant's first and second choice, and applications filed under these fields are evaluated with greater emphasis on standardized-test scores than those filed under the \emph{da} field. Some colleges appear in multiple fields and run two parallel admissions processes, each with different evaluation criteria. Therefore, if a student recognizes that she has a comparative advantage in (for example) her interview skills, she may increase her chances of admission to a competitive school by applying under the \emph{da} field. The optimal application strategy in this context can be quite subtle, and it is a subject of perennial debate on Korean social networks.
 
@@ -1857,7 +1857,7 @@ In the integer formulation of the college application problem (Problem \ref{inte
 \begin{align}
  x_{j+} + x_{j-} \leq 1, ~~ j = 1\dots m\qquad\text{and}\qquad\sum_{j=1}^m x_{j+} \leq 1
 \end{align}
-completes the formulation. These are knapsack constraints; therefore, the submodular maximization algorithm of Kulik et al. (2013) can be used to obtain a $(1 - 1/e - \varepsilon)$-approximate solution for this problem. When the budget constraint is a cardinality constraint (as in Alma's problem), we note that adding these constraints yields a matroidal solution set, and Calinescu et al. (2011)'s algorithm yields an alternative solution, which has the same approximation coefficient of $1 - 1/e -\varepsilon$. %These constraints are conformable to those of the multiple knapsack problem (Kellerer et al. 2004, chap. 10). 
+completes the formulation. These are knapsack constraints; therefore, the submodular maximization algorithm of Kulik et al. (2013) can be used to obtain a $(1 - 1/e - \varepsilon)$-approximate solution to this problem. When the budget constraint is a cardinality constraint (as in Alma's problem), we note that imposing the signaling constraints yields a matroidal solution set, and Calinescu et al. (2011)'s algorithm yields an alternative solution, which has the same approximation coefficient of $1 - 1/e -\varepsilon$. %These constraints are conformable to those of the multiple knapsack problem (Kellerer et al. 2004, chap. 10).
 \else
 대학 지원 문제의 정수 모형(문제 \ref{integernlp})에서 위의 시그널 전략들을 어렵지 않게 도입하는 방식은 각 $c_j$를 $c_{j+}$와 $c_{j-}$로 나누는 것이다. 그다음에 학생이 $c_j$에 높은 관심을 시그널하면 (즉, 가군으로 선택하거나 조기 전형으로 지원하면) $x_{j+} = 1$이며 관심을 시그널 하지 않고 지원하면 (즉 가군 혹은 나군으로 지원하거나 조기 전형 없이 지원하면) $x_{j-} = 1$이 되는 이진 결정 변수를 정의한다. 해당 합격 확률 $f_{j+}$와 $f_{j-}$ 그리고 효용  $t_{j+}$와 $t_{j-}$가 알려져 있으면, 다음 같은 논리 제약식을 더하면 모형을 완성할 수 있다. 
 \begin{align}
@@ -1865,6 +1865,13 @@ completes the formulation. These are knapsack constraints; therefore, the submod
 \end{align}
 모두 배낭 제약식이므로 Kulik 외 (2013)의 submodular 최대화 알고리즘을 통해 이 문제의 $(1 - 1/e - \varepsilon)$-근사해를 구할 수 있다. 또한 (알마의 문제처럼) 예산 제약식이 집합 크기 제약식이 되면, 논리 제약식을 더한 모형의 해집합이 matroid가 되며, Calinescu 외 (2011)의 알고리즘이 대안 해법이 된다. 단, 그의 근사 계수는 여전히 $1 - 1/e - \varepsilon$이다. 
 \fi
+
+\ifen 
+Our main results indicate that the objective function of the college application problem, though nonlinear, has similar regularity properties to a linear function: The greedy algorithm finds the maximum over a cardinality constraint, and an FPTAS exists for maximization over a knapsack constraint. For linear functions, however, the greedy algorithm is optimal over matroid constraints as well (Edmonds 1971). Thus, if the pseudolinearity of our objective function is sufficiently robust, the greedy algorithm will be an exact solution for the college application with matroid constraints, including the signaling constraints discussed above. Preliminary numerical experiments suggest that this is the case, but the class of matroids is diverse and difficult to test exhaustively. (The nestedness property does not apply automatically to matroids because in the proof of the elimination technique given in \S\,\ref{eliminationtechniquesection}, we assumed that $\mathcal{X} \cup \{k\}$ implies the feasibility of $\mathcal{Y} \cup \{k\}$ when $|\mathcal{X}| = |\mathcal{Y}|$.)
+\else
+본 연구의 주된 결과는 대학 지원 문제의 목적함수가 선형 함수가 아니지만, 최적화 관점에서 선형 함수와 비슷한 성질을 가진다는 것으로 해석할 수 있다. 집합 크기 제약 아래서 탐욕 해법이 정확하고, 배낭 제약 아래서 FPTAS가 존재하기 때문이다. 그런데 선형 함수는 matroid 제약 아래서 최적화하는 문제도 탐욕 해법으로 풀 수 있다 (Edmonds 1971). 따라서 대학 지원 목적함수와 선형 함수의 유사성이 적당히 깊으면 위에서 논한 matroid 제약 아래서 이를 최대화하는 문제를 탐욕 해법으로 풀 수 있을 것이다. 예비 수리 실험을 진행한 결과로 이 성질이 사실처럼 보이지만, matroid가 아주 광범위한 클래스이므로 철저한 실험이 어렵다. (\S\,\ref{eliminationtechniquesection}에서 제시된 변수 기법의 증명 과정에서 $|\mathcal{X}| = |\mathcal{Y}|$일 때 $\mathcal{X} \cup \{k\}$가 가능해면 $\mathcal{Y} \cup \{k\}$도 가능해라고 가정하기 때문에 포함 사슬 관계 성질을 matroid에 자동으로 확장할 수 있는 것이 아니다.)
+\fi
+
 
 
 \ifen \subsection{Memory-efficient dynamic programs}\else \subsection{동적 계획의 메모리 소요 절감}\fi
@@ -2017,7 +2024,11 @@ Calinescu, Gruia, Chandra Chekuri, Martin Pál, and Jan Vondrák. 2011. ``Maximi
 
 Carraway, Robert, Robert Schmidt, and Lawrence Weatherford. 1993. ``An Algorithm for Maximizing Target Achievement in the Stochastic Knapsack Problem with Normal Returns.'' \emph{Naval Research Logistics} 40 (2): 161--73. \url{https://doi.org/10.1002/nav.3220400203}.
 
+Chekuri, Chandra, Jan Vondr\'ak, and Rico Zenklusen. 2014. ``Submodular Function Maximization via the Multilinear Relaxation and Contention Resolution Schemes.'' \emph{SIAM Journal on Computing} 43 (6): 1831--79. \url{https://doi.org/10.1137/110839655}.
+
 Cormen, Thomas, Charles Leiserson, and Ronald Rivest. 1990. \emph{Introduction to Algorithms.} Cambridge, MA: The MIT Press.
+
+Edmonds, Jack. 1971. ``Matroids and the Greedy Algorithm.'' \emph{Mathematical Programming} 1: 127--36. \url{https://doi.org/10.1007/BF01584082}.  
 
 Dantzig, George B. 1957. ``Discrete-Variable Extremum Problems.'' \emph{Operations Research} 5 (2): 266--88.
 
