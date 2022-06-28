@@ -1,7 +1,8 @@
 %!TEX encoding = UTF-8 Unicode 
 
 \documentclass[11pt]{article} %try amsproc, amsart
-%\usepackage{geometry}       \geometry{a4paper, margin=2.5cm}  
+\usepackage{geometry}       \geometry{a4paper, margin=2.5cm}
+\usepackage{setspace}       \setstretch{1.1}
 \usepackage{hyperref}       \hyperbaseurl{}    
                             \urlstyle{same}
 \usepackage[ruled,linesnumbered]{algorithm2e}   \SetKwInOut{KwParams}{Parameters}
@@ -15,9 +16,7 @@
 \author[1]{Max Kapur}
 \author[2]{Sung-Pil Hong}
 \affil[1,2]{Department of Industrial Engineering, Seoul National University}
-\affil[1]{Email: maxkapur@gmail.com}
 \date{\today}
-
 
 
 
@@ -60,6 +59,19 @@
 
 \begin{abstract}
 The college application problem is a submodular optimization problem involving the maximization of the expected maximum value of a portfolio of random variables subject to a budget constraint. We introduce this problem, show that it is NP-complete, and provide two optimization algorithms based on dynamic programming. A modification of the second dynamic program yields a fully polynomial-time approximation scheme.
+
+\textbf{Keywords:} submodular maximization, knapsack problems, approximation algorithms
+
+\vfill
+Correspondence may be addressed to Max Kapur.
+\begin{itemize}
+%\item[] Correspondence may be addressed to Max Kapur.
+
+\item[] Email: \url{maxkapur@gmail.com}
+
+\item[] Address: 39-411, 1 Gwanak-ro, Gwanak-gu, Seoul 08826, Republic of Korea
+\end{itemize}
+
 \end{abstract}
 
 
@@ -204,7 +216,7 @@ CAP is NP-complete.
 
 \begin{proof}
 (CAP $\in$ NP.) It suffices to show that the cost and value of a given $\mathcal{X} \subseteq \mathcal{C}$ can be computed in polynomial time. Given an oracle that multiplies integers in unit time, $v(\mathcal{X})$ can be computed in polynomial time using the following algorithm (which assumes that the elements of $\mathcal{X}$ are iterated in index order):
-\filbreak
+
 \RestyleAlgo{plain}
 \LinesNotNumbered 
 \begin{algorithm}[h]
@@ -289,7 +301,7 @@ Optimality follows from the foregoing discussion. Sorting $t$ is $O(m \log m)$. 
 
 Because we cannot assume that $H \leq m$, Algorithm \ref{ellisDP1} represents a pseudopolynomial-time solution (Garey and Johnson 1979, \S\,4.2). However, it is quite effective for typical instances in which the application costs are small integers. It is also a polynomial-time algorithm for the special case of the college application problem in which each $g_j = 1$, meaning that $H$ is a limit on the \emph{cardinality} $\mathcal{X}$, and $H < \sum g_j = m$ in any nontrivial instance. 
 
-\subsection{Dynamic program based on portfolio valuations}
+\subsection{Dynamic program based on portfolio valuations} \label{dpbasedonportfoliovaluations}
 
 As with the knapsack problem, the college application problem admits a complementary DP that iterates on the value of the cheapest portfolio instead of on the cost of the most valuable portfolio.
 
@@ -360,7 +372,7 @@ To construct the FPTAS, we approximate each portfolio's valuation using a fixed-
 
 %For the remainder of this subsection, unless otherwise specified, the word \emph{valuation} refers to a portfolio’s valuation within the fixed-point framework, with the understanding that this is an approximation. We will use square brackets to emphasize potential sources of approximation error, and account for this error below when we prove the FPTAS's validity.
 
-The details of the FPTAS are similar to those of Algorithm \ref{ellisDP2}. For integers $0 \leq j \leq m$ and $v \in \mathbb{Z}/2^P \cap \mathcal{V}'$, $\mathcal{W}[j, v]$ denotes the least expensive portfolio that uses only schools $\{ 1, \dots, j\}$ and has valuation of \emph{at least} $v$, if such a portfolio exists. Its cost is given by $G[j, v] = \sum_{j\in \mathcal{W}[j, v]} g_j$. The boundary conditions and recursion relation are identical to those above, except that $\Delta_j(v)$ is replaced with
+The details of the FPTAS are similar to those of Algorithm \ref{ellisDP2}. For integers $0 \leq j \leq m$ and $v \in \mathbb{Z}/2^P \cap \mathcal{V}'$, $\mathcal{W}[j, v]$ denotes the least expensive portfolio that uses only schools $\{ 1, \dots, j\}$ and has valuation of \emph{at least} $v$, if such a portfolio exists. Its cost is given by $G[j, v] = \sum_{j\in \mathcal{W}[j, v]} g_j$. The boundary conditions and recursion relation are identical to those given above (subsection \ref{dpbasedonportfoliovaluations}), except that $\Delta_j(v)$ is replaced with
 \begin{align}
 \Delta_j[v]
 \begin{cases}
@@ -368,7 +380,7 @@ r\left[\frac{f_j}{1 - f_j} (t_j - v)\right], \quad & f_j < 1\\
 \infty, &f_j = 1.
 \end{cases} \label{clampeddeltajvdef}
 \end{align}
-By rounding the solution of \eqref{solvemeforvwjvminusj} down, we ensure that the true valuation of $\mathcal{W}[j, v]$ is \emph{at least} $v - \Delta$, and therefore that $G[j, v]$ meets its definition.
+Here we have rounded the solution of \eqref{solvemeforvwjvminusj} down to ensure that the true valuation of $\mathcal{W}[j, v]$ is \emph{at least} $v - \Delta$, and therefore that $G[j, v]$ meets its definition.
 
 Intuitively, $\max\{ w \in \mathcal{V}': G[m, w] \leq H\}$ gives the optimal portfolio valuation up to a certain amount of approximation error dependent on $P$. In Algorithm \ref{ellisDP3} and Theorem \ref{validityoffptas}, we formalize this intuition by showing that $P \geq \log_{2}\left(m^2 / \varepsilon \bar U\right)$ ensures an optimality ratio of $1 - \varepsilon$ or better.
 
@@ -426,7 +438,7 @@ is $O(m^2/ \varepsilon)$, the time complexity is as promised.
 
 Since its time complexity is polynomial in $m$ and $1 / \varepsilon$, Algorithm \ref{ellisDP3} is an FPTAS for the college application problem (Vazirani 2001). 
 
-Algorithms \ref{ellisDP1}, \ref{ellisDP2}, and \ref{ellisDP3} can be written using recursive functions instead of lookup tables. However, since each function references itself \emph{twice,} the function values at each index must be recorded in the computer's memory to take advantage of overlapping indices and guarantee the runtimes promised above. A discussion of these and other implementation issues is provided in Kapur (2022), along with a computational study demonstrating the efficiency of Algorithms \ref{ellisDP1} and \ref{ellisDP3}.
+Algorithms \ref{ellisDP1}, \ref{ellisDP2}, and \ref{ellisDP3} can be written using recursive functions instead of lookup tables. However, since each function references itself \emph{twice,} the function values at each index must be recorded in the computer's memory to take advantage of overlapping indices and guarantee the runtimes promised above. A discussion of these and other implementation appears in Kapur (2022), along with a computational study demonstrating the efficiency of Algorithms \ref{ellisDP1} and \ref{ellisDP3}.
 
 
 
@@ -438,9 +450,9 @@ Algorithms \ref{ellisDP1}, \ref{ellisDP2}, and \ref{ellisDP3} can be written usi
 
 \section{Conclusion} \label{sectionConclusion}
 
-This article has introduced a novel nonlinear knapsack problem called the college application problem. Our results suggest that the college application is a relatively easy instance of submodular maximization: Whereas $1 - 1/e$ is the highest approximation coefficient achievable by a polynomial-time algorithm for nondecreasing submodular maximization over a knapsack constraint (Nemhauser and Wolsey 1978), the FPTAS presented here induces a continuum of tight, polynomial-time approximation algorithms. This result suggests that though the objective function of the college application is nonlinear, it has similar regularity properties to a linear function. Further evidence for this statement is given by Kapur (2022), who proved the optimality of a greedy algorithm for maximizing the college application problem's objective function over a cardinality constraint.
+This article has introduced a novel nonlinear knapsack problem called the college application problem. Our results suggest that the college application is a relatively easy instance of submodular maximization: The FPTAS presented here induces a continuum of tight, polynomial-time approximation algorithms, whereas no polynomial-time algorithm for the general problem of maximizing a nondecreasing submodular function over a knapsack constraint provides an approximation guarantee better than $1 - 1/e$.
 
-We conjecture that other results associated with maximizing linear functions may hold with respect to the objective discussed here, such the existence of a PTAS for the multiple knapsack problem, and the optimality of the greedy algorithm a over polymatroidal constraint (Chekuri and Khanna 2005; Edmonds 1971).
+One interpretation of our result is that the objective function of the college application, though nonlinear, has similar regularity properties to a linear function. Further evidence for this view is found in Kapur (2022)'s analysis of the college application problem with a cardinality constraint, which can be solved by a simple greedy algorithm. We conjecture that other results associated with maximizing linear functions may hold with respect to the objective discussed here, such the existence of a PTAS when maximizing over the intersection of knapsack constraints, and the optimality of the greedy algorithm when maximizing over a polymatroidal system (Chekuri and Khanna 2005; Edmonds 1971).
 
 \section{References}
 \noindent 
