@@ -197,17 +197,17 @@ end
 
 
 # fig1 = comparativestatics()
-# save("paper/plots/h_v-example.pdf", fig1)
-# save("paper/plots/h_v-example.png", fig1)
+# save("thesis/plots/h_v-example.pdf", fig1)
+# save("thesis/plots/h_v-example.png", fig1)
 
 # fig2 = samplerandom()
-# save("paper/plots/samplemarket.pdf", fig2)
-# save("paper/plots/samplemarket.png", fig2)
+# save("thesis/plots/samplemarket.pdf", fig2)
+# save("thesis/plots/samplemarket.png", fig2)
 
 # fig3 = accuracy_simulatedannealing()
-# save("paper/plots/accuracy_simulatedannealing.pdf", fig3)
-# save("paper/plots/accuracy_simulatedannealing.png", fig3)
+# save("thesis/plots/accuracy_simulatedannealing.pdf", fig3)
+# save("thesis/plots/accuracy_simulatedannealing.png", fig3)
 
 # fig4 = accuracy_simulatedannealing_2d()
-# save("paper/plots/accuracy_simulatedannealing.pdf", fig4)
-# save("paper/plots/accuracy_simulatedannealing.png", fig4)
+# save("thesis/plots/accuracy_simulatedannealing.pdf", fig4)
+# save("thesis/plots/accuracy_simulatedannealing.png", fig4)
