@@ -106,15 +106,19 @@ We refer to this problem as the \emph{optimal college application} problem, as f
 The problem is also conformable to other competitive matching games such as job application. Here, the budget constraint may represent the time needed to complete each application, or a legal limit on the number of applications permitted.
 
 \subsection{Literature review}
-One way of thinking about the college application problem is as a static variant of the Pandora's Box problem proposed by Weitzman (1979). In a Pandora's Box formulation of college application, the student applies to schools one by one, each time paying the application fee and observing her admissions outcome after a time delay. The problem is to determine an optimal \emph{stopping policy} for when Pandora should halt her college search and accept the best admissions offer she has on hand. Weitzman showed that the optimal policy is to halt the search when the value of the current best offer exceeds the maximum \emph{reservation price,} a certain statistic over the set of colleges to which Pandora has not yet applied.
 
-Arguably, the static model considered in this study is more hostile to students than the Pandora's Box problem. If, for example, an unlucky Pandora is rejected from a safety school at an early round of application, then she can pivot to a more risk-averse application strategy. By contrast, the decisionmaker in our college application problem must commit to her entire application portfolio at the outset. The admissions process used in the United States can be viewed as the concatenation of both problems: In the fall, students solve \eqref{headlineproblem} and send out a batch of applications. Then, upon observing their admissions outcomes in March, they use the Pandora strategy to pursue additional offers by applying in the spring and summer to schools that offer rolling admissions.
+% Move this paragraph to the Alma branch
+Most quantitative research on college admissions to date has been descriptive in nature. A standard benchmark for logistic regression techniques, for example, involves estimating students' admissions probabilities from information about their past academic performance (Acharya et al. 2019; Lim 2013). When professional admissions consultants advise their clients on where to apply to college, however, they but typically rely on qualitative heuristics, such as balancing applications between safety and reach schools, rather than optimization models (Peck 2021). (Admissions consultants refer to schools with low utility and high admissions probability as \emph{safety schools}, and those with high utility and low admissions probability as \emph{reach schools.})
+
+One way of thinking about the college application problem is as a static variant of the Pandora's Box problem proposed by Weitzman (1979). In a Pandora's Box formulation of college application, the student applies to schools one by one, each time paying the application fee and observing her admissions outcome after a certain time delay. The problem is to determine an optimal \emph{stopping rule} for when Pandora should halt her college search and accept the best admissions offer she has on hand. Weitzman showed that the optimal policy is to stop searching when the value of the current best offer exceeds the maximum \emph{reservation price,} a statistic that represents the expected value of applying to a new college.
+
+Arguably, the static model considered in this study is more hostile to students than the Pandora's Box problem. If, for example, an unlucky Pandora is rejected from a safety school at an early round of application, then she can compensate for the unexpected loss by pivoting to a more risk-averse application strategy. By contrast, the decisionmaker in our college application problem must commit at the outset to applying to every school in her application portfolio. The admissions process used in the United States can be viewed as the concatenation of both problems: In the fall, students solve \eqref{headlineproblem} and send out a batch of applications. Then, upon observing their admissions outcomes in March, they use the Pandora strategy to pursue additional offers by applying to schools that offer rolling admissions.
 
 The objective function of the college application problem is a nondecreasing, submodular set function in the sense first described by Nemhauser, Wolsey, and Fisher (1978). Nemhauser and Wolsey (1978) showed that a polynomial-time algorithm for maximizing such a function over a knapsack constraint cannot achieve an approximation ratio better than $1 - 1 / e \approx 0.632$. Subsequent research in submodular maximization has discovered efficient algorithms that achieve this approximation ratio using a variety of relaxation techniques (Chekuri et al. 2014; Badanidiyuru and Vondrák 2014; Kulik et al. 2013).
 
 As we will show, the college application problem is NP-complete, meaning that it cannot be solved in polynomial time unless P=NP. However, the existence of a fully polynomial-time approximation scheme (FPTAS) for the college application problem suggests that it is a relatively easy instance of submodular maximization. For a maximization problem, an FPTAS is defined as an algorithm that produces a solution whose objective value is at least $(1 - \varepsilon)$ times that of the optimum, in time polynomial in $m$ and $1 / \varepsilon$. Familiar examples of problems that admit an FPTAS include the knapsack problem, the constrained spanning tree problem, a constrained parallel scheduling problem on two machines, and the replenishment storage problem (Vazirani 2001; Hong et al. 2004; Woeginger 2005; Hochbaum and Rao 2020). The existence of an FPTAS for an optimization problem is a desirable property because an FPTAS induces a continuum of polynomial-time algorithms with constant approximation guarantees.
 
-To the best of our knowledge, the first systematic study of the college application problem was conducted by this article's first author in his master's thesis (Kapur 2022). A special case of \eqref{headlineproblem} arose in an equilibrium analysis of the United States college admissions market by Fu (2014). However, her econometric task involved clustering the schools such that $m=8$, a scale at which enumeration is tractable. We are interested in solution techniques that scale efficiently in the number of colleges. The present article extends Kapur's key results with a more precise analysis of the problem's computational complexity and a new solution algorithm.
+To the best of our knowledge, the first systematic study of the college application problem was conducted by this article's first author in his master's thesis (Kapur 2022). A special case of \eqref{headlineproblem} arose in an equilibrium analysis of the United States college admissions market by Fu (2014). However, her econometric task involved clustering the schools such that $m=8$, a problem size that can be solved by enumeration. We are interested in solution techniques that scale efficiently in the number of colleges. The present article extends Kapur's key results with a more precise analysis of the problem's computational complexity and a new solution algorithm.
 
 \subsection{Outline}
 
@@ -463,8 +467,8 @@ One interpretation of the findings presented here is that this function, though 
 \parskip 0em
 \leftskip 2em
 \parindent -2em
-%Acharya, Mohan S., Asfia Armaan, and Aneeta S. Antony. 2019. ``A Comparison of Regression Models for Prediction of Graduate Admissions.'' In \emph{Second International Conference on Computational Intelligence in Data Science.} \url{https://doi.org/10.1109/ICCIDS.2019.8862140}.
-%
+Acharya, Mohan S., Asfia Armaan, and Aneeta S. Antony. 2019. ``A Comparison of Regression Models for Prediction of Graduate Admissions.'' In \emph{Second International Conference on Computational Intelligence in Data Science.} \url{https://doi.org/10.1109/ICCIDS.2019.8862140}.
+
 %Ashlagi, Itai, and Afshin Nikzad. 2020. ``What Matters in School Choice Tie-Breaking? How Competition Guides Design.'' \emph{Journal of Economic Theory} 190: article no. 105120. \url{https://doi.org/10.1016/j.jet.2020.105120}.
 %
 %Assad, Arjang. 1985. ``Nested Optimal Policies for Set Functions with Applications to Scheduling.'' \emph{Mathematics of Operations Research} 10 (1): 82--99.
@@ -499,9 +503,8 @@ Chekuri, Chandra and Sanjeev Khanna. 2005. ``A Polynomial Time Approximation Sch
 %Dean, Brian, Michel Goemans, and Jan Vondr\'ak. 2008. ``Approximating the Stochastic Knapsack Problem: The Benefit of Adaptivity.'' \emph{Mathematics of Operations Research} 33 (4): 945--64. \url{https://doi.org/10.1287/moor.1080.0330}.
 %
 Edmonds, Jack. 1971. ``Matroids and the Greedy Algorithm.'' \emph{Mathematical Programming} 1: 127--36. \url{https://doi.org/10.1007/BF01584082}.  
-%
-%
-%%Fredman, Michael Lawrence and Robert Tarjan. 1987. ``Fibonacci Heaps and Their Uses in Improved Network Optimization Algorithms.'' \emph{Journal of the Association for Computing Machinery} 34 (3): 596--615.
+
+%Fredman, Michael Lawrence and Robert Tarjan. 1987. ``Fibonacci Heaps and Their Uses in Improved Network Optimization Algorithms.'' \emph{Journal of the Association for Computing Machinery} 34 (3): 596--615.
 %
 Fu, Chao. 2014. ``Equilibrium Tuition, Applications, Admissions, and Enrollment in the College Market.'' \emph{Journal of Political Economy} 122 (2): 225--81. \url{https://doi.org/10.1086/675503}. 
 
@@ -526,8 +529,8 @@ Kapur, Max. 2022. ``The College Application Problem.'' Master's thesis, Seoul Na
 %%1 - 1/ e for monotonic submodular with knapsack constraints, i.e. Ellis with 가나다
 Kulik, Ariel, Hadas Shachnai, and Tami Tamir. 2013. ``Approximations for Monotone and Nonmonotone Submodular Maximization with Knapsack Constraints.'' \emph{Mathematics of Operations Research} 38 (4): 729--39. \url{https://doi.org/10.1287/moor.2013.0592}.
 
-%Lim, Daniel Kibum. 2013. ``A Simulation Approach to Predicting College Admissions.'' Master's thesis, University of California Los Angeles. \url{https://escholarship.org/uc/item/8r2695n5}.
-%
+Lim, Daniel Kibum. 2013. ``A Simulation Approach to Predicting College Admissions.'' Master's thesis, University of California Los Angeles. \url{https://escholarship.org/uc/item/8r2695n5}.
+
 %Markowitz, Harry. 1952. ``Portfolio Selection.'' \emph{The Journal of Finance} 7 (1): 77--91. \url{https://www.jstor.org/stable/2975974}.
 %
 %Martello, Silvano and Paolo Toth. 1990. \emph{Knapsack Problems: Algorithms and Computer Implementations.} New York: John Wiley \& Sons. 
@@ -542,7 +545,9 @@ Nemhauser, George, Laurence Wolsey, and Marshall Fisher. 1978. ``An Analysis of 
 %%Othman, Abraham, Eric Budish, and Tuomas Sandholm. 2010. ``Finding Approximate Competitive Equilibria: Efficient and Fair Course Allocation.'' In \emph{Proceedings of 9th International Conference on Autonomous Agents and Multiagent Systems.} New York: ACM. \url{https://dl.acm.org/doi/abs/10.5555/1838206.1838323}.
 %
 %Parker, R. Gary and Ronald L. Rardin. 1988. \emph{Discrete Optimization.} San Diego: Academic Press.
-%
+
+Peck, Timothy. 2021. ``Safety, Target, \& Reach Schools: How to Find the Right Ones.'' CollegeVine Blog, May 7. \url{https://blog.collegevine.com/the-college-list-decoded-safeties-targets-and-reaches/}.
+
 %Roth, Alvin E. 1982. ``The Economics of Matching: Stability and Incentives.'' \emph{Mathematics of Operations Research} 7 (4): 617--28. \url{https://www.jstor.org/stable/3689483}.
 %
 %Rozanov, Mark and Arie Tamir. 2020. ``The Nestedness Property of the Convex Ordered Median Location Problem on a Tree.'' \emph{Discrete Optimization} 36: 100581. \url{https://doi.org/10.1016/j.disopt.2020.100581}.
