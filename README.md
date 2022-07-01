@@ -12,7 +12,9 @@ Table of contents for this repository:
 | `slides_03min/` |  Slides and script for the JuliaCon 2022 presentation. [Click here](https://maxkapur.com/CollegeApplication/) to view them in your browser. | HTML | ✓ | |
 | `slides_08min/` |  Slides and script for a presentation at the department’s research fair. | PDF, LaTeX | ✓ | ✓ |
 | `slides_15min/` |  Slides and script for a presentation at the spring 2022 conference of the Korean industrial engineering society (대한산업공학회). | PDF, LaTeX | ✓ | ✓ |
-| `slides_25min/` |  Slides and script for a presentation at the department’s research fair. | PDF, LaTeX | ✓ | ✓ |
+| `slides_25min/` |  Slides and script for my defense presentation. | PDF, LaTeX | ✓ | ✓ |
 | `thesis/`       |  My MS thesis. The contents are essentially the same as the arXiv paper, but updates appear here first. | PDF, LaTeX | ✓ | ✓ |
 
 For the associated Julia package, which implements the algorithms provided in paper, see https://github.com/maxkapur/OptimalApplication.
+
+Comments and suggestions are welcome via email ([maxkapur@gmail.com](mailto:maxkapur@gmail.com)) or GitHub pull request.
