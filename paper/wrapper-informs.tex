@@ -1,0 +1,188 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Author style for Mathematics of Operations Research (moor)
+%% Mirko Janc, Ph.D., INFORMS, pubtech@informs.org
+%% ver. 0.9, March 2005
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[moor]{informs1}              % for a regular run
+%\documentclass[moor,nonblindrev]{informs1} % for review, not blinded
+%\documentclass[moor,blindrev]{informs1}    % for review, blinded
+%\documentclass[moor,copyedit]{informs1}    % spaced for copyediting
+
+% If hyperref is used, dvi-to-ps driver of choice must be declared as
+%   an additional option to the \documentstyle. For example
+%\documentclass[dvips,moor]{informs1}      % if dvips is used 
+%\documentclass[dvipsone,moor]{informs1}   % if dvipsone is used, etc. 
+
+% Private macros here (check that there is no clash with the style)
+\usepackage[ruled,linesnumbered]{algorithm2e}   \SetKwInOut{KwParams}{Parameters}
+                                                \newcommand{\lIfElse}[3]{\lIf{#1}{#2 \textbf{else}~#3}}
+\usepackage{stackengine}    \newcommand\xrowht[2][0]{\addstackgap[.5\dimexpr#2\relax]{\vphantom{#1}}}
+
+\let\loweredproof\proof
+\renewenvironment{proof}{\begin{loweredproof}{Proof.}}
+	{\hfill$\square$\end{loweredproof}}
+	
+\let\loweredsection\section
+\renewcommand{\section}[1]{\loweredsection{#1.}}
+
+\let\loweredsubsection\subsection
+\renewcommand{\subsection}[1]{\loweredsubsection{#1.}}
+
+% Natbib setup for numeric style
+\usepackage{natbib}
+ \NatBibNumeric
+ \def\bibfont{\small}%
+ \def\bibsep{\smallskipamount}%
+ \def\bibhang{24pt}%
+ \def\BIBand{and}%
+ \def\newblock{\ }%
+ \bibpunct[, ]{[}{]}{,}{n}{}{,}%
+
+%% Hyperref setup
+\usepackage[colorlinks=true,breaklinks=true,bookmarks=true,urlcolor=blue,
+     citecolor=blue,linkcolor=blue,bookmarksopen=false,draft=false]{hyperref}
+\hyperbaseurl{}
+
+\def\EMAIL#1{\href{mailto:#1}{#1}}% When hyperref is used, otherwise outcomment 
+\def\URL#1{\href{#1}{#1}}         % When hyperref is used, otherwise outcomment 
+
+%% Setup of theorem styles. Outcomment only one. 
+%% Preferred default is the first option.
+\TheoremsNumberedThrough     % Preferred (Theorem 1, Lemma 1, Theorem 2)
+%\TheoremsNumberedByChapter  % (Theorem 1.1, Lema 1.1, Theorem 1.2)
+
+%% Setup of the equation numbering system. Outcomment only one.
+%% Preferred default is the first option.
+\EquationsNumberedThrough    % Default: (1), (2), ...
+%\EquationsNumberedBySection % (1.1), (1.2), ...
+
+% In the reviewing and copyediting stage enter the manuscript number.
+%\MANUSCRIPTNO{} % When the article is logged in and DOI assigned to it,
+                 %   this manuscript number is no longer necessary
+
+%%%%%%%%%%%%%%%%
+\begin{document}
+%%%%%%%%%%%%%%%%
+
+% Outcomment only when entries are known. Otherwise leave as is and 
+%   default values will be used.
+%\setcounter{page}{1}
+%\VOLUME{00}%
+%\NO{0}%
+%\MONTH{Xxxxx}% (month or a similar seasonal id)
+%\YEAR{0000}% e.g., 2005
+%\FIRSTPAGE{000}%
+%\LASTPAGE{000}%
+%\SHORTYEAR{00}% shortened year (two-digit)
+%\ISSUE{0000} %
+%\LONGFIRSTPAGE{0001} %
+%\DOI{10.1287/xxxx.0000.0000}%
+
+% Author's names for the running heads
+% Sample depending on the number of authors;
+% \RUNAUTHOR{Jones}
+\RUNAUTHOR{Kapur and Hong}
+% \RUNAUTHOR{Jones, Miller, and Wilson}
+% \RUNAUTHOR{Jones et al.} % for four or more authors
+% Enter authors following the given pattern:
+%\RUNAUTHOR{}
+
+% Title or shortened title suitable for running heads. Sample:
+% \RUNTITLE{Bundling Information Goods of Decreasing Value}
+% Enter the (shortened) title:
+\RUNTITLE{Complexity and FPTAS for college application}
+
+% Full title. Sample:
+% \TITLE{Bundling Information Goods of Decreasing Value}
+% Enter the full title:
+\TITLE{Complexity analysis and a fully polynomial-time approximation scheme for the college application problem}
+
+% Block of authors and their affiliations starts here:
+% NOTE: Authors with same affiliation, if the order of authors allows, 
+%   should be entered in ONE field, separated by a comma. 
+%   \EMAIL field can be repeated if more than one author
+\ARTICLEAUTHORS{%
+\AUTHOR{Max Kapur}
+\AFF{Department of Industrial Engineering, Seoul National University, \EMAIL{maxkapur@snu.ac.kr}, \URL{maxkapur.com}}
+\AUTHOR{Sung-Pil Hong}
+\AFF{Department of Industrial Engineering, Seoul National University, \EMAIL{sphong@snu.ac.kr}, \URL{polytope.snu.ac.kr}}
+% Enter all authors
+} % end of the block
+
+\ABSTRACT{%
+We introduce the college application problem, a submodular optimization problem involving the maximization of the expected maximum value of a portfolio of random variables subject to a budget constraint. We show that this problem is NP-complete and provide two optimization algorithms based on dynamic programming. A modification of the second dynamic program yields a fully polynomial-time approximation scheme. These results suggest that the college application problem is a relatively easy instance of submodular maximization.
+}%
+
+% Sample
+%\KEYWORDS{deterministic inventory theory; infinite linear programming duality; 
+%  existence of optimal policies; semi-Markov decision process; cyclic schedule}
+%\MSCCLASS{Primary: 90B05; secondary: 90C40, 90C90}
+%\ORMSCLASS{Primary: Inventory/production: deterministic multi-item;
+%  secondary: dynamic programming/optimal control: deterministic 
+%  semi-Markov; programming: infinite dimensional}
+%\HISTORY{Received November 20, 2003; revised March 8, 2004, and March 26, 2004.}
+
+% Fill in data. If unknown, outcomment the field
+\KEYWORDS{submodular maximization, knapsack problems, approximation algorithms}
+%\MSCCLASS{}
+%\ORMSCLASS{Primary: ; secondary: }
+%\HISTORY{}
+
+\maketitle
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Samples of sectioning (and labeling) in MOOR.
+% NOTE: (1) all section levels end with a period,
+%       (2) capitalization is as shown (sentence style, not title style).
+%
+%\section{Introduction.}\label{intro} %%1.
+%\subsection{Duality and the classical EOQ problem.}\label{class-EOQ} %% 1.1.
+%\subsection{Outline.}\label{outline1} %% 1.2.
+%\subsubsection{Cyclic schedules for the general deterministic SMDP.}
+%  \label{cyclic-schedules} %% 1.2.1
+%\section{Problem description.}\label{problemdescription} %% 2.
+
+% Text of your paper here
+
+\input{body.tex}
+
+
+
+
+
+
+% Appendix here
+% Options are (1) APPENDIX (with or without general title) or 
+%             (2) APPENDICES (if it has more than one unrelated sections)
+% Outcomment the appropriate case if necessary
+%
+% \begin{APPENDIX}{<Title of the Appendix>}
+% \end{APPENDIX}
+%
+%   or 
+%
+% \begin{APPENDICES}
+% \section{<Title of Section A>}
+% \section{<Title of Section B>}
+% etc
+% \end{APPENDICES}
+
+
+% Acknowledgments here
+\let\section\loweredsection
+\section*{Acknowledgments.}
+% Enter the text of acknowledgments here
+
+% References here (outcomment the appropriate case) 
+
+% CASE 1: BiBTeX used to constantly update the references 
+%   (while the paper is being written).
+\bibliographystyle{informs2014} % outcomment this and next line in Case 1
+\bibliography{refs} % if more than one, comma separated
+
+% CASE 2: BiBTeX used to generate mypaper.bbl (to be further fine tuned)
+% \input{wrapper-informs.bbl} % outcomment this line in Case 2
+
+\end{document}
+
+
