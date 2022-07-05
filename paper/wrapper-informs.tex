@@ -18,15 +18,21 @@
                                                 \newcommand{\lIfElse}[3]{\lIf{#1}{#2 \textbf{else}~#3}}
 \usepackage{stackengine}    \newcommand\xrowht[2][0]{\addstackgap[.5\dimexpr#2\relax]{\vphantom{#1}}}
 
+% Prepend Proof. and append QED square to proof contents
 \let\loweredproof\proof
 \renewenvironment{proof}{\begin{loweredproof}{Proof.}}
 	{\hfill$\square$\end{loweredproof}}
-	
+
+% Append period to section names (we undo this after the input)
 \let\loweredsection\section
 \renewcommand{\section}[1]{\loweredsection{#1.}}
 
 \let\loweredsubsection\subsection
 \renewcommand{\subsection}[1]{\loweredsubsection{#1.}}
+
+% Fix issue where it flattens out all algorithm indentation
+\usepackage{etoolbox}
+\AtBeginEnvironment{algorithm}{\SetNlSkip{1em}\SetInd{.5em}{1em}}
 
 % Natbib setup for numeric style
 \usepackage{natbib}
@@ -178,7 +184,7 @@ We introduce the college application problem, a submodular optimization problem 
 % CASE 1: BiBTeX used to constantly update the references 
 %   (while the paper is being written).
 \bibliographystyle{informs2014} % outcomment this and next line in Case 1
-\bibliography{refs} % if more than one, comma separated
+\bibliography{refs.bib} % if more than one, comma separated
 
 % CASE 2: BiBTeX used to generate mypaper.bbl (to be further fine tuned)
 % \input{wrapper-informs.bbl} % outcomment this line in Case 2
