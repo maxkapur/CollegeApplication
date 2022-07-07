@@ -16,27 +16,28 @@ We refer to this problem as the \emph{optimal college application} problem, as f
 The problem is also conformable to other competitive matching games such as job application. Here, the budget constraint may represent the time needed to complete each application, or a legal limit on the number of applications permitted.
 
 \subsection{Literature review}
-The college application problem is, in a sense, a static variant of the Pandora's Box problem proposed by Weitzman \cite{weitzman1979}. In a Pandora's Box formulation of college application, the student applies to schools one by one, each time paying the application fee and observing her admissions outcome after a certain time delay. The problem is to determine an optimal \emph{stopping rule} for when Pandora should halt her college search and accept the best admissions offer she has on hand. Weitzman showed that the optimal policy is to stop searching when the value of the current best offer exceeds the maximum \emph{reservation price,} a statistic that represents the expected value of applying to a new college.
 
-Arguably, the static model considered in this study is more hostile to students than the Pandora's Box problem. If, for example, an unlucky Pandora is rejected from a safety school at an early round of application, then she can compensate for the unexpected loss by pivoting to a more risk-averse application strategy. By contrast, the decisionmaker in our college application problem must commit at the outset to applying to every school in her application portfolio. The admissions process used in the United States can be viewed as the concatenation of both problems: In the fall, students solve \eqref{headlineproblem} and send out a batch of applications. Then, upon observing their admissions outcomes in March, they use the Pandora strategy to pursue additional offers by applying to schools that offer rolling admissions.
-
-The objective function of the college application problem is a nondecreasing, submodular set function in the sense first described in \cite{nemhauseretal1978}. \cite{nemhauserandwolsey1978} showed that a polynomial-time algorithm for maximizing such a function over a knapsack constraint cannot achieve an approximation ratio better than $1 - 1 / e \approx 0.632$. Subsequent research in submodular maximization has discovered efficient algorithms that achieve this approximation ratio using a variety of relaxation techniques \cite{chekurietal2014,badanidiyuruandvondrak2014,kuliketal2013}.
+The objective function of the college application problem is a nondecreasing, submodular set function in the sense first described Nemhauser et al. \cite{nemhauseretal1978}. Nemhauser and Wolsey \cite{nemhauserandwolsey1978} showed that a polynomial-time algorithm for maximizing such a function over a knapsack constraint cannot achieve an approximation ratio better than $1 - 1 / e \approx 0.632$. Subsequent research in submodular maximization has discovered efficient algorithms that achieve this approximation ratio using a variety of relaxation techniques \cite{chekurietal2014,badanidiyuruandvondrak2014,kuliketal2013}.
 
 As we will show, the college application problem is NP-complete, meaning that it cannot be solved in polynomial time unless P=NP. However, the existence of a fully polynomial-time approximation scheme (FPTAS) for the college application problem suggests that it is a relatively easy instance of submodular maximization. For a maximization problem, an FPTAS is defined as an algorithm that produces a solution whose objective value is at least $(1 - \varepsilon)$ times that of the optimum, in time polynomial in $m$ and $1 / \varepsilon$. Familiar examples of problems that admit an FPTAS include the knapsack problem, the constrained spanning tree problem, a constrained parallel scheduling problem on two machines, and the replenishment storage problem \cite{vazirani2001,hongetal2004,woeginger2005,hochbaumandrao2020}. The existence of an FPTAS for an optimization problem is a desirable property because an FPTAS induces a continuum of polynomial-time algorithms with constant approximation guarantees.
+
+The college application problem can be interpreted as a static variant of the Pandora's Box problem proposed by Weitzman \cite{weitzman1979}. In a Pandora's Box formulation of college application, the student applies to schools one by one, each time paying the application fee and observing her admissions outcome after a certain time delay. The problem is to determine an optimal \emph{stopping rule} for when Pandora should halt her college search and accept the best admissions offer she has on hand. Weitzman showed that the optimal policy is to stop searching when the value of the current best offer exceeds the maximum \emph{reservation price,} a statistic that represents the expected value of applying to a new college.
+
+Arguably, the static model considered in this study is more hostile to students than the Pandora's Box problem. If, for example, an unlucky Pandora is rejected from a safety school at an early round of application, then she can compensate for the unexpected loss by pivoting to a more risk-averse application strategy. By contrast, the decisionmaker in our college application problem must commit at the outset to applying to every school in her application portfolio. The admissions process used in the United States can be viewed as the concatenation of both problems: In the fall, students solve \eqref{headlineproblem} and send out a batch of applications. Then, upon observing their admissions outcomes in March, they use the Pandora strategy to pursue additional offers by applying to schools that offer rolling admissions.
 
 To the best of our knowledge, the first systematic study of the college application problem was conducted by Kapur in his master's thesis \cite{kapur2022}. A special case of \eqref{headlineproblem} arose in an equilibrium analysis of the United States college admissions market by Fu \cite{fu2014}. However, her econometric task involved clustering the schools such that $m=8$, a problem size that can be solved by enumeration. We are interested in solution techniques that scale efficiently in the number of colleges. The present article extends the results of \cite{kapur2022} with a more precise analysis of the problem's computational complexity and a new solution algorithm.
 
 \subsection{Outline}
 
-This paper has five sections. In section \ref{sectionPrelims}, we establish some notation and introduce assumptions that can be imposed with little loss of generality. In section \ref{sectionNPC}, we prove that the college application problem is NP-complete. Section \ref{sectionAlgos} presents three optimization algorithms, including the FPTAS. A brief conclusion follows.
+This paper has five sections. In section \ref{sectionPrelims}, we establish some notation and introduce assumptions that can be imposed with little loss of generality. In section \ref{sectionNPC}, we prove that the college application problem is NP-complete. Section \ref{sectionAlgos} presents three optimization algorithms, including the FPTAS. A brief conclusion follows in section \ref{sectionConclusion}.
 
 \section{Preliminaries} \label{sectionPrelims}
 
-For the remainder of the paper, we assume with minimal loss of generality that $f_j \in \mathbb{Q}$, $t_j \in \mathbb{N}$, $g_j \in \mathbb{N}$, and $H \in \mathbb{N}$; that the $f_j$-values have the same denominator $D$; and that $t_0 < t_1 \leq \dots \leq t_m$, $g_j \leq H$, and $\sum g_j > H$. Unless otherwise noted, we assume that $t_0 = 0$, a restriction that we justify below.
+For the remainder of the paper, we assume with minimal loss of generality that $f_j \in \mathbb{Q}$, $t_j \in \mathbb{N}$, $g_j \in \mathbb{N}$, and $H \in \mathbb{N}$; that the $f_j$-values have the same denominator $D$; and that $t_0 < t_1 \leq \dots \leq t_m$, $g_j \leq H$, and $\sum g_j > H$. Unless otherwise noted, we assume that $t_0 = 0$, a restriction that we justify presently.
 
 \subsection{The objective function} \label{sectionObjective}
 
-This subsection derives a closed-form expression for the objective function of \eqref{headlineproblem}.
+First we derive a closed-form expression for the objective function of \eqref{headlineproblem}.
 
 We refer to the set $\mathcal{X} \subseteq \mathcal{C}$ of schools to which a student applies as her \emph{application portfolio.} The expected utility the student receives from $\mathcal{X}$ is called its \emph{valuation}. Given an application portfolio, let $p_j(\mathcal{X})$ denote the probability that the student attends school $j$. This occurs if and only if she \emph{applies} to school $j$, is \emph{admitted} to school $j$, and is \emph{rejected} from any school she prefers to $j$; that is, any school with higher index. Hence, for $j= 0\dots m$,
 \begin{align}
@@ -92,7 +93,7 @@ is a nondecreasing submodular set function.
 
 
 \begin{proof}
-See \cite{kapur2022}, \S\,2.3). 
+See \cite{kapur2022}, \S\,2.3. 
 \end{proof}
 
 
@@ -170,7 +171,7 @@ This means that the utility of an application portfolio $\mathcal{X}$ in the cor
 
 \section{Optimization algorithms} \label{sectionAlgos}
 
-In this section, we present three optimization algorithms for the college application problem. The first two are exact dynamic programming (DP) algorithms. The third algorithm is a fully polynomial-time approximation scheme (FPTAS) based on the second DP.
+In this section, we present three optimization algorithms for the college application problem. The first two are exact dynamic programming (DP) algorithms. The third algorithm is an FPTAS based on the second DP.
 
 
  % We will use this algorithm as the basis for an FPTAS for the college application problem that uses $O(m^3 / \varepsilon)$ time and space.
@@ -211,7 +212,7 @@ Algorithm \ref{ellisDP1} produces an optimal application portfolio for the colle
 Optimality follows from the foregoing discussion. Sorting $t$ is $O(m \log m)$. The bottleneck step is the creation of the lookup table for $V(j, h)$ in line \ref{Vcreatedlookuptable}. Each entry is generated in unit time, and the size of the table is $O(Hm)$.
 \end{proof}
 
-Because we cannot assume that $H \leq m$, Algorithm \ref{ellisDP1} represents a pseudopolynomial-time solution (Garey and Johnson 1979, \S\,4.2). However, it is quite effective for typical instances in which the application costs are small integers. It is also a polynomial-time algorithm for the special case of the college application problem in which each $g_j = 1$, meaning that $H$ is a limit on the \emph{cardinality} $\mathcal{X}$, and $H < \sum g_j = m$ in any nontrivial instance. 
+Because we cannot assume that $H \leq m$, Algorithm \ref{ellisDP1} represents a pseudopolynomial-time solution (Garey and Johnson 1979, \S\,4.2). However, it is quite effective for typical instances in which the application costs are small integers. It is also a polynomial-time algorithm for the special case of the college application problem in which each $g_j = 1$, meaning that $H$ is a limit on the \emph{cardinality} $\mathcal{X}$, and therefore any nontrivial instance must have $H < \sum g_j = m$. 
 
 \subsection{Dynamic program based on portfolio valuations} \label{dpbasedonportfoliovaluations}
 
@@ -247,7 +248,7 @@ To compute the optimal portfolio, we first note that its valuation cannot exceed
 \begin{equation}
 \mathcal{V} = \Bigl\{0, 1/D^m, 2/D^m, \cdots, v(\mathcal{C}) - 1/ D^m, v(\mathcal{C})\Bigr\}.
 \end{equation}
-Therefore, if we recursively compute the values of $G(j, v)$ for each $j\in \mathcal{C}$ and $v \in \mathcal{V}$, the optimal portfolio valuation is simply the largest achievable objective value $\max\{ w: G(m, w) \leq H\}$. The corresponding portfolio can be computed  portfolio associated with $G(j, v)$ can be computed by applying the observation that $\mathcal{W}(j, v)$ contains $j$ if and only if $G(j, v) < G(j-1, v)$.
+Therefore, if we recursively compute the values of $G(j, v)$ for each $j\in \mathcal{C}$ and $v \in \mathcal{V}$, the optimal portfolio valuation is simply the largest achievable objective value $\max\{ w: G(m, w) \leq H\}$. The corresponding portfolio is computed by applying the observation that $\mathcal{W}(j, v)$ contains $j$ if and only if $G(j, v) < G(j-1, v)$.
 
 \begin{algorithm}[h] 
 %\DontPrintSemicolon
@@ -267,7 +268,7 @@ $\mathcal{X} \gets \O$\;
 \end{algorithm}
 
 \begin{theorem}[Validity of Algorithm \ref{ellisDP2}]
-Algorithm \ref{ellisDP2} produces an optimal solution to the college application problem in $O\bigl( D^m v(\mathcal{C}) m^2 \bigr)$ time.
+Algorithm \ref{ellisDP2} produces an optimal solution to the college application problem in $O\bigl( D^m v(\mathcal{C}) m \bigr)$ time.
 \end{theorem}
 
 \begin{proof}
@@ -275,7 +276,7 @@ Optimality is as discussed above. The computation time is proportional to the si
 \end{proof}
 
 \subsection{Fully polynomial-time approximation scheme}
-The computation time of Algorithm \ref{ellisDP2} formidable, but a small modification yields an FPTAS for the college application problem that computes a $(1 - \varepsilon)$-optimal solution in $O(m^3 / \varepsilon)$ time.
+On its surface, the computation time of Algorithm \ref{ellisDP2} is formidable, but a small modification yields an FPTAS for the college application problem that computes a $(1 - \varepsilon)$-optimal solution in $O(m^3 / \varepsilon)$ time.
 
 To construct the FPTAS, we approximate each portfolio's valuation using a fixed-point binary number with a precision of $P$, where $P$ is the number of digits to retain after the radix point. Let $r[x] =  2^{-P}\lfloor 2^P x \rfloor$ denote the value of $x$ rounded down to its nearest fixed-point representation. To allow for approximation error, we will use the looser upper bound $\bar U = \sum_{j\in \mathcal{C}} f_j t_j > v(\mathcal{C})$ on the optimal portfolio valuation. Since we will ensure that each fixed-point approximation is an \emph{underestimate} of the portfolio's true valuation, the set $\mathcal{V}'$ of valuations observable in the fixed-point framework remains finite:
 \begin{equation}
@@ -284,7 +285,7 @@ To construct the FPTAS, we approximate each portfolio's valuation using a fixed-
 
 %\noindent For the remainder of this subsection, unless otherwise specified, the word \emph{valuation} refers to a portfolio’s valuation within the fixed-point framework, with the understanding that this is an approximation. We will use square brackets to emphasize potential sources of approximation error, and account for this error below when we prove the FPTAS's validity.
 
-The details of the FPTAS are similar to those of Algorithm \ref{ellisDP2}. For integers $0 \leq j \leq m$ and $v \in \mathcal{V}'$, $\mathcal{W}[j, v]$ denotes the least expensive portfolio that uses only schools $\{ 1, \dots, j\}$ and has valuation of \emph{at least} $v$, if such a portfolio exists. Its cost is given by $G[j, v] = \sum_{j\in \mathcal{W}[j, v]} g_j$. The boundary conditions and recursion relation are identical to those given above (subsection \ref{dpbasedonportfoliovaluations}), except that $\Delta_j(v)$ is replaced with
+The details of the FPTAS are similar to those of Algorithm \ref{ellisDP2}. For integers $0 \leq j \leq m$ and $v \in \mathcal{V}'$, $\mathcal{W}[j, v]$ denotes the least expensive portfolio that uses only schools $\{ 1, \dots, j\}$ and has valuation of \emph{at least} $v$, if such a portfolio exists. Its cost is given by $G[j, v] = \sum_{j\in \mathcal{W}[j, v]} g_j$. The boundary conditions and recursion relation are identical to those given in subsection \ref{dpbasedonportfoliovaluations}, except that $\Delta_j(v)$ is replaced with
 \begin{align}
 \Delta_j[v]
 \begin{cases}
@@ -292,15 +293,14 @@ r\left[\frac{f_j}{1 - f_j} (t_j - v)\right], \quad & f_j < 1\\
 \infty, &f_j = 1.
 \end{cases} \label{clampeddeltajvdef}
 \end{align}
-Here we have rounded the solution of \eqref{solvemeforvwjvminusj} down to ensure that the true valuation of $\mathcal{W}[j, v]$ is \emph{at least} $v - \Delta$, and therefore that $G[j, v]$ meets its definition.
+Here we have rounded the solution of \eqref{solvemeforvwjvminusj} down to ensure that the true valuation of $\mathcal{W}[j, v]$ is at least $v - \Delta$, and therefore that $G[j, v]$ meets its definition.
 
-Intuitively, $\max\{ w \in \mathcal{V}': G[m, w] \leq H\}$ gives the optimal portfolio valuation up to a certain amount of approximation error dependent on $P$. In Algorithm \ref{ellisDP3} and Theorem \ref{validityoffptas}, we formalize this intuition by showing that $P \geq \log_{2}\left(m^2 / \varepsilon \bar U\right)$ ensures an optimality ratio of $1 - \varepsilon$ or better.
+Intuitively, $\max\{ w \in \mathcal{V}': G[m, w] \leq H\}$ gives the optimal portfolio valuation up to a certain amount of approximation error dependent on $P$. In Algorithm \ref{ellisDP3} and Theorem \ref{validityoffptas}, we formalize this intuition by showing that choosing $P \geq \log_{2}\left(m^2 / \varepsilon \bar U\right)$ ensures an optimality ratio of $1 - \varepsilon$ or better.
 
 \begin{algorithm}[h] 
 %\DontPrintSemicolon
 \caption{FPTAS for \eqref{headlineproblem}.} \label{ellisDP3}
-\KwIn{$f \in \mathbb{Q}^m$, $t \in \mathbb{N}^m$, $g \in \mathbb{N}^m$, $H \in\mathbb{N}$.}
-\KwParams{Tolerance $\varepsilon \in (0, 1)$.}
+\KwIn{$f \in \mathbb{Q}^m$, $t \in \mathbb{N}^m$, $g \in \mathbb{N}^m$, $H \in\mathbb{N}$; tolerance $\varepsilon \in (0, 1)$.}
 Sort schools by $t_j$ ascending\;
 Set precision $P \gets \bigl\lceil\log_{2}\left(m^2 / \varepsilon \bar U\right)\bigr\rceil$\;
 Fill a lookup table with the entries of $G[j, h]$\; \label{createdlookuptable}
@@ -316,7 +316,7 @@ $\mathcal{X} \gets \O$\;
 \end{algorithm}
 
 \begin{theorem}[Validity of Algorithm \ref{ellisDP3}] \label{validityoffptas}
-Algorithm \ref{ellisDP3} produces a $(1 - \varepsilon)$-optimal application portfolio for the college application problem in $O(m^3 /\varepsilon)$ time. % and $O(m^3/\varepsilon)$ space.
+Algorithm \ref{ellisDP3} produces a $(1 - \varepsilon)$-optimal portfolio for the college application problem in $O(m^3 /\varepsilon)$ time.
 \end{theorem}
 
 \begin{proof}
@@ -340,7 +340,7 @@ v(\mathcal{W}) &\geq v'(\mathcal{W}) \geq v'(\mathcal{X})
 \end{equation}
 which establishes the approximation bound. 
 
-(Computation time.) The bottleneck step is the creation of the lookup table in line \ref{createdlookuptable}, whose size is $m \times |\mathcal{V}'|$. Since
+(Computation time.) The bottleneck step is the creation of the lookup table in line \ref{createdlookuptable}, whose size is $m \times |\mathcal{V}'|$. Because
 \begin{equation}
 |\mathcal{V}| = \bar U \times 2^{P} + 1 = \bar U \times 2^ { \bigl\lceil\log_{2}\left(m ^2/ \varepsilon \bar U\right)\bigr\rceil} + 1
 \leq\frac{m^2}{\varepsilon} \times \text{const.}
@@ -350,7 +350,7 @@ is $O(m^2/ \varepsilon)$, the time complexity is as promised.
 
 Since its time complexity is polynomial in $m$ and $1 / \varepsilon$, Algorithm \ref{ellisDP3} is an FPTAS for the college application problem.
 
-Algorithms \ref{ellisDP1}, \ref{ellisDP2}, and \ref{ellisDP3} can be written using recursive functions instead of lookup tables. However, since each function references itself \emph{twice,} the function values at each index must be recorded in the computer's memory to take advantage of overlapping indices and guarantee the runtimes promised above. \cite{kapur2022} discusses these and other implementation issues, and demonstrates the efficiency of Algorithms \ref{ellisDP1} and \ref{ellisDP3} through a computational study.
+Algorithms \ref{ellisDP1}, \ref{ellisDP2}, and \ref{ellisDP3} can be written using recursive functions instead of lookup tables. However, since the recursion relation references itself \emph{twice,} the function values at each index must be recorded in the computer's memory to take advantage of overlapping indices and guarantee the runtimes promised above. \cite{kapur2022} discusses these and other implementation issues, and demonstrates the efficiency of Algorithms \ref{ellisDP1} and \ref{ellisDP3} through a computational study.
 
 
 
@@ -367,4 +367,4 @@ This article has introduced a novel discrete optimization problem called the col
 When the application portfolio $\mathcal{X}$ is encoded as a binary vector $x$, the portfolio valuation function is given by the polynomial
 \begin{equation} 
 v(x) = \sum_{j=1}^m \Bigl( x_j t_j f_j \prod_{i = j+1}^m (1 - f_{i} x_{i}) \Bigr). \label{closedformportfoliovaluationx}\end{equation}
-One interpretation of the findings presented here is that this function, though nonlinear, has similar regularity properties to a linear function. Further evidence for this view is found in \cite{kapur2022}'s analysis of the college application problem with a cardinality constraint, which can be solved by a simple greedy algorithm. We conjecture that other results associated with maximizing linear functions may hold with respect to the objective discussed here, such the existence of a PTAS when maximizing $v(\mathcal{X})$ over the intersection of knapsack constraints, and the optimality of the greedy algorithm when maximizing $v(\mathcal{X})$ over a polymatroidal system \cite{chekuriandkhanna2005,edmonds1971}.
+One interpretation of the findings presented here is that this function, though nonlinear, has similar regularity properties to a linear function. Further evidence for this view is found in \cite{kapur2022}'s analysis of the college application problem with a cardinality constraint, which can be solved by a simple greedy algorithm. We conjecture that other results associated with maximizing linear functions may hold with respect to the objective discussed here, such the existence of a PTAS when maximizing $v(\mathcal{X})$ over the intersection of knapsack constraints \cite{chekuriandkhanna2005}, or the optimality of the greedy algorithm when maximizing $v(\mathcal{X})$ over a polymatroidal system \cite{edmonds1971}.
