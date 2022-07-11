@@ -354,6 +354,37 @@ By running the algorithm with $h = m$, one can obtain the optimal portfolio for 
 
 \section{Discussion} \label{sectionDiscussion}
 
+\subsection{The distributional heuristic}
+
+In real-world admissions markets, attractive schools tend to attract many applicants; therefore, $f_t$ and $t_j$ typically correlate inversely. In the admissions consulting industry, schools with high utility and low admissions probability are called reach schools, while schools with low utility and high admissions probability are called safety schools, and those in the middle are called target schools. According to a common heuristic used by admissions consultants, it is best to apply to a roughly equal mix of target, safety, and reach schools (Jeon 2015, Peck 2021). We call this strategy the \emph{distributional} heuristic.
+
+One weakness of the distributional heuristic is that it does not specify the boundary between target, safety, and reach schools. Moreover, however this boundary is specified, our numerical experiments reveal that as the application budget $h$ increases, the proportion of the optimal portfolio allocated to reach schools increases relative to the proportion allocated to safety schools. That is, there is \emph{no} static risk profile that students can target in order to achieve the optimal portfolio. This observation can be justified analytically. %...
+
+When the application budget is small relative to the size of the admissions market, our algorithms recommend a similar approach (see the example of Subsection \ref{planetsexamplesection}). However, inspecting equation \eqref{howtotransformtj}, which discounts school utility parameters to reflect their marginal value relative to the schools already in the portfolio, reveals that low-utility schools are penalized more harshly than high utility schools in the marginal analysis. Consequentially, as the application budget grows, the optimal portfolio in our model tends to favor reach schools over safety schools. (See Figure \ref{samplemarket} for a clear illustration of this phenomenon.)
+
+To see why large values of $h$ favor a risky portfolio allocation, consider equation \eqref{howtotransformtj}, which discounts school utility parameters to reflect their marginal value relative to the schools already in the portfolio. Suppose that at the previous iteration of the greedy algorithm, school $k$ was chosen, and the present iteration requires a choice between school $i$ with $t_i < t_k$ and school $j$ with $t_j > t_k$. Furthermore, suppose that $f_i t_i = f_j t_j = 1$, meaning that (relatively speaking) school $k$ is a reach school and school $j$ is a safety school. A myopic decisionmaker may view schools $i$ and $j$ as equivalent, but upon applying \eqref{howtotransformtj}, we obtain
+\begin{align}
+f_i \bar t_i & = f_i t_i - f_k f_i t_i  = 1 - f_k\\
+f_j \bar t_j &= f_j t_j - f_j f_k t_k = 1 - f_j f_k t_k \geq 1 - f_j
+\end{align}
+where the inequality follows from the fact that school $k$ was chosen over school $k$. That is, the safety school's discount is independent of its admissions probability, whereas the reach school's discount is proportional to its (small) admissions probability. A priori, the reach school is more likely to be chosen in this scenario. 
+
+ 
+%  reveals that low-utility schools are penalized more harshly than high utility schools in the marginal analysis. 
+%
+%Using our model, we can argue that the distributional heuristic is unnecessarily risk averse, 
+%
+%A common heuristic used in the admissions consulting industry advises students to apply in roughly equal proportion to reach, target, and safety schools. Reach schools are schools 
+
+
+
+
+
+
+
+
+
+
 \section{Conclusion} \label{sectionConclusion}
 
 
