@@ -287,3 +287,7 @@ slides*/slides.pdf
 
 # Compiled html from pandoc
 script.html
+README.html
+paper/paper_old.*
+paper/wrapper-informs.pdf
+paper/paper-en-informs.pdf
