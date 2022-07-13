@@ -520,7 +520,7 @@ The basic error of the na\"ive algorithm is that it maximizes $\operatorname{E}\
 나이브 알고리즘의 기본 실수는 $\operatorname{E}\left[\max \{t_j Z_j\} \right]$ 대신  $\operatorname{E}\left[\,\sum t_j Z_j\,\right]$을 최대화하는 것이다. 결국에는 단 한 학교로만 진학할 수 있으므로 알마의 목적은 후자가 아닌 전자다. 다음 정리는 나이브 해법이 알마의 문제를 위한 $(1/h)$-근사 해법임을 의미한다.
 \fi
 
-\begin{theorem}[\ifen Accuracy of the na\"ive algorithm\else 나이브 해법의 정확성\fi] \label{oneoverhopt}
+\begin{theorem}[\ifen Accuracy of the na\"ive algorithm\else 나이브 해법의 정확성\fi] \label{oneoverhoptthm}
 \ifen 
 When the application limit is $h$, let $\mathcal{X}_h$ denote the optimal portfolio, and $\mathcal{T}_h$ the set of the $h$ schools having the largest values of $f_j t_j$. Then $v(\mathcal{T}_h) / v(\mathcal{X}_h) \geq 1/h$. 
 \else
@@ -538,7 +538,7 @@ $\mathcal{T}_h$는 $\operatorname{E}\bigl[ \sum_{j \in \mathcal{T}_h}\{ t_j Z_j 
 v(\mathcal{X}_h) &= \operatorname{E}\Bigl[ \max_{j \in \mathcal{X}_h}\{ t_j Z_j \}\Bigr] \leq \operatorname{E}\Bigl[ \sum_{j \in \mathcal{X}_h}\{ t_j Z_j \}\Bigr] \leq \operatorname{E}\Bigl[ \sum_{j \in \mathcal{T}_h}\{ t_j Z_j \}\Bigr] \\
 &= h  \operatorname{E}\Bigl[ \tfrac{1}{h} \sum_{j \in \mathcal{T}_h}\{ t_j Z_j \}\Bigr]
 \leq h  \operatorname{E}\Bigl[ \max_{j \in \mathcal{T}_h}\{ t_j Z_j \}\Bigr]
-= h v(\mathcal{T}_h).
+= h v(\mathcal{T}_h)\ifen\else.\fi
 \end{split}
 \end{align}
 \ifen 
@@ -581,9 +581,9 @@ Since all $f_j t_j = 1$, the na\"ive algorithm can choose $\mathcal{T}_h = \{1, 
 v(\mathcal{X}_h) = \sum_{j= h +1}^m \Bigl( f_j t_j \prod_{j' = j+1}^m (1 - f_{j'}) \Bigr) =  \sum_{j= 1}^h  (1 - \varepsilon)^{j} \approx h\ifen.\fi
 \end{equation}
 \ifen
-Thus, as $\varepsilon$ approaches zero, we have $v(\mathcal{T}_h) / v(\mathcal{X}_h) \to 1/h$. (The optimality of $\mathcal{X}_h$ follows from the fact that it achieves the upper bound of Theorem \ref{oneoverhopt}.)
+Thus, as $\varepsilon$ approaches zero, we have $v(\mathcal{T}_h) / v(\mathcal{X}_h) \to 1/h$. (The optimality of $\mathcal{X}_h$ follows from the fact that it achieves the upper bound of Theorem \ref{oneoverhoptthm}.)
 \else
-따라서 $\varepsilon$이 0에 가까워지면서 $v(\mathcal{T}_h) / v(\mathcal{X}_h) \to 1/h$이 된다.  ($\mathcal{X}_h$의 최적성은 정리 \ref{oneoverhopt}이(가) 제시하는 상한을 실천하기 때문에 성립한다.)
+따라서 $\varepsilon$이 0에 가까워지면서 $v(\mathcal{T}_h) / v(\mathcal{X}_h) \to 1/h$이 된다.  ($\mathcal{X}_h$의 최적성은 정리 \ref{oneoverhoptthm}이(가) 제시하는 상한을 실천하기 때문에 성립한다.)
 \fi
 \end{example}
 
@@ -683,7 +683,7 @@ v(\mathcal{X}_{h+1})&= v(\mathcal{Y}_{h} \cup \{k\}) \\
 
 \ifen Now suppose that $k \in \mathcal{X}_h$. We can write $\mathcal{X}_h = \mathcal{Y}_{h-1} \cup \{k\}$, where $ \mathcal{Y}_{h-1}$ is some portfolio of size $h-1$. It suffices to show that $ \mathcal{Y}_{h-1} \subset \mathcal{Y}_h$. By definition, $\mathcal{Y}_{h-1}$ (respectively, $\mathcal{Y}_{h}$) maximizes the function $v(\mathcal{Y}\cup\{k\})$ over portfolios of size $h-1$ (respectively, $h$) that do not include $k$. That is, $\mathcal{Y}_{h-1}$ and $\mathcal{Y}_h$ are the optimal complements to the singleton portfolio $\{k\}$.
 
-Applying Lemma \ref{eliminationtheorem}, we eliminate $c_k$, transform the remaining $t_j$-values to $\bar t_j$ according to \eqref{howtotransformtj}, and obtain a function $w(\mathcal{Y}) = v(\mathcal{Y} \cup \{k\}) - f_k t_k$ that grades portfolios $\mathcal{Y} \subseteq \mathcal{C} \setminus \{k\}$ according to how well they complement $\{k\}$. Since $w(\mathcal{Y})$ is itself a portfolio valuation funtion and $\bar t_0 = 0$, the inductive hypothesis implies that $\mathcal{Y}_{h-1} \subset \mathcal{Y}_h$, which completes the proof.
+Applying Lemma \ref{eliminationtheorem}, we eliminate $c_k$, transform the remaining $t_j$-values to $\bar t_j$ according to \eqref{howtotransformtj}, and obtain a function $w(\mathcal{Y}) = v(\mathcal{Y} \cup \{k\}) - f_k t_k$ that grades portfolios $\mathcal{Y} \subseteq \mathcal{C} \setminus \{k\}$ according to how well they complement $\{k\}$. Since $w(\mathcal{Y})$ is itself a portfolio valuation function and $\bar t_0 = 0$, the inductive hypothesis implies that $\mathcal{Y}_{h-1} \subset \mathcal{Y}_h$, which completes the proof.
 \else 이제 $k \in \mathcal{X}_h$인 경우를 고려하자. 그러면 크기 $h-1$인 어떤 포트폴리오 $\mathcal{Y}_{h-1}$에 대해 $\mathcal{X}_h = \mathcal{Y}_{h-1} \cup \{k\}$으로 표현할 수 있다. $\mathcal{Y}_{h-1} \subset \mathcal{Y}_h$임을 보이면 충분하다. 정의에 따라 $\mathcal{Y}_{h-1}$ ($\mathcal{Y}_{h}$)는 크기가 $h-1$ ($h$)인 포트폴리오 중에 함수 $v(\mathcal{Y}\cup\{k\})$를 최대화한다. 다시 말해 $\mathcal{Y}_{h-1}$과 $\mathcal{Y}_h$는 각각 단일 원소 포트폴리오 $\{k\}$와 최적으로 보완적인 학교 집합이다. 
 
 기본 정리 \ref{eliminationtheorem}을(를) 적용하여 $c_k$를 소거하고 남은 $t_j$-값을 \eqref{howtotransformtj}에 따라 $\bar t_j$로 변환한다. 그러면 $\mathcal{Y} \subseteq \mathcal{C} \setminus \{k\}$인 포트폴리오와 $\{k\}$ 사이의 보완성을 평가하는 함수 $w(\mathcal{Y})$를 얻는다. $w(\mathcal{Y})$ 그 자체가 포트폴리오 가치 함수이며 $\bar t_0 = 0$이므로, 귀납법 가설에 따라 $\mathcal{Y}_{h-1} \subset \mathcal{Y}_h$이고 증명이 완성된다.\fi
