@@ -58,7 +58,7 @@
 
 \begin{abstract}
 %\input{abstract.tex}
-This paper considers a novel portfolio optimization problem called the college application problem. We show that the objective function is a nondecreasing submodular set function and provide quadratic-time solution algorithm. We discuss the properties of the optimal solution and their implications for student welfare.
+This paper considers a novel portfolio optimization problem called the college application problem. We show that the objective function is a nondecreasing submodular set function and provide a quadratic-time solution algorithm. We discuss the properties of the optimal solution and their implications for student welfare.
 
 \textbf{Keywords:} combinatorial optimization, submodular maximization, portfolio optimization
 
@@ -300,7 +300,7 @@ is a contradiction.
 
 Now suppose that $k \in \mathcal{X}_h$. We can write $\mathcal{X}_h = \mathcal{Y}_{h-1} \cup \{k\}$, where $ \mathcal{Y}_{h-1}$ is some portfolio of size $h-1$. It suffices to show that $ \mathcal{Y}_{h-1} \subset \mathcal{Y}_h$. By definition, $\mathcal{Y}_{h-1}$ (respectively, $\mathcal{Y}_{h}$) maximizes the function $v(\mathcal{Y}\cup\{k\})$ over portfolios of size $h-1$ (respectively, $h$) that do not include $k$. That is, $\mathcal{Y}_{h-1}$ and $\mathcal{Y}_h$ are the optimal complements to the singleton portfolio $\{k\}$.
 
-Applying Lemma \ref{eliminationtheorem}, we eliminate school $k$, transform the remaining $t_j$-values to $\bar t_j$ according to \eqref{howtotransformtj}, and obtain a function $w(\mathcal{Y}) = v(\mathcal{Y} \cup \{k\}) - f_k t_k$ that grades portfolios $\mathcal{Y} \subseteq \mathcal{C} \setminus \{k\}$ according to how well they complement $\{k\}$. Since $w(\mathcal{Y})$ is itself a portfolio valuation funtion and $\bar t_0 = 0$, the inductive hypothesis implies that $\mathcal{Y}_{h-1} \subset \mathcal{Y}_h$, which completes the proof.
+Applying Lemma \ref{eliminationtheorem}, we eliminate school $k$, transform the remaining $t_j$-values to $\bar t_j$ according to \eqref{howtotransformtj}, and obtain a function $w(\mathcal{Y}) = v(\mathcal{Y} \cup \{k\}) - f_k t_k$ that grades portfolios $\mathcal{Y} \subseteq \mathcal{C} \setminus \{k\}$ according to how well they complement $\{k\}$. Since $w(\mathcal{Y})$ is itself a portfolio valuation function and $\bar t_0 = 0$, the inductive hypothesis implies that $\mathcal{Y}_{h-1} \subset \mathcal{Y}_h$, which completes the proof.
 \end{proof}
 
 
@@ -342,9 +342,9 @@ Algorithm \ref{algorithmforlargeh} produces an optimal application portfolio for
 Optimality follows from the proof of Theorem \ref{nestedapplication}. At each of the $h$ iterations of the main loop, finding the top school costs $O(m)$, and the $t_j$-values of the remaining $O(m)$ schools are each updated in unit time. Therefore, the overall time complexity is $O(h m)$.
 \end{proof}
 
-By running the algorithm with $h = m$, one can obtain the optimal portfolio for \emph{all} $h$ by taking $\mathcal{X}_h = \{ \mathtt{X}[1], \dots, \mathtt{X}[h]$. Thus, Fu (2014)'s variant of the college application problem 
+By running the algorithm with $h = m$, one can obtain the optimal portfolios for \emph{all} $h$ by taking $\mathcal{X}_h = \{ \mathtt{X}[1], \dots, \mathtt{X}[h]\}$. Thus, Fu (2014)'s variant of the college application problem 
 \[ \text{maximize} \quad v(\mathcal{X}) - c(|\mathcal{X}|)\]
-(where $c(|\mathcal{X}|$ is an arbitrary increasing cost function) can be solved in $O(m^2)$-time by a trivial modification of Algorithm \ref{algorithmforlargeh}: Simply compute
+(where $c(\cdot)$ is an increasing cost function) can be solved in $O(m^2)$-time by a trivial modification of Algorithm \ref{algorithmforlargeh}: Simply compute
 \[h^* = \argmax_{h = 1 \dots m} \bigl\{\mathtt{V}[h] - c(h)\bigr\}\] and return $\mathcal{X}_{h^*}$.  
 
 
@@ -352,34 +352,96 @@ By running the algorithm with $h = m$, one can obtain the optimal portfolio for 
 
 
 
-\section{Discussion} \label{sectionDiscussion}
+\section{Discussion: Heuristics and student welfare} \label{sectionDiscussion}
+
+Let us discuss a few intuitive heuristics for the college application problem, how their
+accuracy compares to the optimal solution, and the implications for student welfare.
 
 \subsection{The distributional heuristic}
 
-In real-world admissions markets, attractive schools tend to attract many applicants; therefore, $f_t$ and $t_j$ typically correlate inversely. In the admissions consulting industry, schools with high utility and low admissions probability are called reach schools, while schools with low utility and high admissions probability are called safety schools, and those in the middle are called target schools. According to a common heuristic used by admissions consultants, it is best to apply to a roughly equal mix of target, safety, and reach schools (Jeon 2015, Peck 2021). We call this strategy the \emph{distributional} heuristic.
+In real-world admissions markets, $f_t$ and $t_j$ correlate inversely because desirable schools attract many applicants. In the admissions consulting industry, schools with high utility and low admissions probability are called reach schools, while schools with low utility and high admissions probability are called safety schools, and those in between are called target schools. According to a common heuristic used by admissions consultants, it is best to apply to a roughly equal mix of target, safety, and reach schools (Jeon 2015, Peck 2021). How does this strategy, which we call the \emph{distributional} heuristic, perform compared to the optimal application strategy?
 
-One weakness of the distributional heuristic is that it does not specify the boundary between target, safety, and reach schools. Moreover, however this boundary is specified, our numerical experiments reveal that as the application budget $h$ increases, the proportion of the optimal portfolio allocated to reach schools increases relative to the proportion allocated to safety schools. That is, there is \emph{no} static risk profile that students can target in order to achieve the optimal portfolio. This observation can be justified analytically. %...
+Note that the distributional heuristic does not specify the boundary between target, safety, and reach schools. However, regardless of how this boundary is specified, we argue that the distributional heuristic is limited by the fact that it does not respond adaptively to the application budget $h$. In a market where $f_j$ and $t_j$ are inversely correlated, the optimal application strategy gradually favors reach schools over safety schools as $h$ increases.
 
-When the application budget is small relative to the size of the admissions market, our algorithms recommend a similar approach (see the example of Subsection \ref{planetsexamplesection}). However, inspecting equation \eqref{howtotransformtj}, which discounts school utility parameters to reflect their marginal value relative to the schools already in the portfolio, reveals that low-utility schools are penalized more harshly than high utility schools in the marginal analysis. Consequentially, as the application budget grows, the optimal portfolio in our model tends to favor reach schools over safety schools. (See Figure \ref{samplemarket} for a clear illustration of this phenomenon.)
+To see why large values of $h$ favor a risky portfolio allocation, consider two schools $i$ and $k$ having $t_i < t_k$ and $f_i t_i = f_k t_k = 1$. Thus, the actuarial value of applying \emph{individually} to either school is identical, and a risk-neutral student is indifferent between the safety school $i$ and the reach school $k$. However, suppose that the student has previously resolved to apply to a target school $j$ having $t_i < t_j < t_k$. It is now optimal to apply to $\mathcal{X} = \{j, k\}$ instead of $\{i, k\}$ as long
+as
+\begin{align*}
+0 &\leq v(\{j, k\}) - v(\{i, j\})\\
+&= (1 - f_k ) f_j t_j + f_k t_k - (1 - f_j) f_i t_i - f_j t_j \\
+&= \bigl( 1 - \frac{1}{t_k}\bigr) f_j t_j + 1 - (1 - f_j) - f_j t_j \\
+&=  - \frac{1}{t_k} f_j t_j + f_j \\
+\iff \qquad \frac{f_j t_j}{t_k } &\leq f_j,
+\end{align*}
+which is \emph{always} true because $t_j < t_k$. This example shows that however one defines a ``target school,'' it is always better to pair a target school with a reach school than with a safety school as long as the choices are equivalent in their actuarial value. By the elimination argument, the same result holds with respect to adding a reach school to a portfolio that is otherwise balanced.
 
-To see why large values of $h$ favor a risky portfolio allocation, consider equation \eqref{howtotransformtj}, which discounts school utility parameters to reflect their marginal value relative to the schools already in the portfolio. Suppose that at the previous iteration of the greedy algorithm, school $k$ was chosen, and the present iteration requires a choice between school $i$ with $t_i < t_k$ and school $j$ with $t_j > t_k$. Furthermore, suppose that $f_i t_i = f_j t_j = 1$, meaning that (relatively speaking) school $k$ is a reach school and school $j$ is a safety school. A myopic decisionmaker may view schools $i$ and $j$ as equivalent, but upon applying \eqref{howtotransformtj}, we obtain
-\begin{align}
-f_i \bar t_i & = f_i t_i - f_k f_i t_i  = 1 - f_k\\
-f_j \bar t_j &= f_j t_j - f_j f_k t_k = 1 - f_j f_k t_k \geq 1 - f_j
+
+\subsection{The linearization heuristic}
+
+The expected utility associated with applying to school $j$ alone is is simply $\operatorname{E}[t_j Z_j] = f_j t_j$. It is therefore tempting to adopt the following heuristic:
+\begin{definition}[Linearization heuristic for the college application problem] \label{naivealgorithm}
+Apply to the $h$ schools having the highest expected utility $f_j t_j$.
+\end{definition}
+\noindent This algorithm's computation time is $O(m)$ using the PICK algorithm of Blum et al. (1973). In essence, this heuristic maximizes $\operatorname{E}\left[\,\sum t_j Z_j\, \right]$ as a surrogate for the true objective function $\operatorname{E}\left[\max \{t_j Z_j\} \right]$. Accordingly, we call it the \emph{linearization heuristic.}
+
+The following theorem says that the linearization heuristic is a $(1/h)$-approximation algorithm for the college application problem. 
+\begin{theorem} \label{oneoverhoptthm}
+When the application limit is $h$, let $\mathcal{X}_h$ denote the optimal portfolio, and $\mathcal{T}_h$ the set of the $h$ schools having the largest values of $f_j t_j$. Then $v(\mathcal{T}_h) / v(\mathcal{X}_h) \geq 1/h$. 
+\end{theorem}
+\begin{proof}
+Because $\mathcal{T}_h$ maximizes the quantity $\operatorname{E}\bigl[ \sum_{j \in \mathcal{T}_h}\{ t_j Z_j \}\bigr]$, we have
+\begin{align} \label{oneoverhopt}
+\begin{split}
+v(\mathcal{X}_h) &= \operatorname{E}\Bigl[ \max_{j \in \mathcal{X}_h}\{ t_j Z_j \}\Bigr] \leq \operatorname{E}\Bigl[ \sum_{j \in \mathcal{X}_h}\{ t_j Z_j \}\Bigr] \leq \operatorname{E}\Bigl[ \sum_{j \in \mathcal{T}_h}\{ t_j Z_j \}\Bigr] \\
+&= h  \operatorname{E}\Bigl[ \tfrac{1}{h} \sum_{j \in \mathcal{T}_h}\{ t_j Z_j \}\Bigr]
+\leq h  \operatorname{E}\Bigl[ \max_{j \in \mathcal{T}_h}\{ t_j Z_j \}\Bigr]
+= h v(\mathcal{T}_h)
+\end{split}
 \end{align}
-where the inequality follows from the fact that school $k$ was chosen over school $k$. That is, the safety school's discount is independent of its admissions probability, whereas the reach school's discount is proportional to its (small) admissions probability. A priori, the reach school is more likely to be chosen in this scenario. 
+where the final inequality follows from the concavity of the $\max\{\}$ operator.
+\end{proof}
 
- 
-%  reveals that low-utility schools are penalized more harshly than high utility schools in the marginal analysis. 
-%
-%Using our model, we can argue that the distributional heuristic is unnecessarily risk averse, 
-%
-%A common heuristic used in the admissions consulting industry advises students to apply in roughly equal proportion to reach, target, and safety schools. Reach schools are schools 
+\noindent The following example establishes the tightness of the approximation factor. 
+
+\begin{example} \label{tightexampleforoneoverhopt}
+Pick any $h$ and let $m = 2h$. For a small constant $\varepsilon \in (0, 1)$, define the market as follows.
+\begin{center}
+\begin{tabular}{r|cccccccc}
+$j$   & $1$      & $\cdots$ & $h$   &$h+1$         &  $h+2$ & $\cdots$ &      $m-1$  & $m$            \\ \hline
+$f_j$ & $1$     &  $\cdots$ & $1$      & $\varepsilon^{1}$ & $\varepsilon^{2}$ & $\cdots$ & $\varepsilon^{h-1}$ & $\varepsilon^{h}$ \\
+$t_j$ & $1$      &  $\cdots$ & $1$      & $\varepsilon^{-1}$ & $\varepsilon^{-2}$ & $\cdots$ & $\varepsilon^{-(h-1)}$ & $\varepsilon^{-h}$
+\end{tabular}%
+\end{center}
+Since all $f_j t_j = 1$, the linearization heuristic can choose $\mathcal{T}_h = \{1, \dots, h\}$, with $v(\mathcal{T}_h) = 1$. But the optimal solution is $\mathcal{X}_h = \{h+1, \dots, m\}$, with
+\begin{equation}
+v(\mathcal{X}_h) = \sum_{j= h +1}^m \Bigl( f_j t_j \prod_{j' = j+1}^m (1 - f_{j'}) \Bigr) =  \sum_{j= 1}^h  (1 - \varepsilon)^{j} \approx h.
+\end{equation}
+Thus, as $\varepsilon$ approaches zero, we have $v(\mathcal{T}_h) / v(\mathcal{X}_h) \to 1/h$. (The optimality of $\mathcal{X}_h$ follows from the fact that it achieves the upper bound of Theorem \ref{oneoverhoptthm}.)
+\end{example}
+
+Example \ref{tightexampleforoneoverhopt} also illustrates that for large application budget, reach schools offer greater marginal utility than safety schools.
 
 
 
+\subsection{Implications for student welfare}
 
+% Clearly, individual students benefit from reducing barriers to application, but what are the tradeoffs, and how can we calculate them?
 
+Classical portfolio optimization models in the Markowitz tradition feature risk aversion as an exogeneous \emph{parameter.} The optimal portfolio is expressed as a proportion of the total budget, and this allocation is constant for budgets of all sizes. In the college application problem, however, our analysis of the distributional heuristic reveals that even putatively risk-averse students must modulate their risk allocation according to the number of schools to which they can afford to apply. Students with a application budget can tolerate, and indeed benefit, from taking larger risks than those without. From a welfare standpoint, this optimal risk elasticity offers weak evidence for the notion that reducing the costs of college application could improve student equity. On the other hand, dissuading students from applying to too many reach schools may be a desirable feature in an admissions market inasmuch as it eliminates the administrative costs associated with reading low-quality applications. 
+
+A further complication arises in an intrinsic feature of submodular set functions such as the objective function of the college application problem---that they exhibit rapidly diminishing returns: The optimality of the greedy algorithm implies that the gain in student utility from increasing the budget from $h-1$ to $h$ is larger than that from increasing it from $h$ to $h+1$.
+
+\begin{theorem} \label{concavityinh}
+For $h = 2 \dots (m-1)$,
+\begin{equation}v(\mathcal{X}_h) - v(\mathcal{X}_{h-1}) \geq v(\mathcal{X}_{h+1}) - v(\mathcal{X}_{h}).\end{equation} 
+\end{theorem}
+
+\begin{proof}
+Applying Theorem \ref{nestedapplication}, we write $\mathcal{X}_h = \mathcal{X}_{h-1} \cup\{j\}$ and $\mathcal{X}_{h+1} = \mathcal{X}_{h-1} \cup\{j, k\}$. By optimality, $v(\mathcal{X}_h) - v(\mathcal{X}_{h-1}) \geq v(\mathcal{X}_{h-1}\cup\{k\}) - v(\mathcal{X}_{h-1})$. By submodularity and nestedness, $v(\mathcal{X}_{h-1}\cup\{k\}) - v(\mathcal{X}_{h-1}) \geq  v(\mathcal{X}_{h}\cup\{k\}) - v(\mathcal{X}_{h}) = v(\mathcal{X}_{h+1}) - v(\mathcal{X}_{h})$.
+\end{proof}
+
+\noindent (An elementary proof appears in Kapur (2022).) It follows that when $\mathcal{X}_h$ is the optimal $h$-portfolio for a given market, $v(\mathcal{X}_h)$ is $O(h)$. Example \ref{tightexampleforoneoverhopt}, in which $v(\mathcal{X}_h)$ can be made arbitrarily close to $h$, establishes the tightness of this bound.
+
+% These results suggest that you should increase $h$ until the point where the maximum marginal value of an additional application, namely $v(h) / h$, is small enough that students won't be tempted to spam reach schools with extra applications.
 
 
 
@@ -630,98 +692,6 @@ Applying Lemma \ref{assumetzerozero}, we assume that $t_0 = 0$ unless otherwise 
 \end{problem}
 %This problem can be formulated as an integer nonlinear program in $m$ binary variables .. 
 
-\ifen \subsection{Approximation properties of a na\"ive solution}  \else \subsection{나이브 해법의 근사 성질} \fi
-\ifen
-The expected utility associated with a single school $c_j$ is simply $\operatorname{E}[t_j Z_j] = f_j t_j$. It is therefore tempting to adopt the following strategy, which turns out to be suboptimal.
-\else 
-단일 학교 $c_j$에 해당하는 기대 효용이 단순히 $\operatorname{E}[t_j Z_j] = f_j t_j$이므로 다음과 같은 알고리즘이 매력적으로 보일 수 있지만 사실은 최적해가 아니다.
-\fi
-\begin{definition}[\ifen Na\"ive algorithm for Alma’s problem\else 알마의 문제를 위한 나이브 해법\fi] \label{naivealgorithm}
-\ifen 
-Apply to the $h$ schools having the highest expected utility $f_j t_j$.
-\else
-기대 효용 $f_j t_j$가 가장 큰 $h$개의 학교로 지원한다.
-\fi
-\end{definition}
-\ifen 
-\noindent This algorithm's computation time is $O(m)$ using the PICK algorithm of Blum et al. (1973).
-
-The basic error of the na\"ive algorithm is that it maximizes $\operatorname{E}\left[\,\sum t_j Z_j\, \right]$ instead of $\operatorname{E}\left[\max \{t_j Z_j\} \right]$. The latter is what Alma is truly concerned with, since in the end she can attend only one school. In fact, the na\"ive algorithm is a $(1/h)$-approximation algorithm for Alma’s problem, as expressed in the following theorem.
-\else
-\noindent Blum 외 (1973)의 PICK 알고리즘을 사용하면 위의 해법의 계산 시간이 $O(m)$이다.
-
-나이브 알고리즘의 기본 실수는 $\operatorname{E}\left[\max \{t_j Z_j\} \right]$ 대신  $\operatorname{E}\left[\,\sum t_j Z_j\,\right]$을 최대화하는 것이다. 결국에는 단 한 학교로만 진학할 수 있으므로 알마의 목적은 후자가 아닌 전자다. 다음 정리는 나이브 해법이 알마의 문제를 위한 $(1/h)$-근사 해법임을 의미한다.
-\fi
-
-\begin{theorem}[\ifen Accuracy of the na\"ive algorithm\else 나이브 해법의 정확성\fi] \label{oneoverhopt}
-\ifen 
-When the application limit is $h$, let $\mathcal{X}_h$ denote the optimal portfolio, and $\mathcal{T}_h$ the set of the $h$ schools having the largest values of $f_j t_j$. Then $v(\mathcal{T}_h) / v(\mathcal{X}_h) \geq 1/h$. 
-\else
-지원 제한이 $h$일 때, 최적 포트폴리오가 $\mathcal{X}_h$이고 기대 효용 $f_j t_j$가 가장 큰 $h$개의 학교의 집합이 $\mathcal{T}_h$라고 하자. 그러면 $v(\mathcal{T}_h) / v(\mathcal{X}_h) \geq 1/h$이다.
-\fi
-\end{theorem}
-\begin{proof}
-\ifen
-Because $\mathcal{T}_h$ maximizes the quantity $\operatorname{E}\bigl[ \sum_{j \in \mathcal{T}_h}\{ t_j Z_j \}\bigr]$, we have
-\else
-$\mathcal{T}_h$는 $\operatorname{E}\bigl[ \sum_{j \in \mathcal{T}_h}\{ t_j Z_j \}\bigr]$를 최대화하므로,
-\fi
-\begin{align} \label{oneoverhopt}
-\begin{split}
-v(\mathcal{X}_h) &= \operatorname{E}\Bigl[ \max_{j \in \mathcal{X}_h}\{ t_j Z_j \}\Bigr] \leq \operatorname{E}\Bigl[ \sum_{j \in \mathcal{X}_h}\{ t_j Z_j \}\Bigr] \leq \operatorname{E}\Bigl[ \sum_{j \in \mathcal{T}_h}\{ t_j Z_j \}\Bigr] \\
-&= h  \operatorname{E}\Bigl[ \tfrac{1}{h} \sum_{j \in \mathcal{T}_h}\{ t_j Z_j \}\Bigr]
-\leq h  \operatorname{E}\Bigl[ \max_{j \in \mathcal{T}_h}\{ t_j Z_j \}\Bigr]
-= h v(\mathcal{T}_h).
-\end{split}
-\end{align}
-\ifen 
-where the final inequality follows from the concavity of the $\max\{\}$ operator.
-\else
-단, 마지막 부등호는 $\max\{\}$ 연산의 볼록성에 따라 성립한다.
-\fi
-\end{proof}
-\ifen
-\noindent The following example establishes the tightness of the approximation factor. 
-\else
-\noindent 다음 예는 근사 계수가 타이트(tight)함을 보인다.
-\fi
-
-\begin{example} \label{tightexampleforoneoverhopt}
-\ifen
-Pick any $h$ and let $m = 2h$. For a small constant $\varepsilon \in (0, 1)$, define the market as follows.
-\else
-임의의 $h$를 택하고 $m = 2h$라고 하자. 작은 상수  $\varepsilon \in (0, 1)$에 대해 시장을 다음처럼 구성한다.
-\fi
-%\begin{align}
-% f &= \Bigl(\,\underbrace{1,  \dots, 1}_{h},\;
-%\underbrace{\varepsilon^{1}, \varepsilon^{2}, \dots, \varepsilon^{h-1}, \varepsilon^{h}}_{h}\,\Bigr) \\
-%\text{\ifen and\else 그리고\fi}\quad t &= \Bigl(\,\underbrace{1,  \dots, 1}_{h},\;
-%\underbrace{\varepsilon^{-1}, \varepsilon^{-2}, \dots, \varepsilon^{-(h-1)}, \varepsilon^{-h}}_{h}\,\Bigr) 
-%\end{align}
-\begin{center}
-\begin{tabular}{r|cccccccc}
-$j$   & $1$      & $\cdots$ & $h$   &$h+1$         &  $h+2$ & $\cdots$ &      $m-1$  & $m$            \\ \hline
-$f_j$ & $1$     &  $\cdots$ & $1$      & $\varepsilon^{1}$ & $\varepsilon^{2}$ & $\cdots$ & $\varepsilon^{h-1}$ & $\varepsilon^{h}$ \\
-$t_j$ & $1$      &  $\cdots$ & $1$      & $\varepsilon^{-1}$ & $\varepsilon^{-2}$ & $\cdots$ & $\varepsilon^{-(h-1)}$ & $\varepsilon^{-h}$
-\end{tabular}%
-\end{center}
-\ifen
-Since all $f_j t_j = 1$, the na\"ive algorithm can choose $\mathcal{T}_h = \{1, \dots, h\}$, with $v(\mathcal{T}_h) = 1$. But the optimal solution is $\mathcal{X}_h = \{h+1, \dots, m\}$, with
-\else
-모든 $f_j t_j = 1$이므로 나이브 해법은 $\mathcal{T}_h = \{1, \dots, h\}$를 출력할 수 있으며 $v(\mathcal{T}_h) = 1$이다. 그러나 최적해는 $\mathcal{X}_h = \{h+1, \dots, m\}$이며 그의 기대 효용은 다음과 같다.
-\fi
-\begin{equation}
-v(\mathcal{X}_h) = \sum_{j= h +1}^m \Bigl( f_j t_j \prod_{j' = j+1}^m (1 - f_{j'}) \Bigr) =  \sum_{j= 1}^h  (1 - \varepsilon)^{j} \approx h\ifen.\fi
-\end{equation}
-\ifen
-Thus, as $\varepsilon$ approaches zero, we have $v(\mathcal{T}_h) / v(\mathcal{X}_h) \to 1/h$. (The optimality of $\mathcal{X}_h$ follows from the fact that it achieves the upper bound of Theorem \ref{oneoverhopt}.)
-\else
-따라서 $\varepsilon$이 0에 가까워지면서 $v(\mathcal{T}_h) / v(\mathcal{X}_h) \to 1/h$이 된다.  ($\mathcal{X}_h$의 최적성은 정리 \ref{oneoverhopt}이(가) 제시하는 상한을 실천하기 때문에 성립한다.)
-\fi
-\end{example}
-
-
-
 %% Wrong: The Fisher theorem would apply to the greedy, i.e. correct algorithm. 
 %\begin{corollary}
 %\ifen
@@ -770,27 +740,6 @@ we found the array implementation to be much faster, because it is possible to i
 $\mathcal{C}$는 배열 대신 이진 최대 힙 구현으로 저장하는 방법도 고려한다. 단, 힙의 순서는 $i \geq j \iff f_i t_i \geq f_j t_j$의 조건으로 정의하며, 각 반복 단계의 마지막 단계에서 힙을 비우고 다시 힙화(heapify)하면 $O(hm)$ 계산 시간을 유지할 수 있다. 그러나 (\ref{numericalexperiments}절에서 결과를 제시할) 수리 실험에서 배열 구현으로 구성한 알고리즘이 더 빨랐다. 효용 모수를 수정하면서 $k$를 구함으로 $\argmax\{\}$ 연산의 계산 비용을 거의 제거할 수 있기 때문이다.
 \fi
 
-
-\ifen \subsection{Diminishing returns to application} \else\subsection{지원의 수확 체감} \fi
-\ifen The nestedness property implies that Alma's expected utility is a discretely concave function of $h$.
-\else 포함 사슬 관계 성질은 알마의 기대 효용이 $h$의 이산 오목 함수임을 의미한다.\fi
-
-\begin{theorem}[\ifen Optimal portfolio valuation concave in $h$\else 최적 포트폴리오 가치의 $h$-오목성\fi] \label{concavityinh}
-\ifen For $h = 2 \dots (m-1)$,
-\else $h = 2 \dots (m-1)$에 대해,\fi
-\begin{equation}v(\mathcal{X}_h) - v(\mathcal{X}_{h-1}) \geq v(\mathcal{X}_{h+1}) - v(\mathcal{X}_{h}).\end{equation} 
-\end{theorem}
-
-
-\begin{proof}
-\ifen Applying Theorem \ref{nestedapplication}, we write $\mathcal{X}_h = \mathcal{X}_{h-1} \cup\{j\}$ and $\mathcal{X}_{h+1} = \mathcal{X}_{h-1} \cup\{j, k\}$. By optimality, $v(\mathcal{X}_h) - v(\mathcal{X}_{h-1}) \geq v(\mathcal{X}_{h-1}\cup\{k\}) - v(\mathcal{X}_{h-1})$. By submodularity and nestedness, $v(\mathcal{X}_{h-1}\cup\{k\}) - v(\mathcal{X}_{h-1}) \geq  v(\mathcal{X}_{h}\cup\{k\}) - v(\mathcal{X}_{h}) = v(\mathcal{X}_{h+1}) - v(\mathcal{X}_{h})$.
-\else 정리 \ref{nestedapplication}을(를) 적용하면 $ \mathcal{X}_h = \mathcal{X}_{h-1} \cup\{j\}$ 그리고 $\mathcal{X}_{h+1} = \mathcal{X}_{h-1} \cup\{j, k\}$으로 표현할 수 있다. 최적성에 따라, $v(\mathcal{X}_h) - v(\mathcal{X}_{h-1}) \geq v(\mathcal{X}_{h-1}\cup\{k\}) - v(\mathcal{X}_{h-1})$. Submodularity 그리고 포함 사슬 관계 성질에 따라, $v(\mathcal{X}_{h-1}\cup\{k\}) - v(\mathcal{X}_{h-1}) \geq  v(\mathcal{X}_{h}\cup\{k\}) - v(\mathcal{X}_{h}) = v(\mathcal{X}_{h+1}) - v(\mathcal{X}_{h})$. \fi
-\end{proof}
-\ifen
-\noindent (An elementary proof is given in \S\,\ref{elementaryconcavityproof}.) It follows that when $\mathcal{X}_h$ is the optimal $h$-portfolio for a given market, $v(\mathcal{X}_h)$ is $O(h)$. In other words, Alma's problem exhibits diminishing returns to the application budget. Example \ref{tightexampleforoneoverhopt}, in which $v(\mathcal{X}_h)$ can be made arbitrarily close to $h$, establishes the tightness of this bound.
-\else
-\noindent (기초적인 증명은 \S\,\ref{elementaryconcavityproof}에서 제시한다.) 위 결과는 $\mathcal{X}_h$가 어떤 시장의 최적 $h$-포트폴리오일 때, $v(\mathcal{X}_h)$가 $O(h)$ 함수라고 의미한다. 다시 말해 알마 문제의 지원 예산에는 수확 체감 성질이 있다. 예 \ref{tightexampleforoneoverhopt}에서 $v(\mathcal{X}_h)$를 $h$에 임의로 가깝게 조정할 수 있으므로 이 상한이 타이트함을 알 수 있다.
-\fi
 
 %To wrap up, we provide an example showing that if the entries of $Z$ are dependent, then the optimal solution may violate the nestedness property of Theorem \ref{nestedapplication}.
 %\begin{example}
