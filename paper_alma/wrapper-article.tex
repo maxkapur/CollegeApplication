@@ -1,0 +1,130 @@
+%!TEX encoding = UTF-8 Unicode 
+
+\documentclass[11pt]{article} %try amsproc, amsart
+\usepackage{geometry}       \geometry{a4paper, margin=2.5cm}
+\usepackage{setspace}       \setstretch{1.1}
+\usepackage{hyperref}       \hyperbaseurl{}    
+                            \urlstyle{same}
+\usepackage[ruled,linesnumbered]{algorithm2e}   \SetKwInOut{KwParams}{Parameters}
+                                                \newcommand{\lIfElse}[3]{\lIf{#1}{#2 \textbf{else}~#3}}
+\usepackage{stackengine}    \newcommand\xrowht[2][0]{\addstackgap[.5\dimexpr#2\relax]{\vphantom{#1}}}
+\usepackage[style=numeric]{biblatex}
+\addbibresource{refs.bib}
+
+% Author block
+\usepackage{authblk}
+
+\title{A quadratic-time algorithm for the cardinality-constrained college application problem}
+\author[1]{Max Kapur}
+\author[2]{Sung-Pil Hong}
+\affil[1,2]{Department of Industrial Engineering, Seoul National University}
+\date{\today}
+
+% Math
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{proposition}{Proposition}
+\theoremstyle{definition}
+\newtheorem{example}{Example}
+\newtheorem{definition}{Definition}
+\newtheorem{problem}{Problem}
+\newtheorem{assumption}{Assumption}
+\newtheorem{conjecture}{Conjecture}
+
+%\numberwithin{equation}{section}
+%\numberwithin{theorem}{section}
+%\numberwithin{lemma}{section}
+%\numberwithin{corollary}{section}
+%\numberwithin{proposition}{section}
+%\numberwithin{example}{section}
+%\numberwithin{definition}{section}
+%\numberwithin{problem}{section}
+%\numberwithin{assumption}{section}
+%\numberwithin{conjecture}{section}
+
+
+\begin{document}
+
+\maketitle
+
+
+\begin{abstract}
+
+\input{abstract.tex}
+
+\textbf{Keywords:} combinatorial optimization, submodular maximization, portfolio optimization
+
+\vfill
+Correspondence may be addressed to Max Kapur.
+\begin{itemize}
+%\item[] Correspondence may be addressed to Max Kapur.
+
+\item[] Email: \url{maxkapur@gmail.com}
+
+\item[] Address: 39-411, 1 Gwanak-ro, Gwanak-gu, Seoul 08826, Republic of Korea
+\end{itemize}
+
+\end{abstract}
+
+
+\pagebreak
+
+\tableofcontents
+
+\input{body.tex}
+
+\printbibliography
+
+\end{document}
+
+
+
+
+
+
+% Intro from thesis
+
+
+
+We refer to this problem as the \emph{optimal college application} problem, as follows. Consider an admissions market with $m$ colleges. The $j$th college is named $c_j$. Consider a single prospective student in this market, and let each $t_j$-value indicate the utility she associates with attending $c_j$, where her utility is $t_0$ if she does not attend college. Let $g_j$ denote the application fee for $c_j$ and $H$ the student's total budget to spend on application fees. Lastly, let $f_j$ denote the student's probability of being admitted to $c_j$ if she applies, so that $Z_j$ equals one if she is admitted and zero if not. It is appropriate to assume that the $Z_j$ are statistically independent as long as $f_j$ are probabilities estimated specifically for this student (as opposed to generic acceptance rates). Then the student's objective is to maximize the expected utility associated with the best school she is admitted to. Therefore, her optimal college application strategy is given by the solution $\mathcal{X}$ to the problem above, where $\mathcal{X}$ represents the set of schools to which she applies. 
+
+
+The college application problem is not solely of theoretical interest. Due to the widespread perception that career earnings depend on college admissions outcomes, the solution of \eqref{headlineproblem} holds monetary value. In the American college consulting industry, students pay private consultants an average of \$200 per hour for assistance in preparing application materials, estimating their admissions odds, and identifying target schools (Sklarow 2018). In Korea, an important revenue stream for admissions consulting firms such as Megastudy (\url{megastudy.net}) and Jinhak (\url{jinhak.com}) is ``mock application'' software that claims to use artificial intelligence to optimize the client's application strategy. However, while predicting admissions outcomes on a school-by-school basis is a standard benchmark for logistic regression models (Acharya et al. 2019; Lim 2013), we believe our study is the first to focus on the overall application strategy as an optimization problem.
+
+The problem is also conformable to other competitive matching games such as job application. Here, the budget constraint may represent the time needed to complete each application, or a legal limit on the number of applications permitted.
+
+Some economists have constructed equilibrium models of the college admissions process that feature the student's application decision as a prominent subproblem. Fu (2014), for example, modeled the United States admissions market as a sequential game played by colleges and students. Colleges announce tuition rates, students apply to college, colleges announce admissions decisions and financial aid offers, and lastly, students decide where to enroll. Equilibrium arises when no college can improve its expected utility by modifying its tuition or admissions policy, and no student can improve her expected utility by modifying her application strategy. The ultimate goal of Fu's model was a comparative statics analysis of various hypothetical reforms to the structure of the admissions market; hence, it was adequate to cluster colleges into $m=8$ broad categories. Therefore, though estimating Fu's model required solving a problem similar to \eqref{headlineproblem}, it was a small instance that could be solved by enumerating all possible portfolios.\footnote{Fu's model of student utility uses a cost function in the size of the application portfolio instead of a budget constraint. Since the optimal portfolio in her model must be utility-optimal over portfolios of the same size, solving her student application problem reduces to solving $m$ instances of \eqref{headlineproblem}.} Our study pursues a more general solution.
+
+
+The literature on admissions markets also includes a vast body of research on the deferred acceptance algorithm, an algorithm for matching students to schools having finite capacities that generalizes the Gale--Shapley algorithm for stable marriage. The algorithm takes students' ordinal preferences over schools and schools' ordinal preferences over students as input, and produces an assignment that possesses a number of desirable properties: It is a stable matching, meaning that no student--school pair is incentivized to deviate from the assignment. And the preference-reporting mechanism is incentive compatible, meaning that no student can improve her outcome by lying about her preferences (Gale and Shapley 1962; Roth 1982). In design, deferred acceptance is a centralized assignment algorithm; however, stable assignment also be interpreted as the equilibrium of a decentralized admissions game in which agents have perfect information about one another's preferences (Azevedo and Leshno 2016).
+
+
+
+The utility model implied by stable assignment differs from that of the present study in two key ways: First, under stable assignment, students' preferences are ordinal rather than cardinal.\footnote{It is possible to estimate cardinal utility values from stable matchings in certain special cases, such as when colleges' preferences are identical and students' preferences are determined by the multinomial logit choice model (Kapur 2021).} Second, stable assignment is deterministic: The typical student-proposing deferred acceptance algorithm always produces the unique, student-optimal stable assignment. There exist variants of the deferred acceptance algorithm that introduce randomization in order to break ties in schools' preference lists or optimize for distributional goals such as gender parity, but because the randomization occurs after students submit their preferences, it has no effect on the optimal application strategy, which remains to report one's preferences honestly (Ashlagi and Nikzad 2020; Bodoh-Creed 2020). In the admissions process considered in this study, students face a tougher strategic challenge.
+
+
+Our analysis of the college application problem straddles several methodological universes. Its stochastic nature recalls classical portfolio allocation models. However, the knapsack constraint renders the problem NP-complete, and necessitates combinatorial solution techniques. We observe that the objective function is also a submodular set function, though our approximation results suggest that college application is a relatively easy instance of submodular maximization. 
+
+
+In her equilibrium analysis of the American college market, Fu (2014) described college application as a ``nontrivial portfolio problem'' (226). In computational finance, traditional portfolio allocation models weigh the sum of expected profit across all assets against a risk term, yielding a concave maximization problem with linear constraints (Markowitz 1952; Meucci 2005). But college applicants maximize the expected value of their \emph{best} asset: If a student is admitted to her $j$th choice, then she is indifferent as to whether she gets into her $(j+1)$th choice. As a result, student utility is \emph{convex} in the utility associated with individual applications. Risk management is implicit in the college application problem because, in a typical admissions market, college preferability correlates inversely with competitiveness. That is, students negotiate a tradeoff between attractive, selective “reach schools” and less preferable “safety schools” where admission is a safer bet (Jeon 2015). Finally, the combinatorial nature of the college application problem makes it difficult to solve using the gradient-based techniques associated with continuous portfolio optimization.
+
+
+The integer formulation of the college application problem can be viewed as a kind of binary knapsack problem with a polynomial objective function of degree $m$. Our branch-and-bound and dynamic programming algorithms closely resemble existing algorithms for knapsack problems (Martello and Toth 1990, \S\,2.5--6). In fact, by manipulating the admissions probabilities, the objective function can be made to approximate a linear function of the characteristic vector to an arbitrary degree of accuracy, a fact that we exploit in our NP-completeness proof. Previous research has introduced various forms of stochasticity to the knapsack problem, including variants in which each item's utility takes a known probability distribution (Steinberg and Parks 1979; Carraway et al. 1993) and an online context in which the weight of each item is observed after insertion into the knapsack (Dean et al. 2008). Our problem superficially resembles the preference-order knapsack problem considered by Steinberg and Parks and Carraway et al., but these models lack the college application problem's singular ``maximax'' form. Additionally, unlike those models, we do not attempt to replace the real-valued objective function with a preference order over \emph{outcome distributions,} which introduces technical issues concerning competing notions of stochastic dominance (Sniedovich 1980). We take for granted the student's preferences over \emph{outcomes} (as encoded in the $t_j$-values), and focus instead on an efficient computational approach to the well-defined problem above.
+
+
+We take special interest in the validity of greedy optimization algorithms, such as the algorithm that iteratively adds the school that elicits the greatest increase in the objective function until the budget is exhausted. Greedy algorithms produce a \emph{nested} family of solutions parameterized by the budget $H$: If $H \leq H'$, then the greedy solution for budget $H$ is a subset of the greedy solution for budget $H'$. As Rozanov and Tamir (2020) remark, the knowledge that the optima are nested aids not only in computing the optimal solution, but in the implementation thereof under uncertain information. For example, in the United States, many college applications are due at the beginning of November, and it is typical for students to begin working on their applications during the prior summer because colleges reward students who tailor their essays to the target school. However, students may not know how many schools they can afford to apply to until late October. The nestedness property---or equivalently, the validity of a greedy algorithm---implies that even in the absence of complete budget information, students can begin to carry out the optimal application strategy by writing essays for schools in the order that they enter the optimal portfolio.
+
+
+For certain classes of optimization problems, such as maximizing a submodular set function over a cardinality constraint, a greedy algorithm is known to be a good approximate solution and exact under certain additional assumptions (Nemhauser et al. 1978; Assad 1985). For other problems, notably the binary knapsack problem, the most obvious greedy algorithm can be made to perform arbitrarily poorly (Vazirani 2001). We show results for the college application problem that mirror those for the knapsack problem: When each $g_j = 1$, the optimal portfolios are nested. This special case mirrors the centralized college application process in Korea, where there is no application fee, but students are allowed to apply to only three schools during the main admissions cycle. Unfortunately, the nestedness property does not hold in the general case, nor does the greedy algorithm offer any performance guarantee. Instead, we identify a fully polynomial-time approximation scheme (FPTAS) based on fixed-point arithmetic. 
+
+
+Finally, we remark that the objective function of \eqref{headlineproblem} is a nondecreasing submodular function. However, our research employs more elementary analytical techniques, and our approximation results are tighter than those associated with generic submodular maximization algorithms. For example, a well-known result of Nemhauser et al. (1978) implies that the greedy algorithm is asymptotically $(1 - 1/e)$-optimal for the $g_j = 1$ case of the college application problem, whereas we show that the same algorithm is exact. As for the general problem, an equivalent approximation ratio is achievable when maximizing a submodular set function over a knapsack constraint using a variety of relaxation techniques (Chekuri et al. 2014; Badanidiyuru and Vondrák 2014; Kulik et al. 2013). Indeed, $1 - 1/e$ is the highest approximation coefficient achievable by a polynomial-time algorithm for this problem (Nemhauser and Wolsey 1978). But in the college application problem, the existence of the FPTAS supersedes these results.
+

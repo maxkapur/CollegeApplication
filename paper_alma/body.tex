@@ -1,0 +1,370 @@
+\section{Introduction}
+
+Due to the widespread perception that career earnings depend on college admissions outcomes, the solution of \eqref{headlineproblem} holds monetary value. In the American college consulting industry, students pay private consultants an average of \$200 per hour for assistance in preparing application materials, estimating their admissions odds, and identifying target schools \cite{sklarow2018}. In Korea, an important revenue stream for admissions consulting firms such as Megastudy (\url{megastudy.net}) and Jinhak (\url{jinhak.com}) is ``mock application'' software that claims to use artificial intelligence to optimize the client's application strategy. 
+
+Most quantitative research on college admissions to date has been descriptive in nature. A standard benchmark for logistic regression techniques, for example, involves estimating students' admissions probabilities from information about their past academic performance \cite{acharyaetal2019,lim2013}. When professional admissions consultants advise their clients on where to apply to college, however, they typically rely on qualitative heuristics, such as balancing applications between safety and reach schools, rather than optimization models \cite{jeon2015,peck2021}. (Admissions consultants refer to schools with low utility and high admissions probability as \emph{safety schools}, and those with high utility and low admissions probability as \emph{reach schools.})
+
+In the present study, we formulate the student's college application decision as the following combinatorial optimization problem:
+\begin{align} \label{headlineproblem}
+\begin{split}
+\text{maximize}\quad & v(\mathcal{X}) =  \operatorname{E}\Bigl[\max\bigr\{t_0,
+\max\{t_j Z_j : j \in \mathcal{X}\}\bigr\}\Bigr] \\
+\text{subject to}\quad & \mathcal{X} \subseteq \mathcal{C}, ~~|\mathcal{X}| \leq H
+\end{split}
+\end{align}
+Here $\mathcal{C} = \{ 1 \dots m\}$ represents the set of colleges in the market and $h > 0$ is the number of colleges the student can apply to. For $j = 1 \dots m$, let $f_j$ denote the student's probability of being admitted to school $j$ if she applies and $Z_j$ a random, independent Bernoulli variable with probability $f_j$, so that $Z_j$ equals one if she is admitted and zero if not. It is appropriate to assume that the $Z_j$ are statistically independent as long as $f_j$ are probabilities estimated specifically for this student (as opposed to generic acceptance rates). For $j = 0\dots m$, $t_j\geq 0$ indicates the utility she associates with attending school $j$, where her utility is $t_0$ if she does not attend college. Then the student's objective is to maximize the expected utility associated with the best school she is admitted to. Therefore, her optimal college application strategy is given by the solution $\mathcal{X}$ to the problem above, where $\mathcal{X}$ represents the set of schools to which she applies, which we call her application \emph{portfolio.}
+
+The problem can also be applied to other competitive matching games such as job application and marriage proposals. Here the budget constraint may arise due to the time required to communicate with each applicant or a legal limit on the number of applications allowed.
+
+We show that the optimal portfolios for the cardinality-constrained college are \emph{nested} in the budget constraint, meaning that where $\mathcal{X}_h$ denotes the optimal portfolio for budget $h$, $\mathcal{X}_h \subset \mathcal{X}_{h+1}$. The nestedness property is equivalent to the optimality of the \emph{greedy} algorithm that iteratively adds to $\mathcal{X}$ the school that elicits the greatest increase in the objective value. The proof of the nestedness property yields insight into the properties of the optimal college application strategy: Students who cannot afford to apply to many schools allocate a greater proportion of their application budget to safety schools than students with a large application budget. A classic finding of behavioral psychology is that agents with limited resources tend to make more risk-averse decisions than their wealthier peers, especially with respect to education and career choice \cite{hartlaubandschneider2012,vanhuizenandalessie2019}. In the case of college application, our model provides a rational basis for this tendency. % cite
+
+Our analysis of the college application problem also yields tight bounds on the marginal value of an additional application, which may be useful in designing admissions markets. % i.e. in Korea the limit is 3; therefore we know that adding an additional school would yield at the very most a 33 pct increase in student welfare 
+
+\subsection{Literature review}
+
+The objective function is a monotonic submodular function in the sense first described by Nemhauser et al. \cite{nemhauseretal1978}. They showed that the greedy algorithm is asymptotically $(1 - 1/e)$-optimal for optimizing a monotonic submodular function over a cardinality constraint, and a subsequent result of Nemhauser and Wolsey \cite{nemhauserandwolsey1978} proved that this approximation ratio is the best achievable by a polynomial-time algorithm. In the special case of college application, however, we show that the same algorithm is exact. 
+
+% define nestedness
+The proof of the optimality of the greedy algorithm rests on the nested structure of the portfolios, a property that is of independent interest. As Rozanov and Tamir \cite{rozanovandtamir2020} articulate, the knowledge that the optima are nested aids not only in computing the optimal solution, but in the implementation thereof under uncertain information. For example, in the United States, many college applications are due at the beginning of November, and it is typical for students to begin working on their applications during the prior summer because colleges reward students who tailor their essays to the target school. However, students may not know how many schools they can afford to apply to until late October. The nestedness property---or equivalently, the validity of a greedy algorithm---implies that even in the absence of complete budget information, students can begin to carry out the optimal application strategy by writing essays for schools in the order that they enter the optimal portfolio.
+% Greedy algorithms produce a \emph{nested} family of solutions parameterized by the budget $H$: If $H \leq H'$, then the greedy solution for budget $H$ is a subset of the greedy solution for budget $H'$.
+
+Fu \cite{fu2014} considered a problem that is reducible to ours: since application is at cost rather than a constraint, the objective function is separable in the cost and therefore must be optimal over portfolios of the given size. Thus, solving her problem reduces to solving $m$ instances of \eqref{headlineproblem}.
+
+% talk about DA
+
+% pandora's box problem
+
+To the best of our knowledge, the first systematic study of the college application problem was undertaken by Kapur in his master's thesis \cite{kapur2022}, which considers \eqref{headlineproblem} as well as the more general case of a knapsack constraint. The present study extends Kapur's results with a further discussion of the application strategies recommended in the admissions consulting industry and how these compare to the optimal strategy.
+
+\subsection{Outline}
+
+This paper has five sections. In section \ref{sectionModel}, we derive a closed-form expression for the objective function of \eqref{headlineproblem} and show that it is a monotonic submodular function. In section \ref{sectionGreedy}, we prove that the optimal portfolios are nested in the budget $h$, which implies the validity of the greedy algorithm. Further refinement reduces the computation time to $O(hm)$. In section \ref{sectionDiscussion}, we examine alternative solution mechanisms used in the admissions consulting industry and their performance relative to the optimal solution. A brief conclusion follows in section \ref{sectionConclusion}.
+
+
+
+
+
+
+
+\section{Preliminaries} \label{sectionModel}
+
+For the remainder of the paper, unless otherwise noted, we assume with trivial loss of generality that each $f_j \in (0, 1]$ and $< t_1 \leq \cdots \leq t_m$. Unless otherwise noted, we assume $t_0 = 0$, an assumption justified presently. Unless otherwise noted, we assume that $t_0 = 0$, a restriction that we justify presently.
+
+% Lots of overlap here with paper_ellis; edit there first and then import
+
+\subsection{The objective function} \label{sectionObjective}
+
+First we derive a closed-form expression for the objective function of \eqref{headlineproblem}.
+
+We refer to the set $\mathcal{X} \subseteq \mathcal{C}$ of schools to which a student applies as her \emph{application portfolio.} The expected utility the student receives from $\mathcal{X}$ is called its \emph{valuation}. Given an application portfolio, let $p_j(\mathcal{X})$ denote the probability that the student attends school $j$. This occurs if and only if she \emph{applies} to school $j$, is \emph{admitted} to school $j$, and is \emph{rejected} from any school she prefers to $j$; that is, any school with higher index. Hence, for $j= 0\dots m$,
+\begin{align}
+p_j(\mathcal{X}) &= 
+\begin{cases}
+\displaystyle f_j  \prod_{\substack{i \in \mathcal{X}: \\ i > j}} (1 - f_{i}), \quad & j \in \{0\}\cup\mathcal{X}\\
+0, \quad & \text{otherwise}
+\end{cases} 
+\end{align}
+The following proposition follows by computing $v(\mathcal{X}) = \sum_{j=0}^m  t_j p_j(\mathcal{X})$.
+\begin{proposition}[Closed form of portfolio valuation function]
+\begin{align}
+v(\mathcal{X}) &= \sum_{j=0}^m t_j p_j(\mathcal{X}) = \sum_{j\in\{0\}\cup\mathcal{X}} \Bigl( f_j t_j \prod_{\substack{i \in \mathcal{X}: \\ i > j}} (1 - f_{i}) \Bigr)  \label{closedformportfoliovaluationX}%, \quad \text{or equivalently,}\\
+%\qquad v(x) &= t_0 \prod_{j=1}^m (1 - f_{j} x_j) + \sum_{j=1}^m \Bigl( x_j t_j f_j \prod_{j’ = j+1}^m (1 - f_{j’} x_{j’}) \Bigr) \label{closedformportfoliovaluationx}
+\end{align}
+\end{proposition}
+%\begin{proof}Computing $v(\mathcal{X}) = \sum_{j=0}^m  t_j p_j(\mathcal{X})$ yields \eqref{closedformportfoliovaluationX}. Next, because $1 - f_j x_j = 1$ if $x_j = 0$, we may define $p_j$ equivalently as $p_j(x) = x_j  f_j \prod_{j’ = j+1}^m (1 - f_{j’} x_{j’})$ to obtain \eqref{closedformportfoliovaluationx}. 
+%\end{proof}
+
+Next, we show that without loss of generality, we may assume that $t_0 = 0$.
+
+\begin{lemma} \label{assumetzerozero}
+For some $\gamma \leq t_0$, let $\bar t_j = t_j - \gamma$ for $j = 0 \dots m$. Then $v(\mathcal{X}; \bar t_j) = v(\mathcal{X};  t_j) -  \gamma$ for any $\mathcal{X} \subseteq \mathcal{C}$. 
+\end{lemma}
+\begin{proof}
+By definition, $\sum_{j=0}^m p_j(\mathcal{X}) = \sum_{j \in \{0\}\cup\mathcal{X}} p_j(\mathcal{X}) = 1$. Therefore
+\begin{align}
+\begin{split}
+v(\mathcal{X}; \bar t_j) &= \sum_{j\in \{0\}\cup\mathcal{X}}  \bar t_j p_j(\mathcal{X})
+=\sum_{j\in \{0\}\cup\mathcal{X}} (t_j - \gamma) p_j(\mathcal{X}) \\
+&=\sum_{j\in \{0\}\cup\mathcal{X}} t_j p_j(\mathcal{X})  - \gamma 
+= v(\mathcal{X}; t_j) - \gamma
+\end{split} 
+\end{align}
+which completes the proof.
+\end{proof}
+
+
+\subsection{An elimination technique} \label{eliminationtechniquesection}
+
+Now, we present a variable-elimination technique that will prove useful throughout the paper.\footnote{We thank Yim Seho for pointing out this useful transformation.} Suppose that the student has already resolved to apply to school $k$, and the remainder of her decision consists of determining which \emph{other} schools to apply to. Writing her total application portfolio as $\mathcal{X} = \mathcal{Y} \cup \{k\}$, we devise a function $w(\mathcal{Y})$ that orders portfolios according to how well they ``complement'' the singleton portfolio $\{k\}$. Specifically, the difference between $v(\mathcal{Y} \cup\{k\})$ and $w(\mathcal{Y})$ is the constant $f_k t_k$.
+
+To construct $w(\mathcal{Y})$, let $\tilde t_j$ denote the expected utility the student receives from school $j$ \emph{given} that she has been admitted to school $j$ and applied to school $k$. For $j < k$ (including $j = 0$), this is $\tilde t_j = (1- f_k) t_j + f_k t_k$; for $j > k $, this is $\tilde t_j = t_j$. This means that 
+\begin{equation}\label{Vyastildet}
+v(\mathcal{Y}\cup\{k\}) = \sum_{j \in \{0\} \cup \mathcal{Y}} \tilde t_j p_j(\mathcal{Y}).\end{equation}
+The transformation to $\tilde t$ does not change the order of the $t_j$-values. Therefore, the expression on the right side of \eqref{Vyastildet} is itself a portfolio valuation function. In the corresponding market, $t$ is replaced by $\tilde t$ and $\mathcal{C}$ is replaced by $\mathcal{C}\setminus\{k\}$. To restore our convention that $t_0 = 0$, we obtain $w(\mathcal{Y})$ by taking $\bar t_j = \tilde t_j - \tilde t_0$ for all $j \neq k$ and letting
+\begin{equation}  \label{wYvXminusconst}
+w(\mathcal{Y})
+= \sum_{j \in \{0\} \cup \mathcal{Y}} \bar t_j p_j(\mathcal{Y})
+= \sum_{j \in \{0\} \cup \mathcal{Y}} \tilde t_j p_j(\mathcal{Y})- \tilde t_0
+= v(\mathcal{Y}\cup\{k\}) -  f_k t_k \end{equation}
+where the second equality follows from Lemma \ref{assumetzerozero}. The validity of this transformation is summarized in the following theorem, where we write $v(\mathcal{X}; \bar t)$ instead of $w(\mathcal{Y})$ to emphasize that $w(\mathcal{Y})$ is, in form, a portfolio valuation function. 
+
+
+\begin{lemma}[Eliminate school $k$] \label{eliminationtheorem}
+For $\mathcal{X} \subseteq \mathcal{C} \setminus \{k\}$, $v(\mathcal{X}\cup\{k\}; t)  = v(\mathcal{X}; \bar t) + f_k t_k$, where
+\begin{align}\label{howtotransformtj}
+\bar t_j = 
+\begin{cases}
+(1 - f_k) t_j, \quad & t_j \leq t_k \\
+t_j - f_k t_k, \quad& t_j > t_k.
+\end{cases}
+\end{align}
+\end{lemma}
+
+\begin{proof}
+It is easy to verify that \eqref{howtotransformtj} is the composition of the two transformations (from $t$ to $\tilde t$, and from $\tilde t$ to $\bar t$) discussed above.
+\end{proof}
+
+%\noindent The transformation \eqref{howtotransformtj} can be applied iteratively to accommodate the case where the student has already resolved to apply to multiple schools.
+
+
+
+
+\subsection{Submodularity of the objective}
+
+Now, we show that the portfolio valuation function is submodular. This result is primarily of taxonomical interest and may be safely skipped, as our subsequent results do not rely on submodular analysis. 
+
+\begin{definition}[Submodular set function]
+Given a ground set $\mathcal{C}$ and function $v : 2^{\mathcal{C}} \mapsto \mathbb{R}$, $v(\mathcal{X})$ is called a \emph{submodular set function} if and only if $v(\mathcal{X}) + v(\mathcal{Y}) \geq v(\mathcal{X}\cup\mathcal{Y}) + v(\mathcal{X}\cap\mathcal{Y})$
+for all $\mathcal{X}, \mathcal{Y} \subseteq \mathcal{C}$. Furthermore, if $ v(\mathcal{X}\cup\{k\}) - v(\mathcal{X}) \geq 0$ for all $\mathcal{X} \subset \mathcal{C}$ and $k \in \mathcal{C} \setminus \mathcal{X}$, $v(\mathcal{X})$ is said to be a \emph{nondecreasing} submodular set function.
+\end{definition}
+
+\begin{theorem}
+The college application portfolio valuation function
+$v(\mathcal{X})$ % = \sum_{j\in\mathcal{X}} \Bigl( f_j t_j \prod_{\substack{i \in \mathcal{X}: \\ i > j}} (1 - f_{i}) \Bigr)\]
+is a nondecreasing submodular set function.
+\end{theorem}
+
+\begin{proof}
+It is self-evident that $v(\mathcal{X})$ is nondecreasing. To establish its submodularity, we apply proposition 2.1.iii of \cite{nemhauserandwolsey1978} and show that
+\begin{equation}\label{nemhauseriii}
+v(\mathcal{X} \cup \{j\}) - v(\mathcal{X}) \geq 
+v(\mathcal{X} \cup \{j, k\}) - v(\mathcal{X} \cup \{k\})
+\end{equation}
+for $\mathcal{X} \subset \mathcal{C}$ and $j \neq k \in \mathcal{C} \setminus \mathcal{X}$. By Lemma \ref{eliminationtheorem}, we can repeatedly eliminate the schools in $\mathcal{X}$ according to \eqref{howtotransformtj} to obtain a portfolio valuation function $w(\mathcal{Y})$ with parameter $\bar t$ such that $w(\mathcal{Y}) = v(\mathcal{X} \cup \mathcal{Y}) + \text{const.}$ for any $\mathcal{Y} \subseteq \mathcal{C} \setminus \mathcal{X}$. Therefore, \eqref{nemhauseriii} is equivalent to
+\begin{align}
+& w(\{j\}) - w(\varnothing) \geq w(\{j, k\}) - w(\{k\}) \\
+\iff \qquad &w(\{j\})  +  w(\{k\})  \geq w(\{j, k\})  \\
+\iff \qquad &\operatorname{E}[\,\bar t_j Z_j\,] + \operatorname{E}[\,\bar t_k Z_k\,] 
+\geq \operatorname{E}\bigl[\max\{ \bar t_j Z_j, \bar t_k Z_k \} \bigr]
+\end{align}
+which is plainly true. 
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+\section{The greedy algorithm} \label{sectionGreedy}
+
+
+\subsection{The nestedness property} 
+The optimality of the greedy algorithm for the college application problem rests on the fact the the optimal solution possesses a special structure: An optimal portfolio of size $h+1$ includes an optimal portfolio of size $h$ as a subset.
+
+\begin{theorem}[Nestedness of optimal application portfolios] \label{nestedapplication}
+There exists a sequence of portfolios $\{\mathcal{X}_h\}_{h=1}^m$ satisfying the nestedness relation
+
+\begin{equation}
+\mathcal{X}_1 \subset \mathcal{X}_2\subset \dots \subset \mathcal{X}_m
+\end{equation}
+such that each $\mathcal{X}_h$ is an optimal application portfolio when the application limit is $h$.
+\end{theorem}
+
+\begin{proof}
+By induction on $h$. Applying Lemma \ref{assumetzerozero}, we assume that $t_0 = 0$. 
+
+(Base case.) First, we will show that $\mathcal{X}_1 \subset \mathcal{X}_2$. To get a contradiction, suppose that the optima are $\mathcal{X}_1 = \{j\}$ and $\mathcal{X}_2 = \{k, l\}$, where we may assume that $t_k \leq t_l$. Optimality requires that
+
+\begin{equation}v(\mathcal{X}_1 )  = f_j t_j > v(\{k\}) = f_k t_k\end{equation}
+and
+\begin{align}
+\begin{split}
+v(\mathcal{X}_2) =  f_k (1- f_l) t_k + f_l t_l &> v(\{j, l\}) \\
+& = f_j (1- f_l) t_j + (1- f_j) f_l t_l + f_j f_l \max\{t_j, t_l\} \\
+&\geq  f_j (1- f_l) t_j + (1- f_j) f_l t_l + f_j f_l  t_l \\
+&= f_j (1- f_l) t_j + f_l t_l  \\
+&\geq f_k (1- f_l) t_k + f_l t_l  = v(\mathcal{X}_2)
+\end{split}
+\end{align}
+which is a contradiction. 
+
+(Inductive step.) Assume that $\mathcal{X}_1 \subset \cdots \subset \mathcal{X}_h$, and we will show $\mathcal{X}_h \subset \mathcal{X}_{h+1}$. Let $k = \argmax\{ t_k: k \in \mathcal{X}_{h+1}\}$ and write $\mathcal{X}_{h+1} = \mathcal{Y}_{h} \cup \{k\}$.
+
+Suppose $k \notin \mathcal{X}_h$. To get a contradiction, suppose that $v(\mathcal{Y}_h) < v(\mathcal{X}_h)$ and  $v(\mathcal{X}_{h+1}) > v(\mathcal{X}_h \cup \{k\})$. Then
+\begin{align}
+\begin{split}
+v(\mathcal{X}_{h+1})&= v(\mathcal{Y}_{h} \cup \{k\}) \\
+&= (1 - f_k) v(\mathcal{Y}_h) + f_k t_k \\
+&\leq (1 - f_k) v(\mathcal{X}_h) + f_k \operatorname{E}\bigl[ \max\{t_k, X_h\}\bigr]\\
+&=  v(\mathcal{X}_h\cup \{k\})
+\end{split}
+\end{align}
+is a contradiction.
+
+Now suppose that $k \in \mathcal{X}_h$. We can write $\mathcal{X}_h = \mathcal{Y}_{h-1} \cup \{k\}$, where $ \mathcal{Y}_{h-1}$ is some portfolio of size $h-1$. It suffices to show that $ \mathcal{Y}_{h-1} \subset \mathcal{Y}_h$. By definition, $\mathcal{Y}_{h-1}$ (respectively, $\mathcal{Y}_{h}$) maximizes the function $v(\mathcal{Y}\cup\{k\})$ over portfolios of size $h-1$ (respectively, $h$) that do not include $k$. That is, $\mathcal{Y}_{h-1}$ and $\mathcal{Y}_h$ are the optimal complements to the singleton portfolio $\{k\}$.
+
+Applying Lemma \ref{eliminationtheorem}, we eliminate school $k$, transform the remaining $t_j$-values to $\bar t_j$ according to \eqref{howtotransformtj}, and obtain a function $w(\mathcal{Y}) = v(\mathcal{Y} \cup \{k\}) - f_k t_k$ that grades portfolios $\mathcal{Y} \subseteq \mathcal{C} \setminus \{k\}$ according to how well they complement $\{k\}$. Since $w(\mathcal{Y})$ is itself a portfolio valuation function and $\bar t_0 = 0$, the inductive hypothesis implies that $\mathcal{Y}_{h-1} \subset \mathcal{Y}_h$, which completes the proof.
+\end{proof}
+
+
+
+
+\subsection{Quadratic-time solution}
+
+Applying Theorem \ref{nestedapplication} yields an efficient greedy algorithm for the optimal portfolio: Start with the empty set and add schools one at a time, maximizing $v(\mathcal{X}\cup \{k\})$ at each addition. Sorting $t$ is  $O(m \log m)$.  At each of the $h$ iterations, there are $O(m)$ candidates for $k$, and computing $v(\mathcal{X}\cup \{k\})$ is $O(h)$ using \eqref{closedformportfoliovaluationX}; therefore, the time complexity of this algorithm is $O(h^2 m + m \log m)$. 
+
+We reduce the computation time to $O(hm)$ by taking advantage of the transformation from Lemma \ref{eliminationtheorem}. Once school $k$ is added to $\mathcal{X}$, we eliminate it from the set $\mathcal{C}\setminus \mathcal{X}$ of candidates, and update the $t_j$-values of the remaining schools according to \eqref{howtotransformtj}. Now, the \emph{next} school added must be the optimal singleton portfolio in the modified market. But the optimal singleton portfolio consists simply of the school with the highest value of $f_j \bar t_j$. Therefore, by updating the $t_j$-values at each iteration according to \eqref{howtotransformtj}, we eliminate the need to compute $v(\mathcal{X})$ entirely. Moreover, this algorithm does not require the schools to be indexed in ascending order by $t_j$, which removes the $O(m\log m)$ sorting cost.
+
+\begin{algorithm}[h] 
+%\DontPrintSemicolon
+\caption{Optimal portfolio algorithm for the college application problem.} \label{algorithmforlargeh}
+\KwIn{Utility values $t \in(0, \infty)^m$, admissions probabilities $f \in (0, 1]^m$, application limit $h \leq m$.}
+$\mathcal{C} \gets \{1 \dots m\}$\;
+$\mathtt{X, V} \gets $ empty $h$-arrays\;
+\For{$i=1\dots h$}
+{
+    $k \gets \argmax_{j \in \mathcal{C}}\{f_j t_j\}$\;
+    $\mathcal{C} \gets \mathcal{C} \setminus \{k\}$\;
+    $\mathtt{X}[i] \gets k$\;
+     \lIfElse{$i=1$}{$\mathtt{V}[i] \gets f_k t_k$}
+     {$\mathtt{V}[i] \gets \mathtt{V}[i-1] + f_k t_k$}
+    \For{$j \in \mathcal{C}$}
+	{
+	\lIfElse{$t_j \leq t_k$}{$t_j \gets (1 -  f_k) t_j $}{$t_j \gets  t_j -  f_k t_k$}
+	}
+}
+\Return{$\mathtt{X, V}$}
+\end{algorithm}
+
+
+\begin{theorem}[Validity of Algorithm \ref{algorithmforlargeh}] \label{validityofalmaalgorithm}
+Algorithm \ref{algorithmforlargeh} produces an optimal application portfolio for the cardinality-constrained college application problem in $O(h m)$ time.
+\end{theorem}
+
+\begin{proof}
+Optimality follows from the proof of Theorem \ref{nestedapplication}. At each of the $h$ iterations of the main loop, finding the top school costs $O(m)$, and the $t_j$-values of the remaining $O(m)$ schools are each updated in unit time. Therefore, the overall time complexity is $O(h m)$.
+\end{proof}
+
+By running the algorithm with $h = m$, one can obtain the optimal portfolios for \emph{all} $h$ by taking $\mathcal{X}_h = \{ \mathtt{X}[1], \dots, \mathtt{X}[h]\}$. Thus, Fu (2014)'s variant of the college application problem 
+\[ \text{maximize} \quad v(\mathcal{X}) - c(|\mathcal{X}|)\]
+(where $c(\cdot)$ is an increasing cost function) can be solved in $O(m^2)$-time by a trivial modification of Algorithm \ref{algorithmforlargeh}: Simply compute
+\[h^* = \argmax_{h = 1 \dots m} \bigl\{\mathtt{V}[h] - c(h)\bigr\}\] and return $\mathcal{X}_{h^*}$.  
+
+
+
+
+
+
+\section{Discussion: Heuristics and student welfare} \label{sectionDiscussion}
+
+Let us discuss a few intuitive heuristics for the college application problem, how their
+accuracy compares to the optimal solution, and the implications for student welfare.
+
+\subsection{The distributional heuristic}
+
+In real-world admissions markets, $f_t$ and $t_j$ correlate inversely because desirable schools attract many applicants. In the admissions consulting industry, schools with high utility and low admissions probability are called reach schools, while schools with low utility and high admissions probability are called safety schools, and those in between are called target schools. According to a common heuristic used by admissions consultants, it is best to apply to a roughly equal mix of target, safety, and reach schools \cite{jeon2015,peck2021}. How does this strategy, which we call the \emph{distributional} heuristic, perform compared to the optimal application strategy?
+
+Note that the distributional heuristic does not specify the boundary between target, safety, and reach schools. However, regardless of how this boundary is specified, we argue that the distributional heuristic is limited by the fact that it does not respond adaptively to the application budget $h$. In a market where $f_j$ and $t_j$ are inversely correlated, the optimal application strategy gradually favors reach schools over safety schools as $h$ increases.
+
+To see why large values of $h$ favor a risky portfolio allocation, consider two schools $i$ and $k$ having $t_i < t_k$ and $f_i t_i = f_k t_k = 1$. Thus, the actuarial value of applying \emph{individually} to either school is identical, and a risk-neutral student is indifferent between the safety school $i$ and the reach school $k$. However, suppose that the student has previously resolved to apply to a target school $j$ having $t_i < t_j < t_k$. It is now optimal to apply to $\mathcal{X} = \{j, k\}$ instead of $\{i, k\}$ as long
+as
+\begin{align*}
+0 &\leq v(\{j, k\}) - v(\{i, j\})\\
+&= (1 - f_k ) f_j t_j + f_k t_k - (1 - f_j) f_i t_i - f_j t_j \\
+&= \bigl( 1 - \frac{1}{t_k}\bigr) f_j t_j + 1 - (1 - f_j) - f_j t_j \\
+&=  - \frac{1}{t_k} f_j t_j + f_j \\
+\iff \qquad \frac{f_j t_j}{t_k } &\leq f_j,
+\end{align*}
+which is \emph{always} true because $t_j < t_k$. This example shows that however one defines a ``target school,'' it is always better to pair a target school with a reach school than with a safety school as long as the choices are equivalent in their actuarial value. By the elimination argument, the same result holds with respect to adding a reach school to a portfolio that is otherwise balanced.
+
+
+\subsection{The linearization heuristic}
+
+The expected utility associated with applying to school $j$ alone is is simply $\operatorname{E}[t_j Z_j] = f_j t_j$. It is therefore tempting to adopt the following heuristic:
+\begin{definition}[Linearization heuristic for the college application problem] \label{naivealgorithm}
+Apply to the $h$ schools having the highest expected utility $f_j t_j$.
+\end{definition}
+\noindent This algorithm's computation time is $O(m)$ using the PICK algorithm of \cite{blumetal1973}. In essence, this heuristic maximizes $\operatorname{E}\left[\,\sum t_j Z_j\, \right]$ as a surrogate for the true objective function $\operatorname{E}\left[\max \{t_j Z_j\} \right]$. Accordingly, we call it the \emph{linearization heuristic.}
+
+The following theorem says that the linearization heuristic is a $(1/h)$-approximation algorithm for the college application problem. 
+\begin{theorem} \label{oneoverhoptthm}
+When the application limit is $h$, let $\mathcal{X}_h$ denote the optimal portfolio, and $\mathcal{T}_h$ the set of the $h$ schools having the largest values of $f_j t_j$. Then $v(\mathcal{T}_h) / v(\mathcal{X}_h) \geq 1/h$. 
+\end{theorem}
+\begin{proof}
+Because $\mathcal{T}_h$ maximizes the quantity $\operatorname{E}\bigl[ \sum_{j \in \mathcal{T}_h}\{ t_j Z_j \}\bigr]$, we have
+\begin{align} \label{oneoverhopt}
+\begin{split}
+v(\mathcal{X}_h) &= \operatorname{E}\Bigl[ \max_{j \in \mathcal{X}_h}\{ t_j Z_j \}\Bigr] \leq \operatorname{E}\Bigl[ \sum_{j \in \mathcal{X}_h}\{ t_j Z_j \}\Bigr] \leq \operatorname{E}\Bigl[ \sum_{j \in \mathcal{T}_h}\{ t_j Z_j \}\Bigr] \\
+&= h  \operatorname{E}\Bigl[ \tfrac{1}{h} \sum_{j \in \mathcal{T}_h}\{ t_j Z_j \}\Bigr]
+\leq h  \operatorname{E}\Bigl[ \max_{j \in \mathcal{T}_h}\{ t_j Z_j \}\Bigr]
+= h v(\mathcal{T}_h)
+\end{split}
+\end{align}
+where the final inequality follows from the concavity of the $\max\{\}$ operator.
+\end{proof}
+
+\noindent The following example establishes the tightness of the approximation factor. 
+
+\begin{example} \label{tightexampleforoneoverhopt}
+Pick any $h$ and let $m = 2h$. For a small constant $\varepsilon \in (0, 1)$, define the market as follows.
+\begin{center}
+\begin{tabular}{r|cccccccc}
+$j$   & $1$      & $\cdots$ & $h$   &$h+1$         &  $h+2$ & $\cdots$ &      $m-1$  & $m$            \\ \hline
+$f_j$ & $1$     &  $\cdots$ & $1$      & $\varepsilon^{1}$ & $\varepsilon^{2}$ & $\cdots$ & $\varepsilon^{h-1}$ & $\varepsilon^{h}$ \\
+$t_j$ & $1$      &  $\cdots$ & $1$      & $\varepsilon^{-1}$ & $\varepsilon^{-2}$ & $\cdots$ & $\varepsilon^{-(h-1)}$ & $\varepsilon^{-h}$
+\end{tabular}%
+\end{center}
+Since all $f_j t_j = 1$, the linearization heuristic can choose $\mathcal{T}_h = \{1, \dots, h\}$, with $v(\mathcal{T}_h) = 1$. But the optimal solution is $\mathcal{X}_h = \{h+1, \dots, m\}$, with
+\begin{equation}
+v(\mathcal{X}_h) = \sum_{j= h +1}^m \Bigl( f_j t_j \prod_{j' = j+1}^m (1 - f_{j'}) \Bigr) =  \sum_{j= 1}^h  (1 - \varepsilon)^{j} \approx h.
+\end{equation}
+Thus, as $\varepsilon$ approaches zero, we have $v(\mathcal{T}_h) / v(\mathcal{X}_h) \to 1/h$. (The optimality of $\mathcal{X}_h$ follows from the fact that it achieves the upper bound of Theorem \ref{oneoverhoptthm}.)
+\end{example}
+
+Example \ref{tightexampleforoneoverhopt} also illustrates that for large application budget, reach schools offer greater marginal utility than safety schools.
+
+
+
+\subsection{Implications for student welfare}
+
+% Clearly, individual students benefit from reducing barriers to application, but what are the tradeoffs, and how can we calculate them?
+
+Classical portfolio optimization models in the Markowitz tradition feature risk aversion as an exogeneous \emph{parameter.} The optimal portfolio is expressed as a proportion of the total budget, and this allocation is constant for budgets of all sizes. In the college application problem, however, our analysis of the distributional heuristic reveals that even putatively risk-averse students must modulate their risk allocation according to the number of schools to which they can afford to apply. Students with a application budget can tolerate, and indeed benefit, from taking larger risks than those without. From a welfare standpoint, this optimal risk elasticity offers weak evidence for the notion that reducing the costs of college application could improve student equity. On the other hand, dissuading students from applying to too many reach schools may be a desirable feature in an admissions market inasmuch as it eliminates the administrative costs associated with reading low-quality applications. 
+
+A further complication arises in an intrinsic feature of submodular set functions such as the objective function of the college application problem---that they exhibit rapidly diminishing returns: The optimality of the greedy algorithm implies that the gain in student utility from increasing the budget from $h-1$ to $h$ is larger than that from increasing it from $h$ to $h+1$.
+
+\begin{theorem} \label{concavityinh}
+For $h = 2 \dots (m-1)$,
+\begin{equation}v(\mathcal{X}_h) - v(\mathcal{X}_{h-1}) \geq v(\mathcal{X}_{h+1}) - v(\mathcal{X}_{h}).\end{equation} 
+\end{theorem}
+
+\begin{proof}
+Applying Theorem \ref{nestedapplication}, we write $\mathcal{X}_h = \mathcal{X}_{h-1} \cup\{j\}$ and $\mathcal{X}_{h+1} = \mathcal{X}_{h-1} \cup\{j, k\}$. By optimality, $v(\mathcal{X}_h) - v(\mathcal{X}_{h-1}) \geq v(\mathcal{X}_{h-1}\cup\{k\}) - v(\mathcal{X}_{h-1})$. By submodularity and nestedness, $v(\mathcal{X}_{h-1}\cup\{k\}) - v(\mathcal{X}_{h-1}) \geq  v(\mathcal{X}_{h}\cup\{k\}) - v(\mathcal{X}_{h}) = v(\mathcal{X}_{h+1}) - v(\mathcal{X}_{h})$.
+\end{proof}
+
+\noindent (An elementary proof is provided in \cite{kapur2022}.) It follows that when $\mathcal{X}_h$ is the optimal $h$-portfolio for a given market, $v(\mathcal{X}_h)$ is $O(h)$. Example \ref{tightexampleforoneoverhopt}, in which $v(\mathcal{X}_h)$ can be made arbitrarily close to $h$, establishes the tightness of this bound.
+
+% These results suggest that you should increase $h$ until the point where the maximum marginal value of an additional application, namely $v(h) / h$, is small enough that students won't be tempted to spam reach schools with extra applications.
+
+
+
+
+
+\section{Conclusion} \label{sectionConclusion}
+
+
