@@ -16,15 +16,15 @@ Here $\mathcal{C} = \{ 1 \dots m\}$ represents the set of colleges in the market
 
 The problem can also be applied to other competitive matching games such as job application or marriage proposal. Here the budget constraint may arise due to the time required to communicate with each applicant or a legal limit on the number of applications allowed.
 
-We show that the optimal portfolios for the cardinality-constrained college are \emph{nested} in the budget constraint, meaning that when $\mathcal{X}_h$ is the optimal portfolio of size $h$, $\mathcal{X}_h \subset \mathcal{X}_{h+1}$. The nestedness property is equivalent to the optimality of the \emph{greedy} algorithm that iteratively adds to $\mathcal{X}$ the school that elicits the greatest increase in the objective value. The proof of the nestedness property yields insight into the properties of the optimal college application strategy: Students who cannot afford to apply to many schools allocate a greater proportion of their application budget to safety schools than students with a large application budget. A classic finding of behavioral psychology is that agents with limited resources tend to make more risk-averse decisions than their wealthier peers, especially with respect to education and career choice \cite{hartlaubandschneider2012,vanhuizenandalessie2019}. In the case of college application, our model (though theoretical) provides a rational basis for this tendency.
+We show that the optimal portfolios for the cardinality-constrained college are \emph{nested} in the budget constraint, meaning that when $\mathcal{X}_h$ is the optimal portfolio of size $h$, $\mathcal{X}_h \subset \mathcal{X}_{h+1}$. The nestedness property is equivalent to the optimality of the \emph{greedy} algorithm that iteratively adds to $\mathcal{X}$ the school that elicits the greatest increase in the objective value. The proof of the nestedness property yields insight into the properties of the optimal college application strategy: Students who cannot afford to apply to many schools allocate a greater proportion of their application budget to safety schools than students with a large application budget.% rewrite: A classic finding of behavioral psychology is that agents with limited resources tend to make more risk-averse decisions than their wealthier peers, especially with respect to education and career choice \cite{hartlaubandschneider2012,vanhuizenandalessie2019}. In the case of college application, our model (though theoretical) provides a rational basis for this tendency.
 
 Our analysis also provides tight bounds on the marginal value of additional applications, which may be informative in the design of fee waiver policies and setting application markets in centralized admissions markets.
 % discuss below
 %Our analysis also reveals that the optimal objective value grows sublinearly in $h$, a fact which may be useful in designing admissions markets. For example, in the South Korean college admissions process, students are allowed to apply to only $h = 3$ colleges in the main application cycle, a policy which is thought to promote fairness. Therefore, by submitting an additional application, no student can increase her expected utility by more than 33 percent, 
 
-\subsection{Literature review}
+% \subsection{Literature review}
 
-\subsubsection{Related optimization problems}
+\subsection{Related optimization problems}
 
 The objective function is a nondecreasing, submodular set function in the sense first described by Nemhauser et al. \cite{nemhauseretal1978}. They showed that the greedy algorithm is asymptotically $(1 - 1/e)$-optimal for optimizing a monotonic submodular function over a cardinality constraint, and a subsequent result of Nemhauser and Wolsey \cite{nemhauserandwolsey1978} proved that this approximation ratio is the best achievable by a polynomial-time algorithm. In the special case of college application, however, we show that the same algorithm is exact. 
 
@@ -37,7 +37,7 @@ The college application problem can be interpreted as a static variant of the Pa
 
 Arguably, the static model considered in this study is more hostile to students than the Pandora's Box problem. If, for example, an unlucky Pandora is rejected from a safety school at an early round of application, then she can compensate for the unexpected loss by pivoting to a more risk-averse application strategy. By contrast, the decisionmaker in our college application problem must commit at the outset to applying to every school in her application portfolio. The admissions process used in the United States can be viewed as the concatenation of both problems: In the fall, students solve \eqref{headlineproblem} and send out a batch of applications. Then, upon observing their admissions outcomes in March, they use the Pandora strategy to pursue additional offers by applying to schools that offer rolling admissions.
 
-\subsubsection{Admissions markets}
+\subsection{Admissions markets}
 
 %Fu \cite{fu2014} considered a problem that is reducible to ours: since application is at cost rather than a constraint, the objective function is separable in the cost and therefore must be optimal over portfolios of the given size. Thus, solving her problem reduces to solving $m$ instances of \eqref{headlineproblem}.
 
@@ -286,8 +286,8 @@ where $c(\cdot)$ is an increasing cost function. By separability, the optimal po
 
 \section{Discussion: Heuristics and student welfare} \label{sectionDiscussion}
 
-Let us discuss a few intuitive heuristics for the college application problem, how their
-accuracy compares to the optimal solution, and the implications for student welfare.
+In this section, we discuss a few intuitive heuristics for the college application problem and how their
+accuracy compares to the optimal solution. The analysis of these heuristics provides an alternative explanation for findings from the education literature showing that low-income students use a more risk-averse college application strategy than their wealthy peers.
 
 \subsection{The distributional heuristic}
 
@@ -354,17 +354,17 @@ Example \ref{tightexampleforoneoverhopt} also illustrates that for large applica
 
 
 
-\subsection{Implications for student welfare}
+\subsection{Risk management and student welfare}
 
-% Clearly, individual students benefit from reducing barriers to application, but what are the tradeoffs, and how can we calculate them?
+Further analysis of the optimal application strategy provides a novel explanation of findings from regression studies of college applicant behavior and speculate about policy interventions to improve student equity and welfare. We conjecture that broad policies to decrease the costs of application may yield a greater increase in student equity than interventions that narrowly target high-achieving, low-income students.
 
 Classical portfolio optimization models in the Markowitz \cite{markowitz1952} tradition feature risk aversion as an exogeneous \emph{parameter.} The optimal portfolio is expressed as a proportion of the total budget, and this allocation is constant for budgets of all sizes. Therefore, the value of a rational investor's risk parameter can be determined merely by locating her portfolio allocation along the efficient frontier, even if her total investment budget is unknown. 
 
-In the college application problem, the value $t_0$ of the noncollege option can function as a risk-aversion parameter. However, our analysis of the distributional heuristic reveals that regardless of their underlying risk preferences, students must modulate their risk allocation---that is, the relative share of reach and safety schools in their portfolio---according to the number of schools to which they can afford to apply. Students with a large application budget can tolerate, and indeed benefit, from taking larger risks than those without. This means that in college application, variation in students' risk allocation arises from a combination of variance in underlying preferences and variance in students' application budgets. This property, which we may call \emph{optimal risk elasticity,} is not present in the Markowitz model.
+In the college application problem, the value $t_0$ of the noncollege option can function as a risk-aversion parameter. However, the analysis of the distributional heuristic reveals that regardless of their underlying risk preferences, students must modulate their risk allocation---that is, the relative share of reach and safety schools in their portfolio---according to the number of schools to which they can afford to apply. Students with a large application budget can tolerate, and indeed benefit, from taking larger risks than those without. This means that in college application, variation in students' risk allocation arises from a combination of variance in underlying preferences and variance in students' application budgets. This property, which we may call \emph{optimal risk elasticity,} is not present in the Markowitz model.
 
-From a welfare standpoint, this optimal risk elasticity offers weak evidence for the notion that reducing the costs of college application could improve student equity. On the other hand, dissuading students from applying to too many reach schools may be a desirable feature in an admissions market inasmuch as it eliminates the administrative costs associated with reading low-quality applications. 
+A classic finding of behavioral psychology is that agents with limited resources tend to make more risk-averse decisions than their wealthier peers, especially with respect to education and career choice \cite{hartlaubandschneider2012,vanhuizenandalessie2019}. More concretely, wealthy students tend to apply to more reach schools than low-income students of similar academic ability, a tendency that some education scholars attribute to a lack of teachers or older peers who attended selective universities \cite{hoxbyandavery2012}. But given that low-income students tend to apply to fewer schools overall, optimal risk elasticity provides a rational explanation for the difference between their risk allocation and that of their wealthy peers. Hence, the failure of low-income students to apply to reach schools is not necessarily suboptimal decisionmaking due to risk aversion, but could be \emph{optimal} decisionmaking under a smaller budget. If the latter explanation is correct, then optimal risk elasticity suggests that reducing the costs of college application for all students could improve student equity without the need to overcome psychological factors such as risk aversion and the absence of high-achieving role models. 
 
-A further complication arises in an intrinsic feature of submodular set functions such as the objective function of the college application problem---that they exhibit rapidly diminishing returns: The optimality of the greedy algorithm implies that the gain in student utility from increasing the budget from $h-1$ to $h$ is larger than that from increasing it from $h$ to $h+1$.
+Further inspiration for policy interventions to improve student welfare arises in an intrinsic feature of submodular set functions: That they exhibit rapidly diminishing returns. The optimality of the greedy algorithm implies that the gain in student utility from increasing the budget from $h-1$ to $h$ is larger than that from increasing it from $h$ to $h+1$.
 
 \begin{theorem} \label{concavityinh}
 For $h = 2 \dots (m-1)$,
@@ -377,14 +377,8 @@ Applying Theorem \ref{nestedapplication}, we write $\mathcal{X}_h = \mathcal{X}_
 
 \noindent (An elementary proof is provided in \cite{kapur2022}.) It follows that when $\mathcal{X}_h$ is the optimal $h$-portfolio for a given market, $v(\mathcal{X}_h) = t_0 + O(h)$. Example \ref{tightexampleforoneoverhopt}, in which $v(\mathcal{X}_h)$ can be made arbitrarily close to $h$, establishes the tightness of this bound.
 
-The fact that the optimal objective value grows sublinearly in $h$ may be relevant in the design of admissions markets. In the South Korean college admissions process, students are allowed to apply to only $h = 3$ colleges in the main application cycle, a policy which is thought to promote fairness. Suppose that utility is measured in monetary units, $t_0 = \$100$, and $v(\mathcal{X}_3) = \$130$ for a typical student. Then since $v(\mathcal{X}_4) \leq \$140$, a policy that increments the application limit will be unpopular if its tax cost exceeds $\$10$.
+The fact that $v(\mathcal{X}_h)$ grows sublinearly in $h$ may provide an economic explanation for the underwhelming efficacy of nudges, such as application fee waivers, designed to encourage talented low-income students to apply to selective universities \cite{gurantzetal2021}. In our model, the marginal value of an additional college application is greatest to students who have both a small application portfolio, and small admissions odds at the schools they are currently applying to---hat is, students whose portolio allocation is skewed toward reach schools. However, fee-waiver interventions have typically targeted high-achieving, low-income students (so-called ``one-offs'' \cite{hoxbyandavery2012,hoxbyandturner2013}) who already have high admissions odds at the schools in their portfolio due a combination of underlying academic talent and the aforementioned tendency of low-income students to favor safety schools. Therefore, our analysis suggests that the students who stand to benefit the most from nudges such as fee waivers are not high-achieving, low-income students, but rather students of middling ability who are prepared for college but unlikely to be admitted to every school. 
 
-This also suggests, paradoxically, that colleges should offer application fee waivers to students who have already applied to many competitor schools. % interesting tradeoff
-
-% you should increase $h$ until the point where the maximum marginal value of an additional application, namely $v(h) / h$, is small enough that students won't be tempted to spam reach schools with extra applications.
-
-
-
-
+%On the other hand, dissuading students from applying to too many reach schools may be a desirable feature in an admissions market inasmuch as it eliminates the administrative costs associated with reading low-quality applications. Our analysis of student utility also can inform the design of centralized admissions markets. In the South Korean college admissions process, students are allowed to apply to only $h = 3$ colleges in the main application cycle, a policy which is thought to promote fairness. Suppose that utility is measured in monetary units, $t_0 = \$100$, and $v(\mathcal{X}_3) = \$130$ for a typical student. Then since $v(\mathcal{X}_4) \leq \$140$, a policy that increments the application limit will be unpopular if its tax cost exceeds $\$10$.
 
 \section{Conclusion} \label{sectionConclusion}
