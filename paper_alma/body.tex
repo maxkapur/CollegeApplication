@@ -318,7 +318,7 @@ $t_j$ & $\varepsilon^{-1}$ & $\varepsilon^{-2}$ & $\cdots$ & $\varepsilon^{-(m-1
 \end{center}
 The optimal portfolios are given by $\mathcal{X}_h = \{m-h + 1, dots, m\}$, and 
 \begin{equation*}
-v(\mathcal{X}_h) = \sum_{j= m-h +1}^m \Bigl( f_j t_j \prod_{i = j+1}^m (1 - f_{i}) \Bigr) =  \sum_{j= 1}^h  (1 - \varepsilon)^{m-h+j}.
+v(\mathcal{X}_h) = \sum_{j= m-h +1}^m \Bigl( f_j t_j \prod_{i = j+1}^m (1 - f_{i}) \Bigr) =  \sum_{j= 1}^h  (1 - \varepsilon)^{j-1}.
 \end{equation*}
 Thus, as $\varepsilon$ approaches zero, we have $v(\mathcal{T}_h) \to h$.
 \end{example}
