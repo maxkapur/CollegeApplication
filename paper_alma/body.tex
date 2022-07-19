@@ -20,8 +20,7 @@ The problem can also be applied to other competitive matching games such as job 
 
 We show that the optimal portfolios for the cardinality-constrained college are \emph{nested} in the budget constraint, meaning that when $\mathcal{X}_h$ is the optimal portfolio of size $h$, $\mathcal{X}_h \subset \mathcal{X}_{h+1}$. The nestedness property is equivalent to the optimality of the \emph{greedy} algorithm that iteratively adds to $\mathcal{X}$ the school that elicits the greatest increase in the objective value. The proof of the nestedness property yields insight into the properties of the optimal college application strategy: Students who cannot afford to apply to many schools allocate a greater proportion of their application budget to safety schools than students with a large application budget. This phenomenon, which we call optimal risk elasticity, reveals a shortcoming of the reach/safety school heuristics used in the admissions consulting industry: Whereas admissions consultants recommend a \emph{static} risk allocation that allocates a fixed proportion of the portfolio to reach, target, and safety schools, we find that the optimal application strategy gradually favors reach schools over safety schools as $h$ increases. Optimal risk elasticity therefore provides a \emph{rational} explanation for the divergent risk behavior observed in the social-science research cited above: It may not be the case that low-income students are inherently more risk-averse than their wealthy peers, but rather, their constrained budget induces a more risk-averse optimal policy. 
 
-Our analysis also provides a tight, constant upper bound on the marginal value of additional applications, which may be informative in the design of fee waiver policies and setting application limits in centralized admissions markets.
-% \subsection{Literature review}
+Our analysis also provides a tight, constant upper bound on the marginal value of additional applications. We show that the valuation of the college application problem is sublinear in $h$, and that the marginal value of application is greatest to students with low admissions probability at the schools currently in their portfolio. This finding may provide an economic explanation for the underwhelming efficacy of behavioral nudges, such as application fee waivers, designed to encourage talented low-income students to apply to selective universities \cite{gurantzetal2021}. 
 
 \subsection{Related optimization problems}
 
@@ -288,53 +287,13 @@ where $c(\cdot)$ is an increasing cost function. By separability, the optimal po
 % Correlation with socioeconomic status: wattsetal2018
 % Environmental reliability hypothesis (rational explanation): kiddetal2013
 
-In this section, we discuss the implications of our model for real-world admissions markets. First, the optimality of the greedy algorithm together with the submodularity of the objective implies that $v(\mathcal{X}_h)$ grows sublinearly in $h$; we provide a tight example for this upper bound. Examining the student profiles for which $v(\mathcal{X}_h)$ grows most rapidly suggests that the underwhelming effectiveness of fee-waiver interventions may be explained by the fact that they target students who have little marginal benefit from additional applications. 
+\subsection{The distributional heuristic and optimal risk elasticity}
 
-Next, we discuss the distributional heuristic, which targets a static risk distribution and (in its inoptimality) reveals that the college application problem possesses a unique property called optimal risk elasticity that is not present in traditional portfolio optimization problems. This property provides alternative explanation for social-science research showing that low-income students use a more risk-averse college application strategy than their wealthy peers.
+The college application becomes ``easy'' when the applicant can identify schools that have both high admissions probability $f_j$ and high utility $t_j$. In typical admissions markets, however, $f_j$ and $t_j$ to correlate inversely because desirable schools attract greater numbers of applicants, and students must make tough, dichotomous decisions between reach and safety schools that have similar expected utility but different risk profiles. Many admissions consultants advise applicants to allocate applications evenly across reach, target, and safety schools \cite{jeon2015,peck2021}. How does this strategy, which we call the \emph{distributional heuristic,} perform compared to the optimal application strategy?
 
-\subsection{Risk management and student welfare}
+Note that the distributional heuristic does not specify the boundary between target, safety, and reach schools. However, regardless of how this boundary is specified, we argue that the distributional heuristic is limited by the fact that it does not respond adaptively to the application budget $h$. In a market where $f_j$ and $t_j$ are inversely correlated, we find that the first schools to enter the optimal portfolio in the greedy algorithm are safety schools, and the allocation shifts toward to incorporate more target and reach schools as the application budget $h$ grows.This phenomenon, which we call \emph{optimal risk elasticity,} implies that any heuristic that targets a \emph{static} risk distribution becomes excessively risk averse for students with a sufficiently large application budget. Students with a large application budget can tolerate, and indeed benefit, from taking larger risks than those without.
 
-Diminishing marginal returns are an intrinsic feature of submodular set functions. In the college application problem, this property, together with the optimality of the greedy algorithm, implies that the gain in student utility from increasing the budget from $h-1$ to $h$ is larger than that from increasing it from $h$ to $h+1$.
-
-\begin{theorem} \label{concavityinh}
-For $h = 2 \dots (m-1)$,
-\begin{equation}v(\mathcal{X}_h) - v(\mathcal{X}_{h-1}) \geq v(\mathcal{X}_{h+1}) - v(\mathcal{X}_{h}).\end{equation} 
-\end{theorem}
-
-\begin{proof}
-Applying Theorem \ref{nestedapplication}, we write $\mathcal{X}_h = \mathcal{X}_{h-1} \cup\{j\}$ and $\mathcal{X}_{h+1} = \mathcal{X}_{h-1} \cup\{j, k\}$. By optimality, $v(\mathcal{X}_h) - v(\mathcal{X}_{h-1}) \geq v(\mathcal{X}_{h-1}\cup\{k\}) - v(\mathcal{X}_{h-1})$. By submodularity and nestedness, $v(\mathcal{X}_{h-1}\cup\{k\}) - v(\mathcal{X}_{h-1}) \geq  v(\mathcal{X}_{h}\cup\{k\}) - v(\mathcal{X}_{h}) = v(\mathcal{X}_{h+1}) - v(\mathcal{X}_{h})$.
-\end{proof}
-
-\noindent (An elementary proof appears in \cite{kapur2022}.) It follows that when $\mathcal{X}_h$ is the optimal $h$-portfolio for a given market, $v(\mathcal{X}_h) = t_0 + O(h)$. The following example establishes the tightness of this bound.
-
-\begin{example} \label{tightexampleforoneoverhopt}
-For a small constant $\varepsilon \in (0, 1)$, define the market as follows.
-\begin{center}
-\begin{tabular}{r|cccccccc}
-$j$   & $1$ & $2$ & $\cdots$ & $m-1$ & $m$ \\ \hline
-$f_j$ & $\varepsilon^{1}$ & $\varepsilon^{2}$ & $\cdots$ & $\varepsilon^{m-1}$ & $\varepsilon^{m}$ \\
-$t_j$ & $\varepsilon^{-1}$ & $\varepsilon^{-2}$ & $\cdots$ & $\varepsilon^{-(m-1)}$ & $\varepsilon^{-m}$
-\end{tabular}%
-\end{center}
-The optimal portfolios are given by $\mathcal{X}_h = \{m-h + 1, dots, m\}$, and 
-\begin{equation*}
-v(\mathcal{X}_h) = \sum_{j= m-h +1}^m \Bigl( f_j t_j \prod_{i = j+1}^m (1 - f_{i}) \Bigr) =  \sum_{j= 1}^h  (1 - \varepsilon)^{j-1}.
-\end{equation*}
-Thus, as $\varepsilon$ approaches zero, we have $v(\mathcal{T}_h) \to h$.
-\end{example}
-
-The fact that $v(\mathcal{X}_h)$ grows sublinearly in $h$ may provide an economic explanation for the underwhelming efficacy of behavioral nudges, such as application fee waivers, designed to encourage talented low-income students to apply to selective universities \cite{gurantzetal2021}. In our model, the marginal value of an additional college application is greatest to students who have both a small application portfolio, and small admissions odds at the schools they are currently applying to---that is, students whose portolio allocation is skewed toward reach schools. However, fee-waiver interventions have typically targeted high-achieving, low-income students (so-called ``one-offs'' \cite{hoxbyandavery2012,hoxbyandturner2013}) who already have high admissions odds at the schools in their portfolio due a combination of underlying academic talent and the aforementioned tendency of low-income students to favor safety schools. Therefore, our analysis suggests that the students who stand to benefit the most from nudges such as fee waivers are not high-achieving, low-income students, but rather students of middling ability who are prepared for college but unlikely to be admitted to every school. 
-
-%On the other hand, dissuading students from applying to too many reach schools may be a desirable feature in an admissions market inasmuch as it eliminates the administrative costs associated with reading low-quality applications. Our analysis of student utility also can inform the design of centralized admissions markets. In the South Korean college admissions process, students are allowed to apply to only $h = 3$ colleges in the main application cycle, a policy which is thought to promote fairness. Suppose that utility is measured in monetary units, $t_0 = \$100$, and $v(\mathcal{X}_3) = \$130$ for a typical student. Then since $v(\mathcal{X}_4) \leq \$140$, a policy that increments the application limit will be unpopular if its tax cost exceeds $\$10$.
-
-
-\subsection{The distributional heuristic}
-
-In real-world admissions markets, $f_t$ and $t_j$ correlate inversely because desirable schools attract many applicants. In the admissions consulting industry, schools with high utility and low admissions probability are called reach schools, while schools with low utility and high admissions probability are called safety schools, and those in between are called target schools. According to a common heuristic used by admissions consultants, it is best to apply to a roughly equal mix of target, safety, and reach schools \cite{jeon2015,peck2021}. How does this strategy, which we call the \emph{distributional} heuristic, perform compared to the optimal application strategy?
-
-Note that the distributional heuristic does not specify the boundary between target, safety, and reach schools. However, regardless of how this boundary is specified, we argue that the distributional heuristic is limited by the fact that it does not respond adaptively to the application budget $h$. In a market where $f_j$ and $t_j$ are inversely correlated, we find that the first schools to enter the optimal portfolio in the greedy algorithm are safety schools, and the allocation shifts toward to incorporate more target and reach schools as the application budget $h$ grows. In other words, the optimal application strategy gradually favors reach schools over safety schools as $h$ increases.
-
-To see why large values of $h$ favor a risky portfolio allocation, consider two schools $i$ and $j$ having $t_i < t_j$ and $f_i t_i = f_j t_j = 1$. Thus, the actuarial value of applying \emph{individually} to either school is identical, and a risk-neutral student is indifferent between the safety school $i$ and the reach school $j$. Now suppose that the student has resolved to apply to another school, $k$, and the question is whether to apply to  $\mathcal{X} = \{i, k\}$ or $\{j, k\}$. There are three cases:
+To see why large values of $h$ favor a riskier portfolio allocation, consider two schools $i$ and $j$ having $t_i < t_j$ and $f_i t_i = f_j t_j = 1$. Thus, the expected utility of applying \emph{individually} to either school is identical, and a risk-neutral student is indifferent between the safety school $i$ and the reach school $j$. Now suppose that the student has resolved to apply to another school, $k$, and the question is whether to apply to  $\mathcal{X} = \{i, k\}$ or $\{j, k\}$. There are three cases:
 
 \begin{itemize}
 \item If $t_k \leq t_i < t_j$, then 
@@ -356,17 +315,59 @@ v(\{i, k\}) -  v(\{j, k\}) &=  (1 - f_k) f_i t_i + f_k t_k - (1 - f_k) f_j t_j -
 \end{align*}
 \end{itemize}
 
-\noindent In every case, it is (weakly) optimal to choose the reach school $j$ over the safety school $i$. Thus, however one defines a ``target school,'' it is always better to pair a target school with a reach school than with a safety school as long as the choices are equivalent in their actuarial value. By the elimination argument, the same result holds with respect to adding a reach school to a portfolio that is otherwise balanced.
+\noindent In every case, it is (weakly) optimal to choose the reach school $j$ over the safety school $i$. Thus, however one defines a ``target school,'' it is always better to pair a target school with a reach school than with a safety school as long as the choices are equivalent in their actuarial value. By the elimination argument, one can show that the same result holds with respect to adding a reach or safety school to a portfolio that is otherwise balanced.
 
-Further analysis of the optimal application strategy provides a novel explanation of findings from regression studies of college applicant behavior and speculate about policy interventions to improve student equity and welfare. We conjecture that broad policies to decrease the costs of application may yield a greater increase in student equity than interventions that narrowly target high-achieving, low-income students.
+Regression studies of college applicant behavior have shown that low-income students tend to apply to a few safety schools, whereas their wealthy peers tend to take bigger risks (cite). 
 
-Classical portfolio optimization models in the Markowitz \cite{markowitz1952} tradition feature risk aversion as an exogeneous \emph{parameter.} The optimal portfolio is expressed as a proportion of the total budget, and this allocation is constant for budgets of all sizes. Therefore, the value of a rational investor's risk parameter can be determined merely by locating her portfolio allocation along the efficient frontier, even if her total investment budget is unknown. 
+Regression studies of college applicant behavior have shown that low-income students tend to apply to a few safety schools, whereas their wealthy peers tend to apply to more schools and take bigger risks \cite{hoxbyandavery2012}. One interpretation of these findings is as part of a larger pattern of greater risk aversion in those from disadvantaged backgrounds, a finding that has been noted in other areas of psychological research \cite{hartlaubandschneider2012,wattsetal2018,vanhuizenandalessie2019}. Optimal risk elasticity, however, suggests a \emph{rational} basis for low-income students' apparent risk aversion in the college application process: Applying to a few safety schools is often the \emph{optimal} strategy for a risk-neutral applicant with a small budget. % This analysis echoes arguments such as (cite) that suggest that risk aversion in the marshmallow test reflects students rational expectation of being rewarded for good behavior.
 
-In the college application problem, the value $t_0$ of the noncollege option can function as a risk-aversion parameter. However, the analysis of the distributional heuristic reveals that regardless of their underlying risk preferences, students must modulate their risk allocation---that is, the relative share of reach and safety schools in their portfolio---according to the number of schools to which they can afford to apply. Students with a large application budget can tolerate, and indeed benefit, from taking larger risks than those without. This means that in college application, variation in students' risk allocation arises from a combination of variance in underlying preferences and variance in students' application budgets. This property, which we may call \emph{optimal risk elasticity,} is not present in the Markowitz model.
+Optimal risk elasticity also differentiates the college application problem from classical portfolio optimization models in the Markowitz \cite{markowitz1952} tradition, which feature risk aversion as an exogeneous \emph{parameter.}In the Markowitz model, the optimal portfolio is expressed as a proportion of the total budget, and this allocation is constant for budgets of all sizes. Therefore, the value of a rational investor's risk parameter can be determined merely by locating her portfolio allocation along the efficient frontier, even if her total investment budget is unknown. In college application, on the other hand, variation in students' risk allocation arises from a combination of variance in underlying preferences and variance in students' application budgets. For this reason, we propose that future econometric studies of risk aversion in college application control for the size of the application portfolio in comparing students' allocation across reach, target, and safety schools. 
 
-A classic finding of behavioral psychology is that agents with limited resources tend to make more risk-averse decisions than their wealthier peers, especially with respect to education and career choice \cite{hartlaubandschneider2012,vanhuizenandalessie2019}. More concretely, wealthy students tend to apply to more reach schools than low-income students of similar academic ability, a tendency that some education scholars attribute to a lack of teachers or older peers who attended selective universities \cite{hoxbyandavery2012}. But given that low-income students tend to apply to fewer schools overall, optimal risk elasticity provides a rational explanation for the difference between their risk allocation and that of their wealthy peers. Hence, the failure of low-income students to apply to reach schools is not necessarily suboptimal decisionmaking due to risk aversion, but could be \emph{optimal} decisionmaking under a smaller budget. If the latter explanation is correct, then optimal risk elasticity suggests that reducing the costs of college application for all students could improve student equity without the need to overcome psychological factors such as risk aversion and the absence of high-achieving role models. 
+\subsection{Diminishing returns to application and fee waiver programs}
+
+Diminishing returns are an intrinsic feature of submodular set functions. The college application problem is no exception, as the following theorem states.
+
+\begin{theorem} \label{concavityinh}
+For $h = 2 \dots (m-1)$,
+\begin{equation}v(\mathcal{X}_h) - v(\mathcal{X}_{h-1}) \geq v(\mathcal{X}_{h+1}) - v(\mathcal{X}_{h}).\end{equation} 
+\end{theorem}
+
+\begin{proof}
+Applying Theorem \ref{nestedapplication}, we write $\mathcal{X}_h = \mathcal{X}_{h-1} \cup\{j\}$ and $\mathcal{X}_{h+1} = \mathcal{X}_{h-1} \cup\{j, k\}$. By optimality, $v(\mathcal{X}_h) - v(\mathcal{X}_{h-1}) \geq v(\mathcal{X}_{h-1}\cup\{k\}) - v(\mathcal{X}_{h-1})$. By submodularity and nestedness, $v(\mathcal{X}_{h-1}\cup\{k\}) - v(\mathcal{X}_{h-1}) \geq  v(\mathcal{X}_{h}\cup\{k\}) - v(\mathcal{X}_{h}) = v(\mathcal{X}_{h+1}) - v(\mathcal{X}_{h})$.
+\end{proof}
+
+\noindent (An elementary proof appears in \cite{kapur2022}.) It follows that when $\mathcal{X}_h$ is the optimal $h$-portfolio for a given market, $v(\mathcal{X}_h) = t_0 + O(h)$. The following example establishes the tightness of this bound.
+
+\begin{example} \label{tightexampleforconcavity}
+For a small constant $\varepsilon \in (0, 1)$, define the market as follows.
+\begin{center}
+\begin{tabular}{r|cccccccc}
+$j$   & $1$ & $2$ & $\cdots$ & $m-1$ & $m$ \\ \hline
+$f_j$ & $\varepsilon^{1}$ & $\varepsilon^{2}$ & $\cdots$ & $\varepsilon^{m-1}$ & $\varepsilon^{m}$ \\
+$t_j$ & $\varepsilon^{-1}$ & $\varepsilon^{-2}$ & $\cdots$ & $\varepsilon^{-(m-1)}$ & $\varepsilon^{-m}$
+\end{tabular}%
+\end{center}
+The optimal portfolios are given by $\mathcal{X}_h = \{m-h + 1, dots, m\}$, and 
+\begin{equation*}
+v(\mathcal{X}_h) = \sum_{j= m-h +1}^m \Bigl( f_j t_j \prod_{i = j+1}^m (1 - f_{i}) \Bigr) =  \sum_{j= 1}^h  (1 - \varepsilon)^{j-1}.
+\end{equation*}
+Thus, as $\varepsilon$ approaches zero, we have $v(\mathcal{X}_h) \to h$.
+\end{example}
+
+In Example \ref{tightexampleforconcavity}, the ability of the student to achieve a valuation linear in $h$ hinges on the fact that the admissions probabilities $f_j$ are very small; when some schools have $f_j$ close to one, the valuation function tends to flatten out as these schools are incorporated into the optimal portfolio. This means that students with many reach schools in their portfolio stand to benefit most from the opportunity to apply to an additional college.
+
+As mentioned above, high-achieving, low-income students tend to self-select out of applying to competitive universities, and many scholars have proposed interventions such as application fee waivers to induce these so-called  ``one-off'' students to expand their application portfolio \cite{hoxbyandavery2012,hoxbyandturner2013}. However, experiments on nudges such as fee waivers and deadline reminders have elicited somewhat underwhelming results: While some students applied to more colleges, their enrollment patterns did not change relative to a control group \cite{gurantzetal2021}. Our analysis of the college application problem suggests that these interventions may limit their efficacy by narrowly targeting high-achieving, low-income students. While all the opportunity to apply to more schools benefits all students, the students who stand to gain the most are not necessarily high achievers, but rather students of middling ability who are nonetheless qualified for college. For these students, every school is (in a relative sense) a ``reach school,'' and a diverse application portfolio maximizes the probability of getting into a good school with a good financial aid offer. Therefore, we speculate that broad interventions to decrease the costs of application, such as direct admission \cite{jaschik2022}, may yield better equity outcomes than nudges targeted to low-income, high-achieving students.
+
+% I like certain aspects of the wording here but I think the sequence of ideas in the par. above is clearer
+% The fact that $v(\mathcal{X}_h)$ grows sublinearly in $h$ may provide an economic explanation for the underwhelming efficacy of behavioral nudges, such as application fee waivers, designed to encourage talented low-income students to apply to selective universities \cite{gurantzetal2021}. In our model, the marginal value of an additional college application is greatest to students who have both a small application portfolio, and small admissions odds at the schools they are currently applying to---that is, students whose portolio allocation is skewed toward reach schools. However, fee-waiver interventions have typically targeted high-achieving, low-income students (so-called ``one-offs'' \cite{hoxbyandavery2012,hoxbyandturner2013}) who already have high admissions odds at the schools in their portfolio due a combination of underlying academic talent and the aforementioned tendency of low-income students to favor safety schools. Therefore, our analysis suggests that the students who stand to benefit the most from nudges such as fee waivers are not high-achieving, low-income students, but rather students of middling ability who are prepared for college but unlikely to be admitted to every school. 
+
+
+
 
 \section{Conclusion} \label{sectionConclusion}
-%
 
-Example \ref{tightexampleforoneoverhopt}, in which $v(\mathcal{X}_h)$ is $O(h)$, demonstrates that the objective function of the college application problem approaches linearity when the admissions probabilities $f_j$ are very small. In the knapsack-constrained college application problem, Kapur \cite{kapur2022} exploits this property to reduce the problem to the binary knapsack problem and establish its NP-completeness.
+This paper has analyzed a novel submodular optimization problem called the college application problem. When optimizing over a cardinality constraint, we have shown that the optimal portfolios satisfy a nestedness property that implies the optimality of a simple greedy algorithm. We found that the problem exhibits optimal risk elasticity: Students with large budgets should apply to more reach schools than students without. This finding suggests a rational explanation for the apparent risk-aversion of low-income students in the college application process. The sublinearity of the objective function suggests that broad interventions to remove barriers to college application may promote greater student equity than programs narrowly target to low-income, high-achieving students.
+
+There is ample room to extend the college application problem to more complex constraint structures, such as matroids, knapsacks, and their intersections. Kapur \cite{kapur2022} shows that the college application problem with a knapsack constraint is NP-complete and provides a fully polynomial-time approximation algorithm.
+
+% explicit risk aversion parameter
