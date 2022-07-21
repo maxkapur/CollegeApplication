@@ -5,16 +5,16 @@ If you found this research useful, please consider citing [our arXiv paper](http
 
 Table of contents for this repository:
 
-| Directory | Contents | Formats | English | Korean |
-|-----------|----------|---------|---------|--------|
-| `paper_alma/`   |  (Work in progress.) A concise paper on the cardinality-constrained college admissions problem (Alma’s problem), focusing on the greedy algorithm and student welfare analysis. | PDF, LaTeX | ✓ | | 
-| `paper_ellis/`  |  A concise paper on the knapsack-constrained college admissions problem (Ellis’s problem), focusing on its computational complexity and exact and approximate algorithms. | PDF, LaTeX | ✓ | | 
-| `poster/`       |  A one-sheet summary of the research prepared for JuliaCon 2022, with an emphasis on the `OptimalApplication.jl` package. | PDF, ODT | ✓ | |
-| `slides_03min/` |  Slides and script for the JuliaCon 2022 presentation. [Click here](https://maxkapur.com/CollegeApplication/) to view them in your browser. | HTML | ✓ | |
-| `slides_08min/` |  Slides and script for a presentation at the department’s research fair. | PDF, LaTeX | ✓ | ✓ |
-| `slides_15min/` |  Slides and script for a presentation at the spring 2022 conference of the Korean industrial engineering society (대한산업공학회). | PDF, LaTeX | ✓ | ✓ |
-| `slides_25min/` |  Slides and script for my defense presentation. | PDF, LaTeX | ✓ | ✓ |
-| `thesis/`       |  My MS thesis. The contents are essentially the same as the arXiv paper, but updates appear here first. | PDF, LaTeX | ✓ | ✓ |
+| Directory | Contents | Formats | English | Korean | Coauthors |
+|-----------|----------|---------|---------|--------|-----------|
+| `paper_alma/`   |  (Work in progress.) A concise paper on the cardinality-constrained college admissions problem (Alma’s problem), focusing on the greedy algorithm and student welfare analysis. | PDF, LaTeX | ✓ | | Yim Seho, Sung-Pil Hong | 
+| `paper_ellis/`  |  A concise paper on the knapsack-constrained college admissions problem (Ellis’s problem), focusing on its computational complexity and exact and approximate algorithms. | PDF, LaTeX | ✓ | | Sung-Pil Hong |
+| `poster/`       |  A one-sheet summary of the research prepared for JuliaCon 2022, with an emphasis on the `OptimalApplication.jl` package. | PDF, ODT | ✓ | ||
+| `slides_03min/` |  Slides and script for the JuliaCon 2022 presentation. [Click here](https://maxkapur.com/CollegeApplication/) to view them in your browser. | HTML | ✓ | ||
+| `slides_08min/` |  Slides and script for a presentation at the department’s research fair. | PDF, LaTeX | ✓ | ✓ ||
+| `slides_15min/` |  Slides and script for a presentation at the spring 2022 conference of the Korean industrial engineering society (대한산업공학회). | PDF, LaTeX | ✓ | ✓ ||
+| `slides_25min/` |  Slides and script for my defense presentation. | PDF, LaTeX | ✓ | ✓ ||
+| `thesis/`       |  My MS thesis. The contents are essentially the same as the arXiv paper, but updates appear here first. | PDF, LaTeX | ✓ | ✓ ||
 
 For the associated Julia package, which implements the algorithms provided in paper, see https://github.com/maxkapur/OptimalApplication.
 
