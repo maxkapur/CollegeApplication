@@ -1,10 +1,10 @@
 \section{Introduction}
 
-In the college admissions market, the desirability of a school correlates with its competitiveness, meaning that college application represents a challenging risk allocation problem: Applicants must weigh competitive, attractive ``reach schools'' against less attractive ``safety schools'' where admission is a safer bet and ``target schools'' in the middle. The difficulty of the college application problem, along with the perceived importance of college admissions to future career outcomes, drives demand for a lucrative industry known as admissions consulting. In the US, students pay private consultants an average of \$200 per hour for assistance in preparing application materials, estimating their admissions odds, and deciding which schools to apply to \cite{sklarow2018}. However, when admissions consultants advise their clients on where to apply, they typically rely on qualitative heuristics, such as balancing applications evenly between safety and reach schools \cite{jeon2015,peck2021}. How effective are these heuristics, and can a formal statement of the college application problem help us improve upon them? 
+In the college admissions market, the desirability of a school correlates with its competitiveness, meaning that college application represents a challenging risk allocation problem: Applicants must weigh competitive, attractive ``reach schools'' against less attractive ``safety schools'' where admission is a safer bet. The difficulty of the college application problem, along with the perceived importance of college admissions to future career outcomes, drives demand for a lucrative industry known as admissions consulting. In the US, students pay private consultants an average of \$200 per hour for assistance in preparing application materials, estimating their admissions odds, and deciding which schools to apply to \cite{sklarow2018}. However, when admissions consultants advise their clients on where to apply, they typically rely on qualitative heuristics, such as balancing applications evenly between safety, target, and reach schools \cite{jeon2015,peck2021}. Can a formal statement of the college application problem help us improve upon these heuristics? 
 
-Regression studies of college application behavior have revealed intriguing systematic differences in students' application strategies: High-achieving students from wealthy backgrounds tend to apply to more, and more competitive, colleges than their low-income peers \cite{hartlaubandschneider2012,vanhuizenandalessie2019}. Does this phenomenon reflect underlying psychological differences in students' risk aversion, or rational decisionmaking under different resource constraints? Framing the college application strategy as an optimization problem allows us to examine the relationship between a student's resource constraints and the optimal risk allocation.
+Regression studies of college application behavior have revealed intriguing systematic differences in students' application strategies: High-achieving students from wealthy backgrounds tend to apply to more, and more competitive, colleges than their low-income peers \cite{hartlaubandschneider2012,vanhuizenandalessie2019}. Does this phenomenon reflect underlying psychological differences in students' risk aversion, or rational decisionmaking under different resource constraints? %Framing the college application strategy as an optimization problem allows us to examine the relationship between a student's resource constraints and the optimal risk allocation.
 
-In the present study, we formulate the student's college application strategy as the following combinatorial optimization problem:
+The present study addresses the questions above by formulating the student's college application strategy as the following combinatorial optimization problem:
 \begin{align} \label{headlineproblem}
 \begin{split}
 \text{maximize}\quad & v(\mathcal{X}) =  \operatorname{E}\Bigl[\max\bigr\{t_0,
@@ -14,15 +14,15 @@ In the present study, we formulate the student's college application strategy as
 \end{align}
 Here $\mathcal{C} = \{ 1 \dots m\}$ represents the set of colleges in the market and $h > 0$ is the number of colleges the student can apply to. For $j = 1 \dots m$, let $f_j$ denote the student's probability of being admitted to school $j$ if she applies and $Z_j$ a random, independent Bernoulli variable with probability $f_j$, so that $Z_j$ equals one if she is admitted and zero if not. It is appropriate to assume that the $Z_j$ are statistically independent as long as $f_j$ are probabilities estimated specifically for this student (as opposed to generic acceptance rates). For $j = 0\dots m$, $t_j\geq 0$ indicates the utility she associates with attending school $j$, where her utility is $t_0$ if she does not attend college. Then the student's objective is to maximize the expected utility associated with the best school she is admitted to. Therefore, her optimal college application strategy is given by the solution $\mathcal{X}$ to the problem above, where $\mathcal{X}$ represents the set of schools to which she applies, which we call her application \emph{portfolio.}
 
-The problem can also be applied to other competitive matching games such as job application or marriage proposal. Here the budget constraint may arise due to the time required to communicate with each applicant or a legal limit on the number of applications allowed.
+The problem can also be applied to other competitive matching games such as job application or marriage proposals. Here the budget constraint may arise due to the time required to communicate with each applicant or a legal limit on the number of applications allowed.
 
 We show that the optimal portfolios for the cardinality-constrained college are \emph{nested} in the budget constraint, meaning that when $\mathcal{X}_h$ is the optimal portfolio of size $h$, $\mathcal{X}_h \subset \mathcal{X}_{h+1}$. The nestedness property is equivalent to the optimality of the \emph{greedy} algorithm that iteratively adds to $\mathcal{X}$ the school that elicits the greatest increase in the objective value. The proof of the nestedness property yields insight into the properties of the optimal college application strategy: Students who cannot afford to apply to many schools allocate a greater proportion of their application budget to safety schools than students with a large application budget. This phenomenon, which we call optimal risk elasticity, reveals a shortcoming of the reach/safety school heuristics used in the admissions consulting industry: Whereas admissions consultants recommend a \emph{static} risk allocation that allocates a fixed proportion of the portfolio to reach, target, and safety schools, we find that the optimal application strategy gradually favors reach schools over safety schools as $h$ increases. Optimal risk elasticity therefore provides a rational explanation for the divergent risk behavior observed in the social science research cited above: It may not be the case that low-income students are inherently more risk-averse than their wealthy peers, but rather, their constrained budget induces a more risk-averse optimal policy. 
 
-Our analysis also shows that the valuation of the college application problem is sublinear in the budget $h$, and that the marginal value of application is greatest to students with low admissions probability at the schools currently in their portfolio. This finding suggests an economic explanation for the underwhelming efficacy of behavioral nudges, such as application fee waivers, designed to encourage talented low-income students to apply to selective universities \cite{gurantzetal2021}. 
+Our analysis also shows that the valuation of the college application problem is sublinear in the budget $h$, and that the shadow cost of the budget constraint is highest for students with low admissions probability at the schools currently in their portfolio. This finding suggests an economic explanation for the underwhelming efficacy of behavioral nudges, such as application fee waivers, designed to encourage talented low-income students to apply to selective universities \cite{gurantzetal2021}. 
 
 \subsection{Related optimization problems}
 
-The objective function is a nondecreasing, submodular set function in the sense first described by Nemhauser et al. \cite{nemhauseretal1978}. They showed that the greedy algorithm is asymptotically $(1 - 1/e)$-optimal for optimizing a monotonic submodular function over a cardinality constraint, and a subsequent result of Nemhauser and Wolsey \cite{nemhauserandwolsey1978} proved that this approximation ratio is the best achievable by a polynomial-time algorithm. For some submodular optimization problems, however, the same greedy algorithm offers a much tighter approximation guarantee \cite{contrerasandfernandez2014}. We show that college application represents an easy instance of submodular maximization: The greedy algorithm is exact.
+The objective function of \eqref{headlineproblem} is a nondecreasing, submodular set function in the sense first described by Nemhauser et al. \cite{nemhauseretal1978}. They showed that the greedy algorithm is asymptotically $(1 - 1/e)$-optimal for optimizing a monotonic submodular function over a cardinality constraint, and a subsequent result of Nemhauser and Wolsey \cite{nemhauserandwolsey1978} proved that this approximation ratio is the best achievable by a polynomial-time algorithm. For some submodular optimization problems, however, the same greedy algorithm offers a much tighter approximation guarantee \cite{contrerasandfernandez2014}. We show that college application represents an easy instance of submodular maximization: The greedy algorithm is exact.
 
 The proof of the greedy algorithm's optimality rests on the nested structure of the optimal portfolios, a property that is of independent interest. As Rozanov and Tamir \cite{rozanovandtamir2020} articulate, the knowledge that the optima are nested aids not only in computing the optimal solution, but in the implementation thereof under uncertain information. For example, in the United States, many college applications are due at the beginning of November, and it is typical for students to begin working on their applications during the prior summer because colleges favor students who tailor their essays to the target school. However, students may not know how many schools they can afford to apply to until late October. The nestedness property implies that even in the absence of complete budget information, students can begin to carry out the optimal application strategy by writing essays for schools in the order that they enter the optimal portfolio.
 
@@ -34,20 +34,19 @@ Arguably, the static model considered in this study is more hostile to students 
 
 Most quantitative research on college admissions to date has been descriptive in nature. A standard benchmark for logistic regression techniques, for example, involves estimating students' admissions probabilities from information about their past academic performance \cite{acharyaetal2019,lim2013}. 
 
-%Fu \cite{fu2014} considered a problem that is reducible to ours: since application is at cost rather than a constraint, the objective function is separable in the cost and therefore must be optimal over portfolios of the given size. Thus, solving her problem reduces to solving $m$ instances of \eqref{headlineproblem}.
+%Fu \cite{fu2014} considered a problem that is reducible to ours: Since application is at cost rather than a constraint, the objective function is separable in the cost and therefore must be optimal over portfolios of the given size. Thus, solving her problem reduces to solving $m$ instances of \eqref{headlineproblem}.
 
-% Merge into above
-Some economists have constructed equilibrium models of the college admissions process that feature the student's application decision as a prominent subproblem. Fu \cite{fu2014}, for example, modeled the United States admissions market as a sequential game played by colleges and students. Colleges announce tuition rates, students apply to college, colleges announce admissions decisions and financial aid offers, and lastly, students decide where to enroll. Equilibrium arises when no college can improve its expected utility by modifying its tuition or admissions policy, and no student can improve her expected utility by modifying her application strategy. The ultimate goal of Fu's model was a comparative statics analysis of various hypothetical reforms to the structure of the admissions market; hence, it was adequate to cluster colleges into $m=8$ broad categories. Therefore, while estimating Fu's model required solving a problem similar to \eqref{headlineproblem}, it was a small instance that could be solved by enumerating all $2^m$ possible portfolios. The computation time for our solution algorithm is quadratic in $m$. 
+Some economists have constructed equilibrium models of college admissions that feature the student's application decision as a prominent subproblem. For example, a problem reducible to ours arose in a sequential game model of the United States college market by Fu \cite{fu2014}. (We describe the reduction in section \ref{sectionQuadTimeSoln}.) However, to ensure the robustness of her parameter estimates, Fu clustered the colleges in the market into $m=8$ broad categories, yielding a small instance that could be solved by enumerating all $2^m$ possible portfolios. Our solution algorithm computes the optimal portfolio in time quadratic in $m$. 
 
-The literature on admissions markets also includes a vast body of research on the deferred acceptance algorithm, an algorithm for matching students to schools having finite capacities that generalizes the Gale--Shapley algorithm for stable marriage. The algorithm takes students' ordinal preferences over schools and schools' ordinal preferences over students as input, and produces an assignment that possesses a number of desirable properties: It is a stable matching, meaning that no student--school pair is incentivized to deviate from the assignment. And the preference-reporting mechanism is incentive compatible, meaning that no student can improve her outcome by lying about her preferences \cite{galeandshapley1962,roth1982}. In design, deferred acceptance is a centralized assignment algorithm; however, stable assignment also be interpreted as the equilibrium of a decentralized admissions game in which agents have perfect information about one another's preferences \cite{azevedoandleshno2016}.
+The literature on admissions markets also includes a vast body of research on the deferred acceptance algorithm, an algorithm for matching students and schools that generalizes the Gale--Shapley algorithm for stable marriage. The algorithm takes students' ordinal preferences over schools and schools' ordinal preferences over students as input, and produces an assignment that possesses a number of desirable properties: It is a stable matching, meaning that no student--school pair is incentivized to deviate from the assignment. And the preference-reporting mechanism is incentive compatible, meaning that no student can improve her outcome by lying about her preferences \cite{galeandshapley1962,roth1982}. In design, deferred acceptance is a centralized assignment algorithm; however, stable assignment also be interpreted as the equilibrium of a decentralized admissions game in which agents possess perfect information about one another's preferences \cite{azevedoandleshno2016}.
 
 The utility model implied by stable assignment differs from that of the present study in two key ways: First, under stable assignment, students' preferences are ordinal, rather than cardinal (although it is possible to estimate cardinal utility values from stable matchings in certain special cases, such as when colleges' preferences are identical and students' preferences are determined by the multinomial logit choice model \cite{kapur2021}). Second, stable assignment is deterministic: The typical student-proposing deferred acceptance algorithm always produces the unique, student-optimal stable assignment. There exist variants of the deferred acceptance algorithm that introduce randomization in order to break ties in schools' preference lists or optimize for distributional goals such as gender parity, but because the randomization occurs after students submit their preferences, it has no effect on the optimal application strategy, which remains to report one's preferences honestly \cite{ashlagiandnikzad2020,bodohcreed2020}. In the admissions process considered in this study, students face a tougher strategic challenge.
 
-To the best of our knowledge, the first systematic study of the college application problem was undertaken by Kapur in his master's thesis \cite{kapur2022}, which considers \eqref{headlineproblem} as well as the more general case of college application with a knapsack constraint. The present study extends Kapur's results with a further analysis of the accuracy of the heuristics used in the admissions consulting industry and the implications of the nestedness and submodularity properties for student welfare.
+To the best of our knowledge, the first systematic study of the college application problem was Kapur's master's thesis \cite{kapur2022}, which considered \eqref{headlineproblem} as well as the more general case of college application with a knapsack constraint. The present study extends Kapur's results with an analysis of heuristics used in the admissions consulting industry and the implications of the nestedness and submodularity properties for student welfare.
 
 \subsection{Outline}
 
-This paper has five sections. In section \ref{sectionModel}, we derive a closed-form expression for the objective function of \eqref{headlineproblem}, show that it is a monotonic submodular function, and state a technical lemma. In section \ref{sectionGreedy}, we prove that the optimal portfolios are nested in the budget $h$, which implies the validity of the greedy algorithm. Further refinement reduces the computation time from $O(h^2 m + m\log m)$ to $O(hm)$. In section \ref{sectionDiscussion}, we examine alternative solution mechanisms used in the admissions consulting industry, their performance relative to the optimal solution, and the implications for student welfare. A brief conclusion follows in section \ref{sectionConclusion}.
+This paper has five sections. In section \ref{sectionModel}, we derive a closed-form expression for the objective function of \eqref{headlineproblem}, show that it is a monotonic submodular function, and state a technical lemma. In section \ref{sectionGreedy}, we prove that the optimal portfolios are nested in the budget $h$, which implies the validity of the greedy algorithm. Further refinement reduces the algorithm's computation time from $O(h^2 m + m\log m)$ to $O(hm)$. In section \ref{sectionDiscussion}, we examine heuristic solution mechanisms used in the admissions consulting industry, assess their performance relative to the optimal solution, and offer a few conjectures concerning policy interventions to improve student equity. A brief conclusion follows in section \ref{sectionConclusion}.
 
 
 
@@ -57,7 +56,7 @@ This paper has five sections. In section \ref{sectionModel}, we derive a closed-
 
 \section{Preliminaries} \label{sectionModel}
 
-For the remainder of the paper, unless otherwise noted, we assume with trivial loss of generality that each $f_j \in (0, 1]$ and $t_0 < t_1 \leq \cdots \leq t_m$. Unless otherwise noted, we assume $t_0 = 0$, an assumption justified presently. 
+For the remainder of the paper, unless otherwise noted, we assume with minimal loss of generality that $0 < \leq m$, $f_j \in (0, 1]$, and $t_0 < t_1 \leq \cdots \leq t_m$. Unless otherwise noted, we assume $t_0 = 0$, an assumption justified presently. 
 % Lots of overlap here with paper_ellis; edit there first and then import
 
 \subsection{The objective function} \label{sectionObjective}
@@ -65,22 +64,20 @@ For the remainder of the paper, unless otherwise noted, we assume with trivial l
 First we derive a closed-form expression for the objective function of \eqref{headlineproblem}.
 
 We refer to the set $\mathcal{X} \subseteq \mathcal{C}$ of schools to which a student applies as her \emph{application portfolio.} The expected utility the student receives from $\mathcal{X}$ is called its \emph{valuation}. Given an application portfolio, let $p_j(\mathcal{X})$ denote the probability that the student attends school $j$. This occurs if and only if she \emph{applies} to school $j$, is \emph{admitted} to school $j$, and is \emph{rejected} from any school she prefers to $j$; that is, any school with higher index. Hence, for $j= 0\dots m$,
-\begin{align}
+\begin{align*}
 p_j(\mathcal{X}) &= 
 \begin{cases}
 \displaystyle f_j  \prod_{\substack{i \in \mathcal{X}: \\ i > j}} (1 - f_{i}), \quad & j \in \{0\}\cup\mathcal{X}\\
 0, \quad & \text{otherwise}
 \end{cases} 
-\end{align}
+\end{align*}
 The following proposition follows by computing $v(\mathcal{X}) = \sum_{j=0}^m  t_j p_j(\mathcal{X})$.
 \begin{proposition}[Closed form of portfolio valuation function]
-\begin{align}
+\begin{align*}
 v(\mathcal{X}) &= \sum_{j=0}^m t_j p_j(\mathcal{X}) = \sum_{j\in\{0\}\cup\mathcal{X}} \Bigl( f_j t_j \prod_{\substack{i \in \mathcal{X}: \\ i > j}} (1 - f_{i}) \Bigr)  \label{closedformportfoliovaluationX}%, \quad \text{or equivalently,}\\
 %\qquad v(x) &= t_0 \prod_{j=1}^m (1 - f_{j} x_j) + \sum_{j=1}^m \Bigl( x_j t_j f_j \prod_{j’ = j+1}^m (1 - f_{j’} x_{j’}) \Bigr) \label{closedformportfoliovaluationx}
-\end{align}
+\end{align*}
 \end{proposition}
-%\begin{proof}Computing $v(\mathcal{X}) = \sum_{j=0}^m  t_j p_j(\mathcal{X})$ yields \eqref{closedformportfoliovaluationX}. Next, because $1 - f_j x_j = 1$ if $x_j = 0$, we may define $p_j$ equivalently as $p_j(x) = x_j  f_j \prod_{j’ = j+1}^m (1 - f_{j’} x_{j’})$ to obtain \eqref{closedformportfoliovaluationx}. 
-%\end{proof}
 
 Next, we show that without loss of generality, we may assume that $t_0 = 0$.
 
@@ -89,31 +86,34 @@ For some $\gamma \leq t_0$, let $\bar t_j = t_j - \gamma$ for $j = 0 \dots m$. T
 \end{lemma}
 \begin{proof}
 By definition, $\sum_{j=0}^m p_j(\mathcal{X}) = \sum_{j \in \{0\}\cup\mathcal{X}} p_j(\mathcal{X}) = 1$. Therefore
-\begin{align}
+\begin{align*}
 \begin{split}
 v(\mathcal{X}; \bar t_j) &= \sum_{j\in \{0\}\cup\mathcal{X}}  \bar t_j p_j(\mathcal{X})
 =\sum_{j\in \{0\}\cup\mathcal{X}} (t_j - \gamma) p_j(\mathcal{X}) \\
 &=\sum_{j\in \{0\}\cup\mathcal{X}} t_j p_j(\mathcal{X})  - \gamma 
 = v(\mathcal{X}; t_j) - \gamma
 \end{split} 
-\end{align}
+\end{align*}
 which completes the proof.
 \end{proof}
 
 
 \subsection{An elimination technique} \label{eliminationtechniquesection}
 
-Now, we present a variable-elimination technique that will prove useful throughout the paper.\footnote{We thank Yim Seho for pointing out this useful transformation.} Suppose that the student has already resolved to apply to school $k$, and the remainder of her decision consists of determining which \emph{other} schools to apply to. Writing her total application portfolio as $\mathcal{X} = \mathcal{Y} \cup \{k\}$, we devise a function $w(\mathcal{Y})$ that orders portfolios according to how well they ``complement'' the singleton portfolio $\{k\}$. Specifically, the difference between $v(\mathcal{Y} \cup\{k\})$ and $w(\mathcal{Y})$ is the constant $f_k t_k$.
+Now, we present a variable elimination technique that will prove useful throughout the paper. 
+%\footnote{We thank Yim Seho for pointing out this useful transformation.}
+Suppose that the student has already resolved to apply to school $k$, and the remainder of her decision consists of determining which \emph{other} schools to apply to. Writing her total application portfolio as $\mathcal{X} = \mathcal{Y} \cup \{k\}$, we devise a function $w(\mathcal{Y})$ that orders portfolios according to how well they ``complement'' the singleton portfolio $\{k\}$. Specifically, the difference between $v(\mathcal{Y} \cup\{k\})$ and $w(\mathcal{Y})$ is the constant $f_k t_k$.
 
 To construct $w(\mathcal{Y})$, let $\tilde t_j$ denote the expected utility the student receives from school $j$ \emph{given} that she has been admitted to school $j$ and applied to school $k$. For $j < k$ (including $j = 0$), this is $\tilde t_j = (1- f_k) t_j + f_k t_k$; for $j > k $, this is $\tilde t_j = t_j$. This means that 
 \begin{equation}\label{Vyastildet}
 v(\mathcal{Y}\cup\{k\}) = \sum_{j \in \{0\} \cup \mathcal{Y}} \tilde t_j p_j(\mathcal{Y}).\end{equation}
 The transformation to $\tilde t$ does not change the order of the $t_j$-values. Therefore, the expression on the right side of \eqref{Vyastildet} is itself a portfolio valuation function. In the corresponding market, $t$ is replaced by $\tilde t$ and $\mathcal{C}$ is replaced by $\mathcal{C}\setminus\{k\}$. To restore our convention that $t_0 = 0$, we obtain $w(\mathcal{Y})$ by taking $\bar t_j = \tilde t_j - \tilde t_0$ for all $j \neq k$ and letting
-\begin{equation}  \label{wYvXminusconst}
+\begin{equation*} 
 w(\mathcal{Y})
 = \sum_{j \in \{0\} \cup \mathcal{Y}} \bar t_j p_j(\mathcal{Y})
 = \sum_{j \in \{0\} \cup \mathcal{Y}} \tilde t_j p_j(\mathcal{Y})- \tilde t_0
-= v(\mathcal{Y}\cup\{k\}) -  f_k t_k \end{equation}
+= v(\mathcal{Y}\cup\{k\}) - f_k t_k
+\end{equation*}
 where the second equality follows from Lemma \ref{assumetzerozero}. The validity of this transformation is summarized in the following theorem, where we write $v(\mathcal{X}; \bar t)$ instead of $w(\mathcal{Y})$ to emphasize that $w(\mathcal{Y})$ is, in form, a portfolio valuation function. 
 
 
@@ -159,12 +159,12 @@ v(\mathcal{X} \cup \{j\}) - v(\mathcal{X}) \geq
 v(\mathcal{X} \cup \{j, k\}) - v(\mathcal{X} \cup \{k\})
 \end{equation}
 for $\mathcal{X} \subset \mathcal{C}$ and $j \neq k \in \mathcal{C} \setminus \mathcal{X}$. By Lemma \ref{eliminationtheorem}, we can repeatedly eliminate the schools in $\mathcal{X}$ according to \eqref{howtotransformtj} to obtain a portfolio valuation function $w(\mathcal{Y})$ with parameter $\bar t$ such that $w(\mathcal{Y}) = v(\mathcal{X} \cup \mathcal{Y}) + \text{const.}$ for any $\mathcal{Y} \subseteq \mathcal{C} \setminus \mathcal{X}$. Therefore, \eqref{nemhauseriii} is equivalent to
-\begin{align}
+\begin{align*}
 & w(\{j\}) - w(\varnothing) \geq w(\{j, k\}) - w(\{k\}) \\
 \iff \qquad &w(\{j\})  +  w(\{k\})  \geq w(\{j, k\})  \\
 \iff \qquad &\operatorname{E}[\,\bar t_j Z_j\,] + \operatorname{E}[\,\bar t_k Z_k\,] 
 \geq \operatorname{E}\bigl[\max\{ \bar t_j Z_j, \bar t_k Z_k \} \bigr]
-\end{align}
+\end{align*}
 which is true because $t_j$ and $t_k$ are nonnegative.
 \end{proof}
 
@@ -185,10 +185,9 @@ The optimality of the greedy algorithm for the college application problem rests
 
 \begin{theorem}[Nestedness of optimal application portfolios] \label{nestedapplication}
 There exists a sequence of portfolios $\{\mathcal{X}_h\}_{h=1}^m$ satisfying the nestedness relation
-
-\begin{equation}
+\begin{equation*}
 \mathcal{X}_1 \subset \mathcal{X}_2\subset \dots \subset \mathcal{X}_m
-\end{equation}
+\end{equation*}
 such that each $\mathcal{X}_h$ is an optimal application portfolio when the application limit is $h$.
 \end{theorem}
 
@@ -197,9 +196,11 @@ By induction on $h$. Applying Lemma \ref{assumetzerozero}, we assume that $t_0 =
 
 (Base case.) First, we will show that $\mathcal{X}_1 \subset \mathcal{X}_2$. To get a contradiction, suppose that the optima are $\mathcal{X}_1 = \{j\}$ and $\mathcal{X}_2 = \{k, l\}$, where we may assume that $t_k \leq t_l$. Optimality requires that
 
-\begin{equation}v(\mathcal{X}_1 )  = f_j t_j > v(\{k\}) = f_k t_k\end{equation}
+\begin{equation*}
+v(\mathcal{X}_1 )  = f_j t_j > v(\{k\}) = f_k t_k
+\end{equation*}
 and
-\begin{align}
+\begin{align*}
 \begin{split}
 v(\mathcal{X}_2) =  f_k (1- f_l) t_k + f_l t_l &> v(\{j, l\}) \\
 & = f_j (1- f_l) t_j + (1- f_j) f_l t_l + f_j f_l \max\{t_j, t_l\} \\
@@ -207,20 +208,20 @@ v(\mathcal{X}_2) =  f_k (1- f_l) t_k + f_l t_l &> v(\{j, l\}) \\
 &= f_j (1- f_l) t_j + f_l t_l  \\
 &\geq f_k (1- f_l) t_k + f_l t_l  = v(\mathcal{X}_2)
 \end{split}
-\end{align}
+\end{align*}
 which is a contradiction. 
 
 (Inductive step.) Assume that $\mathcal{X}_1 \subset \cdots \subset \mathcal{X}_h$, and we will show $\mathcal{X}_h \subset \mathcal{X}_{h+1}$. Let $k = \argmax\{ t_k: k \in \mathcal{X}_{h+1}\}$ and write $\mathcal{X}_{h+1} = \mathcal{Y}_{h} \cup \{k\}$.
 
 Suppose $k \notin \mathcal{X}_h$. To get a contradiction, suppose that $v(\mathcal{Y}_h) < v(\mathcal{X}_h)$ and  $v(\mathcal{X}_{h+1}) > v(\mathcal{X}_h \cup \{k\})$. Then
-\begin{align}
+\begin{align*}
 \begin{split}
 v(\mathcal{X}_{h+1})&= v(\mathcal{Y}_{h} \cup \{k\}) \\
 &= (1 - f_k) v(\mathcal{Y}_h) + f_k t_k \\
 &\leq (1 - f_k) v(\mathcal{X}_h) + f_k \operatorname{E}\bigl[ \max\{t_k, X_h\}\bigr]\\
 &=  v(\mathcal{X}_h\cup \{k\})
 \end{split}
-\end{align}
+\end{align*}
 is a contradiction.
 
 Now suppose that $k \in \mathcal{X}_h$. We can write $\mathcal{X}_h = \mathcal{Y}_{h-1} \cup \{k\}$, where $ \mathcal{Y}_{h-1}$ is some portfolio of size $h-1$. It suffices to show that $ \mathcal{Y}_{h-1} \subset \mathcal{Y}_h$. By definition, $\mathcal{Y}_{h-1}$ (respectively, $\mathcal{Y}_{h}$) maximizes the function $v(\mathcal{Y}\cup\{k\})$ over portfolios of size $h-1$ (respectively, $h$) that do not include $k$. That is, $\mathcal{Y}_{h-1}$ and $\mathcal{Y}_h$ are the optimal complements to the singleton portfolio $\{k\}$.
@@ -231,7 +232,7 @@ Applying Lemma \ref{eliminationtheorem}, we eliminate school $k$, transform the 
 
 
 
-\subsection{Quadratic-time solution}
+\subsection{Quadratic-time solution} \label{sectionQuadTimeSoln}
 
 Applying Theorem \ref{nestedapplication} yields an efficient greedy algorithm for the optimal portfolio: Start with the empty set and add schools one at a time, maximizing $v(\mathcal{X}\cup \{k\})$ at each addition. Sorting $t$ is  $O(m \log m)$.  At each of the $h$ iterations, there are $O(m)$ candidates for $k$, and computing $v(\mathcal{X}\cup \{k\})$ is $O(h)$ using \eqref{closedformportfoliovaluationX}; therefore, the time complexity of this algorithm is $O(h^2 m + m \log m)$. 
 
@@ -317,7 +318,7 @@ v(\{i, k\}) -  v(\{j, k\}) &=  (1 - f_k) f_i t_i + f_k t_k - (1 - f_k) f_j t_j -
 
 Regression studies of college applicant behavior have shown that low-income students tend to apply to a few safety schools, whereas their wealthy peers tend to apply to more schools and take bigger risks \cite{hoxbyandavery2012}. One interpretation of these findings is as part of a larger pattern of greater risk aversion in those from disadvantaged backgrounds, a finding that has been noted in other areas of psychological research \cite{hartlaubandschneider2012,wattsetal2018,vanhuizenandalessie2019}. Optimal risk elasticity, however, suggests a rational basis for low-income students' apparent risk aversion in the college application process: Applying to a few safety schools is often the \emph{optimal} strategy for a risk-neutral applicant with a small budget. % This analysis echoes arguments such as (cite) that suggest that risk aversion in the marshmallow test reflects students rational expectation of being rewarded for good behavior.
 
-Optimal risk elasticity also differentiates the college application problem from classical portfolio optimization models in the Markowitz \cite{markowitz1952} tradition, which feature risk aversion as an exogeneous parameter. In the Markowitz model, the optimal portfolio is expressed as a proportion of the total budget, and this allocation is constant for budgets of all sizes. Therefore, the value of a rational investor's risk parameter can be determined merely by locating her portfolio allocation along the efficient frontier, even if her total investment budget is unknown. In college application, on the other hand, variation in students' risk allocation arises from a combination of variance in underlying preferences and variance in students' application budgets. For this reason, we propose that future econometric studies of risk aversion in college application control for the size of the application portfolio in comparing students' allocation across reach, target, and safety schools. 
+Optimal risk elasticity also differentiates the college application problem from classical portfolio optimization models in the Markowitz \cite{markowitz1952} tradition, which feature risk aversion as an exogeneous \emph{parameter.} In the Markowitz model, the optimal portfolio is expressed as a proportion of the total budget, and this allocation is constant for budgets of all sizes. Therefore, the value of a rational investor's risk parameter can be determined merely by locating her portfolio allocation along the efficient frontier, even if her total investment budget is unknown. In college application, on the other hand, variation in students' risk allocation arises from a combination of variance in underlying preferences and variance in students' application budgets. For this reason, we propose that future econometric studies of risk aversion in college application control for the size of the application portfolio in comparing students' allocation across reach, target, and safety schools. 
 
 \subsection{Diminishing returns to application and equity interventions}
 
@@ -325,7 +326,9 @@ Diminishing returns are an intrinsic feature of submodular set functions. The co
 
 \begin{theorem} \label{concavityinh}
 For $h = 2 \dots (m-1)$,
-\begin{equation}v(\mathcal{X}_h) - v(\mathcal{X}_{h-1}) \geq v(\mathcal{X}_{h+1}) - v(\mathcal{X}_{h}).\end{equation} 
+\begin{equation*}
+v(\mathcal{X}_h) - v(\mathcal{X}_{h-1}) \geq v(\mathcal{X}_{h+1}) - v(\mathcal{X}_{h}).
+\end{equation*} 
 \end{theorem}
 
 \begin{proof}
@@ -352,7 +355,7 @@ Thus, as $\varepsilon$ approaches zero, we have $v(\mathcal{X}_h) \to h$.
 
 In Example \ref{tightexampleforconcavity}, the ability of the student to achieve a valuation linear in $h$ hinges on the fact that the admissions probabilities $f_j$ are very small; when some schools have $f_j$ close to one, the valuation function tends to flatten out as these schools are incorporated into the optimal portfolio. This means that students with many reach schools in their portfolio benefit more from the opportunity to apply to an additional college than students with many safety schools.
 
-As mentioned above, high-achieving, low-income students tend to self-select out of applying to competitive universities, and many scholars have proposed interventions such as application fee waivers to encourage these so-called  ``one-off'' students to expand their application portfolio \cite{hoxbyandavery2012,hoxbyandturner2013}. However, experiments on nudges such as fee waivers and deadline reminders have elicited somewhat underwhelming results: Students who receive nudges did apply to more colleges, but their enrollment patterns did not change relative to a control group \cite{gurantzetal2021}. Our analysis of the college application problem suggests that these interventions may limit their efficacy by narrowly targeting high-achieving, low-income students. While the opportunity to apply to more schools benefits all students, the students who stand to gain the most are not necessarily high achievers, but rather students of middling ability who are nonetheless qualified for college. For these students, every school is (in a relative sense) a ``reach school,'' and each additional application substantially increases the chance of getting into \emph{somewhere.} Therefore, we speculate that broad interventions to decrease the costs of application, such as direct admission \cite{jaschik2022}, may yield better equity outcomes than nudges targeted to low-income, high-achieving students.
+As mentioned above, high-achieving, low-income students tend to self-select out of applying to competitive universities, and many scholars have proposed interventions such as application fee waivers to encourage these so-called  ``one-off'' students to expand their application portfolio \cite{hoxbyandavery2012,hoxbyandturner2013}. However, experiments on nudges such as fee waivers and deadline reminders have elicited somewhat underwhelming results: Students who receive nudges did apply to more colleges, but their enrollment patterns did not change relative to a control group \cite{gurantzetal2021}. Our analysis of the college application problem suggests that these interventions may limit their efficacy by narrowly targeting high-achieving, low-income students. While the opportunity to apply to more schools benefits all students, the students who stand to gain the most are not necessarily high achievers, but rather students of middling ability who are nonetheless qualified for college. For these students, every school is (in a relative sense) a ``reach school,'' and each additional application substantially increases the chance of getting into \emph{somewhere.} Therefore, we speculate that broad interventions to decrease the costs of application, such as direct admission \cite{jaschik2022} (in which colleges offer proactive admission to high school students who meet certain minimal requirements), may yield better equity outcomes than nudges targeted to low-income, high-achieving students.
 
 % I like certain aspects of the wording here but I think the sequence of ideas in the par. above is clearer
 % The fact that $v(\mathcal{X}_h)$ grows sublinearly in $h$ may provide an economic explanation for the underwhelming efficacy of behavioral nudges, such as application fee waivers, designed to encourage talented low-income students to apply to selective universities \cite{gurantzetal2021}. In our model, the marginal value of an additional college application is greatest to students who have both a small application portfolio, and small admissions odds at the schools they are currently applying to---that is, students whose portolio allocation is skewed toward reach schools. However, fee-waiver interventions have typically targeted high-achieving, low-income students (so-called ``one-offs'' \cite{hoxbyandavery2012,hoxbyandturner2013}) who already have high admissions odds at the schools in their portfolio due a combination of underlying academic talent and the aforementioned tendency of low-income students to favor safety schools. Therefore, our analysis suggests that the students who stand to benefit the most from nudges such as fee waivers are not high-achieving, low-income students, but rather students of middling ability who are prepared for college but unlikely to be admitted to every school. 
