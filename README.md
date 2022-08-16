@@ -7,7 +7,7 @@ Table of contents for this repository:
 
 | Directory | Contents | Formats | English | Korean | Coauthors |
 |-----------|----------|---------|---------|--------|-----------|
-| `paper_alma/`   |  (Work in progress.) A concise paper on the cardinality-constrained college admissions problem (Alma’s problem), focusing on the greedy algorithm and student welfare analysis. | PDF, LaTeX | ✓ | | Yim Seho, Sung-Pil Hong | 
+| `paper_alma/`   |  A concise paper on the cardinality-constrained college admissions problem (Alma’s problem), focusing on the greedy algorithm and student welfare analysis. | PDF, LaTeX | ✓ | | Yim Seho, Sung-Pil Hong | 
 | `paper_ellis/`  |  A concise paper on the knapsack-constrained college admissions problem (Ellis’s problem), focusing on its computational complexity and exact and approximate algorithms. | PDF, LaTeX | ✓ | ||
 | `poster/`       |  A one-sheet summary of the research prepared for JuliaCon 2022, with an emphasis on the `OptimalApplication.jl` package. | PDF, ODT | ✓ | ||
 | `slides_03min/` |  Slides and script for the JuliaCon 2022 presentation. [Click here](https://maxkapur.com/CollegeApplication/) to view them in your browser. | HTML | ✓ | ||
