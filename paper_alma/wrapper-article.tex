@@ -11,11 +11,15 @@
 \usepackage[style=numeric]{biblatex}
 \addbibresource{refs.bib}
 
+% Commands from natbib that we need to fake so we can use the same body.tex
+\newcommand{\citep}{\cite}
+\newcommand{\citealt}{\cite}
+
 % Author block
 \usepackage{authblk}
 
-\title{The cardinality-constrained college application problem:
-The nestedness property and implications for student welfare}
+\title{A greedy algorithm for the cardinality-constrained
+college application problem}
 \author[1]{Max Kapur}
 \author[2]{Seho Yim}
 \author[3]{Sung-Pil Hong}

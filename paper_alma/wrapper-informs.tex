@@ -1,0 +1,204 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Author template for Operations Reseacrh (opre) for articles with no e-companion (EC)
+%% Mirko Janc, Ph.D., INFORMS, mirko.janc@informs.org
+%% ver. 0.95, December 2010
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\documentclass[opre,blindrev]{informs3}
+\documentclass[opre,nonblindrev]{informs3} % current default for manuscript submission
+
+\DoubleSpacedXI % Made default 4/4/2014 at request
+%%\OneAndAHalfSpacedXI % current default line spacing
+%%\OneAndAHalfSpacedXII
+%%\DoubleSpacedXII
+
+% If hyperref is used, dvi-to-ps driver of choice must be declared as
+%   an additional option to the \documentclass. For example
+%\documentclass[dvips,opre]{informs3}      % if dvips is used
+%\documentclass[dvipsone,opre]{informs3}   % if dvipsone is used, etc.
+
+%%% OPRE uses endnotes. If you do not use them, put a percent sign before
+%%% the \theendnotes command. This template does show how to use them.
+\usepackage{endnotes}
+\let\footnote=\endnote
+\let\enotesize=\normalsize
+\def\notesname{Endnotes}%
+\def\makeenmark{$^{\theenmark}$}
+\def\enoteformat{\rightskip0pt\leftskip0pt\parindent=1.75em
+  \leavevmode\llap{\theenmark.\enskip}}
+
+% Private macros here (check that there is no clash with the style)
+\usepackage[ruled,linesnumbered]{algorithm2e}   \SetKwInOut{KwParams}{Parameters}
+                                                \newcommand{\lIfElse}[3]{\lIf{#1}{#2 \textbf{else}~#3}}
+\usepackage{stackengine}    \newcommand\xrowht[2][0]{\addstackgap[.5\dimexpr#2\relax]{\vphantom{#1}}}
+
+% Prepend Proof. and append QED square to proof contents
+\let\loweredproof\proof
+\renewenvironment{proof}{\begin{loweredproof}{Proof.}}
+	{\hfill$\square$\end{loweredproof}}
+
+% Append period to section names (we undo this after the input)
+\let\loweredsection\section
+\renewcommand{\section}[1]{\loweredsection{#1.}}
+
+\let\loweredsubsection\subsection
+\renewcommand{\subsection}[1]{\loweredsubsection{#1.}}
+
+% Fix issue where it flattens out all algorithm indentation
+\usepackage{etoolbox}
+\AtBeginEnvironment{algorithm}{\SetNlSkip{1em}\SetInd{.5em}{1em}}
+
+% Natbib setup for author-year style
+\usepackage{natbib}
+ \bibpunct[, ]{(}{)}{,}{a}{}{,}%
+ \def\bibfont{\small}%
+ \def\bibsep{\smallskipamount}%
+ \def\bibhang{24pt}%
+ \def\newblock{\ }%
+ \def\BIBand{and}%
+
+%% Hyperref setup
+\usepackage[colorlinks=true,breaklinks=true,bookmarks=true,urlcolor=blue,
+     citecolor=blue,linkcolor=blue,bookmarksopen=false,draft=false]{hyperref}
+\hyperbaseurl{}
+
+\def\EMAIL#1{\href{mailto:#1}{#1}}% When hyperref is used, otherwise outcomment 
+\def\URL#1{\href{#1}{#1}}         % When hyperref is used, otherwise outcomment
+
+%% Setup of theorem styles. Outcomment only one.
+%% Preferred default is the first option.
+\TheoremsNumberedThrough     % Preferred (Theorem 1, Lemma 1, Theorem 2)
+%\TheoremsNumberedByChapter  % (Theorem 1.1, Lema 1.1, Theorem 1.2)
+\ECRepeatTheorems
+
+%% Setup of the equation numbering system. Outcomment only one.
+%% Preferred default is the first option.
+\EquationsNumberedThrough    % Default: (1), (2), ...
+%\EquationsNumberedBySection % (1.1), (1.2), ...
+
+% In the reviewing and copyediting stage enter the manuscript number.
+%\MANUSCRIPTNO{} % When the article is logged in and DOI assigned to it,
+                 %   this manuscript number is no longer necessary
+
+%%%%%%%%%%%%%%%%
+\begin{document}
+%%%%%%%%%%%%%%%%
+
+% Outcomment only when entries are known. Otherwise leave as is and
+%   default values will be used.
+%\setcounter{page}{1}
+%\VOLUME{00}%
+%\NO{0}%
+%\MONTH{Xxxxx}% (month or a similar seasonal id)
+%\YEAR{0000}% e.g., 2005
+%\FIRSTPAGE{000}%
+%\LASTPAGE{000}%
+%\SHORTYEAR{00}% shortened year (two-digit)
+%\ISSUE{0000} %
+%\LONGFIRSTPAGE{0001} %
+%\DOI{10.1287/xxxx.0000.0000}%
+
+% Author's names for the running heads
+% Sample depending on the number of authors;
+% \RUNAUTHOR{Jones}
+% \RUNAUTHOR{Jones and Wilson}
+% \RUNAUTHOR{Jones, Miller, and Wilson}
+% \RUNAUTHOR{Jones et al.} % for four or more authors
+% Enter authors following the given pattern:
+\RUNAUTHOR{Kapur}
+
+% Title or shortened title suitable for running heads. Sample:
+% \RUNTITLE{Bundling Information Goods of Decreasing Value}
+% Enter the (shortened) title:
+\RUNTITLE{Greedy algorithm for college application}
+
+% Full title. Sample:
+% \TITLE{Bundling Information Goods of Decreasing Value}
+% Enter the full title:
+\TITLE{A greedy algorithm for the cardinality-constrained
+college application problem}
+
+% Block of authors and their affiliations starts here:
+% NOTE: Authors with same affiliation, if the order of authors allows,
+%   should be entered in ONE field, separated by a comma.
+%   \EMAIL field can be repeated if more than one author
+\ARTICLEAUTHORS{%
+\AUTHOR{Max Kapur, Seho Yim, Sung-Pil Hong}
+\AFF{Department of Industrial Engineering, Seoul National University, \EMAIL{maxkapur@snu.ac.kr}} %, \URL{}}
+% Enter all authors
+} % end of the block
+
+\ABSTRACT{%
+\input{abstract.tex}
+% Enter your abstract
+}%
+
+% Sample
+%\KEYWORDS{deterministic inventory theory; infinite linear programming duality;
+%  existence of optimal policies; semi-Markov decision process; cyclic schedule}
+
+% Fill in data. If unknown, outcomment the field
+\KEYWORDS{combinatorial optimization, college application, submodular maximization, portfolio optimization, submodular maximization with cardinality constraint} 
+
+%\HISTORY{This paper was
+%first submitted on April 12, 1922 and has been with the authors for
+%83 years for 65 revisions.}
+
+\maketitle
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Samples of sectioning (and labeling) in OPRE
+% NOTE: (1) \section and \subsection do NOT end with a period
+%       (2) \subsubsection and lower need end punctuation
+%       (3) capitalization is as shown (title style).
+%
+%\section{Introduction.}\label{intro} %%1.
+%\subsection{Duality and the Classical EOQ Problem.}\label{class-EOQ} %% 1.1.
+%\subsection{Outline.}\label{outline1} %% 1.2.
+%\subsubsection{Cyclic Schedules for the General Deterministic SMDP.}
+%  \label{cyclic-schedules} %% 1.2.1
+%\section{Problem Description.}\label{problemdescription} %% 2.
+
+% Text of your paper here
+
+\input{body.tex}
+
+
+
+% Appendix here
+% Options are (1) APPENDIX (with or without general title) or
+%             (2) APPENDICES (if it has more than one unrelated sections)
+% Outcomment the appropriate case if necessary
+%
+% \begin{APPENDIX}{<Title of the Appendix>}
+% \end{APPENDIX}
+%
+%   or
+%
+% \begin{APPENDICES}
+% \section{<Title of Section A>}
+% \section{<Title of Section B>}
+% etc
+% \end{APPENDICES}
+
+%%
+%\theendnotes
+
+% Acknowledgments here
+\let\section\loweredsection
+\section*{Acknowledgments.}
+Kapur is supported by a grant from Seoul Metro and a Government of Korea Scholarship.
+
+
+% References here (outcomment the appropriate case) 
+
+% CASE 1: BiBTeX used to constantly update the references 
+%   (while the paper is being written).
+\bibliographystyle{informs2014} % outcomment this and next line in Case 1
+\bibliography{refs.bib} % if more than one, comma separated
+
+% CASE 2: BiBTeX used to generate mypaper.bbl (to be further fine tuned)
+% \input{wrapper-informs.bbl} % outcomment this line in Case 2
+
+%%%%%%%%%%%%%%%%%
+\end{document}
+%%%%%%%%%%%%%%%%%
