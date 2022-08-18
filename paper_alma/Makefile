@@ -16,7 +16,7 @@ clean:
 	rm -f *.bbl *.bcf *.blg *.run.xml
 	
 compileinforms:
-	@echo "This job requires the files informs3.cls and informs2014.bst from the INFORMS journal template."
+	@echo "This job requires the files endnotes.sty, informs3.cls, and informs2014.bst from the INFORMS journal template."
 	pdflatex -no-parse-first-line wrapper-informs.tex
 	bibtex wrapper-informs
 	pdflatex -no-parse-first-line wrapper-informs.tex
