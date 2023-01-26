@@ -1,9 +1,14 @@
 # CollegeApplication
+
 Working repo for my MS thesis, “The College Application Problem,” at Seoul National University. You can download the PDF (`thesis/paper-en.pdf` or `thesis/paper-ko.pdf`) in your preferred language, or clone the repo and run `make` to build from the LaTeX source.
 
-If you found this research useful, please consider citing [our arXiv paper](https://arxiv.org/abs/2205.01869).
+If you found this research useful, please consider citing either [our arXiv paper](https://arxiv.org/abs/2205.01869) or this thesis:
 
-Table of contents for this repository:
+- Kapur, Max. 2022. “The College Application Problem.” MS thesis, Seoul National University. <https://github.com/maxkapur/CollegeApplication>.
+
+I’d prefer that you use this GitHub repo as the URL (so that I can fix typos 🤣), but if your style guide requires an “official” link, you can use <http://www.dcollection.net/handler/snu/000000172202>, which comes from the SNU thesis archive. The Korean text there matches the `v0.1.0` release tagged here.
+
+## Table of contents
 
 | Directory | Contents | Formats | English | Korean | Coauthors |
 |-----------|----------|---------|---------|--------|-----------|
