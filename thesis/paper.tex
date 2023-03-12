@@ -578,7 +578,7 @@ Since all $f_j t_j = 1$, the na\"ive algorithm can choose $\mathcal{T}_h = \{1, 
 모든 $f_j t_j = 1$이므로 나이브 해법은 $\mathcal{T}_h = \{1, \dots, h\}$를 출력할 수 있으며 $v(\mathcal{T}_h) = 1$이다. 그러나 최적해는 $\mathcal{X}_h = \{h+1, \dots, m\}$이며 그의 기대 효용은 다음과 같다.
 \fi
 \begin{equation}
-v(\mathcal{X}_h) = \sum_{j= h +1}^m \Bigl( f_j t_j \prod_{i = j+1}^m (1 - f_{i}) \Bigr) =  \sum_{j= 1}^h  (1 - \varepsilon)^{j-1} \approx h\ifen.\fi
+v(\mathcal{X}_h) = \sum_{j= h +1}^m \Bigl( f_j t_j \prod_{i = j+1}^m (1 - f_{i}) \Bigr) \approx h\ifen.\fi
 \end{equation}
 \ifen
 Thus, as $\varepsilon$ approaches zero, we have $v(\mathcal{T}_h) / v(\mathcal{X}_h) \to 1/h$. (The optimality of $\mathcal{X}_h$ follows from the fact that it achieves the upper bound of Theorem \ref{oneoverhoptthm}.)

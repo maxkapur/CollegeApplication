@@ -350,12 +350,17 @@ $f_j$ & $\varepsilon^{1}$ & $\varepsilon^{2}$ & $\cdots$ & $\varepsilon^{m-1}$ &
 $t_j$ & $\varepsilon^{-1}$ & $\varepsilon^{-2}$ & $\cdots$ & $\varepsilon^{-(m-1)}$ & $\varepsilon^{-m}$
 \end{tabular}%
 \end{center}
-The optimal portfolios are given by $\mathcal{X}_h = \{m-h + 1, \dots, m\}$, and 
-% todo: correct the last equality here. Should be \approx with appropriate explanation.
-% todo: upstream this change to the thesis text as well.
+The optimal portfolios are given by $\mathcal{X}_h = \{m-h + 1, \dots, m\}$, for which
 \begin{equation*}
-v(\mathcal{X}_h) = \sum_{j= m-h +1}^m \Bigl( f_j t_j \prod_{i = j+1}^m (1 - f_{i}) \Bigr) =  \sum_{j= 1}^h  (1 - \varepsilon)^{j-1}.
+v(\mathcal{X}_h) =
+\sum_{j = m-h +1}^m \left( f_j t_j \prod_{i = j+1}^m (1 - f_{i}) \right) =
+\sum_{j = m-h +1}^m \left( \prod_{i = j+1}^m (1 - \varepsilon^i) \right).
 \end{equation*}
+This expression is bound from above by $\sum_{j = m-h +1}^m 1 = h$, and from below by
+\[\sum_{j = m-h +1}^m \left( \prod_{i = j+1}^m (1 - \varepsilon) \right)
+= \sum_{j = m-h +1}^m \left( \prod_{i = j+1}^m (1 - \varepsilon)^{m-j} \right)
+\geq \sum_{j = m-h +1}^m (1 - \varepsilon)^m
+= h (1 - \varepsilon)^m.\]
 Thus, as $\varepsilon$ approaches zero, we have $v(\mathcal{X}_h) \to h$.
 \end{example}
 
