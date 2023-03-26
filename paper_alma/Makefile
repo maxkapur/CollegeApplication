@@ -14,6 +14,15 @@ compile:
 clean: 
 	rm -f *.aux *.log *.nav *.out *.snm *.synctex.gz "*.synctex(busy)" *.toc log.txt
 	rm -f *.bbl *.bcf *.blg *.run.xml
+
+compileapa:
+	rm -f *.pdf
+
+	pdflatex -no-parse-first-line wrapper-apa.tex
+	biber wrapper-apa
+	pdflatex -no-parse-first-line wrapper-apa.tex
+	pdflatex -no-parse-first-line wrapper-apa.tex
+	mv wrapper-apa.pdf paper-en.pdf
 	
 compileinforms:
 	@echo "This job requires the files endnotes.sty, informs3.cls, and informs2014.bst from the INFORMS journal template."
